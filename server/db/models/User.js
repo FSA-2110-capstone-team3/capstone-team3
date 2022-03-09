@@ -1,12 +1,20 @@
 const Sequelize = require('sequelize')
+const { INTEGER, STRING, ARRAY, TEXT, UUID, UUIDV4 } = Sequelize;
 const db = require('../db')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const axios = require('axios');
+require('dotenv');
 
 const SALT_ROUNDS = 5;
 
 const User = db.define('user', {
+  // id: {
+  //   type: UUID,
+  //   defaultValue: UUIDV4,
+  //   allowNull: false,
+  //   primaryKey: true
+  // },
   username: {
     type: Sequelize.STRING,
     unique: true,
@@ -15,6 +23,25 @@ const User = db.define('user', {
   password: {
     type: Sequelize.STRING,
   }
+  // display_name: {
+  //   type: STRING,
+  //   allowNull: true
+  // },
+  // email: {
+  //   type: STRING,
+  //   allowNull: false,
+  //   validate: {
+  //     isEmail: true
+  //   }
+  // },
+  // imagesArr: {
+  //   type: ARRAY(TEXT)
+
+  // },
+  // country: {
+  //   type: STRING,
+  //   allowNull: true
+  // }
 })
 
 module.exports = User
