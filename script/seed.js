@@ -1,6 +1,7 @@
 'use strict'
 
-const {db, models: {User, Show, Episode} } = require('../server/db')
+const {db, models: { User, Episode, Show } } = require('../server/db');
+
 const showsData = require('./shows');
 const episodesData = require('./episodes');
 
