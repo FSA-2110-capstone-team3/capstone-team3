@@ -6,7 +6,7 @@ const CommentReply = db.define('commentReply', {
   id: {
     type: UUID,
     defaultValue: UUIDV4,
-    allowNull: false,
+    allowNull: true,
     primaryKey: true
   },
   content: {
