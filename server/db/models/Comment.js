@@ -10,7 +10,8 @@ const Comment = db.define('comment', {
     primaryKey: true
   },
   content: {
-    type: STRING
+    type: STRING,
+    allowNull: true
   }
 });
 

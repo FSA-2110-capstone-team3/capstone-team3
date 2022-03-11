@@ -1,50 +1,46 @@
 const Sequelize = require('sequelize')
-const { INTEGER, STRING, ARRAY, TEXT, UUID, UUIDV4 } = Sequelize;
+const { STRING, ARRAY, TEXT, UUID, UUIDV4 } = Sequelize;
 const db = require('../db')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
-const axios = require('axios');
 require('dotenv');
 
 const SALT_ROUNDS = 5;
 
 const User = db.define('user', {
-  // id: {
-  //   type: UUID,
-  //   defaultValue: UUIDV4,
-  //   allowNull: false,
-  //   primaryKey: true
-  // },
-  username: {
-    type: Sequelize.STRING,
-    unique: true,
-    allowNull: false
+  id: {
+    type: UUID,
+    defaultValue: UUIDV4,
+    allowNull: false,
+    primaryKey: true
+  },
+  email: {
+    type: STRING,
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   password: {
-    type: Sequelize.STRING,
+    type: STRING,
+  },
+  display_name: {
+    type: STRING,
+    allowNull: true
+  },
+  imagesArr: {
+    type: ARRAY(TEXT)
+  },
+  country: {
+    type: STRING,
+    allowNull: true
   }
-  // display_name: {
-  //   type: STRING,
-  //   allowNull: true
-  // },
-  // email: {
-  //   type: STRING,
-  //   allowNull: false,
-  //   validate: {
-  //     isEmail: true
-  //   }
-  // },
-  // imagesArr: {
-  //   type: ARRAY(TEXT)
-
-  // },
-  // country: {
-  //   type: STRING,
-  //   allowNull: true
-  // }
 })
 
 module.exports = User
+
+
+
 
 /**
  * instanceMethods
@@ -61,10 +57,10 @@ User.prototype.generateToken = function() {
 /**
  * classMethods
  */
-User.authenticate = async function({ username, password }){
-    const user = await this.findOne({where: { username }})
+User.authenticate = async function({email, password }){
+    const user = await this.findOne({where: { email }})
     if (!user || !(await user.correctPassword(password))) {
-      const error = Error('Incorrect username/password');
+      const error = Error('Incorrect email/password');
       error.status = 401;
       throw error;
     }
