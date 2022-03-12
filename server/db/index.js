@@ -10,7 +10,6 @@ const EpisodeLike = require('./models/EpisodeLike');
 const Show = require('./models/Show');
 const TimeStamp = require('./models/TimeStamp');
 
-
 //associations could go here!
 
 User.hasMany(Comment);        //<-- User associations
@@ -54,6 +53,6 @@ module.exports = {
     Episode,
     EpisodeLike,
     Show,
-    TimeStamp
+    TimeStamp,
   },
-}
+};
