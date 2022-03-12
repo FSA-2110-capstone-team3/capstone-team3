@@ -1,4 +1,4 @@
-env.js
+
 node_modules
 public/bundle.js
 public/bundle.js.map
@@ -6,4 +6,4 @@ public/bundle.js.map
 npm-debug.log
 yarn-error.log
 package-lock.json
-
+.env
