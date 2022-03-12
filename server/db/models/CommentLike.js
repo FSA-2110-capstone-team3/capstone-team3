@@ -6,7 +6,7 @@ const CommentLike = db.define('commentLike', {
   id: {
     type: UUID,
     defaultValue: UUIDV4,
-    allowNull: false,
+    allowNull: true,
     primaryKey: true
   },
   thumbsUp: {
