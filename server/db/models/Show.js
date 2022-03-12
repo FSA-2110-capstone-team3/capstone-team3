@@ -1,48 +1,48 @@
-const Sequelize = require('sequelize')
+const Sequelize = require("sequelize");
 const { STRING, UUID, UUIDV4 } = Sequelize;
-const db = require('../db')
+const db = require("../db");
 
-const Show = db.define('podcast', {
+const Show = db.define("podcast", {
   id: {
     type: UUID,
     defaultValue: UUIDV4,
     allowNull: false,
-    primaryKey: true
+    primaryKey: true,
   },
   spotify_id: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
   },
   name: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
   },
   description: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
   },
   publisher: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
   },
   media_type: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
   },
   hrefUrl: {
     type: STRING,
     allowNull: false,
     validate: {
-      isUrl: true
-    }
+      isUrl: true,
+    },
   },
   imageUrl: {
     type: STRING,
     allowNull: false,
     validate: {
-      isUrl: true
-    }
-  }
+      isUrl: true,
+    },
+  },
 });
 
 module.exports = Show;
