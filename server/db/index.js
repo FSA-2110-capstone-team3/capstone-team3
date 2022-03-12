@@ -29,7 +29,7 @@ Show.hasMany(Episode);      //<-- Show associations
 Episode.belongsTo(Show);
 
 Episode.hasMany(Comment);   //<-- Episode associations
-Comment.belongTo(Episode);
+Comment.belongsTo(Episode);
 
 Episode.hasMany(EpisodeLike);
 EpisodeLike.belongsTo(Episode);
