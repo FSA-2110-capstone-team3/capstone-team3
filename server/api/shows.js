@@ -1,36 +1,41 @@
-const router = require('express').Router()
-const { models: { Show }} = require('../db')
-const queryString =require('query-string')
-const axios = require('axios')
+const router = require("express").Router();
+const {
+  models: { Show },
+} = require("../db");
+const queryString = require("query-string");
+const axios = require("axios");
 // import axios from 'axios'
-module.exports = router
+module.exports = router;
 
-router.get('/', async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const shows = await Show.findAll();
-    res.json(shows)
+    res.json(shows);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
-
-router.get('/38bS44xjbVVZ3No3ByF1dJ', async (req, res, next) => {
+// Using Joe Rogan show id to test
+// Remember to replace the token below with YOURS to test
+router.get("/4rOoJ6Egrf8K2IrywzwOMk", async (req, res, next) => {
   try {
-    // let parsed = queryString.parse(window.location.search);
-    // console.log(parsed.access_token);
-    // const headers = `Authorization: Bearer ${parsed.access_token}`;
-    const shows = (await axios.get(`https://api.spotify.com/v1/shows/38bS44xjbVVZ3No3ByF1dJ`, {
-    // params: { limit: 50, offset: 0 },
-    headers: {
-      'Accept': 'application/json',
-      'Authorization': 'Bearer ' + 'BQBJZHV5_lg7pN0YWzhpxptETmmkYPaJ7NKLQslOzU3kuUPgIqiSfLtPs0R8iPdBqq8Yepq-0DYwkL0t0ZXFtzpPcx_uBHuziXBgvYz6FyH0b0Vcz3qUEJNJ2jL0odMrjhX8z6bhfAbWvkmiA3twraaxVeIhiX8vx1s',
-      'Content-Type': 'application/json'
-    }
-    })).data;
-    // console.log(shows);
-    res.json(shows); 
+    const shows = (
+      await axios.get(
+        `https://api.spotify.com/v1/shows/4rOoJ6Egrf8K2IrywzwOMk`,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization:
+              "Bearer " +
+              "BQAkikuAsFwHHymkXOM72zpid0IgByom_VSJ3P_izTWHUBRoYEzU2YM1RJ0pliPipx9riuJDHQEq54zE-1kirUmWKnBOUFaNHI2Lj5xQNXSBP6MjlVw2VvXcNONrFqJ345Mo76ae6g3QRAl63kow8cL2Sls4oJedbx8",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+    ).data;
+    res.json(shows);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
