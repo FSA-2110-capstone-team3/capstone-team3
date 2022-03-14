@@ -1,7 +1,7 @@
 
 const episodes = [
   {
-    spotify_id: 'empty',
+    spotify_id: '1',
     name: 'test-episode-1',
     description: 'test-episode-description',
     duration_ms: '5',
