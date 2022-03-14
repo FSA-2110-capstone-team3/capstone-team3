@@ -5,8 +5,7 @@ const app = express();
 let request = require("request");
 let querystring = require("querystring");
 const env = require("../.env");
-// process.env.SPOTIFY_CLIENT_ID = '561f9e8b6b6740ee890bea97f2ab3bbb';
-// process.env.SPOTIFY_CLIENT_SECRET = '3898ad545df44402bb2f0a5b1fde1d4a';
+
 process.env.SPOTIFY_CLIENT_ID = env.SPOTIFY_CLIENT_ID;
 process.env.SPOTIFY_CLIENT_SECRET = env.SPOTIFY_SECRET_KEY;
 //process.env.REDIRECT_URI = env.REDIRECT_URI;
