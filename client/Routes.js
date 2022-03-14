@@ -28,23 +28,20 @@ class Routes extends Component {
       // }
       // })).data;
       // console.log(shows);
-    }
-    catch(ex) {
+    } catch (ex) {
       console.log(ex);
     }
-
   }
 
   render() {
     const { isLoggedIn } = this.props;
-
 
     return (
       <div>
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
-            
+
             <Redirect to="/home" />
           </Switch>
         ) : (

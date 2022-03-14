@@ -25,7 +25,6 @@ const AuthForm = (props) => {
         </div>
         <div>
           <button type="submit">{displayName}</button>
-          <a href="#">Login to Spotify</a>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
@@ -59,14 +58,14 @@ const mapSignup = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     handleSubmit(evt) {
-      evt.preventDefault()
-      const formName = evt.target.name
-      const email = evt.target.email.value
-      const password = evt.target.password.value
-      dispatch(authenticate(email, password, formName))
-    }
-  }
-}
+      evt.preventDefault();
+      const formName = evt.target.name;
+      const email = evt.target.email.value;
+      const password = evt.target.password.value;
+      dispatch(authenticate(email, password, formName));
+    },
+  };
+};
 
 export const Login = connect(mapLogin, mapDispatch)(AuthForm);
 export const Signup = connect(mapSignup, mapDispatch)(AuthForm);
