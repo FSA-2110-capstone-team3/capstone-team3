@@ -11,11 +11,13 @@ const CommentLike = db.define('commentLike', {
   },
   thumbsUp: {
     type: INTEGER,
-    allowNull: true
+    allowNull: true,
+    defaultValue: 0
   },
   thumbsDown: {
     type: INTEGER,
-    allowNull: true
+    allowNull: true,
+    defaultValue: 0
   }
 });
 
