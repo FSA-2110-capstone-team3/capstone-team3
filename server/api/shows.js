@@ -4,7 +4,7 @@ const {
 } = require("../db");
 const queryString = require("query-string");
 const axios = require("axios");
-// import axios from 'axios'
+
 module.exports = router;
 
 router.get("/", async (req, res, next) => {
