@@ -10,17 +10,12 @@ import TopPodcasts from "./components/TopPodcasts";
 import Show from "./components/Show";
 
 class Routes extends Component {
-  async componentDidMount() {
-    try {
-      this.props.loadInitialData();
-    } catch (ex) {
-      console.log(ex);
-    }
+  componentDidMount() {
+    this.props.loadInitialData();
   }
 
   render() {
     const { isLoggedIn } = this.props;
-
     return (
       <div>
         {isLoggedIn ? (
