@@ -76,133 +76,14 @@ User.prototype.generateToken = function() {
 let redirect_uri = process.env.REDIRECT_URI || "http://localhost:8080/callback"
 let access_token;
 let spotifyUser;
-User.authenticate = async function(code){
+User.authenticate = async function(info){
   try {
-    // axios({
-    //   method: 'post',
-    //   url: 'https://accounts.spotify.com/api/token',
-    //   data: qs.stringify({
-    //     grant_type: 'authorization_code',
-    //     code: code,
-    //     redirect_uri: redirect_uri
-    //   }),
-    //   headers: {
-    //     'content-type': 'application/x-www-form-urlencoded',
-    //     Authorization: `Basic ${new Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString('base64')}`,
-    //   },
-    // })
-    //   .then(response => {
-    //     if (response.status === 200) {
-    //       console.log('AUTHENTICATE RESPONSE.DATA', response.data);
-    //       const { access_token, token_type } = response.data;
 
-    //       axios.get('https://api.spotify.com/v1/me', {
-    //         headers: {
-    //           Authorization: `${token_type} ${access_token}`
-    //         }
-    //       })
-    //         .then(response => {
-    //           let findUser = User.findOne({where: { email: response.data.email }});
-    //           if (!findUser) {
-    //             findUser = User.create({
-    //               email: response.data.email,
-    //               access_token: access_token
-    //               // userData: spotifyUser
-    //             })
-    //           }
-    //           return jwt.sign({ id: findUser.id }, process.env.JWT);
-    //           // console.log(response.data)
-    //         })
-    //         .catch(error => {
-    //           res.send(error);
-    //         });
-    //       // const spotifyUser = (await axios.get('https://api.spotify.com/v1/me', 
-    //       //     {
-    //       //       headers: {
-    //       //         Accept: "application/json",
-    //       //         Authorization: "Bearer " + access_token,
-    //       //         "Content-Type": "application/json",
-    //       //       },
-    //       //     })).data;
-    //       // console.log('SPOTIFY USER--->', spotifyUser);
-
-    //       // let findUser = await User.findOne({where: { email: spotifyUser.email }});
-    //       // if (!findUser) {
-    //       //   findUser = await User.create({
-    //       //     email: spotifyUser.email,
-    //       //     access_token: access_token
-    //       //     // userData: spotifyUser
-    //       //   })
-    //       // }
-    //         // if (!user || !(await user.correctPassword(password))) {
-    //         //   const error = Error('Incorrect email/password');
-    //         //   error.status = 401;
-    //         //   throw error;
-    //         // }
-    //         // return jwt.sign({ id: findUser.id }, process.env.JWT);
-    //       // res.send(`<pre>${JSON.stringify(response.data, null, 2)}</pre>`);
-    //     } 
-    //     // else {
-    //     //   console.log('AUTHENTICATE RESPONSE', response)
-    //     // }
-    //   })
-    //   .catch(error => {
-    //     res.send(error);
-    //   });
-    let authOptions = {
-      url: "https://accounts.spotify.com/api/token",
-      form: {
-        code: code,
-        redirect_uri,
-        grant_type: "authorization_code",
-      },
-      headers: {
-        Authorization:
-          "Basic " +
-          Buffer.from(
-            process.env.SPOTIFY_CLIENT_ID +
-              ":" +
-              process.env.SPOTIFY_CLIENT_SECRET
-          ).toString("base64"),
-      },
-      json: true,
-    };
-    // const data = {
-    //   grant_type: "authorization_code",
-    //   code: code,
-    //   redirect_uri: redirect_uri
-    // }
-
-    // const headers = {
-    //   Authorization: `Basic ${new Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString('base64')}`,
-    //   Accept: 'application/json',
-    //   'Content-Type': 'application/x-www-form-urlencoded',
-    // }
-
-    // const response = (await axios.post('https://accounts.spotify.com/api/token', qs.stringify(data), headers)).data;
-    // console.log('RESPONSE', response);
-
-    request.post(authOptions, async function (error, response, body) {
-      access_token = body.access_token;
-      // let uri = process.env.FRONTEND_URI || "http://localhost:8080/";
-      console.log('ACCESS TOKEN--->', access_token)
-    });
-
-    const spotifyUser = (await axios.get('https://api.spotify.com/v1/me', 
-      {
-        headers: {
-          Accept: "application/json",
-          Authorization: "Bearer " + access_token,
-          "Content-Type": "application/json",
-        },
-      })).data;
-    console.log('SPOTIFY USER--->', spotifyUser);
-
-    let findUser = await User.findOne({where: { email: spotifyUser.email }});
+    let findUser = await User.findOne({where: { email: info.email }});
     if (!findUser) {
       findUser = await User.create({
-        email: spotifyUser.email,
-        access_token: access_token
+        email: info.email,
+        access_token: info.access_token
         // userData: spotifyUser
       })
     }

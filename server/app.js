@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const app = express();
 let request = require("request");
 let querystring = require("querystring");
+const qs = require('qs');
 const env = require("../.env");
 const axios = require("axios");
 const User = require('./db/models/User')
@@ -41,21 +42,86 @@ app.get("/login", function (req, res) {
 app.get("/callback", async function (req, res) {
   //!the one thats receiving the redirect back from spotify. Which receives a code and then uses along with a secret to grab the access token. Then takes the access token and sends it off to our front end.
   try {
-    console.log('REQ QUERYCODE', req.query.code)
+    // console.log('REQ QUERYCODE', req.query.code)
     let code = req.query.code || null;
-    // console.log('CODE ---> ', code);
-    const token = await User.authenticate(req.query.code);
-    console.log('MY TOKEN--->', token);
-    res.send(`
-      <html>
-        <body>
-          <script>
-            window.localStorage.setItem('token', '${token}');
-            window.document.location = '/';
-          </script>
-        </body>
-      </html>
-    `);
+
+    axios({
+      method: 'post',
+      url: 'https://accounts.spotify.com/api/token',
+      data: qs.stringify({
+        grant_type: 'authorization_code',
+        code: code,
+        redirect_uri: redirect_uri
+      }),
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+        Authorization: `Basic ${new Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString('base64')}`,
+      },
+    })
+      .then(response => {
+        if (response.status === 200) {
+          const ACCESS_TOKEN = response.data.access_token
+          const { access_token, token_type } = response.data;
+          // access_token = response.data.access_token
+          axios.get('https://api.spotify.com/v1/me', {
+            headers: {
+              Authorization: `${token_type} ${access_token}`
+            }
+          })
+            .then(async (response) => {
+              console.log(access_token)
+              console.log('SPTOIFY USER DATA?', response.data);
+              const userInfo = {
+                email: response.data.email,
+                access_token: access_token
+              }
+              const token = await User.authenticate(userInfo);
+
+              console.log('TOKEN FROM AXIOS', token);
+              res.send(`
+                <html>
+                  <body>
+                    <script>
+                      window.localStorage.setItem('token', '${token}');
+                      window.document.location = '/';
+                    </script>
+                  </body>
+                </html>
+              `);
+            })
+            .catch(error => {
+              res.send(error);
+            });
+        } else {
+          res.send(response);
+        }
+      })
+      .catch(error => {
+        res.send(error);
+      });
+      // console.log('EMAIL', email)
+    // console.log('ACCESS TOKEN FROM AXIOS POST', ACCESS_TOKEN)
+
+    // const response = (await axios.post())
+
+    // request.post(authOptions, function (error, response, body) {
+    //   access_token = body.access_token;
+    //   // let uri = process.env.FRONTEND_URI || "http://localhost:8080/";
+    //   console.log('ACCESS TOKEN--->', access_token)
+    // });
+
+    // const token = await User.authenticate(userInfo);
+    // console.log('MY TOKEN--->', token);
+    // res.send(`
+    //   <html>
+    //     <body>
+    //       <script>
+    //         window.localStorage.setItem('token', '${token}');
+    //         window.document.location = '/';
+    //       </script>
+    //     </body>
+    //   </html>
+    // `);
   }
   catch(ex) {
     console.log(ex);
