@@ -13,7 +13,6 @@ import axios from "axios";
  * COMPONENT
  */
 
-
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
@@ -28,6 +27,7 @@ class Routes extends Component {
           <Switch>
             {/* <Route exact path="/products" component={withRouter(AllProducts)} /> */}
             <Route path="/home" component={Home} />
+            <Route exact path="/show" component={Show} />
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -35,7 +35,7 @@ class Routes extends Component {
             <Route path="/" exact component={Login} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/show" component={Show} />
+            <Route exact path="/show" component={Show} />
           </Switch>
         )}
       </div>

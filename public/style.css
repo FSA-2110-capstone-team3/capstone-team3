@@ -1,5 +1,7 @@
 body {
   font-family: sans-serif;
+  min-height: 100vh;
+  background-color: black;
 }
 
 a {
@@ -18,4 +20,12 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.navbar {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  /* margin-left: -300px; */
+  background-color: darkgray;
 }
