@@ -15,31 +15,9 @@ import axios from "axios";
 
 
 class Routes extends Component {
-  async componentDidMount() {
-    try {
-      this.props.loadInitialData();
-
-      // let parsed = queryString.parse(window.location.search);
-      // console.log(parsed.access_token);
-      // // const headers = `Authorization: Bearer ${parsed.access_token}`;
-      // const shows = (await axios.get('/api/shows/4rOoJ6Egrf8K2IrywzwOMk', {
-      //   params: {
-      //     token: parsed.access_token
-      //   }
-      // })).data;
-      // console.log(shows);
-    } catch (ex) {
-      console.log(ex);
-    }
+  componentDidMount() {
+    this.props.loadInitialData();
   }
-
-  // componentDidUpdate(prevProps) {
-  //   const history = useHistory();
-  //   if (prevProps.auth.id !== this.props.auth.id) {
-  //     history.push('/login')
-  //     // this.props.loadInitialData();
-  //   }
-  // }
 
   render() {
     const { isLoggedIn } = this.props;
