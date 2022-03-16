@@ -5,8 +5,7 @@ const app = express();
 let request = require("request");
 let querystring = require("querystring");
 const env = require("../.env");
-// process.env.SPOTIFY_CLIENT_ID = '561f9e8b6b6740ee890bea97f2ab3bbb';
-// process.env.SPOTIFY_CLIENT_SECRET = '3898ad545df44402bb2f0a5b1fde1d4a';
+
 process.env.SPOTIFY_CLIENT_ID = env.SPOTIFY_CLIENT_ID;
 process.env.SPOTIFY_CLIENT_SECRET = env.SPOTIFY_SECRET_KEY;
 //process.env.REDIRECT_URI = env.REDIRECT_URI;
@@ -77,28 +76,26 @@ let authOptions = {
     Authorization:
       "Basic " +
       Buffer.from(
-        process.env.SPOTIFY_CLIENT_ID +
-          ":" +
-          process.env.SPOTIFY_CLIENT_SECRET
+        process.env.SPOTIFY_CLIENT_ID + ":" + process.env.SPOTIFY_CLIENT_SECRET
       ).toString("base64"),
   },
   json: true,
 };
 
-app.post(authOptions, function(error, response, body) {
+app.post(authOptions, function (error, response, body) {
   if (!error && response.statusCode === 200) {
-
     // use the access token to access the Spotify Web API
     // var token = body.access_token;
-    const token = 'BQBuCk3RJJfIWqANaZo7sndITQLflAv2LR5NyNuKnAegs34XI1aecTUNSKz3jTSuXkTUXOcRIiUycWaAFQn4qRaRgilO_UXLyGbKk4jT30BOVF4FIUOZMo-5jPG7Thghpp_d7Byzt3BTtLRntcv_NtQuAHpr-nY4fyQ'
+    const token =
+      "BQBuCk3RJJfIWqANaZo7sndITQLflAv2LR5NyNuKnAegs34XI1aecTUNSKz3jTSuXkTUXOcRIiUycWaAFQn4qRaRgilO_UXLyGbKk4jT30BOVF4FIUOZMo-5jPG7Thghpp_d7Byzt3BTtLRntcv_NtQuAHpr-nY4fyQ";
     var options = {
-      url: 'https://api.spotify.com/v1/users/jmperezperez',
+      url: "https://api.spotify.com/v1/users/jmperezperez",
       headers: {
-        'Authorization': 'Bearer ' + token
+        Authorization: "Bearer " + token,
       },
-      json: true
+      json: true,
     };
-    app.get(options, function(error, response, body) {
+    app.get(options, function (error, response, body) {
       console.log(body);
     });
   }
