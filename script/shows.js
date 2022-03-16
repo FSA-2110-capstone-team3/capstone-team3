@@ -1,7 +1,7 @@
 
 const shows = [
   {
-    spotify_id: 'empty',
+    spotify_id: '1',
     name: 'test-show-1',
     description: 'test-description',
     publisher: 'test-publisher',
