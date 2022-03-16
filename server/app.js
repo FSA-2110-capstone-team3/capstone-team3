@@ -5,6 +5,8 @@ const app = express();
 let request = require("request");
 let querystring = require("querystring");
 const env = require("../.env");
+const axios = require("axios");
+const User = require('./db/models/User')
 
 process.env.SPOTIFY_CLIENT_ID = env.SPOTIFY_CLIENT_ID;
 process.env.SPOTIFY_CLIENT_SECRET = env.SPOTIFY_SECRET_KEY;
@@ -31,74 +33,54 @@ app.get("/login", function (req, res) {
         response_type: "code",
         client_id: process.env.SPOTIFY_CLIENT_ID,
         scope: "user-read-private user-read-email",
-        redirect_uri, //!then redirects to our localhost declared above
+        redirect_uri: redirect_uri, //!then redirects to our localhost declared above
       })
   );
 });
 
-app.get("/callback", function (req, res) {
+app.get("/callback", async function (req, res) {
   //!the one thats receiving the redirect back from spotify. Which receives a code and then uses along with a secret to grab the access token. Then takes the access token and sends it off to our front end.
-  let code = req.query.code || null;
-  let authOptions = {
-    url: "https://accounts.spotify.com/api/token",
-    form: {
-      code: code,
-      redirect_uri,
-      grant_type: "authorization_code",
-    },
-    headers: {
-      Authorization:
-        "Basic " +
-        Buffer.from(
-          process.env.SPOTIFY_CLIENT_ID +
-            ":" +
-            process.env.SPOTIFY_CLIENT_SECRET
-        ).toString("base64"),
-    },
-    json: true,
-  };
-  request.post(authOptions, function (error, response, body) {
-    var access_token = body.access_token;
-    console.log(body);
-    let uri = process.env.FRONTEND_URI || "http://localhost:8080/";
-    //!once we log into spotify and have access to Spotify's data, our backend send you back to the front-end, (aka to the link above) so back to our react app
-    //!where our react app is hosted in production (once we deploy on heroku, itll be out heroku link)
-    res.redirect(uri + "?access_token=" + access_token);
-  });
-});
-
-let authOptions = {
-  url: "https://accounts.spotify.com/api/token",
-  form: {
-    grant_type: "client_credentials",
-  },
-  headers: {
-    Authorization:
-      "Basic " +
-      Buffer.from(
-        process.env.SPOTIFY_CLIENT_ID + ":" + process.env.SPOTIFY_CLIENT_SECRET
-      ).toString("base64"),
-  },
-  json: true,
-};
-
-app.post(authOptions, function (error, response, body) {
-  if (!error && response.statusCode === 200) {
-    // use the access token to access the Spotify Web API
-    // var token = body.access_token;
-    const token =
-      "BQBuCk3RJJfIWqANaZo7sndITQLflAv2LR5NyNuKnAegs34XI1aecTUNSKz3jTSuXkTUXOcRIiUycWaAFQn4qRaRgilO_UXLyGbKk4jT30BOVF4FIUOZMo-5jPG7Thghpp_d7Byzt3BTtLRntcv_NtQuAHpr-nY4fyQ";
-    var options = {
-      url: "https://api.spotify.com/v1/users/jmperezperez",
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-      json: true,
-    };
-    app.get(options, function (error, response, body) {
-      console.log(body);
-    });
+  try {
+    console.log('REQ QUERYCODE', req.query.code)
+    let code = req.query.code || null;
+    // console.log('CODE ---> ', code);
+    const token = await User.authenticate(req.query.code);
+    console.log('MY TOKEN--->', token);
+    res.send(`
+      <html>
+        <body>
+          <script>
+            window.localStorage.setItem('token', '${token}');
+            window.document.location = '/';
+          </script>
+        </body>
+      </html>
+    `);
   }
+  catch(ex) {
+    console.log(ex);
+  }
+
+  // console.log('req', req.query.code);
+
+
+  // request.post(authOptions, async function (error, response, body) {
+  //   const access_token = body.access_token;
+  //   let uri = process.env.FRONTEND_URI || "http://localhost:8080/";
+  //   //!once we log into spotify and have access to Spotify's data, our backend send you back to the front-end, (aka to the link above) so back to our react app
+  //   //!where our react app is hosted in production (once we deploy on heroku, itll be out heroku link)
+  //   res.redirect(uri + "?access_token=" + access_token);
+  //   // const user = (await axios.get('https://api.spotify.com/v1/me', 
+  //   // {
+  //   //   headers: {
+  //   //     Accept: "application/json",
+  //   //     Authorization: "Bearer " + access_token,
+  //   //     "Content-Type": "application/json",
+  //   //   },
+  //   // }
+  //   // )).data;
+  //   // console.log(user);
+  // });
 });
 
 //------------------------------------------------------------

@@ -62,7 +62,7 @@ const mapDispatch = (dispatch) => {
       const formName = evt.target.name;
       const email = evt.target.email.value;
       const password = evt.target.password.value;
-      dispatch(authenticate(email, password, formName));
+      dispatch(authenticate(email, formName));
     },
   };
 };

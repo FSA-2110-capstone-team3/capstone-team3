@@ -28,8 +28,8 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ email: "cody@gmail.com", password: "123" }),
-    User.create({ email: "murphy@gmail.com", password: "123" }),
+    User.create({ email: "cody@gmail.com", display_name: 'Cody'}),
+    User.create({ email: "murphy@gmail.com", display_name: 'Murphy'}),
   ]);
   console.log(`seeded ${users.length} users`);
 
