@@ -1,45 +1,22 @@
+import axios from "axios";
+//import queryString from "query-string";
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-import Show from "./components/Show";
+import { Redirect, Route, Switch, useHistory, withRouter } from "react-router-dom";
+import { me } from "./store";
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
-import { me } from "./store";
-import { useHistory } from "react-router-dom";
-import queryString from "query-string";
-import axios from "axios";
-
-/**
- * COMPONENT
- */
-
+import TopPodcasts from "./components/TopPodcasts";
+import Show from "./components/Show";
 
 class Routes extends Component {
   async componentDidMount() {
     try {
       this.props.loadInitialData();
-
-      // let parsed = queryString.parse(window.location.search);
-      // console.log(parsed.access_token);
-      // // const headers = `Authorization: Bearer ${parsed.access_token}`;
-      // const shows = (await axios.get('/api/shows/4rOoJ6Egrf8K2IrywzwOMk', {
-      //   params: {
-      //     token: parsed.access_token
-      //   }
-      // })).data;
-      // console.log(shows);
     } catch (ex) {
       console.log(ex);
     }
   }
-
-  // componentDidUpdate(prevProps) {
-  //   const history = useHistory();
-  //   if (prevProps.auth.id !== this.props.auth.id) {
-  //     history.push('/login')
-  //     // this.props.loadInitialData();
-  //   }
-  // }
 
   render() {
     const { isLoggedIn } = this.props;
@@ -48,14 +25,14 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
-            {/* <Route exact path="/products" component={withRouter(AllProducts)} /> */}
             <Route path="/home" component={Home} />
             <Redirect to="/home" />
           </Switch>
         ) : (
           <Switch>
-            <Route path="/" exact component={Login} />
+            <Route exact path="/" component={Login} />
             <Route path="/login" component={Login} />
+            <Route path="/topcharts" component={TopPodcasts} />
             <Route path="/signup" component={Signup} />
             <Route path="/show" component={Show} />
           </Switch>
@@ -65,9 +42,6 @@ class Routes extends Component {
   }
 }
 
-/**
- * CONTAINER
- */
 const mapState = (state) => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
