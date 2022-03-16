@@ -11,10 +11,12 @@ const EpisodeLike = db.define('episodeLike', {
   },
   thumbsUp: {
     type: INTEGER,
-    allowNull: true
+    defaultValue: 0,
+    allowNull: false
   },
   thumbsDown: {
     type: INTEGER,
+    defaultValue: 0,
     allowNull: true
   }
 });

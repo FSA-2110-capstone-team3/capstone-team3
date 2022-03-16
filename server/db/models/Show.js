@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 const { STRING, UUID, UUIDV4 } = Sequelize;
 const db = require("../db");
 
-const Show = db.define("podcast", {
+const Show = db.define("show", {
   id: {
     type: UUID,
     defaultValue: UUIDV4,
@@ -11,7 +11,7 @@ const Show = db.define("podcast", {
   },
   spotify_id: {
     type: STRING,
-    allowNull: false,
+    allowNull: false
   },
   name: {
     type: STRING,
