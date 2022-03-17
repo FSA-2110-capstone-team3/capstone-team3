@@ -1,13 +1,19 @@
 import axios from "axios";
-//import queryString from "query-string";
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { Redirect, Route, Switch, useHistory, withRouter } from "react-router-dom";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  withRouter,
+} from "react-router-dom";
 import { me } from "./store";
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
+import SinglePodcast from "./components/SinglePodcast";
+import SubscribedPodcasts from "./components/SubscribedPodcasts";
 import TopPodcasts from "./components/TopPodcasts";
-import Show from "./components/Show";
 
 class Routes extends Component {
   componentDidMount() {
@@ -21,16 +27,16 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
-            <Route exact path="/show" component={Show} />
+            <Route exact path="/subscribed" component={SubscribedPodcasts} />
             <Redirect to="/home" />
           </Switch>
         ) : (
           <Switch>
             <Route exact path="/" component={Login} />
             <Route path="/login" component={Login} />
-            <Route path="/topcharts" component={TopPodcasts} />
             <Route path="/signup" component={Signup} />
-            <Route exact path="/show" component={Show} />
+            <Route path="/show/:id" component={SinglePodcast} />
+            <Route path="/topcharts" component={TopPodcasts} />
           </Switch>
         )}
       </div>
