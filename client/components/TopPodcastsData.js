@@ -1998,11 +1998,3 @@ const data = [
       "The Million Dollaz Worth of Game show, a weekly podcast with rapper/actor @GillieDaKing and social media influencer and disruptor @Wallo267 - The perfect blend of discussing music, real life issues, personal experiences, honest advice and comedy",
   },
 ];
-
-// const list = () => {
-//   return [...data];
-// }
-
-// module.exports = list;
-
-export default data;
