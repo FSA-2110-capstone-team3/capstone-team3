@@ -1,25 +1,52 @@
-// the cors-anywhere service i think does require you to approve usage first. so you may need to create your own cors-anywhere proxy server for a production build
-// 1. visit https://cors-anywhere.herokuapp.com/ and click the button
-// 2. you'll need a cors bypass server of your own for production
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
-import React, { useEffect, useState } from "react";
-const nocors = (ep) => `https://cors-anywhere.herokuapp.com/${ep}`;
-const endpoint = "https://podcastcharts.byspotify.com/api/charts/top?region=us";
+class TopPodcasts extends Component {
+  constructor() {
+    super();
+    this.state = {
+      topCharts: [],
+    };
+  }
 
-const TopPodcasts = () => {
-  const [data, setData] = useState("");
-
-  useEffect(() => {
-    fetch(nocors(endpoint), {
-      redirect: "follow",
-      "Content-Type": "application/json",
-    })
-      .then((response) => response.json())
-      .then((jsonResponse) => {
-        console.log(jsonResponse);
-        setData(jsonResponse);
+  async componentDidMount() {
+    try {
+      // Returns top 200
+      const topCharts = (await axios.get("/api/shows/topcharts")).data;
+      this.setState({
+        topCharts: topCharts.slice(0, 25), // Limit to top 25
       });
-  }, []);
-  return <div>{JSON.stringify(data)}</div>;
-};
+      console.dir(this.state);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  render() {
+    const { topCharts } = this.state;
+    let rank = 1;
+    return (
+      <>
+        {topCharts.map((podcast) => {
+          return (
+            <div key={podcast.showUri} className="p-2">
+              <div>{`${rank++}.`}</div>
+              <Link to={`/show/${podcast.showUri.slice(-22)}`}>
+                <span style={{ fontWeight: "bold", color: "rgb(33,37,41)" }}>
+                  {podcast.showName}
+                </span>
+              </Link>
+              <div>
+                <img src={podcast.showImageUrl} />
+              </div>
+              <div>{podcast.showPublisher}</div>
+            </div>
+          );
+        })}
+      </>
+    );
+  }
+}
+
 export default TopPodcasts;
