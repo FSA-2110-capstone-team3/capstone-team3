@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const { STRING, UUID, UUIDV4 } = Sequelize;
+const { BOOLEAN, STRING, UUID, UUIDV4 } = Sequelize;
 const db = require('../db');
 
 const CommentReply = db.define('commentReply', {
@@ -12,6 +12,11 @@ const CommentReply = db.define('commentReply', {
   content: {
     type: STRING,
     allowNull: true
+  },
+  edited: {
+    type: BOOLEAN,
+    allowNull: false,
+    defaultValue: false
   }
 });
 
