@@ -7,7 +7,11 @@ import { connect } from "react-redux";
 export const Home = (props) => {
   const { email } = props;
 
-  return <div>{/* <h3>Welcome, {email}</h3> */}</div>;
+  return (
+    <div>
+      <h3>Welcome, {email}</h3>{" "}
+    </div>
+  );
 };
 
 /**

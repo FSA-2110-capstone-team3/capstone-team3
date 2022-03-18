@@ -2,66 +2,103 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
-import LoggedInNav from "./LoggedInNav";
+import { Signup } from "./AuthForm";
+import { Home } from "./Home";
 
 const Navbar = ({ handleClick, isLoggedIn, email }) => (
-  <>
+  <div className="wrapper">
     <nav
       className="navbar navbar-expand d-flex flex-column align-item-center-start"
       id="sidebar"
     >
-      <a href="/" className="navbar-brand text-light mt-5">
+      <a href="/" className="navbar-brand text-light mt-2">
         <div className="display-6 font-weight-bold">
-          <span>SPODify</span>
+          <span>SPODify +</span>
         </div>
       </a>
-      <ul className="navbar-nav d-flex flex-column mt-4 w-100">
-        <li className="nav-item w-100">
+      <ul className="navbar-nav d-flex flex-column w-100 mt-4">
+        <li className=" h-25 nav-item border-bottom">
           <a href="/" className="nav-link text-light pl-4">
-            HOME
+            <span>
+              <i className="bi bi-house-door "></i>
+              HOME
+            </span>
           </a>
         </li>
-        <hr />
-        <li className="nav-item w-80">
-          <a href="#" className="nav-link text-light pl-4">
-            SEARCH
-          </a>
-        </li>
-        <hr />
-        <li className="nav-item w-100">
-          <a href="/show" className="nav-link text-light pl-4">
-            PODCASTS
-          </a>
-        </li>
-        <hr />
-        <li className="nav-item w-100">
-          <a href="#" className="nav-link text-light pl-4">
-            YOUR LIBRARY
-          </a>
-        </li>
-        <hr />
 
-        <li className="nav-item w-100">
-          <a href="/login" className="nav-link text-light pl-4">
-            LOGIN
+        <li className="h-25  nav-item border-bottom">
+          <a href="#" className="nav-link text-light ">
+            <span>
+              <i className="bi bi-search"></i>
+              SEARCH
+            </span>
+          </a>
+        </li>
+
+        <li className="nav-item h-10 border-bottom">
+          <a href="/show" className="nav-link text-light ">
+            <span>
+              <i className="bi bi-rainbow"></i>
+              PODCASTS
+            </span>
+          </a>
+        </li>
+
+        <li className="nav-item h-25 border-bottom">
+          <a href="#" className="nav-link text-light pl-4">
+            <span>
+              <i className="bi bi-collection"></i>
+              YOUR LIBRARY
+            </span>
           </a>
         </li>
       </ul>
-    </nav>
-    {isLoggedIn ? (
-      <LoggedInNav
-        handleClick={handleClick}
-        isLoggedIn={isLoggedIn}
-        email={email}
-      />
-    ) : (
-      <div>
-        {/* The navbar will show these links before you log in */}
-        <a href="/login">Login(Spotify)</a>
-        <Link to="/signup">Sign Up</Link>
+
+      <div className="navbar navbar-expand d-flex flex-column-reverse align-item-center-start">
+        <ul className="navbar-nav d-flex flex-column-reverse w-100 mt-4">
+          {isLoggedIn ? (
+            <>
+              <li className="nav-item h-25">
+                <a href="/login" className="nav-link text-light pl-4">
+                  <span>
+                    <i className="bi bi-person-circle"></i>
+                    {email}
+                  </span>
+                </a>
+              </li>
+              <li className="nav-item h-25 ">
+                <a
+                  href="#"
+                  onClick={handleClick}
+                  className="nav-link text-light pl-4"
+                >
+                  LOGOUT
+                </a>
+              </li>
+            </>
+          ) : (
+            <li className="nav-item h-25 ">
+              <a href="/login" className="nav-link text-light pl-4">
+                LOGIN
+              </a>
+            </li>
+          )}
+        </ul>
       </div>
-    )}
-  </>
+    </nav>
+    <div>
+      {isLoggedIn ? (
+        <div>
+          <Home email={email} />{" "}
+        </div>
+      ) : (
+        <div>
+          <h1>WELCOME, SIGN UP</h1>
+          <Signup />
+        </div>
+      )}
+    </div>
+  </div>
 );
 
 /**

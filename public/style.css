@@ -2,6 +2,8 @@ body {
   font-family: sans-serif;
   min-height: 100vh;
   background-color: black;
+  position: absolute;
+  color: white;
 }
 
 a {
@@ -13,8 +15,8 @@ label {
 }
 
 nav a {
-  display: inline-block;
-  margin: 1em;
+  /* display: inline-block; */
+  margin: 5px;
 }
 
 form div {
@@ -22,10 +24,44 @@ form div {
   display: inline-block;
 }
 
+.wrapper {
+  display: flex;
+  /* height: 100vh; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* height: 100%; */
+}
+
 .navbar {
+  /* position: fixed; */
+  /* margin-left: -300px; */
+  /* width: 250px;
+  height: 100vh;
+  background-color: darkgray;
+  position: sticky;
+  top: 0; */
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
   width: 250px;
   height: 100vh;
-  position: fixed;
-  /* margin-left: -300px; */
   background-color: darkgray;
+}
+
+i {
+  margin-right: 15px;
+  font-size: 22px;
+}
+i:hover {
+  color: red;
+}
+
+nav a.nav-link span:hover {
+  color: red;
+}
+
+a.navbar-brand span:hover {
+  color: red;
 }
