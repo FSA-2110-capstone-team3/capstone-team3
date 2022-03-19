@@ -12,6 +12,7 @@ import { me } from "./store";
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import SinglePodcast from "./components/SinglePodcast";
+import SingleEpisode from "./components/SingleEpisode";
 import SubscribedPodcasts from "./components/SubscribedPodcasts";
 import TopPodcasts from "./components/TopPodcasts";
 
@@ -28,6 +29,9 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Route exact path="/subscribed" component={SubscribedPodcasts} />
+            <Route exact path="/topcharts" component={TopPodcasts} />
+            <Route exact path="/show/:id" component={SinglePodcast} />
+            <Route exact path="/episode/:id" component={SingleEpisode} />
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -36,6 +40,7 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/show/:id" component={SinglePodcast} />
+            <Route path="/episode/:id" component={SingleEpisode} />
             <Route path="/topcharts" component={TopPodcasts} />
           </Switch>
         )}
