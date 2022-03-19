@@ -4,8 +4,8 @@ import Routes from "./Routes";
 
 const App = () => {
   return (
-    <div>
-      {/* <Navbar /> */}
+    <div className="wrapper">
+      <Navbar />
       <Routes />
     </div>
   );
