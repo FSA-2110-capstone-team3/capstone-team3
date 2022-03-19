@@ -86,18 +86,6 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => (
         </ul>
       </div>
     </nav>
-    <div>
-      {isLoggedIn ? (
-        <div>
-          <Home email={email} />{" "}
-        </div>
-      ) : (
-        <div>
-          <h1>WELCOME, SIGN UP</h1>
-          <Signup />
-        </div>
-      )}
-    </div>
   </div>
 );
 

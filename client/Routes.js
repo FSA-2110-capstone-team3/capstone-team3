@@ -1,17 +1,19 @@
+import axios from "axios";
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-import Show from "./components/Show";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  withRouter,
+} from "react-router-dom";
+import { me } from "./store";
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
-import { me } from "./store";
-import { useHistory } from "react-router-dom";
-import queryString from "query-string";
-import axios from "axios";
-
-/**
- * COMPONENT
- */
+import SinglePodcast from "./components/SinglePodcast";
+import SubscribedPodcasts from "./components/SubscribedPodcasts";
+import TopPodcasts from "./components/TopPodcasts";
 
 class Routes extends Component {
   componentDidMount() {
@@ -20,22 +22,21 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn } = this.props;
-
     return (
       <div>
         {isLoggedIn ? (
           <Switch>
-            {/* <Route exact path="/products" component={withRouter(AllProducts)} /> */}
-            {/* <Route path="/home" component={Home} /> */}
-            <Route exact path="/show" component={Show} />
+            <Route path="/home" component={Home} />
+            <Route exact path="/subscribed" component={SubscribedPodcasts} />
             <Redirect to="/home" />
           </Switch>
         ) : (
           <Switch>
-            {/* <Route path="/" exact component={Login} /> */}
+            <Route exact path="/" component={Login} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route exact path="/show" component={Show} />
+            <Route path="/show/:id" component={SinglePodcast} />
+            <Route path="/topcharts" component={TopPodcasts} />
           </Switch>
         )}
       </div>
@@ -43,9 +44,6 @@ class Routes extends Component {
   }
 }
 
-/**
- * CONTAINER
- */
 const mapState = (state) => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
