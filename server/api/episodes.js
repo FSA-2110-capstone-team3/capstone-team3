@@ -1,6 +1,10 @@
 const router = require('express').Router()
 const { models: { Episode }} = require('../db')
+const { spotifyApi } = require('../app');
 module.exports = router
+
+
+/*<------DB Model Routes-------->*/
 
 
 // GET all episodes
@@ -70,3 +74,21 @@ router.put('/:id', async(req, res, next) => {
       next(err);
     }
   });
+
+
+
+  /*<------Spotify API Routes-------->*/
+
+  //GET episode
+  router.get('/spotify/:id', async(req, res, next) => {
+    try {
+      const episodeId = req.params.id;
+      const response = await spotifyApi.getEpisode(episodeId,{market: 'US'});
+      res.send(response);
+    } catch(ex) {
+      next(ex);
+    }
+  });
+
+
+
