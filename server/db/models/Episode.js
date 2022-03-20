@@ -18,14 +18,14 @@ const Episode = db.define('episode', {
     allowNull: false
   },
   description: {
-    type: STRING,
+    type: STRING(2000),
     allowNull: false
   },
   duration_ms: {
     type: INTEGER,
     allowNull: false
   },
-  hrefUrl: {
+  href: {
     type: STRING,
     allowNull: false,
     validate: {
@@ -36,7 +36,11 @@ const Episode = db.define('episode', {
     type: STRING,
     allowNull: false
   },
-  imagesArr: {
+  audio_preview_url: {
+    type: STRING,
+    allowNull: false
+  },
+  images: {
     type: ARRAY(TEXT),
     allowNull: false
   }

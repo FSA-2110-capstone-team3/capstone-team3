@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const { STRING, UUID, UUIDV4 } = Sequelize;
+const { ARRAY, STRING, TEXT, UUID, UUIDV4 } = Sequelize;
 const db = require("../db");
 
 const Show = db.define("show", {
@@ -18,7 +18,7 @@ const Show = db.define("show", {
     allowNull: false,
   },
   description: {
-    type: STRING,
+    type: STRING(2000),
     allowNull: false,
   },
   publisher: {
@@ -29,19 +29,16 @@ const Show = db.define("show", {
     type: STRING,
     allowNull: false,
   },
-  hrefUrl: {
+  href: {
     type: STRING,
     allowNull: false,
     validate: {
       isUrl: true,
     },
   },
-  imageUrl: {
-    type: STRING,
-    allowNull: false,
-    validate: {
-      isUrl: true,
-    },
+  images: {
+    type: ARRAY(TEXT),
+    allowNull: false
   },
 });
 

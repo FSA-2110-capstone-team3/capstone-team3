@@ -50,6 +50,11 @@ const User = db.define('user', {
     type: STRING,
     defaultValue: 'hello',
     allowNull: false
+  },
+  refresh_token: {
+    type: STRING,
+    defaultValue: 'hello',
+    allowNull: false
   }
 })
 
@@ -83,7 +88,8 @@ User.authenticate = async function(info){
     if (!findUser) {
       findUser = await User.create({
         email: info.email,
-        access_token: info.access_token
+        access_token: info.access_token,
+        refresh_token: info.refresh_token
         // userData: spotifyUser
       })
     }
