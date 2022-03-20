@@ -1,4 +1,6 @@
+const axios = require("axios");
 const router = require("express").Router();
+const queryString = require("query-string");
 const {
   models: { Show },
 } = require("../db");
@@ -7,6 +9,22 @@ const axios = require("axios");
 const { spotifyApi } = require('../app');
 
 module.exports = router;
+
+
+
+// GET top Spotify podcasts from undocumented third-party API
+router.get("/topcharts", async (req, res, next) => {
+  try {
+    const topCharts = (
+      await axios.get(
+        "https://podcastcharts.byspotify.com/api/charts/top?region=us"
+      )
+    ).data;
+    res.json(topCharts);
+  } catch (err) {
+    next(err);
+  }
+});
 
 
 
@@ -87,6 +105,7 @@ router.get('/:id', async (req, res, next) => {
 /*<------Spotify API Routes-------->*/
 
 
+
 //GET show
 router.get('/spotify/:id', async(req, res, next) => {
   try {
@@ -95,5 +114,6 @@ router.get('/spotify/:id', async(req, res, next) => {
     res.send(response);
   } catch(ex) {
     next(ex);
-  }
+  };
 });
+

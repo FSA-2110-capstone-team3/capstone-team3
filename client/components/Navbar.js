@@ -2,28 +2,90 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
+import { Signup } from "./AuthForm";
+import { Home } from "./Home";
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
-  <div>
-    <h1>FS-App-Template</h1>
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
+const Navbar = ({ handleClick, isLoggedIn, email }) => (
+  <div className="wrapper">
+    <nav
+      className="navbar navbar-expand d-flex flex-column align-item-center-start"
+      id="sidebar"
+    >
+      <a href="/" className="navbar-brand text-light mt-2">
+        <div className="display-6 font-weight-bold">
+          <span>SPODify +</span>
+        </div>
+      </a>
+      <ul className="navbar-nav d-flex flex-column w-100 mt-4">
+        <li className=" h-25 nav-item border-bottom">
+          <a href="/" className="nav-link text-light pl-4">
+            <span>
+              <i className="bi bi-house-door "></i>
+              HOME
+            </span>
           </a>
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <a href="/login">Login(Spotify)</a>
-          <Link to="/signup">Sign Up</Link>
-        </div>
-      )}
+        </li>
+
+        <li className="h-25  nav-item border-bottom">
+          <a href="#" className="nav-link text-light ">
+            <span>
+              <i className="bi bi-search"></i>
+              SEARCH
+            </span>
+          </a>
+        </li>
+
+        <li className="nav-item h-10 border-bottom">
+          <a href="/show" className="nav-link text-light ">
+            <span>
+              <i className="bi bi-rainbow"></i>
+              PODCASTS
+            </span>
+          </a>
+        </li>
+
+        <li className="nav-item h-25 border-bottom">
+          <a href="#" className="nav-link text-light pl-4">
+            <span>
+              <i className="bi bi-collection"></i>
+              YOUR LIBRARY
+            </span>
+          </a>
+        </li>
+      </ul>
+
+      <div className="navbar navbar-expand d-flex flex-column-reverse align-item-center-start">
+        <ul className="navbar-nav d-flex flex-column-reverse w-100 mt-4">
+          {isLoggedIn ? (
+            <>
+              <li className="nav-item h-25">
+                <a href="/login" className="nav-link text-light pl-4">
+                  <span>
+                    <i className="bi bi-person-circle"></i>
+                    {email}
+                  </span>
+                </a>
+              </li>
+              <li className="nav-item h-25 ">
+                <a
+                  href="#"
+                  onClick={handleClick}
+                  className="nav-link text-light pl-4"
+                >
+                  LOGOUT
+                </a>
+              </li>
+            </>
+          ) : (
+            <li className="nav-item h-25 ">
+              <a href="/login" className="nav-link text-light pl-4">
+                LOGIN
+              </a>
+            </li>
+          )}
+        </ul>
+      </div>
     </nav>
-    <hr />
   </div>
 );
 
@@ -33,6 +95,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
+    email: state.auth.email,
   };
 };
 
