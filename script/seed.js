@@ -43,6 +43,7 @@ async function seed() {
   const seedEpisodes = await Promise.all(
     episodesData.map((episode) => Episode.create(episode))
   );
+  
   console.log(`seeded ${seedEpisodes.length} episodes`);
 
   //Creating Comments
