@@ -7,9 +7,7 @@ const {
     Episode,
     Show,
     Comment,
-    CommentLike,
     CommentReply,
-    EpisodeLike,
     TimeStamp,
   },
 } = require("../server/db");
@@ -51,8 +49,9 @@ async function seed() {
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
   const cody = await User.findOne({ where: { email: "cody@gmail.com" } });
   const murphy = await User.findOne({ where: { email: "murphy@gmail.com" } });
-  const episodeOne = await Episode.findOne({ where: { spotify_id: "1" } });
-  const episodeTwo = await Episode.findOne({ where: { spotify_id: "2" } });
+  const episodes = await Episode.findAll();
+  const episodeOne = episodes[0];
+  const episodeTwo = episodes[1]
   const seedCommentArr = [
     { content: commentContent, userId: cody.id, episodeId: episodeOne.id },
     { content: commentContent, userId: murphy.id, episodeId: episodeTwo.id },
@@ -62,19 +61,9 @@ async function seed() {
   );
   console.log(`seeded ${seedComments.length} comments`);
 
-  //Creating CommentLikes (ThumbsUp & ThumbsDown)
+  //Creating CommentReplies
   const commentCody = await Comment.findOne({ where: { userId: cody.id } });
   const commentMurphy = await Comment.findOne({ where: { userId: murphy.id } });
-  const seedCommentLikeArr = [
-    { thumbsUp: "2", thumbsDown: "1", commentId: commentCody.id },
-    { thumbsUp: "2", thumbsDown: "1", commentId: commentMurphy.id },
-  ];
-  const seedCommentLikes = await Promise.all(
-    seedCommentLikeArr.map((commentLike) => CommentLike.create(commentLike))
-  );
-  console.log(`seeded ${seedCommentLikes.length} commentLikes`);
-
-  //Creating CommentReplies
   const seedCommentRepliesArr = [
     { content: commentContent, commentId: commentCody.id },
     { content: commentContent, commentId: commentMurphy.id },
@@ -85,26 +74,6 @@ async function seed() {
     )
   );
   console.log(`seeded ${seedCommentReplies.length} commentReplies`);
-
-  //Creating episodeLikes
-  const seedEpisodeLikesArr = [
-    {
-      thumbsUp: "2",
-      thumbsDown: "1",
-      userId: cody.id,
-      episodeId: episodeOne.id,
-    },
-    {
-      thumbsUp: "2",
-      thumbsDown: "1",
-      userId: murphy.id,
-      episodeId: episodeTwo.id,
-    },
-  ];
-  const seedEpisodeLikes = await Promise.all(
-    seedEpisodeLikesArr.map((episodeLike) => EpisodeLike.create(episodeLike))
-  );
-  console.log(`seeded ${seedEpisodeLikes.length} episodeLikes`);
 
   //Creating timeStamps
   const seedTimeStampArr = [
@@ -128,9 +97,7 @@ async function seed() {
     seedShows,
     seedEpisodes,
     seedComments,
-    seedCommentLikes,
     seedCommentReplies,
-    seedEpisodeLikes,
     seedTimeStamps,
   };
 }
