@@ -15,14 +15,14 @@ const TimeStamp = require('./models/TimeStamp');
 User.hasMany(Comment);        //<-- User associations
 Comment.belongsTo(User);
 
-User.hasMany(CommentLike);
-CommentLike.belongsTo(User);
+// User.hasMany(CommentLike);  <-- normalizing CommentLike via removing userId
+// CommentLike.belongsTo(User);
 
 User.hasMany(Show);
 Show.belongsTo(User);
 
-User.hasMany(EpisodeLike);
-EpisodeLike.belongsTo(User);
+// User.hasMany(EpisodeLike); <-- normalizing EpisodeLike via removing userId
+// EpisodeLike.belongsTo(User);
 
 Show.hasMany(Episode);      //<-- Show associations
 Episode.belongsTo(Show);

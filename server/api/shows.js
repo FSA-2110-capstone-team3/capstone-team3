@@ -4,8 +4,6 @@ const queryString = require("query-string");
 const {
   models: { Show },
 } = require("../db");
-const queryString = require("query-string");
-const axios = require("axios");
 const { spotifyApi } = require('../app');
 
 module.exports = router;
