@@ -161,47 +161,17 @@ app.get("/callback", async function (req, res) {
   // });
 });
 
-//Refresh userAccessToken
+//Refresh user Access Token using the spotify-web-api library & update User db model
 app.get('/refreshtoken/:id', async(req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
-    const refreshToken = user.refresh_token;
-    const userSpotifyApi = new SpotifyWebApi;
-    userSpotifyApi.setRefreshToken(refreshToken)
-    console.log(await userSpotifyApi.refreshAccessToken())
-  } catch(ex) {
-    next(ex);
-  }
-});
-
-
-//Spotify Refresh Token -- NOT WORKING YET
-app.get("/refresh-token/:id", async(req, res, next) => {
-  try {
-      const user = await User.findByPk(req.params.id)
-      const refreshToken = user.refresh_token;
-      const response = (await axios.post('https://accounts.spotify.com/api/token', {
-        // data: qs.stringify({
-        //   grant_type: 'refresh_token',
-        //   refresh_token: refreshToken
-        // }),
-        form: {
-          grant_type: 'refresh_token',
-          refresh_token: refreshToken
-        },
-        headers: {
-          // 'content-type': 'application/x-www-form-urlencoded',
-          'content-type': 'application/json',
-          'Authorization': 'Basic ' + (new Buffer.from(process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET).toString('base64'))
-        },
-        json: true
-      })).data;
-
-      const newAccessToken = response.access_token
-      console.log('New Access Token -->', newAccessToken)
-
-      res.send({response});
-
+    spotifyApi.setRefreshToken(user.refresh_token);
+    spotifyApi.refreshAccessToken().then(
+      function (data) {
+        console.log('Access token has been refreshed!');
+        user.update({ access_token: data.body['access_token'] });
+      });
+      res.sendStatus(200);
   } catch(ex) {
     next(ex);
   }
@@ -211,9 +181,6 @@ app.get("/refresh-token/:id", async(req, res, next) => {
 // Retrieve a non-user access token using the spotify-web-api library
 spotifyApi.clientCredentialsGrant().then(
   function(data) {
-    console.log('The access token expires in ' + data.body['expires_in']);
-    console.log('The access token is ' + data.body['access_token']);
-
     // Save the access token so that it's used in future calls
     spotifyApi.setAccessToken(data.body['access_token']);
   },

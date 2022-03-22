@@ -5,4 +5,3 @@ public/bundle.js.map
 npm-debug.log
 yarn-error.log
 .env
-package.json-lock
