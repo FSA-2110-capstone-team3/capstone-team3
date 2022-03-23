@@ -95,37 +95,87 @@ class TopPodcasts extends Component {
       //   })}
       // </div>
 
-      <div id="allPodcasts">
-        <ul id="podcastCards">
+      // <div id="allPodcasts">
+      //   <h1 style={{ marginLeft: 30 + "px", margin: 30 + "px" }}>
+      //     TOP CHARTS:{" "}
+      //   </h1>
+      //   <div className="col">
+      //     <ul id="podcastCards">
+      //       {topCharts.map((podcast) => (
+      //         <li>
+      //           <ul id="card">
+      //             <li style={{ listStyleType: "none" }}>
+      //               <img src={podcast.showImageUrl} />
+      //             </li>
+      //             <li style={{ listStyleType: "none" }}>
+      //               <h5 style={{ textAlign: "center" }}>
+      //                 {" "}
+      //                 <Link to={`/show/${podcast.showUri.slice(-22)}`}>
+      //                   <span
+      //                     style={{
+      //                       fontWeight: "bold",
+      //                       color: "rgb(33,37,41)",
+      //                     }}
+      //                   >
+      //                     {podcast.showName}
+      //                   </span>
+      //                 </Link>
+      //               </h5>
+      //             </li>
+      //             <li style={{ listStyleType: "none" }}>
+      //               {" "}
+      //               <h6 style={{ textAlign: "center" }}>
+      //                 {podcast.showPublisher}
+      //               </h6>
+      //             </li>
+      //           </ul>
+      //         </li>
+      //       ))}
+      //     </ul>
+      //   </div>
+      // </div>
+
+      <div className="container">
+        <h1 style={{ color: "white", fontWeight: 400 }}>TOP CHARTS:</h1>
+        <div className="row">
           {topCharts.map((podcast) => (
-            <li>
-              <ul id="card">
-                <li>
-                  <img src={podcast.showImageUrl} />
-                </li>
-                <li>
-                  <h5>
+            <div className="col-12 col-md-6 col-lg-4" id="mainCard">
+              <div className="card">
+                <img
+                  src={podcast.showImageUrl}
+                  alt="podcastimg"
+                  className="card-img-top"
+                />
+                <div className="card-body">
+                  <h5 style={{ textAlign: "center" }} className="card-title">
                     {" "}
                     <Link to={`/show/${podcast.showUri.slice(-22)}`}>
                       <span
                         style={{
-                          fontWeight: "bold",
-                          color: "rgb(33,37,41)",
+                          fontWeight: 400,
+                          color: "white",
                         }}
                       >
                         {podcast.showName}
                       </span>
                     </Link>
                   </h5>
-                </li>
-                <li>
-                  {" "}
-                  <h6>{podcast.showPublisher}</h6>
-                </li>
-              </ul>
-            </li>
+                  <p className="card-text">
+                    <h6
+                      style={{
+                        textAlign: "center",
+                        fontWeight: 400,
+                        color: "white",
+                      }}
+                    >
+                      {podcast.showPublisher}
+                    </h6>
+                  </p>
+                </div>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     );
   }
