@@ -89,7 +89,8 @@ User.authenticate = async function(info){
       findUser = await User.create({
         email: info.email,
         access_token: info.access_token,
-        refresh_token: info.refresh_token
+        refresh_token: info.refresh_token,
+        display_name: info.display_name
         // userData: spotifyUser
       })
     }

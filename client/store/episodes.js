@@ -4,6 +4,7 @@ import axios from 'axios'
 
 const GET_EPISODES = 'GET_EPISODES';
 const ADD_EPISODE = 'ADD_EPISODE';
+const GET_SINGLE_EPISODE = 'GET_SINGLE_EPISODE';
 const UPDATE_EPISODE = 'UPDATE_EPISODE';
 const DELETE_EPISODE = 'DELETE_EPISODE';
 
@@ -13,6 +14,13 @@ const _getEpisodes = (episodes) => {
   return {
     type: GET_EPISODES,
     episodes
+  }
+};
+
+const _getSingleEpisode = (episode) => {
+  return {
+    type: GET_SINGLE_EPISODE,
+    episode
   }
 };
 
@@ -46,9 +54,16 @@ export const getEpisodes = () => {
   }
 };
 
+export const getSingleEpisode = (info) => {
+  return async(dispatch) => {
+    const episode = (await axios.post(`/api/episodes/${info.id}`, {access_token: info.access_token})).data;
+    dispatch(_getSingleEpisode(episode));
+  }
+};
+
 export const addEpisode = (episode) => {
   return async(dispatch) => {
-    const newepisode = (await axios.post('/api/episodes'), episode).data;
+    const newepisode = (await axios.post('/api/episodes', episode)).data;
     dispatch(_addEpisode(newepisode));
   }
 };
@@ -73,6 +88,8 @@ export const episodes = (state = [], action) => {
   switch (action.type) {
     case GET_EPISODES:
       return action.episodes
+    case GET_SINGLE_EPISODE:
+      return action.episode
     case ADD_EPISODE:
       return [...state, action.episode]
     case UPDATE_EPISODE:

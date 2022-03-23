@@ -37,10 +37,10 @@ const Episode = db.define('episode', {
     type: STRING,
     allowNull: false
   },
-  audio_preview_url: {
-    type: STRING,
-    allowNull: false
-  },
+  // audio_preview_url: {
+  //   type: STRING,
+  //   allowNull: false
+  // },
   images: {
     type: ARRAY(TEXT),
     allowNull: false

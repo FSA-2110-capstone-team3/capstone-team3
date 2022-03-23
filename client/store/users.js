@@ -48,7 +48,7 @@ export const getUsers = () => {
 
 export const addUser = (user) => {
   return async(dispatch) => {
-    const newUser = (await axios.post('/api/users'), user).data;
+    const newUser = (await axios.post('/api/users', user)).data;
     dispatch(_addUser(user));
   }
 };

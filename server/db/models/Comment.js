@@ -18,6 +18,9 @@ const Comment = db.define('comment', {
     type: BOOLEAN,
     allowNull: false,
     defaultValue: false
+  },
+  spotify_id: {
+    type: STRING
   }
 },
 {
