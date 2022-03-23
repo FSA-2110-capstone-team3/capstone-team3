@@ -48,7 +48,7 @@ export const getComments = () => {
 
 export const addComment = (comment) => {
   return async(dispatch) => {
-    const newComment = (await axios.post('/api/comments'), comment).data;
+    const newComment = (await axios.post('/api/comments', comment)).data;
     dispatch(_addComment(newComment));
   }
 };

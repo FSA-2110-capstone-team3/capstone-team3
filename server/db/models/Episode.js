@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const { ARRAY, INTEGER, STRING, TEXT, UUID, UUIDV4 } = Sequelize;
-const db = require('../db')
+const db = require('../db');
+const EpisodeLike = require('./EpisodeLike');
 
 const Episode = db.define('episode', {
   id: {
@@ -18,14 +19,14 @@ const Episode = db.define('episode', {
     allowNull: false
   },
   description: {
-    type: STRING,
+    type: STRING(2000),
     allowNull: false
   },
   duration_ms: {
     type: INTEGER,
     allowNull: false
   },
-  hrefUrl: {
+  href: {
     type: STRING,
     allowNull: false,
     validate: {
@@ -36,10 +37,23 @@ const Episode = db.define('episode', {
     type: STRING,
     allowNull: false
   },
-  imagesArr: {
+  // audio_preview_url: {
+  //   type: STRING,
+  //   allowNull: false
+  // },
+  images: {
     type: ARRAY(TEXT),
     allowNull: false
+  },
+  
+},
+{
+  hooks: {
+    afterCreate: async(episode, options) => {
+      await EpisodeLike.create({episodeId: episode.id})
+    }
   }
-});
+}
+);
 
 module.exports = Episode;

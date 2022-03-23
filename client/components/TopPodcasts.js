@@ -17,7 +17,6 @@ class TopPodcasts extends Component {
       this.setState({
         topCharts: topCharts.slice(0, 25), // Limit to top 25
       });
-      console.dir(this.state);
     } catch (err) {
       console.log(err);
     }

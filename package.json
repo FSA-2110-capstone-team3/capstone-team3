@@ -19,9 +19,16 @@
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@material-ui/core": "^4.12.3",
+<<<<<<< HEAD
     "@material-ui/icons": "^4.11.2",
     "@mui/material": "^5.5.2",
     "axios": "^0.21.1",
+=======
+    "@mui/icons-material": "^5.4.4",
+    "@mui/material": "^5.5.1",
+    "@mui/styles": "^5.5.1",
+    "@mui/system": "^5.5.1",
+>>>>>>> 0f2079b4703daa694050edab3a38f6406881e30a
     "bcrypt": "^5.0.0",
     "dotenv": "^16.0.0",
     "express": "^4.16.4",
@@ -33,14 +40,19 @@
     "query-string": "^7.1.1",
     "querystring": "^0.2.0",
     "request": "^2.81.0",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "spotify-web-api-node": "^5.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-react": "^7.12.10",
     "@babel/register": "^7.12.10",
+<<<<<<< HEAD
     "@mui/icons-material": "^5.5.1",
     "axios": "^0.21.1",
+=======
+    "axios": "^0.21.4",
+>>>>>>> 0f2079b4703daa694050edab3a38f6406881e30a
     "axios-mock-adapter": "^1.16.0",
     "babel-loader": "^8.2.2",
     "nodemon": "^1.19.4",

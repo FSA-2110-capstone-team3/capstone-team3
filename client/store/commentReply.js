@@ -48,7 +48,7 @@ export const getCommentReplies = () => {
 
 export const addCommentReply = (commentReply) => {
   return async(dispatch) => {
-    const newCommentReply = (await axios.post('/api/commentReplies'), commentReply).data;
+    const newCommentReply = (await axios.post('/api/commentReplies', commentReply)).data;
     dispatch(_addCommentReply(newCommentReply));
   }
 };

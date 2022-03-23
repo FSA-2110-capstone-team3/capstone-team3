@@ -48,7 +48,7 @@ export const getEpisodeLikes = () => {
 
 export const addEpisodeLike = (episodeLike) => {
   return async(dispatch) => {
-    const newepisodeLike = (await axios.post('/api/episodeLikes'), episodeLike).data;
+    const newepisodeLike = (await axios.post('/api/episodeLikes', episodeLike)).data;
     dispatch(_addEpisodeLike(newepisodeLike));
   }
 };

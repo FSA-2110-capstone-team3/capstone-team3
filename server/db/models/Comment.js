@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const { BOOLEAN, STRING, UUID, UUIDV4 } = Sequelize;
-const db = require('../db')
+const db = require('../db');
+const CommentLike = require('./CommentLike');
 
 const Comment = db.define('comment', {
   id: {
@@ -17,6 +18,16 @@ const Comment = db.define('comment', {
     type: BOOLEAN,
     allowNull: false,
     defaultValue: false
+  },
+  spotify_id: {
+    type: STRING
+  }
+},
+{
+  hooks: {
+    afterCreate: async(comment, options) => {
+      await CommentLike.create({ commentId: comment.id })
+    }
   }
 });
 

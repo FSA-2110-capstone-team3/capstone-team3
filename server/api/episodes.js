@@ -1,12 +1,19 @@
 const router = require('express').Router()
-const { models: { Episode }} = require('../db')
+const { models: { Episode, Comment }} = require('../db')
+const { spotifyApi } = require('../app');
+const axios = require("axios");
 module.exports = router
+
+
+/*<------DB Model Routes-------->*/
 
 
 // GET all episodes
 router.get('/', async (req, res, next) => {
   try {
-    const episodes = await Episode.findAll();
+    const episodes = await Episode.findAll({
+      include: [Comment]
+    });
     res.json(episodes)
   } catch (err) {
     next(err)
@@ -15,10 +22,43 @@ router.get('/', async (req, res, next) => {
 
 
 // GET a single episode
-router.get('/:id', async (req, res, next) => {
+// router.get('/:id', async (req, res, next) => {
+//   try {
+//     const id = req.params.id;
+//     const episode = await Episode.findByPk(id);
+//     res.send(episode)
+//   } catch (err) {
+//     next(err)
+//   }
+// });
+router.post('/:id', async (req, res, next) => {
   try {
     const id = req.params.id;
-    const episode = await Episode.findByPk(id);
+    let episode = await Episode.findOne({
+      where: {
+        spotify_id: id
+      }
+    });
+    if (!episode) {
+      const response = (await axios.get(`https://api.spotify.com/v1/episodes/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          Authorization: `Bearer ${req.body.access_token}`,
+        }
+      })).data;
+      // const response = await spotifyApi.getEpisode(id, {market: 'US'});
+      episode = await Episode.create({
+        spotify_id: response.id,
+        name: response.name,
+        description: response.description,
+        duration_ms: response.duration_ms,
+        href: response.href,
+        release_date: response.release_date,
+        images: response.images,
+        uri: response.uri
+      })
+    }
     res.send(episode)
   } catch (err) {
     next(err)
@@ -70,3 +110,21 @@ router.put('/:id', async(req, res, next) => {
       next(err);
     }
   });
+
+
+
+  /*<------Spotify API Routes-------->*/
+
+  //GET episode
+  router.get('/spotify/:id', async(req, res, next) => {
+    try {
+      const episodeId = req.params.id;
+      const response = await spotifyApi.getEpisode(episodeId,{market: 'US'});
+      res.send(response);
+    } catch(ex) {
+      next(ex);
+    }
+  });
+
+
+

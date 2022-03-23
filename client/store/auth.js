@@ -18,7 +18,6 @@ const setAuth = auth => ({type: SET_AUTH, auth})
  */
 export const me = () => async dispatch => {
   const token = window.localStorage.getItem(TOKEN);
-  console.log('TOKEN FROM THUNK MEEE', token)
   if (token) {
     const res = await axios.get('/auth/me', {
       headers: {
