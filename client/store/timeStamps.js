@@ -48,7 +48,7 @@ export const getTimeStamps = () => {
 
 export const addTimeStamp = (timeStamp) => {
   return async(dispatch) => {
-    const newTimeStamp = (await axios.post('/api/timeStamps'), timeStamp).data;
+    const newTimeStamp = (await axios.post('/api/timeStamps', timeStamp)).data;
     dispatch(_addTimeStamp(newTimeStamp));
   }
 };

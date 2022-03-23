@@ -73,7 +73,7 @@ const SinglePodcast = () => {
         </div>
       </div> */}
       {/* <h1 style={{'color': 'white', 'textAlign': 'center'}}>PODCAST EPISODES</h1> */}
-      <div style={{'display': 'flex', 'flexDirection': 'column', 'marginLeft': '275px'}}>
+      <div style={{'display': 'flex', 'flexDirection': 'column', 'marginLeft': '10px'}}>
         {
           episodes.map((episode, idx) => {
             return (

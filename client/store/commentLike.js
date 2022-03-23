@@ -48,7 +48,7 @@ export const getCommentLikes = () => {
 
 export const addCommentLike = (commentLike) => {
   return async(dispatch) => {
-    const newCommentLike = (await axios.post('/api/commentLikes'), commentLike).data;
+    const newCommentLike = (await axios.post('/api/commentLikes', commentLike)).data;
     dispatch(_addCommentLike(newCommentLike));
   }
 };

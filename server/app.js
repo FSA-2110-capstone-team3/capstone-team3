@@ -85,7 +85,8 @@ app.get("/callback", async function (req, res) {
               const userInfo = {
                 email: response.data.email,
                 access_token: access_token,
-                refresh_token: refresh_token
+                refresh_token: refresh_token,
+                display_name: response.data.display_name
               }
               const token = await User.authenticate(userInfo);
 

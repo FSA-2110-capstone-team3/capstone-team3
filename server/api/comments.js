@@ -45,16 +45,17 @@ router.put('/:id', async(req, res, next) => {
 
 //POST(Create) a new comment AND ensure a commentLike record is also created via a redux/store thunk
   //use episodeId to create association with new commment
-router.post('/:id', async(req, res, next) => {
+router.post('/', async(req, res, next) => {
   // Need to create new comment-record using, content, userId, & episodeId properties
     //userId comes from payload, episodeId comes req params
   try {
     // creating new comment
-    const episodeId = req.params.id;
-    const payload = req.body          // Payload must already include content & userId properties
-    payload.episodeId = episodeId;    // Adding episode Id to payload
-    const newComment = await Comment.create(payload);
-    res.send(newComment)
+    // const episodeId = req.params.id;
+    // const payload = req.body          // Payload must already include content & userId properties
+    // payload.episodeId = episodeId;    // Adding episode Id to payload
+    // const newComment = await Comment.create(payload);
+    // res.send(newComment)
+    res.send(await Comment.create(req.body));
   } catch(err) {
     next(err);
   }

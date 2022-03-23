@@ -59,7 +59,7 @@ export const getShows = () => {
 
 export const addShow = (show) => {
   return async(dispatch) => {
-    const newShow = (await axios.post('/api/shows'), show).data;
+    const newShow = (await axios.post('/api/shows', show)).data;
     dispatch(_addShow(newShow));
   }
 };
