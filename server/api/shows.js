@@ -70,11 +70,11 @@ router.get('/:id', async (req, res, next) => {
 
 
 
-  //POST(Create) a new show using spotify api fields 
+  //POST(Create) a new show using spotify api fields
   router.post('/', async(req, res, next) => {
     try {
       //payload should include following props from Spotify API: spotify_id, name, description, publisher, media_type, hrefUrl, imageUrl
-      const payload = req.body   
+      const payload = req.body
       const newShow = await Show.create(payload);
       res.send(newShow)
     } catch(err) {
@@ -83,7 +83,7 @@ router.get('/:id', async (req, res, next) => {
   });
 
 
-  
+
   //DELETE a show (Admin only at this time);
   //Will need admin authorization!!!!!!! <--is this ready right now === NO;
   router.delete('/:id', async(req, res, next) => {
@@ -114,4 +114,3 @@ router.get('/spotify/:id', async(req, res, next) => {
     next(ex);
   };
 });
-
