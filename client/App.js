@@ -4,9 +4,13 @@ import Routes from "./Routes";
 
 const App = () => {
   return (
-    <div className="wrapper">
-      <Navbar />
-      <Routes />
+    <div className="main" style={{ fontFamily: "roboto" }}>
+      <nav className="wrapper">
+        <Navbar />
+      </nav>
+      <div className="content">
+        <Routes />
+      </div>
     </div>
   );
 };
