@@ -24,7 +24,7 @@ class TopPodcasts extends Component {
 
   render() {
     const { topCharts } = this.state;
-    let rank = 1;
+
     return (
       // <div>
       //   {topCharts.map((podcast) => {
