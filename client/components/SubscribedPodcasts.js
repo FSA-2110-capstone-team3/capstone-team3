@@ -31,13 +31,9 @@ class SubscribedPodcasts extends Component {
   render() {
     const { userShows } = this.state;
     return (
-      <div>
+      <div style={{ color: "white" }}>
         {userShows.map((userShow, idx) => {
-          return (
-            <div key={idx}>
-              {userShow.show.name}
-            </div>
-          )
+          return <div key={idx}>{userShow.show.name}</div>;
         })}
       </div>
     );
