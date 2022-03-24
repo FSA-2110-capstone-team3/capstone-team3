@@ -11,7 +11,6 @@ class SubscribedPodcasts extends Component {
     };
   }
 
-  // Should this be in redux store instead? If so, I'm not sure how. I would need to connect state (auth) to store/shows. How do I do that?
   async componentDidMount() {
     const { auth } = this.props;
     const userId = auth.id;
@@ -31,13 +30,21 @@ class SubscribedPodcasts extends Component {
   render() {
     const { userShows } = this.state;
     return (
-      <div>
-        {userShows.map((userShow, idx) => {
+      <div style={{ color: "white" }}>
+        {userShows.map((userShow) => {
           return (
-            <div key={idx}>
-              {userShow.show.name}
+            <div key={userShow.show.id}>
+              <Link to={`/show/${userShow.show.id}`}>
+                <span style={{ fontWeight: "bold", color: "white" }}>
+                  {userShow.show.name}
+                </span>
+              </Link>
+              <div>
+                <img src={userShow.show.images[1].url} />
+              </div>
+              <div>{userShow.show.publisher}</div>
             </div>
-          )
+          );
         })}
       </div>
     );

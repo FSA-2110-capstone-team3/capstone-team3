@@ -13,7 +13,7 @@ const SingleEpisode = () => {
   const episodes = useSelector((state) => state.episodes) || [];
   // console.log(episodes);
   // const STATE = useSelector((state) => console.log(state)) || [];
-  
+
   const [episode, setEpisode] = useState({});
   const [currComment, setCurrComment] = useState('');
 
@@ -30,7 +30,7 @@ const SingleEpisode = () => {
     //     }
     //   })).data;
     //   setEpisode(findEpisode);
-      
+
     //   // console.log(findEpisode)
     // }
     // fetchEpisode()
@@ -59,15 +59,14 @@ const SingleEpisode = () => {
   return (
     <div style={{'display': 'flex', 'flexDirection': 'column', 'marginLeft': '10px'}}>
       <h1></h1>
-      <iframe 
-        src={`https://open.spotify.com/embed-podcast/episode/${id}`} 
-        width="100%" 
+      <iframe
+        src={`https://open.spotify.com/embed-podcast/episode/${id}`}
+        width="100%"
         height="232"
         frameBorder="0"
         allow="encrypted-media"
-      >
-      </iframe>
-      <div style={{'color': 'white', 'width': '100%', 'marginTop': '1rem'}} >
+      ></iframe>
+      <div style={{ color: "white", width: "100%", marginTop: "1rem" }}>
         <h2>{episode.name}</h2>
       </div>
       <div style={{'color': 'white', 'width': '70%'}}>
@@ -77,8 +76,8 @@ const SingleEpisode = () => {
         <div>
           <h3 style={{'color': 'white', 'width': '70%'}}>TIMESTAMPS</h3>
           {
-            !timeStamps.length ? 
-              <h4>No current Timestamps! Create one now!</h4> : 
+            !timeStamps.length ?
+              <h4>No current Timestamps! Create one now!</h4> :
               timeStamps.map((timeStamp) => {
                 return (
                   <div style={{'color': 'white', 'width': '70%'}}>
@@ -98,7 +97,7 @@ const SingleEpisode = () => {
         <h5 style={{'color': 'white', 'width': '70%'}}>Add a Comment!</h5>
         <div style={{'display': 'flex'}}>
           <form onSubmit={submitComment}>
-            <input 
+            <input
               type='text'
               placeholder='Add comment here!'
               name='name'
@@ -115,7 +114,7 @@ const SingleEpisode = () => {
               return (
                 <li key={comment.id}>
                   {
-                   `${commentUser.display_name} - ${comment.content}` 
+                   `${commentUser.display_name} - ${comment.content}`
                   }
                 </li>
               )
@@ -124,8 +123,9 @@ const SingleEpisode = () => {
         </ul>
         </div>
       </div>
+      <hr style={{ color: "white" }} />
     </div>
-  )
-}
+  );
+};
 
-export default SingleEpisode
+export default SingleEpisode;
