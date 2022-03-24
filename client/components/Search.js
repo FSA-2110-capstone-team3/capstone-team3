@@ -12,16 +12,19 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // functional component
 const Search = () => {
+
+
+
   // hooks
-  // create hook of local state for form/search input
-  const [search, setSearch] = useState("");
-  // create hook of local state search results
-  const [searchResults, setSearchResults] = useState([]);
-  // create hook of local state for error handling obj (axios responses)
-  const [errorRes, setErrorRes] = useState({});
-  // create hook of local state for shows/episodes toggle
-  const [contentToggle, setContentToggle] = useState("shows");
-  console.log(contentToggle);
+    // create hook of local state for form/search input
+  const [search, setSearch] = useState('');
+    // create hook of local state search results
+  const [ searchResults, setSearchResults] = useState([]);
+    // create hook of local state for error handling obj (axios responses)
+  const [ errorRes, setErrorRes ] = useState({});
+    // create hook of local state for shows/episodes toggle
+  const [ contentToggle, setContentToggle ] = useState('shows');
+
 
   // hook to update searchResult state with spotify search results
   useEffect(async () => {
@@ -33,9 +36,8 @@ const Search = () => {
     let cancel = false;
     if (cancel) return;
 
-    const response = (await axios.get(`/api/search/${contentToggle}/${search}`))
-      .data;
-    console.log(response);
+
+    const response = (await axios.get(`/api/search/${contentToggle}/${search}`)).data
 
     //error handling if response is an error
     if (response.body.error) {
@@ -85,22 +87,23 @@ const Search = () => {
 
   const classes = useStyles();
 
+
   //add/remove active class to buttons
   const btnElem = document.getElementsByClassName("btn");
   const btnElemArr = [].slice.call(btnElem);
-  console.log(btnElemArr);
 
   //Loop through button DOM elements
   btnElemArr.map((elem) => {
     elem.addEventListener("click", function () {
       const current = document.getElementsByClassName("active");
 
-      //Remove active class if present
-      if (current.length > 0) {
+      //Remove active from class if present
+      if(current.length > 0) {
+
         current[0].className = current[0].className.replace(" active", "");
       }
 
-      //Add active if not present
+      //Add active to class if not present
       this.className += " active";
     });
   });
