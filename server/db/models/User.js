@@ -91,8 +91,9 @@ User.authenticate = async function(info){
         access_token: info.access_token,
         refresh_token: info.refresh_token,
         display_name: info.display_name
-        // userData: spotifyUser
       })
+    } else {
+      findUser.update({ access_token: info.access_token, refresh_token: info.refresh_token });
     }
     // if (!user || !(await user.correctPassword(password))) {
     //   const error = Error('Incorrect email/password');
