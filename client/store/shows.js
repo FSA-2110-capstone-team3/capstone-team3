@@ -1,5 +1,5 @@
 import axios from 'axios'
-import queryString from "query-string";
+//import queryString from "query-string";
 
 //------------ACTION TYPES------------//
 
@@ -76,21 +76,21 @@ export const deleteShow = (id) => {
     await axios.delete(`/api/shows/${id}`);
     dispatch(_deleteShow(id));
   }
-}
+};
 
 //------------REDUCER------------//
 
 export const shows = (state = [], action) => {
   switch (action.type) {
     case GET_SHOWS:
-      return action.shows
+      return action.shows;
     case ADD_SHOW:
-      return [...state, action.show]
+      return [...state, action.show];
     case UPDATE_SHOW:
-      return state.map((show) => show.id === action.show.id ? action.show : show)
+      return state.map((show) => show.id === action.show.id ? action.show : show);
     case DELETE_SHOW:
-      return state.filter((show) => show !== action.id)
+      return state.filter((show) => show !== action.id);
     default:
-      return state
+      return state;
   }
-}
+};

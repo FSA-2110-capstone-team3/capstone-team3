@@ -1,29 +1,16 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 class TopPodcasts extends Component {
-  constructor() {
-    super();
-    this.state = {
-      topCharts: [],
-    };
-  }
-
-  async componentDidMount() {
-    try {
-      // Returns top 200
-      const topCharts = (await axios.get("/api/shows/topcharts")).data;
-      this.setState({
-        topCharts: topCharts.slice(0, 25), // Limit to top 25
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   render() {
-    const { topCharts } = this.state;
+    const { topCharts } = this.props;
+
+    /* Example for Priscilla - this is how you can grab first 4 in home component
+    let { topCharts } = this.props;
+    topCharts = topCharts.slice(0, 4);
+    */
+
     let rank = 1;
     return (
       // <div>
@@ -155,7 +142,7 @@ class TopPodcasts extends Component {
                     <Link to={`/show/${podcast.showUri.slice(-22)}`}>
                       <span
                         style={{
-                          fontWeight: 400,
+                          fontWeight: "bold",
                           color: "white",
                         }}
                       >
@@ -167,6 +154,7 @@ class TopPodcasts extends Component {
                     <h6
                       style={{
                         textAlign: "center",
+                        fontSize: "14px",
                         fontWeight: 400,
                         color: "white",
                       }}
@@ -184,4 +172,10 @@ class TopPodcasts extends Component {
   }
 }
 
-export default TopPodcasts;
+const mapStateToProps = ({ topCharts }) => {
+  return {
+    topCharts
+  };
+};
+
+export default connect(mapStateToProps)(TopPodcasts);
