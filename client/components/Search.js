@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 // functional component
 const Search = () => {
 
+
   // hooks
     // create hook of local state for form/search input
   const [search, setSearch] = useState('');
@@ -23,7 +24,6 @@ const Search = () => {
   const [ errorRes, setErrorRes ] = useState({});
     // create hook of local state for shows/episodes toggle
   const [ contentToggle, setContentToggle ] = useState('shows');
-  console.log(contentToggle);
   
 
     // hook to update searchResult state with spotify search results
@@ -37,7 +37,6 @@ const Search = () => {
     if(cancel) return
 
     const response = (await axios.get(`/api/search/${contentToggle}/${search}`)).data
-    console.log(response);
 
       //error handling if response is an error
     if(response.body.error) {
@@ -92,23 +91,21 @@ const Search = () => {
   const classes = useStyles();
 
 
-
-  //add/remove active class to buttons
+  //add/remove active class to shows/episodes buttons
   const btnElem = document.getElementsByClassName('btn');
   const btnElemArr = [].slice.call(btnElem);
-  console.log(btnElemArr);
 
     //Loop through button DOM elements
   btnElemArr.map((elem) => {
     elem.addEventListener("click", function() {
       const current = document.getElementsByClassName("active");
 
-      //Remove active class if present
+      //Remove active from class if present
       if(current.length > 0) {
         current[0].className = current[0].className.replace(" active", "");
       }
 
-      //Add active if not present
+      //Add active to class if not present
       this.className += " active";
     })
   })
