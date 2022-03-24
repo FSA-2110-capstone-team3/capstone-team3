@@ -12,7 +12,6 @@ export const Home = (props) => {
     //   <h3>Welcome, {email}</h3>{" "}
     // </div>
     <>
-      {/* <div className="container" style={{ color: "white" }}> */}
       <div style={{ color: "white", fontFamily: "roboto", fontWeight: 300 }}>
         <h3 style={{ fontWeight: 300 }}>Welcome to Spodify +</h3>
         <br />
@@ -26,7 +25,6 @@ export const Home = (props) => {
       <div>
         <h3 style={{ fontWeight: 300, padding: 5 + "px" }}></h3>
       </div>
-      {/* </div> */}
     </>
   );
 };
