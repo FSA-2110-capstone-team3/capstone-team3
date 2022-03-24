@@ -1,171 +1,179 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 //material ui imports
-import FormControl, { useFormControl } from '@mui/material/FormControl';
-import TextField from '@material-ui/core/TextField';
-import Box from '@mui/material/Box';
-import { makeStyles } from '@material-ui/core/styles';
-
+import FormControl, { useFormControl } from "@mui/material/FormControl";
+import TextField from "@material-ui/core/TextField";
+import Box from "@mui/material/Box";
+import { makeStyles } from "@material-ui/core/styles";
 
 // functional component
 const Search = () => {
-
   // hooks
-    // create hook of local state for form/search input
-  const [search, setSearch] = useState('');
-    // create hook of local state search results
-  const [ searchResults, setSearchResults] = useState([]);
-    // create hook of local state for error handling obj (axios responses)
-  const [ errorRes, setErrorRes ] = useState({});
-    // create hook of local state for shows/episodes toggle
-  const [ contentToggle, setContentToggle ] = useState('shows');
+  // create hook of local state for form/search input
+  const [search, setSearch] = useState("");
+  // create hook of local state search results
+  const [searchResults, setSearchResults] = useState([]);
+  // create hook of local state for error handling obj (axios responses)
+  const [errorRes, setErrorRes] = useState({});
+  // create hook of local state for shows/episodes toggle
+  const [contentToggle, setContentToggle] = useState("shows");
   console.log(contentToggle);
-  
 
-    // hook to update searchResult state with spotify search results
-  useEffect(async() => {
-      //empty results/error state if search empty
-    if(!search) return setSearchResults([]);
-    if(!search) return setErrorRes({});
+  // hook to update searchResult state with spotify search results
+  useEffect(async () => {
+    //empty results/error state if search empty
+    if (!search) return setSearchResults([]);
+    if (!search) return setErrorRes({});
 
-      // create cancel flag to stop old/current call when form/test box edited 
+    // create cancel flag to stop old/current call when form/test box edited
     let cancel = false;
-    if(cancel) return
+    if (cancel) return;
 
-    const response = (await axios.get(`/api/search/${contentToggle}/${search}`)).data
+    const response = (await axios.get(`/api/search/${contentToggle}/${search}`))
+      .data;
     console.log(response);
 
-      //error handling if response is an error
-    if(response.body.error) {
-      setErrorRes(
-        {
-          message: response.body.error.message
-        }
-      );
-    };
+    //error handling if response is an error
+    if (response.body.error) {
+      setErrorRes({
+        message: response.body.error.message,
+      });
+    }
 
-        setSearchResults(
-          response.body[contentToggle].items.map(content => {
-            const smallestContentImage = content.images.reduce(
-              (smallest, image) => {
-              if(image.height < smallest.height) {
-                return image
-              } else return smallest
-            },content.images[0]);
-            return {
-              id: content.id,
-              name: content.name,
-              image: smallestContentImage.url
-            }
-          })
-        )
+    setSearchResults(
+      response.body[contentToggle].items.map((content) => {
+        const smallestContentImage = content.images.reduce(
+          (smallest, image) => {
+            if (image.height < smallest.height) {
+              return image;
+            } else return smallest;
+          },
+          content.images[0]
+        );
+        return {
+          id: content.id,
+          name: content.name,
+          image: smallestContentImage.url,
+        };
+      })
+    );
 
-        return () => cancel = true;
-
+    return () => (cancel = true);
   }, [search]);
 
-
-
-    //hook for MUI styling
+  //hook for MUI styling
   const useStyles = makeStyles({
     root: {
       "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-        borderColor: "gray"
+        borderColor: "gray",
       },
       "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-        borderColor: "white"
+        borderColor: "white",
       },
       "& .MuiOutlinedInput-input": {
-        color: "gray"
+        color: "gray",
       },
       "& .MuiInputLabel-outlined": {
-        color: "gray"
-      }
-    }
-
+        color: "gray",
+      },
+    },
   });
 
   const classes = useStyles();
 
-
-
   //add/remove active class to buttons
-  const btnElem = document.getElementsByClassName('btn');
+  const btnElem = document.getElementsByClassName("btn");
   const btnElemArr = [].slice.call(btnElem);
   console.log(btnElemArr);
 
-    //Loop through button DOM elements
+  //Loop through button DOM elements
   btnElemArr.map((elem) => {
-    elem.addEventListener("click", function() {
+    elem.addEventListener("click", function () {
       const current = document.getElementsByClassName("active");
 
       //Remove active class if present
-      if(current.length > 0) {
+      if (current.length > 0) {
         current[0].className = current[0].className.replace(" active", "");
       }
 
       //Add active if not present
       this.className += " active";
-    })
-  })
+    });
+  });
 
-  //funcs for btn onClick package 
-    // swap contentToggle
+  //funcs for btn onClick package
+  // swap contentToggle
   const adjContentToggle = () => {
-    contentToggle === 'shows' 
-    ? setContentToggle('episodes')
-    : setContentToggle('shows');
+    contentToggle === "shows"
+      ? setContentToggle("episodes")
+      : setContentToggle("shows");
   };
-  
+
   //onClick button package
   const onClickInit = () => {
     adjContentToggle();
-    setSearch('');
-  }
+    setSearch("");
+  };
 
-  return(
-    <div /*id='wrapper'*/ >
-      <Box className='pt-5'>
+  return (
+    <div /*id='wrapper'*/ style={{ color: "white" }}>
+      <Box className="pt-5">
         <FormControl fullWidth>
-          <TextField 
-            className={ classes.root }
-            fullWidth 
+          <TextField
+            className={classes.root}
+            fullWidth
             helperText="Search Shows"
             id="outlined"
             label="Search"
             variant="outlined"
             type="search"
-            value={ search }
-            onChange={e => setSearch(e.target.value) }
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
 
-            {(errorRes) 
-              ? <h6 className="text-center">{errorRes.message}</h6>
-              : null }
+          {errorRes ? (
+            <h6 className="text-center">{errorRes.message}</h6>
+          ) : null}
 
-          <div id='searchBtns' className="d-flex justify-content-center pd-5">
-            <button type="button" className="me-3 btn btn-outline-light active" onClick={()=> { onClickInit() }}>Shows</button>
-            <button type="button" className="btn btn-outline-light" onClick={()=> { onClickInit() }}>Episodes</button>
+          <div id="searchBtns" className="d-flex justify-content-center pd-5">
+            <button
+              type="button"
+              className="me-3 btn btn-outline-light active"
+              onClick={() => {
+                onClickInit();
+              }}
+            >
+              Shows
+            </button>
+            <button
+              type="button"
+              className="btn btn-outline-light"
+              onClick={() => {
+                onClickInit();
+              }}
+            >
+              Episodes
+            </button>
           </div>
         </FormControl>
       </Box>
-      
-      <h3 className="text-center mt-5">Search for Spotify Shows or Episodes </h3>
+
+      <h3 className="text-center mt-5">
+        Search for Spotify Shows or Episodes{" "}
+      </h3>
       <div>
-        <ul id='podcastCards'>
-            {/* map over & render results */}
-          {   
-            searchResults.map(content => 
-              <li key={content.id}>
-                <img src={content.image} />
-                {content.name}
-              </li>
-            )  
-          }
+        <ul id="podcastCards">
+          {/* map over & render results */}
+          {searchResults.map((content) => (
+            <li key={content.id}>
+              <img src={content.image} />
+              {content.name}
+            </li>
+          ))}
         </ul>
       </div>
     </div>
