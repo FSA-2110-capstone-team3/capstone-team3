@@ -11,7 +11,6 @@ class SubscribedPodcasts extends Component {
     };
   }
 
-  // Should this be in redux store instead? If so, I'm not sure how. I would need to connect state (auth) to store/shows. How do I do that?
   async componentDidMount() {
     const { auth } = this.props;
     const userId = auth.id;
