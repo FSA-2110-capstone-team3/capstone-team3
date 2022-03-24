@@ -130,7 +130,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => (
           className="collapse navbar-collapse w-100"
           id="navbarSupportedContent"
         >
-          <ul className="navbar-nav w-100 d-flex flex-sm-column text-sm-start ">
+          <ul className="navbar-nav w-100 d-flex flex-sm-column text-center text-sm-start ">
             <li>
               <a href="/topcharts" className="nav-link" aria-current="page">
                 <span style={{ fontWeight: 500 }}>
@@ -140,7 +140,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => (
               </a>
             </li>
             <li>
-              <a href="#" className="nav-link">
+              <a href="/search" className="nav-link">
                 <span style={{ fontWeight: 500 }}>
                   <i className="bi bi-search"></i>
                   SEARCH
@@ -148,16 +148,17 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => (
               </a>
             </li>
             <li>
-              <a href="#" className="nav-link">
+              <a href="/subscribed" className="nav-link">
                 <span style={{ fontWeight: 500 }}>
                   <i className="bi bi-rainbow"></i>
                   PODCASTS
                 </span>
               </a>
             </li>
-            <li>
-              {isLoggedIn ? (
-                <>
+
+            {isLoggedIn ? (
+              <>
+                <ul className="navbar-nav w-100 d-flex flex-sm-column text-center text-sm-start ">
                   <li className="nav-item h-25">
                     <a href="/login" className="nav-link text-light pl-4">
                       <span style={{ fontWeight: 500 }}>
@@ -173,23 +174,23 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => (
                       className="nav-link text-light pl-4"
                     >
                       <span style={{ fontWeight: 500 }}>
-                        <i class="fa fa-sign-out" aria-hidden="false"></i>
+                        <i className="fa fa-sign-out" aria-hidden="false"></i>
                         LOGOUT
                       </span>
                     </a>
                   </li>
-                </>
-              ) : (
-                <li className="nav-item h-25 ">
-                  <a href="/login" className="nav-link text-light pl-4">
-                    <span style={{ fontWeight: 500 }}>
-                      <i class="fa fa-sign-in" aria-hidden="true"></i>
-                      LOGIN
-                    </span>
-                  </a>
-                </li>
-              )}
-            </li>
+                </ul>
+              </>
+            ) : (
+              <li className="nav-item h-25 ">
+                <a href="/login" className="nav-link text-light pl-4">
+                  <span style={{ fontWeight: 500 }}>
+                    <i className="fa fa-sign-in" aria-hidden="true"></i>
+                    LOGIN
+                  </span>
+                </a>
+              </li>
+            )}
           </ul>
         </div>
       </nav>
@@ -198,7 +199,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => (
     {/* <div id="wrapper1" class="wrapper-content">
       <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
-          <li class="sidebar-brand">
+          <li "sidebar-brand">
             <a href="#">SPODIFY+</a>
           </li>
           <li>

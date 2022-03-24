@@ -138,7 +138,11 @@ class TopPodcasts extends Component {
         <h1 style={{ color: "white", fontWeight: 400 }}>TOP CHARTS:</h1>
         <div className="row">
           {topCharts.map((podcast) => (
-            <div className="col-12 col-md-6 col-lg-4" id="mainCard">
+            <div
+              className="col-12 col-md-6 col-lg-4"
+              id="mainCard"
+              key={podcast.showUri}
+            >
               <div className="card">
                 <img
                   src={podcast.showImageUrl}
@@ -159,7 +163,7 @@ class TopPodcasts extends Component {
                       </span>
                     </Link>
                   </h5>
-                  <p className="card-text">
+                  <span className="card-text">
                     <h6
                       style={{
                         textAlign: "center",
@@ -169,7 +173,7 @@ class TopPodcasts extends Component {
                     >
                       {podcast.showPublisher}
                     </h6>
-                  </p>
+                  </span>
                 </div>
               </div>
             </div>
