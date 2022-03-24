@@ -44,7 +44,7 @@ app.get("/login", function (req, res) {
         //! not sure why its decprecated, still works tho
         response_type: "code",
         client_id: process.env.SPOTIFY_CLIENT_ID,
-        scope: "user-read-private user-read-email user-library-read",
+        scope: "user-read-private user-read-email user-library-read user-library-modify",
         redirect_uri: redirect_uri, //!then redirects to our localhost declared above
       })
   );

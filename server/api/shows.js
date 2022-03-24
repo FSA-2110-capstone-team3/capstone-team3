@@ -11,12 +11,10 @@ module.exports = router;
 // GET top Spotify podcasts from undocumented third-party API
 router.get("/topcharts", async (req, res, next) => {
   try {
-    const topCharts = (
-      await axios.get(
-        "https://podcastcharts.byspotify.com/api/charts/top?region=us"
-      )
-    ).data;
-    res.json(topCharts);
+    const topCharts = await axios.get(
+      "https://podcastcharts.byspotify.com/api/charts/top?region=us"
+    );
+    res.json(topCharts.data);
   } catch (err) {
     next(err);
   }

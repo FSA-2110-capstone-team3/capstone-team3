@@ -126,17 +126,15 @@ router.get('/spotify/episodes', async(req, res, next) => {
 
 //PUT(add) an episode to user library/saved episodes
   //Spotify API scope must be 'user-library-modify'
-router.put('/spotify/save/:id', async(req, res, next) => {
+router.put('/spotify/add/:id', async(req, res, next) => {
   try {
     const episodeId = req.params.id;
     const curr_user = await User.findByPk(req.body.userId)
     const access_token = curr_user.access_token
-    const response = (await axios.put('https://api.spotify.com/v1/me/episodes', {
+    const response = (await axios.put('https://api.spotify.com/v1/me/episodes', {},{
       params: {
-        "ids": [
-        `${episodeId}`
-      ]
-    },
+        "ids": `${episodeId}`
+      },
       form: {
         market: 'US'
       },
@@ -145,9 +143,36 @@ router.put('/spotify/save/:id', async(req, res, next) => {
         Authorization: `Bearer ${access_token}`
       }
     })).data 
-    console.log('Success, episode added')
+    console.log('Success, episode added to user library')
     res.send(response);
   } catch(ex) {
     next(ex);
   }
 });
+
+
+//DELETE(remove) an episode to user library/saved episodes
+  //Spotify API scope must be 'user-library-modify'
+  router.delete('/spotify/remove/:id', async(req, res, next) => {
+    try {
+      const episodeId = req.params.id;
+      const curr_user = await User.findByPk(req.body.userId)
+      const access_token = curr_user.access_token
+      const response = (await axios.delete('https://api.spotify.com/v1/me/episodes', {
+        params: {
+          "ids": `${episodeId}`
+      },
+        form: {
+          market: 'US'
+        },
+        headers: {
+          'content-type': 'application/json',
+          Authorization: `Bearer ${access_token}`
+        }
+      })).data 
+      console.log('Success, episode removed from user library')
+      res.send(response);
+    } catch(ex) {
+      next(ex);
+    }
+  });
