@@ -91,10 +91,7 @@ const SingleEpisode = () => {
     : 0;
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", marginLeft: "10px" }}
-    >
-      <h1></h1>
+    <div style={{ color: "white" }}>
       <iframe
         src={`https://open.spotify.com/embed-podcast/episode/${id}?utm_source=generator&t=${stamp}`}
         width="100%"
@@ -102,16 +99,39 @@ const SingleEpisode = () => {
         frameBorder="0"
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       ></iframe>
-      <div style={{ color: "white", width: "100%", marginTop: "1rem" }}>
-        <h2>{episode.name}</h2>
+      <div>
+        <span style={{ fontWeight: 400, fontSize: 38 + "px" }}>
+          {episode.name}
+        </span>
+        <hr />
       </div>
-      <div style={{ color: "white", width: "70%" }}>
+      <span style={{ fontWeight: 400, fontSize: 30 + "px" }}>
+        EPISODE DESCRIPTION:
+      </span>
+      <div className="w-75 p-2">
         <p>{episode.description}</p>
+        <hr />
       </div>
+
       <div>
         <div style={{ color: "white", width: "100%" }}>
-          <h3>TIMESTAMPS</h3>
-          <form onSubmit={submitTimeStamp}>
+          <span style={{ fontWeight: 400, fontSize: 25 + "px" }}>
+            TIMESTAMPS{" "}
+            {timeStamps.length ? (
+              <button
+                type="button"
+                class="btn"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                style={{ color: "blue" }}
+              >
+                Add Timestamps
+              </button>
+            ) : (
+              ""
+            )}
+          </span>
+          {/* <form onSubmit={submitTimeStamp}>
             <div>
               Hours
               <select
@@ -175,11 +195,21 @@ const SingleEpisode = () => {
               style={{ width: "300px" }}
             />
             <button>Submit TimeStamp!</button>
-          </form>
+          </form> */}
           {!timeStamps.length ? (
-            <h5 style={{ color: "white" }}>
-              No current Timestamps! Create one now!
-            </h5>
+            <div style={{ fontWeight: 400, fontSize: 20 + "px" }}>
+              No current Timestamps!
+              <a
+                href=""
+                type="button"
+                className="btn "
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                style={{ color: "blue" }}
+              >
+                CREATE STAMPCARD
+              </a>
+            </div>
           ) : (
             timeStamps
               .sort((a, b) => a.timeStamp - b.timeStamp)
@@ -246,6 +276,147 @@ const SingleEpisode = () => {
         </div>
       </div>
       <hr style={{ color: "white" }} />
+      {/* ---------------------------------------------------------- */}
+
+      {/* <!-- Modal --> */}
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        style={{ color: "black" }}
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5
+                class="modal-title"
+                id="exampleModalLabel"
+                style={{ color: "black" }}
+              >
+                Create Stampcard!
+              </h5>
+
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              {/* ---------------------- */}
+              <form onSubmit={submitTimeStamp}>
+                <table className="table table-user-information">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span> HOURS </span>
+                      </td>
+                      <td>
+                        <select
+                          value={hour}
+                          style={{ width: "100px" }}
+                          onChange={onTimeStampChange}
+                          name="hr"
+                          className="form-label"
+                        >
+                          <option
+                            className="form-control"
+                            value={"Select Hr"}
+                            disabled
+                          >
+                            Select Hr
+                          </option>
+                          {Array(hourLength)
+                            .fill("")
+                            .map((min, idx) => {
+                              return <option value={idx}>{idx}</option>;
+                            })}
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span>Min</span>
+                      </td>
+                      <td>
+                        <select
+                          value={min}
+                          style={{ width: "100px" }}
+                          onChange={onTimeStampChange}
+                          name="min"
+                        >
+                          <option value={"Select Min"} disabled>
+                            Select Min
+                          </option>
+                          {Array(60)
+                            .fill("")
+                            .map((min, idx) => {
+                              return <option value={idx}>{idx}</option>;
+                            })}
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Sec</td>
+                      <td>
+                        <select
+                          value={sec}
+                          style={{ width: "100px" }}
+                          onChange={onTimeStampChange}
+                          name="sec"
+                        >
+                          <option value={"Select Sec"} disabled>
+                            Select Sec
+                          </option>
+                          {Array(60)
+                            .fill("")
+                            .map((sec, idx) => {
+                              return <option value={idx}>{idx}</option>;
+                            })}
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span>Add Description:</span>
+                      </td>
+                      <td>
+                        <input
+                          className="col-2"
+                          type="text"
+                          placeholder="Add timestamp description here!"
+                          name="desc"
+                          value={stampText}
+                          onChange={onTimeStampChange}
+                          style={{ width: "100%" }}
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary">
+                  Submit TimeStamp!
+                </button>
+              </form>
+            </div>
+            {/* <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">
+                Save changes
+              </button>
+            </div> */}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
