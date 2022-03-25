@@ -125,7 +125,7 @@ class TopPodcasts extends Component {
         <h1 style={{ color: "white", fontWeight: 400 }}>TOP CHARTS:</h1>
         <div className="row p-5 m-2">
           {topCharts.map((podcast) => (
-            <div className="col-sm-2 " id="mainCard" key={podcast.showUri}>
+            <div className="col-lg-2" id="mainCard" key={podcast.showUri}>
               <div style={{ color: "white" }}>{`${rank++}.`}</div>
               <div className="card">
                 <img

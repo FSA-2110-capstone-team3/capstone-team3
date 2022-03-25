@@ -38,7 +38,7 @@ class SubscribedPodcasts extends Component {
         <div className="row p-5 m-2" style={{ color: "white" }}>
           {userShows.map((userShow) => {
             return (
-              <div className="col-sm-2 " key={userShow.show.id}>
+              <div className="col-lg-2 " key={userShow.show.id}>
                 <div className="card ">
                   <img
                     src={userShow.show.images[1].url}
