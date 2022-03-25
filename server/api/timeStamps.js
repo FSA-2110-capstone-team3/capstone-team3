@@ -43,33 +43,41 @@ router.put('/:id', async(req, res, next) => {
 
 
 
-//POST(Create) a new timeStamp via episodeId
-  router.post('/:id', async(req, res, next) => {
-    try {
-      // creating new timeStamp
-      const episodeId = req.params.id;
-      const payload = req.body          // Payload must already include content & userId properties
-      payload.episodeId = episodeId;    // Adding episode Id to payload
-      const newTimeStamp = await TimeStamp.create(payload);
-      res.send(newTimeStamp)
-    } catch(err) {
-      next(err);
-    }
-  });
+// //POST(Create) a new timeStamp via episodeId
+//   router.post('/:id', async(req, res, next) => {
+//     try {
+//       // creating new timeStamp
+//       const episodeId = req.params.id;
+//       const payload = req.body          // Payload must already include content & userId properties
+//       payload.episodeId = episodeId;    // Adding episode Id to payload
+//       const newTimeStamp = await TimeStamp.create(payload);
+//       res.send(newTimeStamp)
+//     } catch(err) {
+//       next(err);
+//     }
+//   });
+
+router.post('/', async(req, res, next) => {
+  try {
+    res.send(await TimeStamp.create(req.body));
+  } catch(err) {
+    next(err);
+  }
+});
 
 
 
-  //DELETE a timeStamp (Admin only at this time);
-    //Will need admin authorization!!!!!!! <--is this ready right now === NO;
-  router.delete('/:id', async(req, res, next) => {
-    try {
-      const timeStampId = req.params.id;
-      const recordToDelete = await TimeStamp.findByPk(timeStampId);
-      await recordToDelete.destroy();
-      console.log('Deletion Successful')
-      res.sendStatus(200);
-    } catch(err) {
-      next(err);
-    }
-  });
+//DELETE a timeStamp (Admin only at this time);
+//Will need admin authorization!!!!!!! <--is this ready right now === NO;
+router.delete('/:id', async(req, res, next) => {
+  try {
+    const timeStampId = req.params.id;
+    const recordToDelete = await TimeStamp.findByPk(timeStampId);
+    await recordToDelete.destroy();
+    console.log('Deletion Successful')
+    res.sendStatus(200);
+  } catch(err) {
+    next(err);
+  }
+});
 
