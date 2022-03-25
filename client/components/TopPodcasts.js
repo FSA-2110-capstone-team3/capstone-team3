@@ -121,16 +121,13 @@ class TopPodcasts extends Component {
       //   </div>
       // </div>
 
-      <div className="container">
+      <div>
         <h1 style={{ color: "white", fontWeight: 400 }}>TOP CHARTS:</h1>
-        <div className="row">
+        <div className="row gy-2">
           {topCharts.map((podcast) => (
-            <div
-              className="col-12 col-md-6 col-lg-4"
-              id="mainCard"
-              key={podcast.showUri}
-            >
-              <div className="card">
+            <div className="col-md-2 p-3 " id="mainCard" key={podcast.showUri}>
+              <div style={{ color: "white" }}>{`${rank++}.`}</div>
+              <div className="card h-50">
                 <img
                   src={podcast.showImageUrl}
                   alt="podcastimg"
@@ -174,7 +171,7 @@ class TopPodcasts extends Component {
 
 const mapStateToProps = ({ topCharts }) => {
   return {
-    topCharts
+    topCharts,
   };
 };
 

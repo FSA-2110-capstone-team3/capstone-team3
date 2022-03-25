@@ -30,23 +30,48 @@ class SubscribedPodcasts extends Component {
   render() {
     const { userShows } = this.state;
     return (
-      <div style={{ color: "white" }}>
-        {userShows.map((userShow) => {
-          return (
-            <div key={userShow.show.id}>
-              <Link to={`/show/${userShow.show.id}`}>
-                <span style={{ fontWeight: "bold", color: "white" }}>
-                  {userShow.show.name}
-                </span>
-              </Link>
-              <div>
-                <img src={userShow.show.images[1].url} />
+      <>
+        <h1 style={{ textAlign: "center", color: "white", fontWeight: 400 }}>
+          Current Subscribed Podcasts:
+        </h1>
+
+        <div className="row gy-4" style={{ color: "white" }}>
+          {userShows.map((userShow) => {
+            return (
+              <div className="col-md-2 " key={userShow.show.id}>
+                <div className="card h-100">
+                  <img
+                    src={userShow.show.images[1].url}
+                    alt="podcastimg"
+                    className="card-img-top"
+                  />
+                  <div className="card-body">
+                    <h5 style={{ textAlign: "center" }} className="card-title">
+                      <Link to={`/show/${userShow.show.id}`}>
+                        <span style={{ fontWeight: "bold", color: "white" }}>
+                          {userShow.show.name}
+                        </span>
+                      </Link>
+                    </h5>
+                    <span className="card-text">
+                      <h6
+                        style={{
+                          textAlign: "center",
+                          fontWeight: 400,
+                          fontSize: "14px",
+                        }}
+                      >
+                        {" "}
+                        {userShow.show.publisher}
+                      </h6>
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div>{userShow.show.publisher}</div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      </>
     );
   }
 }
