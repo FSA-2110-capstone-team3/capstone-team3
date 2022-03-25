@@ -36,9 +36,9 @@ export const Home = (props) => {
         </div>
       </div>
       <div className="">
-        <div className="row gy-4">
+        <div className="row p-5 m-2">
           {topCharts.map((podcast) => (
-            <div className="col-sm" key={podcast.showUri}>
+            <div className="col" key={podcast.showUri}>
               <div className="card " style={{ width: 20 + "rem" }}>
                 <img
                   src={podcast.showImageUrl}
