@@ -99,9 +99,7 @@ div.row {
 }
 
 .card {
-  /* display: flex;
-  flex-wrap: wrap;
-  list-style: none; */
+  min-height: 50%;
 }
 
 div.card {

@@ -121,7 +121,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
           >
             <ul className="navbar-nav w-100 d-flex flex-sm-column text-center text-sm-start ">
               <li>
-                <a href="/topcharts" className="nav-link" aria-current="page">
+                <a href="/home " className="nav-link" aria-current="page">
                   <span style={{ fontWeight: 500 }}>
                     <i className="bi bi-house-door "></i>
                     HOME
