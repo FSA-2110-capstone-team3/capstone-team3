@@ -2,52 +2,50 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { addComment, getSingleEpisode } from "../store";
+import {
+  addComment,
+  getSingleEpisode,
+  addTimeStamp,
+  getTimeStamps,
+} from "../store";
 
 const SingleEpisode = () => {
-  const auth = useSelector((state) => state.auth) || {};
   const { id } = useParams();
-  // const timeStamps = useSelector((state) => state.timeStamps) || [];
+  const dispatch = useDispatch();
+
+  //---------------Defining State from Redux---------------//
+  const auth = useSelector((state) => state.auth) || {};
+  const timeStamps =
+    useSelector((state) =>
+      state.timeStamps.filter((timeStamp) => timeStamp.spotify_id === id)
+    ) || [];
   const epComments =
     useSelector((state) =>
       state.comments.filter((comment) => comment.spotify_id === id)
     ) || [];
   const findUsers = useSelector((state) => state.users) || [];
-  const episodes = useSelector((state) => state.episodes) || [];
-  // console.log(episodes);
-  // const STATE = useSelector((state) => console.log(state)) || [];
+  const getEpisode = useSelector((state) => state.episodes) || {};
 
+  //---------------Setting Initial Local State for Episode/Comments/TimeStamps---------------//
   const [episode, setEpisode] = useState({});
   const [currComment, setCurrComment] = useState("");
-
-  const dispatch = useDispatch();
+  const [stamp, setStamp] = useState(0);
+  const [stampText, setStampText] = useState("");
+  const [hour, setHour] = useState("Select Hr");
+  const [min, setMin] = useState("Select Min");
+  const [sec, setSec] = useState("Select Sec");
 
   useEffect(() => {
-    // const fetchEpisode = async() => {
-    //   console.log('useEffect called!!')
-    //   const findEpisode = (await axios.get(`https://api.spotify.com/v1/episodes/${id}`, {
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'Accept': 'application/json',
-    //       Authorization: `Bearer ${auth.access_token}`,
-    //     }
-    //   })).data;
-    //   setEpisode(findEpisode);
-
-    //   // console.log(findEpisode)
-    // }
-    // fetchEpisode()
+    dispatch(getTimeStamps());
     dispatch(getSingleEpisode({ id: id, access_token: auth.access_token }));
-    // console.log('episodes', episodes);
-    // const thisEpisode = episodes.find((ep) => ep.spotify_id === id) || {};
-    setEpisode(episodes);
-  }, [episodes.id]);
+    setEpisode(getEpisode);
+  }, [getEpisode.id]);
 
-  // useEffect(() => {
-  //   setEpisode(episodes)
-  // }, [episodes.id])
+  const convertToSec = (h, m, s) => {
+    return Number(h) * 3600 + Number(m) * 60 + Number(s);
+  };
 
-  const onChange = (ev) => {
+  const onCommentChange = (ev) => {
     const change = {};
     change[ev.target.name] = ev.target.value;
     setCurrComment(change[ev.target.name]);
@@ -55,7 +53,6 @@ const SingleEpisode = () => {
 
   const submitComment = (ev) => {
     ev.preventDefault();
-    // console.log(currComment);
     dispatch(
       addComment({
         userId: auth.id,
@@ -66,17 +63,44 @@ const SingleEpisode = () => {
     );
   };
 
+  const onTimeStampChange = (ev) => {
+    if (ev.target.name === "hr") setHour(ev.target.value);
+    if (ev.target.name === "min") setMin(ev.target.value);
+    if (ev.target.name === "sec") setSec(ev.target.value);
+    if (ev.target.name === "desc") setStampText(ev.target.value);
+  };
+
+  const submitTimeStamp = (ev) => {
+    ev.preventDefault();
+    dispatch(
+      addTimeStamp({
+        userId: auth.id,
+        episodeId: episode.id,
+        description: stampText,
+        spotify_id: episode.spotify_id,
+        timeStamp: convertToSec(hour, min, sec),
+        hr: hour,
+        min: min,
+        sec: sec,
+      })
+    );
+  };
+
+  const hourLength = episode.duration_ms
+    ? Math.floor(episode.duration_ms / 3600000) + 1
+    : 0;
+
   return (
     <div
       style={{ display: "flex", flexDirection: "column", marginLeft: "10px" }}
     >
       <h1></h1>
       <iframe
-        src={`https://open.spotify.com/embed-podcast/episode/${id}`}
+        src={`https://open.spotify.com/embed-podcast/episode/${id}?utm_source=generator&t=${stamp}`}
         width="100%"
         height="232"
         frameBorder="0"
-        allow="encrypted-media"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       ></iframe>
       <div style={{ color: "white", width: "100%", marginTop: "1rem" }}>
         <h2>{episode.name}</h2>
@@ -84,29 +108,117 @@ const SingleEpisode = () => {
       <div style={{ color: "white", width: "70%" }}>
         <p>{episode.description}</p>
       </div>
-      {/* <div>
-        <div>
-          <h3 style={{'color': 'white', 'width': '70%'}}>TIMESTAMPS</h3>
-          {
-            !timeStamps.length ?
-              <h4>No current Timestamps! Create one now!</h4> :
-              timeStamps.map((timeStamp) => {
-                return (
-                  <div style={{'color': 'white', 'width': '70%'}}>
-                    {timeStamp}
-                  </div>
-                )
-              })
-          }
-          <form>
-
+      <div>
+        <div style={{ color: "white", width: "100%" }}>
+          <h3>TIMESTAMPS</h3>
+          <form onSubmit={submitTimeStamp}>
+            <div>
+              Hours
+              <select
+                value={hour}
+                style={{ width: "100px" }}
+                onChange={onTimeStampChange}
+                name="hr"
+              >
+                <option value={"Select Hr"} disabled>
+                  Select Hr
+                </option>
+                {Array(hourLength)
+                  .fill("")
+                  .map((min, idx) => {
+                    return <option value={idx}>{idx}</option>;
+                  })}
+              </select>
+            </div>
+            <div>
+              Min
+              <select
+                value={min}
+                style={{ width: "100px" }}
+                onChange={onTimeStampChange}
+                name="min"
+              >
+                <option value={"Select Min"} disabled>
+                  Select Min
+                </option>
+                {Array(60)
+                  .fill("")
+                  .map((min, idx) => {
+                    return <option value={idx}>{idx}</option>;
+                  })}
+              </select>
+            </div>
+            <div>
+              Sec
+              <select
+                value={sec}
+                style={{ width: "100px" }}
+                onChange={onTimeStampChange}
+                name="sec"
+              >
+                <option value={"Select Sec"} disabled>
+                  Select Sec
+                </option>
+                {Array(60)
+                  .fill("")
+                  .map((sec, idx) => {
+                    return <option value={idx}>{idx}</option>;
+                  })}
+              </select>
+            </div>
+            <input
+              type="text"
+              placeholder="Add timestamp description here!"
+              name="desc"
+              value={stampText}
+              onChange={onTimeStampChange}
+              style={{ width: "300px" }}
+            />
+            <button>Submit TimeStamp!</button>
           </form>
+          {!timeStamps.length ? (
+            <h5 style={{ color: "white" }}>
+              No current Timestamps! Create one now!
+            </h5>
+          ) : (
+            timeStamps
+              .sort((a, b) => a.timeStamp - b.timeStamp)
+              .map((timeStamp) => {
+                return (
+                  <div
+                    style={{ color: "white", width: "70%" }}
+                    key={timeStamp.id}
+                  >
+                    <span
+                      style={{ color: "orange", cursor: "pointer" }}
+                      onClick={() =>
+                        setStamp(
+                          convertToSec(
+                            timeStamp.hr,
+                            timeStamp.min,
+                            timeStamp.sec
+                          )
+                        )
+                      }
+                    >
+                      {timeStamp.hr}:
+                      {timeStamp.min < 10 ? "0" + timeStamp.min : timeStamp.min}
+                      :
+                      {timeStamp.sec < 10 ? "0" + timeStamp.sec : timeStamp.sec}
+                    </span>{" "}
+                    - {timeStamp.description}
+                  </div>
+                );
+              })
+          )}
         </div>
-      </div> */}
+      </div>
       <div>
         <hr style={{ color: "white" }} />
         <div>
-          <h3 style={{ color: "white", width: "70%" }}>COMMENTS</h3>
+          <h3 style={{ color: "white", width: "70%" }}>
+            COMMENTS ({epComments.length})
+          </h3>
           <h5 style={{ color: "white", width: "70%" }}>Add a Comment!</h5>
           <div style={{ display: "flex" }}>
             <form onSubmit={submitComment}>
@@ -115,7 +227,7 @@ const SingleEpisode = () => {
                 placeholder="Add comment here!"
                 name="name"
                 value={currComment}
-                onChange={onChange}
+                onChange={onCommentChange}
               />
               <button>Add Comment</button>
             </form>
@@ -125,7 +237,7 @@ const SingleEpisode = () => {
               const commentUser =
                 findUsers.find((user) => comment.userId === user.id) || {};
               return (
-                <li key={comment.id}>
+                <li key={comment.id} style={{ color: "white" }}>
                   {`${commentUser.display_name} - ${comment.content}`}
                 </li>
               );
