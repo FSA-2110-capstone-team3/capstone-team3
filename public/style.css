@@ -1,7 +1,6 @@
 body {
   font-family: sans-serif;
   background-color: #1c1c1c;
-  color: "white";
 }
 
 a {
@@ -41,17 +40,11 @@ form div {
   width: 100%;
   /* margin-left: 60px; */
   display: flex;
-  padding: 20px;
+  padding: 40px;
 }
 
 div.content {
   flex-direction: column;
-}
-
-div.small-box {
-  border: 2px solid white;
-  width: 50%;
-  height: 50%;
 }
 
 div.container {
@@ -63,7 +56,7 @@ div.container {
 
 .navbar {
   /* position: fixed; */
-  height: 100vh;
+  height: 100%;
   background-color: #454545;
 }
 
@@ -87,10 +80,10 @@ a.navbar-brand span:hover {
 
 div.row {
   /* background: rgb(176, 54, 54); */
-  /* margin-bottom: 50px; */
-  /* transition: 0.5s;
-  border: 0; */
-  /* border-radius: 2rem; */
+  margin-bottom: 50px;
+  transition: 0.5s;
+  border: 0;
+  border-radius: 2rem;
   /* position: relative; */
   width: 100%;
 }
@@ -109,11 +102,6 @@ div.row {
   min-height: 50%;
 }
 
-textarea.form-control {
-  background-color: #1c1c1c;
-  border: 3px solid white;
-}
-
 div.card {
   /* padding: 15px; */
   /* margin: 45px; */
@@ -127,14 +115,14 @@ div.card {
   margin-left: 50px;
   margin-right: 50px; */
 }
-/*
+
 div#mainCard {
   padding: 0;
   margin: 0;
-} */
+}
 
 #mainCard {
-  /* padding: 2px; */
+  padding: 2px;
 }
 
 /* @media (min-width: 576px) {

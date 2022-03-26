@@ -9,9 +9,8 @@ const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
 
   return (
-    <div style={{ color: "white" }}>
-      <h1>LOG IN TO CONTINUE</h1>
-      {/* <form onSubmit={handleSubmit} name={name}>
+    <div>
+      <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="email">
             <small>User Email</small>
@@ -28,38 +27,7 @@ const AuthForm = (props) => {
           <button type="submit">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
-      </form> */}
-      <div className="loginContainer">
-        <div className="small-box dark-box mx-auto text-center">
-          <span>Login</span>
-          <form onSubmit={handleSubmit} name={name}>
-            <table className="table table-user-information">
-              <tbody>
-                <tr>
-                  <td className="p-0 m-0">
-                    <span style={{ color: "white" }}>User Email:</span>
-                  </td>
-                  <td>
-                    <input name="email" type="text" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span style={{ color: "white" }}>Password: </span>
-                  </td>
-                  <td>
-                    <input name="password" type="password" />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div>
-              <button type="submit">{displayName}</button>
-            </div>
-            {error && error.response && <div> {error.response.data} </div>}
-          </form>
-        </div>
-      </div>
+      </form>
     </div>
   );
 };
