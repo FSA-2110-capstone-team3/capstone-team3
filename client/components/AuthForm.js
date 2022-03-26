@@ -10,7 +10,7 @@ const AuthForm = (props) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
+      {/* <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="email">
             <small>User Email</small>
@@ -27,7 +27,7 @@ const AuthForm = (props) => {
           <button type="submit">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
-      </form>
+      </form> */}
       <div className="loginContainer">
         <div className="small-box dark-box mx-auto text-center">
           <span>Login</span>
