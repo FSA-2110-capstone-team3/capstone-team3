@@ -29,6 +29,7 @@ const AuthForm = (props) => {
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form> */}
+      {/* {} */}
       <div className="loginContainer">
         <div className="small-box dark-box mx-auto text-center">
           <span>Login</span>
