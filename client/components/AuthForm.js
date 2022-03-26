@@ -27,8 +27,7 @@ const AuthForm = (props) => {
           <button type="submit">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
-
-      </form> */}
+      </form>
       <div className="loginContainer">
         <div className="small-box dark-box mx-auto text-center">
           <span>Login</span>
@@ -61,8 +60,6 @@ const AuthForm = (props) => {
           {/* ?? */}
         </div>
       </div>
-      </form>
-
     </div>
   );
 };
