@@ -246,12 +246,15 @@ const SingleEpisode = () => {
       <div>
         <hr style={{ color: "white" }} />
         <div>
-          <span style={{ color: "white", fontSize: "25px", fontWeight: 400 }}>
-            Comments ({epComments.length})
-          </span>
-          <div style={{ color: "white", fontSize: "20px", fontWeight: 300 }}>
-            Add a Comment!
+          <div className="mb-2 p-2">
+            <span style={{ color: "white", fontSize: "25px", fontWeight: 400 }}>
+              Comments ({epComments.length})
+            </span>
           </div>
+          {/* <div style={{ color: "white", fontSize: "20px", fontWeight: 300 }}>
+            Add a Comment!
+          </div> */}
+
           <div className="row">
             <div className="col-sm-4">
               <form onSubmit={submitComment}>

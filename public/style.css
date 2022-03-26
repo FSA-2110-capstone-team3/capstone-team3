@@ -103,6 +103,11 @@ div.row {
   min-height: 50%;
 }
 
+textarea.form-control {
+  background-color: #1c1c1c;
+  border: 3px solid white;
+}
+
 div.card {
   /* padding: 15px; */
   /* margin: 45px; */
