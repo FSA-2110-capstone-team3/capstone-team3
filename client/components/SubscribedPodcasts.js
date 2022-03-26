@@ -35,7 +35,7 @@ class SubscribedPodcasts extends Component {
           Current Subscribed Podcasts:
         </h1>
 
-        <div className="row gy-4" style={{ color: "white" }}>
+        <div className="row p-5 m-2" style={{ color: "white" }}>
           {userShows.map((userShow) => {
             return (
               <div className="col-md-2 " key={userShow.show.id}>
