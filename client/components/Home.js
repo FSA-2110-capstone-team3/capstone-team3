@@ -9,7 +9,7 @@ export const Home = (props) => {
   let username = email.split("@");
 
   let { topCharts } = props;
-  topCharts = topCharts.slice(0, 5);
+  topCharts = topCharts.slice(0, 4);
 
   return (
     <>
@@ -36,10 +36,10 @@ export const Home = (props) => {
         </div>
       </div>
       <div className="">
-        <div className="row m-5">
+        <div className="row gy-4">
           {topCharts.map((podcast) => (
-            <div className="col" key={podcast.showUri}>
-              <div className="card " style={{ width: 17 + "rem" }}>
+            <div className="col-sm" key={podcast.showUri}>
+              <div className="card " style={{ width: 20 + "rem" }}>
                 <img
                   src={podcast.showImageUrl}
                   alt="podcastimg"
