@@ -48,6 +48,12 @@ div.content {
   flex-direction: column;
 }
 
+div.small-box {
+  border: 2px solid white;
+  width: 50%;
+  height: 50%;
+}
+
 div.container {
   display: flex;
   flex-direction: column;
