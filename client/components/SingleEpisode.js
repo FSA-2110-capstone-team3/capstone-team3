@@ -120,7 +120,7 @@ const SingleEpisode = () => {
             {timeStamps.length ? (
               <button
                 type="button"
-                class="btn"
+                className="btn"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
                 style={{ color: "blue" }}
@@ -301,7 +301,7 @@ const SingleEpisode = () => {
 
       {/* <!-- Modal --> */}
       <div
-        class="modal fade"
+        className="modal fade"
         id="exampleModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
@@ -309,13 +309,13 @@ const SingleEpisode = () => {
         style={{ color: "black" }}
       >
         <div
-          class="modal-dialog"
+          className="modal-dialog"
           style={{ top: "50%", transform: "translateY(-50%)" }}
         >
-          <div class="modal-content">
-            <div class="modal-header">
+          <div className="modal-content">
+            <div className="modal-header">
               <h5
-                class="modal-title"
+                className="modal-title"
                 id="exampleModalLabel"
                 style={{ color: "black" }}
               >
@@ -324,12 +324,12 @@ const SingleEpisode = () => {
 
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               {/* ---------------------- */}
               <form onSubmit={submitTimeStamp}>
                 <table className="table table-user-information">
@@ -428,7 +428,7 @@ const SingleEpisode = () => {
                 </table>
                 <button
                   type="submit"
-                  class="btn btn-primary"
+                  className="btn btn-primary"
                   data-bs-dismiss="modal"
                 >
                   Submit TimeStamp!
