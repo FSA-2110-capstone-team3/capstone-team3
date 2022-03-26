@@ -9,6 +9,11 @@ const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
 
   return (
+
+    <div style={{ color: "white" }}>
+      <h1>LOG IN TO CONTINUE</h1>
+
+
     <div>
       <form onSubmit={handleSubmit} name={name}>
         <div>
@@ -30,6 +35,7 @@ const AuthForm = (props) => {
 
       </form> */}
       {/* {} */}
+
       <div className="loginContainer">
         <div className="small-box dark-box mx-auto text-center">
           <span>Login</span>
