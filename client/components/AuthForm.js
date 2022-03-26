@@ -9,9 +9,8 @@ const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
 
   return (
-    <div style={{ color: "white" }}>
-      <h1>LOG IN TO CONTINUE</h1>
-      {/* <form onSubmit={handleSubmit} name={name}>
+    <div>
+      <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="email">
             <small>User Email</small>
@@ -28,6 +27,7 @@ const AuthForm = (props) => {
           <button type="submit">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
+
       </form> */}
       <div className="loginContainer">
         <div className="small-box dark-box mx-auto text-center">
@@ -61,6 +61,8 @@ const AuthForm = (props) => {
           {/* ?? */}
         </div>
       </div>
+      </form>
+
     </div>
   );
 };

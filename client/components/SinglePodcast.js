@@ -102,9 +102,9 @@ const SinglePodcast = () => {
     <>
       <div>
         <h1 style={{ color: "white", fontWeight: 400 }}>EPISODES:</h1>
-        <div className="row p-5 m-2">
+        <div className="row gy-2">
           {episodes.map((episode, idx) => (
-            <div className="col-lg-2" id="mainCard" key={idx}>
+            <div className="col-md-2 p-3" id="mainCard">
               <div className="card">
                 <img
                   src={episode.images[0].url}

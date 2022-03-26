@@ -94,7 +94,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
     // </div>
     <>
       <div className="container d-flex flex-column flex-sm-row">
-        <nav className="navbar navbar-expand-md navbar-light d-flex flex-md-column text-sm-start">
+        <nav className="navbar navbar-expand-md navbar-light d-flex flex-md-column">
           <a href="/" className="navbar-brand text-light mt-2">
             {" "}
             <div className="display-6 font-weight-bold">
@@ -119,7 +119,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
             className="collapse navbar-collapse w-100"
             id="navbarSupportedContent"
           >
-            <ul className="navbar-nav w-100 d-flex flex-md-column text-center text-sm-start ">
+            <ul className="navbar-nav w-100 d-flex flex-sm-column text-center text-sm-start ">
               <li>
                 <a href="/home " className="nav-link" aria-current="page">
                   <span style={{ fontWeight: 500 }}>
