@@ -105,8 +105,8 @@ const SingleEpisode = () => {
         </span>
         <hr />
       </div>
-      <span style={{ fontWeight: 400, fontSize: 30 + "px" }}>
-        EPISODE DESCRIPTION:
+      <span style={{ fontWeight: 400, fontSize: 25 + "px" }}>
+        Episode Description:{" "}
       </span>
       <div className="w-75 p-2">
         <p>{episode.description}</p>
@@ -116,7 +116,7 @@ const SingleEpisode = () => {
       <div>
         <div style={{ color: "white", width: "100%" }}>
           <span style={{ fontWeight: 400, fontSize: 25 + "px" }}>
-            TIMESTAMPS{" "}
+            Timestamps{" "}
             {timeStamps.length ? (
               <button
                 type="button"
@@ -246,28 +246,46 @@ const SingleEpisode = () => {
       <div>
         <hr style={{ color: "white" }} />
         <div>
-          <h3 style={{ color: "white", width: "70%" }}>
-            COMMENTS ({epComments.length})
-          </h3>
-          <h5 style={{ color: "white", width: "70%" }}>Add a Comment!</h5>
-          <div style={{ display: "flex" }}>
-            <form onSubmit={submitComment}>
-              <input
-                type="text"
-                placeholder="Add comment here!"
-                name="name"
-                value={currComment}
-                onChange={onCommentChange}
-              />
-              <button>Add Comment</button>
-            </form>
+          <span style={{ color: "white", fontSize: "25px", fontWeight: 400 }}>
+            Comments ({epComments.length})
+          </span>
+          <div style={{ color: "white", fontSize: "20px", fontWeight: 300 }}>
+            Add a Comment!
+          </div>
+          <div className="row">
+            <div className="col-sm-4">
+              <form onSubmit={submitComment}>
+                <fieldset>
+                  <div className="row">
+                    <div className="d-flex col-s-8 ">
+                      <i className="bi bi-person-circle"></i>
+                      <textarea
+                        className="form-control"
+                        type="text"
+                        placeholder="Add comment here!"
+                        name="name"
+                        value={currComment}
+                        onChange={onCommentChange}
+                      ></textarea>
+                    </div>
+                    <div className="d-flex flex-row-reverse">
+                      <button className="">Add Comment</button>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
           </div>
           <ul>
             {epComments.map((comment) => {
               const commentUser =
                 findUsers.find((user) => comment.userId === user.id) || {};
               return (
-                <li key={comment.id} style={{ color: "white" }}>
+                <li
+                  key={comment.id}
+                  style={{ color: "white", listStyle: "none" }}
+                >
+                  <i className="bi bi-person-circle"></i>
                   {`${commentUser.display_name} - ${comment.content}`}
                 </li>
               );
@@ -287,7 +305,10 @@ const SingleEpisode = () => {
         aria-hidden="true"
         style={{ color: "black" }}
       >
-        <div class="modal-dialog">
+        <div
+          class="modal-dialog"
+          style={{ top: "50%", transform: "translateY(-50%)" }}
+        >
           <div class="modal-content">
             <div class="modal-header">
               <h5
@@ -347,8 +368,13 @@ const SingleEpisode = () => {
                           style={{ width: "100px" }}
                           onChange={onTimeStampChange}
                           name="min"
+                          className="form-label"
                         >
-                          <option value={"Select Min"} disabled>
+                          <option
+                            className="form-c"
+                            value={"Select Min"}
+                            disabled
+                          >
                             Select Min
                           </option>
                           {Array(60)
@@ -397,23 +423,15 @@ const SingleEpisode = () => {
                     </tr>
                   </tbody>
                 </table>
-                <button type="submit" class="btn btn-primary">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  data-bs-dismiss="modal"
+                >
                   Submit TimeStamp!
                 </button>
               </form>
             </div>
-            {/* <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" class="btn btn-primary">
-                Save changes
-              </button>
-            </div> */}
           </div>
         </div>
       </div>
