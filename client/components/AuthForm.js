@@ -85,7 +85,7 @@ const AuthForm = (props) => {
             className="rounded p-6 p-sm-3 "
             id="loginForm"
           >
-            <div className="text-center mb-3">
+            <div className="text-center mb-5">
               <span style={{ fontSize: "35px", fontWeight: 400 }}>Login</span>
             </div>
             <div>
