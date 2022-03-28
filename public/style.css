@@ -1,7 +1,8 @@
 body {
-  font-family: sans-serif;
+  /* font-family: sans-serif;
   background-color: #1c1c1c !important;
-  color: "white";
+  color: "white" !important;
+  font-family: "roboto" !important; */
 }
 
 a {
@@ -81,6 +82,11 @@ i:hover {
   color: red;
 }
 
+nav a.nav-link {
+  font-size: 18px;
+  border-bottom: 1px solid white;
+}
+
 nav a.nav-link span:hover {
   color: red;
 }
@@ -116,7 +122,13 @@ div.row {
 
 textarea.form-control {
   background-color: #1c1c1c;
-  border: 3px solid white;
+  border: 1px solid white;
+  box-shadow: 0 0 10px #ffffff;
+}
+
+textarea.form-control:focus {
+  background-color: #1c1c1c;
+  box-shadow: 0 0 10px #ffffff;
 }
 
 div.card {
@@ -197,6 +209,12 @@ div#mainCard {
 
 .ant-comment-actions {
   margin-top: 7px !important;
+}
+
+#heading {
+  font-size: 40px;
+  color: white;
+  font-weight: 300;
 }
 
 #login {

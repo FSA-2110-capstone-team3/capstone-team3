@@ -61,7 +61,7 @@ const AuthForm = (props) => {
           </form>
         </div>
       </div> */}
-      <div class=" full-width d-flex flex-column min-vh-100 justify-content-center align-items-center ">
+      <div className=" full-width d-flex flex-column min-vh-100 justify-content-center align-items-center ">
         <div
           id="loginform"
           className="d-flex flex-column justify-content-center align-items-center  p-5 rounded-3"
@@ -93,7 +93,7 @@ const AuthForm = (props) => {
                 <button className="mb-5 p-sm-3 " id="login">
                   <a href="/login" style={{ color: "black" }}>
                     {" "}
-                    <span className="" style={{ fontSize: "16px" }}>
+                    <span style={{ fontSize: "16px" }}>
                       <i className=" fa-lg bi bi-spotify d-inline btn float-left p-0 mr-2"></i>
                       Continue with Spotify
                     </span>

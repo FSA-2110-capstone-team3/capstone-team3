@@ -14,9 +14,12 @@ export const Home = (props) => {
   return (
     <>
       <div style={{ color: "white", fontFamily: "roboto", fontWeight: 300 }}>
-        <h3 style={{ fontWeight: 400 }}>Welcome to Spodify+ , {username[0]}</h3>
+        <h3 id="heading">Welcome to Spodify+ , {username[0]}</h3>
         <br />
-        <h1 style={{ fontWeight: 300 }}>
+        <h1
+          id="heading"
+          style={{ fontWeight: 400 + "!important", color: "white !important" }}
+        >
           Find episodes, watch, comment, follow & more!
         </h1>
         <hr style={{ width: 100 + "%" }} />
