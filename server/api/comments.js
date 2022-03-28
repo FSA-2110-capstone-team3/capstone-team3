@@ -6,7 +6,12 @@ module.exports = router
 // GET all comments
 router.get('/', async (req, res, next) => {
   try {
-    const comments = await Comment.findAll();
+    const comments = await Comment.findAll({
+      include: [
+        // {model: Comment, as: 'reply'},
+        {model: Comment, as: 'replies'},
+      ]
+    });
     res.json(comments)
   } catch (err) {
     next(err)
