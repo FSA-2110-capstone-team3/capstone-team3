@@ -1,6 +1,6 @@
 body {
   font-family: sans-serif;
-  background-color: #1c1c1c;
+  background-color: #1c1c1c !important;
   color: "white";
 }
 
@@ -194,6 +194,10 @@ div#mainCard {
 .sidebar.active {
   left: 0;
 } */
+
+.ant-comment-actions {
+  margin-top: 7px !important;
+}
 
 #login {
   padding: 1.3em 3em;

@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const { INTEGER, UUID, UUIDV4 } = Sequelize;
+const { INTEGER, UUID, UUIDV4, BOOLEAN } = Sequelize;
 const db = require('../db');
 
 const CommentLike = db.define('commentLike', {
@@ -10,14 +10,12 @@ const CommentLike = db.define('commentLike', {
     primaryKey: true
   },
   thumbsUp: {
-    type: INTEGER,
-    allowNull: true,
-    defaultValue: 0
+    type: BOOLEAN,
+    defaultValue: false
   },
   thumbsDown: {
-    type: INTEGER,
-    allowNull: true,
-    defaultValue: 0
+    type: BOOLEAN,
+    defaultValue: false
   }
 });
 

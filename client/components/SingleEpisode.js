@@ -8,6 +8,13 @@ import {
   addTimeStamp,
   getTimeStamps,
 } from "../store";
+import { Button, Comment, Avatar, Tooltip } from 'antd';
+import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
+
+
 
 const SingleEpisode = () => {
   const { id } = useParams();
@@ -29,11 +36,12 @@ const SingleEpisode = () => {
   //---------------Setting Initial Local State for Episode/Comments/TimeStamps---------------//
   const [episode, setEpisode] = useState({});
   const [currComment, setCurrComment] = useState("");
+  const [currReply, setCurrReply] = useState("");
   const [stamp, setStamp] = useState(0);
   const [stampText, setStampText] = useState("");
-  const [hour, setHour] = useState("Select Hr");
-  const [min, setMin] = useState("Select Min");
-  const [sec, setSec] = useState("Select Sec");
+  const [hour, setHour] = useState(0);
+  const [min, setMin] = useState(0);
+  const [sec, setSec] = useState(0);
 
   useEffect(() => {
     dispatch(getTimeStamps());
@@ -61,6 +69,28 @@ const SingleEpisode = () => {
         spotify_id: episode.spotify_id,
       })
     );
+    setCurrComment('');
+  };
+
+  const onReplyChange = (ev) => {
+    const change = {};
+    change[ev.target.name] = ev.target.value;
+    setCurrReply(change[ev.target.name]);
+  };
+
+  const submitReply = (ev, id) => {
+    ev.preventDefault();
+    dispatch(
+      addComment({
+        userId: auth.id,
+        episodeId: episode.id,
+        content: currReply,
+        spotify_id: episode.spotify_id,
+        replyId: id
+      })
+    );
+    setCurrReply('');
+    setReplyBox({isOpen: false, id: ''});
   };
 
   const onTimeStampChange = (ev) => {
@@ -84,11 +114,16 @@ const SingleEpisode = () => {
         sec: sec,
       })
     );
+    setHour(0);
+    setMin(0);
+    setSec(0);
   };
 
   const hourLength = episode.duration_ms
     ? Math.floor(episode.duration_ms / 3600000) + 1
     : 0;
+
+  const [replyBox, setReplyBox] = useState({isOpen: false, id: ''});
 
   return (
     <div style={{ color: "white" }}>
@@ -261,7 +296,10 @@ const SingleEpisode = () => {
                 <fieldset>
                   <div className="row">
                     <div className="d-flex col-s-8 ">
-                      <i className="bi bi-person-circle"></i>
+                      {/* <i className="bi bi-person-circle"></i> */}
+                      <div>
+                        <Avatar src="https://joeschmoe.io/api/v1/random" style={{ width: '35px', height: '35px', border: '1px solid white', objectFit: 'cover'}}/>
+                      </div>
                       <textarea
                         className="form-control"
                         type="text"
@@ -279,22 +317,141 @@ const SingleEpisode = () => {
               </form>
             </div>
           </div>
-          <ul>
-            {epComments.map((comment) => {
-              const commentUser =
-                findUsers.find((user) => comment.userId === user.id) || {};
-              return (
-                <li
-                  key={comment.id}
-                  style={{ color: "white", listStyle: "none" }}
-                >
-                  <i className="bi bi-person-circle"></i>
-                  {`${commentUser.display_name} - ${comment.content}`}
-                </li>
-              );
-            })}
-          </ul>
         </div>
+            {
+              epComments.filter((epComment) => epComment.replyId === null).map((comment) => {
+                const commentUser = findUsers.find((user) => comment.userId === user.id) || {};
+                const actions = [
+                  <Tooltip key="comment-basic-like" title="Like">
+                    <span>
+                      <ThumbUpOutlinedIcon style={{color: 'white'}} fontSize='small'/>
+                      {/* {createElement(action === 'liked' ? LikeFilled : LikeOutlined)} */}
+                      <span className="comment-action" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>0</span>
+                    </span>
+                  </Tooltip>,
+                  <Tooltip key="comment-basic-dislike" title="Dislike">
+                    <span>
+                      <ThumbDownOutlinedIcon style={{color: 'white'}} fontSize='small'/>
+                      {/* {React.createElement(action === 'disliked' ? DislikeFilled : DislikeOutlined)} */}
+                      <span className="comment-action" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>0</span>
+                    </span>
+                  </Tooltip>,
+                  <span key="comment-basic-reply-to" style={{color: 'white', cursor: 'pointer', fontSize: '0.8rem'}} onClick={() => !replyBox.isOpen ? setReplyBox({isOpen: true, id: comment.id}) : setReplyBox({isOpen: false, id: ''})}>Reply</span>
+                ];
+                const commentReplies = epComments.filter((reply) => reply.replyId === comment.id);
+                return (
+                  <>
+                    <Comment
+                      actions={actions}
+                      avatar={<Avatar src="https://joeschmoe.io/api/v1/random" style={{ width: '35px', height: '35px', border: '1px solid white', objectFit: 'cover'}}/>}
+                      author={<a style={{ color: "white" }}>{commentUser.display_name}</a>} 
+                      content={<p style={{ color: "white" }}>{comment.content}</p>}
+                    >
+                    {(replyBox.isOpen && comment.id === replyBox.id) &&             
+                      <div className="col-sm-4">
+                        <form onSubmit={(ev) => submitReply(ev, comment.id)}>
+                          <fieldset>
+                            <div className="row">
+                              <div className="d-flex col-s-8 ">
+                                {/* <i className="bi bi-person-circle"></i> */}
+                                <div>
+                                  <Avatar src="https://joeschmoe.io/api/v1/random" style={{ width: '35px', height: '35px', border: '1px solid white', objectFit: 'cover'}}/>
+                                </div>
+                                <textarea
+                                  className="form-control"
+                                  type="text"
+                                  placeholder="Add reply here!"
+                                  name="reply"
+                                  value={currReply}
+                                  required
+                                  // commentId={}
+                                  onChange={onReplyChange}
+                                ></textarea>
+                              </div>
+                              <div className="d-flex flex-row-reverse">
+                                <button className="" style={{color: 'black'}}>Add Reply</button>
+                                <button style={{color: 'black'}} onClick={() => {
+                                  setReplyBox({isOpen: false, id: ''});
+                                  setCurrReply('');
+                                }}>Cancel</button>
+                              </div>
+                            </div>
+                          </fieldset>
+                        </form>
+                      </div>
+                    }
+                    {
+                      commentReplies.map((reply) => {
+                        const replyUser = findUsers.find((user) => reply.userId === user.id) || {};
+                        const replyActions = [
+                          <Tooltip key="comment-basic-like" title="Like">
+                            <span>
+                              <ThumbUpOutlinedIcon style={{color: 'white'}} fontSize='small'/>
+                              {/* {createElement(action === 'liked' ? LikeFilled : LikeOutlined)} */}
+                              <span className="comment-action" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>0</span>
+                            </span>
+                          </Tooltip>,
+                          <Tooltip key="comment-basic-dislike" title="Dislike">
+                            <span>
+                              <ThumbDownOutlinedIcon style={{color: 'white'}} fontSize='small'/>
+                              {/* {React.createElement(action === 'disliked' ? DislikeFilled : DislikeOutlined)} */}
+                              <span className="comment-action" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>0</span>
+                            </span>
+                          </Tooltip>,
+                          <span key="comment-basic-reply-to" style={{color: 'white', cursor: 'pointer', fontSize: '0.8rem'}} onClick={() => !replyBox.isOpen ? setReplyBox({isOpen: true, id: reply.id}) : setReplyBox({isOpen: false, id: ''})}>Reply</span>
+                        ];
+                        return (
+                          <>
+                            <Comment
+                              actions={replyActions}
+                              avatar={<Avatar src="https://joeschmoe.io/api/v1/random" style={{ width: '35px', height: '35px', border: '1px solid white', objectFit: 'cover'}}/>}
+                              author={<a style={{ color: "white" }}>{replyUser.display_name}</a>} 
+                              content={<p style={{ color: "white" }}>{reply.content}</p>}
+                            />
+                            {(replyBox.isOpen && reply.id === replyBox.id) &&             
+                              <div className="col-sm-4">
+                                <form onSubmit={(ev) => submitReply(ev, comment.id)}>
+                                  <fieldset>
+                                    <div className="row">
+                                      <div className="d-flex col-s-8 ">
+                                        {/* <i className="bi bi-person-circle"></i> */}
+                                        <div>
+                                          <Avatar src="https://joeschmoe.io/api/v1/random" style={{ width: '35px', height: '35px', border: '1px solid white', objectFit: 'cover'}}/>
+                                        </div>
+                                        <textarea
+                                          className="form-control"
+                                          type="text"
+                                          placeholder="Add reply here!"
+                                          name="reply"
+                                          value={currReply}
+                                          required
+                                          // commentId={}
+                                          onChange={onReplyChange}
+                                        ></textarea>
+                                      </div>
+                                      <div className="d-flex flex-row-reverse">
+                                        <button className="" style={{color: 'black'}}>Add Reply</button>
+                                        <button style={{color: 'black'}} onClick={() => {
+                                          setReplyBox({isOpen: false, id: ''});
+                                          setCurrReply('');
+                                          
+                                        }}>Cancel</button>
+                                      </div>
+                                    </div>
+                                  </fieldset>
+                                </form>
+                              </div>
+                            }
+                          </>
+                        )
+                      })
+                    }
+                    </Comment>
+                  </>
+                )
+              })
+            }
+            {/* <Button>Hello</Button> */}
       </div>
       <hr style={{ color: "white" }} />
       {/* ---------------------------------------------------------- */}
@@ -303,7 +460,7 @@ const SingleEpisode = () => {
       <div
         className="modal fade"
         id="exampleModal"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
         style={{ color: "black" }}
@@ -346,13 +503,13 @@ const SingleEpisode = () => {
                           name="hr"
                           className="form-label"
                         >
-                          <option
+                          {/* <option
                             className="form-control"
                             value={"Select Hr"}
                             disabled
                           >
                             Select Hr
-                          </option>
+                          </option> */}
                           {Array(hourLength)
                             .fill("")
                             .map((min, idx) => {
@@ -373,13 +530,13 @@ const SingleEpisode = () => {
                           name="min"
                           className="form-label"
                         >
-                          <option
+                          {/* <option
                             className="form-c"
                             value={"Select Min"}
                             disabled
                           >
                             Select Min
-                          </option>
+                          </option> */}
                           {Array(60)
                             .fill("")
                             .map((min, idx) => {
@@ -397,9 +554,9 @@ const SingleEpisode = () => {
                           onChange={onTimeStampChange}
                           name="sec"
                         >
-                          <option value={"Select Sec"} disabled>
+                          {/* <option value={"Select Sec"} disabled>
                             Select Sec
-                          </option>
+                          </option> */}
                           {Array(60)
                             .fill("")
                             .map((sec, idx) => {
