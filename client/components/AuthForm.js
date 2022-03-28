@@ -88,18 +88,15 @@ const AuthForm = (props) => {
             <div className="text-center mb-5">
               <span style={{ fontSize: "35px", fontWeight: 400 }}>Login</span>
             </div>
-            <div>
-              {/* <button className="mb-5 p-sm-3" id="login">
-                <a href="/login" style={{ color: "black" }}>
-                  {" "}
-                  Continue with Spotify
-                </a>
-              </button> */}
+            <div className="text-center ">
               {!isLoggedIn ? (
-                <button className="mb-5 p-sm-3" id="login">
+                <button className="mb-5 p-sm-3 " id="login">
                   <a href="/login" style={{ color: "black" }}>
                     {" "}
-                    Continue with Spotify
+                    <span className="" style={{ fontSize: "16px" }}>
+                      <i className=" fa-lg bi bi-spotify d-inline btn float-left p-0 mr-2"></i>
+                      Continue with Spotify
+                    </span>
                   </a>
                 </button>
               ) : (
@@ -114,6 +111,7 @@ const AuthForm = (props) => {
                 id="emailAddress"
                 aria-describedby="emailHelp"
                 placeholder="Email"
+                style={{ width: "300px" }}
               />
             </div>
             <div className="mb-3 ">
@@ -123,6 +121,7 @@ const AuthForm = (props) => {
                 className="form-control"
                 id="password"
                 placeholder="Password"
+                style={{ width: "300px" }}
               />
             </div>
             <button type="submit" className="btn btn-success">
