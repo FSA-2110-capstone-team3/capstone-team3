@@ -292,7 +292,7 @@ const SingleEpisode = () => {
 
           <div className="row">
             <div className="col-sm-4">
-            <form onSubmit={submitComment} id="commentForm">
+              <form onSubmit={submitComment} id="commentForm">
                 <fieldset>
                   <div className="row">
                     <div className="d-flex col-s-8 ">

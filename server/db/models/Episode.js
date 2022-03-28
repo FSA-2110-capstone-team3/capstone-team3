@@ -45,7 +45,10 @@ const Episode = db.define('episode', {
     type: ARRAY(TEXT),
     allowNull: false
   },
-  
+  views: {
+    type: INTEGER,
+    defaultValue: 0
+  }
 },
 {
   hooks: {
