@@ -142,7 +142,8 @@ const Search = () => {
   };
 
   return (
-    <div /*id='wrapper'*/ style={{ color: "white" }}>
+    <div style={{ color: "white" }}>
+      <div></div>
       <Box className="p-5">
         <FormControl fullWidth>
           <TextField
@@ -185,25 +186,65 @@ const Search = () => {
           </div>
         </FormControl>
       </Box>
-      <h3 className="text-center pb-3">Search sPodify+ Content </h3>
-      {searchResults.length ? (
+      <h3 className="text-center pb-3" style={{ color: "white" }}>
+        Search sPodify+ Content{" "}
+      </h3>
+
+      {/* {searchResults.length ? (
         <div>
           <hr></hr>
-          <h4>Shows or Episodes</h4>
+          <h4 style={{ color: "white" }}>Shows or Episodes</h4>
           <ul id="podcastCards" className="mt-4 list-group">
             {/* map over & render spotify search results */}
-            {searchResults.map((content) => (
+      {/* {searchResults.map((content) => (
               <li
                 key={content.id}
                 className="list-group-item bg-transparent text-white"
               >
-                <img src={content.image} />
+                <img
+                  style={{ height: "200px", width: "200px" }}
+                  src={content.image}
+                />
                 <span>{content.name}</span>
               </li>
             ))}
           </ul>
         </div>
+      ) : null} */}
+
+      {searchResults.length ? (
+        <>
+          <h4 style={{ color: "white" }}>Shows or Episodes</h4>
+          <div className="row p-2">
+            {searchResults.map((content) => (
+              <>
+                <div className="col-md-2 p-2">
+                  <div className="card">
+                    <img
+                      src={content.image}
+                      alt="podcastimg"
+                      className="card-img-top"
+                    />
+
+                    <div className="card-body">
+                      <h5
+                        className="card-title text-center"
+                        style={{ color: "white" }}
+                      >
+                        {" "}
+                        {content.name}
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              </>
+            ))}
+          </div>
+        </>
       ) : null}
+
+      {/* ------------------------------ */}
+
       {searchComments(search, comments).length && search ? (
         <div>
           <div className="pt-3">
@@ -223,6 +264,7 @@ const Search = () => {
           </ul>
         </div>
       ) : null}
+
       {searchTimeStamps(search, timeStamps).length && search ? (
         <div>
           <div className="pt-3">

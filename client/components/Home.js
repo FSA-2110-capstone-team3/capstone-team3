@@ -33,7 +33,7 @@ export const Home = (props) => {
           className="col col-lg-2"
           style={{ fontSize: 20 + "px", textAlign: "right" }}
         >
-          <button>
+          <button style={{ backgroundColor: "black" }}>
             <a href="/topcharts">VIEW MORE</a>
           </button>
         </div>
