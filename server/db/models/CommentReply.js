@@ -17,7 +17,11 @@ const CommentReply = db.define('commentReply', {
     type: BOOLEAN,
     allowNull: false,
     defaultValue: false
-  }
+  },
+  // isReplied: {
+  //   type: BOOLEAN,
+  //   defaultValue: false
+  // }
 });
 
 module.exports = CommentReply;
