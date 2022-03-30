@@ -260,6 +260,11 @@ div#mainCard {
   box-shadow: 5px 5px 5px rgb(97, 94, 94);
 }
 
+div.card:hover {
+  border: 45px;
+  box-shadow: 0px 8px 20px white;
+}
+
 @media (max-width: 575.98px) {
   #loginForm {
     width: 100%;

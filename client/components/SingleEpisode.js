@@ -274,9 +274,7 @@ const SingleEpisode = () => {
                       ></textarea>
                     </div>
                     <div className="d-flex flex-row-reverse">
-                      <button style={{ backgroundColor: "black" }}>
-                        Add Comment
-                      </button>
+                      <button>Add Comment</button>
                     </div>
                   </div>
                 </fieldset>

@@ -67,7 +67,10 @@ class Home extends Component {
                     className="card-img-top"
                   />
                   <div className="card-body">
-                    <h5 style={{ textAlign: "center" }} className="card-title">
+                    <h5
+                      style={{ textAlign: "center" }}
+                      className="card-title text-truncate"
+                    >
                       {" "}
                       <Link
                         to={`/show/${podcast.showUri.slice(-22)}`}
@@ -83,7 +86,7 @@ class Home extends Component {
                         </span>
                       </Link>
                     </h5>
-                    <span className="card-text">
+                    <span className="card-text ">
                       <h6
                         style={{
                           textAlign: "center",
@@ -129,7 +132,7 @@ class Home extends Component {
                     <div className="card-body">
                       <h5
                         style={{ textAlign: "center" }}
-                        className="card-title"
+                        className="card-title text-truncate"
                       >
                         <Link
                           to={`/show/${userShow.show.id}`}
