@@ -9,7 +9,6 @@ const App = () => {
       className="main"
       style={{
         fontFamily: "roboto !important",
-
         color: "white !important",
       }}
     >
