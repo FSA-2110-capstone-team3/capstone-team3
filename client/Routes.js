@@ -8,7 +8,7 @@ import {
   useHistory,
   withRouter,
 } from "react-router-dom";
-import { getComments, getTimeStamps, getTopCharts, getUsers, me } from "./store";
+import { getEpisodes, getComments, getTimeStamps, getTopCharts, getUsers, me } from "./store";
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import Search from "./components/Search";
@@ -64,7 +64,8 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData() {
       dispatch(getComments());
-      //dispatch(getTimeStamps());
+      dispatch(getEpisodes())
+      dispatch(getTimeStamps());
       dispatch(getTopCharts());
       dispatch(getUsers());
       dispatch(me());

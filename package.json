@@ -36,7 +36,8 @@
     "querystring": "^0.2.0",
     "request": "^2.81.0",
     "sequelize": "^6.3.5",
-    "spotify-web-api-node": "^5.0.2"
+    "spotify-web-api-node": "^5.0.2",
+    "use-location-state": "^3.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
