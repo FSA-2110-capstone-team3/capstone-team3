@@ -188,8 +188,8 @@ const Search = () => {
   /*<-------------------- React render -------------------->*/
 
   return (
-    <div style={{ color: "white" }}>
-      <Box className="p-5">
+    <div>
+      <Box className="p-5" style={{ color: "black" }}>
         <FormControl fullWidth>
           <TextField
             className={classes.root}
@@ -200,6 +200,7 @@ const Search = () => {
             type="search"
             value={search}
             onChange={(e) => setSearchStates(e.target.value)}
+            style={{ color: "black" }}
           />
 
           {errorRes ? (
@@ -259,7 +260,7 @@ const Search = () => {
           <div className="row p-2 m-2">
             {searchResults.map((content) => (
               <>
-                <div className="col-sm-2 p-2">
+                <div className="col-sm-2 p-2" key={content.id}>
                   <div className="card">
                     <img
                       src={content.image}

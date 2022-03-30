@@ -46,6 +46,7 @@ const SingleEpisode = () => {
   const findUsers = useSelector((state) => state.users) || [];
   const getEpisode = useSelector((state) => state.episodes) || {};
 
+
   //---------------Setting Initial Local State for Episode/Comments/TimeStamps---------------//
   const [episode, setEpisode] = useState({});
   const [currComment, setCurrComment] = useState("");
@@ -290,7 +291,7 @@ const SingleEpisode = () => {
             const editButton =
               comment.userId === auth.id ? (
                 <Tooltip>
-                  <div class="dropdown">
+                  <div className="dropdown">
                     <span data-bs-toggle="dropdown" aria-expanded="false">
                       <MoreHorizIcon
                         style={{ color: "white" }}
@@ -299,12 +300,12 @@ const SingleEpisode = () => {
                       />
                     </span>
                     <ul
-                      class="dropdown-menu"
+                      className="dropdown-menu"
                       aria-labelledby="dropdownMenuButton1"
                     >
                       <li>
                         <a
-                          class="dropdown-item"
+                          className="dropdown-item"
                           onClick={() => {
                             if (!editBox.isEditing) {
                               setEditBox({ isEditing: true, id: comment.id });
@@ -317,7 +318,7 @@ const SingleEpisode = () => {
                       </li>
                       <li>
                         <a
-                          class="dropdown-item"
+                          className="dropdown-item"
                           onClick={() => dispatch(deleteComment(comment.id))}
                         >
                           Delete Comment
@@ -419,7 +420,6 @@ const SingleEpisode = () => {
                           <fieldset>
                             <div className="row">
                               <div className="d-flex col-s-8 ">
-                                {/* <i className="bi bi-person-circle"></i> */}
                                 <textarea
                                   className="form-control"
                                   type="text"
@@ -520,7 +520,7 @@ const SingleEpisode = () => {
                     const replyEditBtn =
                       reply.userId === auth.id ? (
                         <Tooltip>
-                          <div class="dropdown">
+                          <div className="dropdown">
                             <span
                               data-bs-toggle="dropdown"
                               aria-expanded="false"
@@ -532,12 +532,12 @@ const SingleEpisode = () => {
                               />
                             </span>
                             <ul
-                              class="dropdown-menu"
+                              className="dropdown-menu"
                               aria-labelledby="dropdownMenuButton1"
                             >
                               <li>
                                 <a
-                                  class="dropdown-item"
+                                  className="dropdown-item"
                                   onClick={() => {
                                     if (!editBox.isEditing) {
                                       setEditBox({
@@ -554,7 +554,7 @@ const SingleEpisode = () => {
                               </li>
                               <li>
                                 <a
-                                  class="dropdown-item"
+                                  className="dropdown-item"
                                   onClick={() =>
                                     dispatch(deleteComment(reply.id))
                                   }

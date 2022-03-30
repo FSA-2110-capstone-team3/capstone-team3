@@ -25,7 +25,7 @@ class Home extends Component {
     let { topCharts } = this.props;
 
     topCharts = topCharts.slice(0, 5);
-    //console.log("TOP CHARTS---->", topCharts);
+    console.log("TOP CHARTS---->", topCharts);
     return (
       <div style={{ color: "white", fontFamily: "roboto", fontWeight: 300 }}>
         <div>
@@ -33,7 +33,7 @@ class Home extends Component {
             Welcome to Spodify+ , {username[0]}
           </h3>
           <br />
-          <h1 style={{ fontWeight: 300 }}>
+          <h1 style={{ fontWeight: 400 }}>
             Find episodes, watch, comment, follow & more!
           </h1>
           <hr style={{ width: 100 + "%" }} />
@@ -51,7 +51,9 @@ class Home extends Component {
               <a href="/topcharts">VIEW MORE</a>
             </button> */}
             <a href="/topcharts">
-              <button>View More</button>
+              <button style={{ background: "darkGray", color: "white" }}>
+                View More
+              </button>
               <span></span>
             </a>
           </div>
@@ -113,9 +115,12 @@ class Home extends Component {
             className="col col-lg-2"
             style={{ fontSize: 20 + "px", textAlign: "right" }}
           >
-            <button id="button">
-              <a href="/subscribed">VIEW MORE</a>
-            </button>
+            <a href="/subscribed">
+              <button style={{ background: "darkGray", color: "white" }}>
+                View More
+              </button>
+              <span></span>
+            </a>
           </div>
         </div>
         <div>
