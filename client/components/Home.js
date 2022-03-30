@@ -47,9 +47,13 @@ class Home extends Component {
             className="col col-lg-2"
             style={{ fontSize: 20 + "px", textAlign: "right" }}
           >
-            <button>
+            {/* <button id="button">
               <a href="/topcharts">VIEW MORE</a>
-            </button>
+            </button> */}
+            <a href="/topcharts">
+              <button>View More</button>
+              <span></span>
+            </a>
           </div>
         </div>
         <div>
@@ -65,7 +69,10 @@ class Home extends Component {
                   <div className="card-body">
                     <h5 style={{ textAlign: "center" }} className="card-title">
                       {" "}
-                      <Link to={`/show/${podcast.showUri.slice(-22)}`}>
+                      <Link
+                        to={`/show/${podcast.showUri.slice(-22)}`}
+                        className="stretched-link"
+                      >
                         <span
                           style={{
                             fontWeight: "bold",
@@ -103,7 +110,7 @@ class Home extends Component {
             className="col col-lg-2"
             style={{ fontSize: 20 + "px", textAlign: "right" }}
           >
-            <button>
+            <button id="button">
               <a href="/subscribed">VIEW MORE</a>
             </button>
           </div>
@@ -124,7 +131,10 @@ class Home extends Component {
                         style={{ textAlign: "center" }}
                         className="card-title"
                       >
-                        <Link to={`/show/${userShow.show.id}`}>
+                        <Link
+                          to={`/show/${userShow.show.id}`}
+                          className="stretched-link"
+                        >
                           <span style={{ fontWeight: "bold", color: "white" }}>
                             {userShow.show.name}
                           </span>

@@ -130,7 +130,10 @@ class TopPodcasts extends Component {
                 <div className="card-body ">
                   <h5 style={{ textAlign: "center" }} className="card-title">
                     {" "}
-                    <Link to={`/show/${podcast.showUri.slice(-22)}`}>
+                    <Link
+                      to={`/show/${podcast.showUri.slice(-22)}`}
+                      className="stretched-link"
+                    >
                       <span
                         className="card-text"
                         style={{

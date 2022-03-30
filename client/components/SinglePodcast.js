@@ -113,7 +113,10 @@ const SinglePodcast = () => {
                 />
                 <div className="card-body">
                   <h5 className="card-title" style={{ textAlign: "center" }}>
-                    <Link to={`/episode/${episode.id}`}>
+                    <Link
+                      to={`/episode/${episode.id}`}
+                      className="stretched-link"
+                    >
                       <span
                         style={{
                           color: "white",
