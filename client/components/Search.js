@@ -215,15 +215,16 @@ const Search = () => {
       {searchResults.length ? (
         <>
           <h4 style={{ color: "white" }}>Shows or Episodes</h4>
-          <div className="row p-2">
+          <div className="row p-2 m-2">
             {searchResults.map((content) => (
               <>
-                <div className="col-md-2 p-2">
+                <div className="col-sm-2 p-2">
                   <div className="card">
                     <img
                       src={content.image}
                       alt="podcastimg"
                       className="card-img-top"
+                      id="searchImg"
                     />
 
                     <div className="card-body">

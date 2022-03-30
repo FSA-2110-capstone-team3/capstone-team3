@@ -98,7 +98,9 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
           <a href="/" className="navbar-brand text-light mt-2">
             {" "}
             <div className="display-6 font-weight-bold">
-              <span style={{ fontFamily: "roboto", fontWeight: 400 }}>
+              <span
+                style={{ fontFamily: "roboto", fontWeight: 400, color: "gray" }}
+              >
                 <i></i>
                 SPODify +
               </span>{" "}
@@ -122,7 +124,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
             <ul className="navbar-nav w-100 d-flex flex-sm-column text-center text-sm-start ">
               <li>
                 <a href="/home " className="nav-link" aria-current="page">
-                  <span style={{ fontWeight: 500 }}>
+                  <span style={{ fontWeight: 500, color: "gray" }}>
                     <i className="bi bi-house-door "></i>
                     HOME
                   </span>
@@ -130,7 +132,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
               </li>
               <li>
                 <a href="/search" className="nav-link">
-                  <span style={{ fontWeight: 500 }}>
+                  <span style={{ fontWeight: 500, color: "gray" }}>
                     <i className="bi bi-search"></i>
                     SEARCH
                   </span>
@@ -138,7 +140,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
               </li>
               <li>
                 <a href="/subscribed" className="nav-link">
-                  <span style={{ fontWeight: 500 }}>
+                  <span style={{ fontWeight: 500, color: "gray" }}>
                     <i className="bi bi-rainbow"></i>
                     YOUR LIBRARY
                   </span>
@@ -150,7 +152,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                   <ul className="navbar-nav w-100 d-flex flex-sm-column text-center text-sm-start ">
                     <li className="nav-item h-25">
                       <a href="/login" className="nav-link text-light pl-4">
-                        <span style={{ fontWeight: 500 }}>
+                        <span style={{ fontWeight: 500, color: "gray" }}>
                           <i className="bi bi-person-circle"></i>
                           {username[0]}
                         </span>
@@ -162,7 +164,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                         onClick={handleClick}
                         className="nav-link text-light pl-4"
                       >
-                        <span style={{ fontWeight: 500 }}>
+                        <span style={{ fontWeight: 500, color: "gray" }}>
                           <i className="fa fa-sign-out" aria-hidden="false"></i>
                           LOGOUT
                         </span>

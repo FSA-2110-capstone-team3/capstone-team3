@@ -9,7 +9,7 @@ const App = () => {
       className="main"
       style={{
         fontFamily: "roboto !important",
-        background: "#1c1c1c",
+
         color: "white !important",
       }}
     >

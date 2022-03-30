@@ -3,6 +3,12 @@ body {
   background-color: #1c1c1c !important;
   color: "white" !important;
   font-family: "roboto" !important; */
+  background: rgb(28, 28, 28) !important;
+  background: linear-gradient(
+    0deg,
+    rgba(28, 28, 28, 1) 63%,
+    rgba(128, 128, 128, 1) 96%
+  ) !important;
 }
 
 a {
@@ -70,7 +76,7 @@ div.container {
 .navbar {
   /* position: fixed; */
   height: 100vh;
-  background-color: #454545;
+  background-color: rgb(28, 28, 28);
 }
 
 i {
@@ -88,7 +94,7 @@ nav a.nav-link {
 }
 
 nav a.nav-link span:hover {
-  color: red;
+  color: red !important;
 }
 
 a.nav-link span:hover,
@@ -149,6 +155,11 @@ div#mainCard {
   padding: 0;
   margin: 0;
 } */
+
+#searchImg {
+  max-width: 32;
+  max-height: 32;
+}
 
 #mainCard {
   /* padding: 2px; */

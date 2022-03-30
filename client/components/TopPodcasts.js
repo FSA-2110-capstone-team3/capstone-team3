@@ -127,7 +127,7 @@ class TopPodcasts extends Component {
           {topCharts.map((podcast) => (
             <div className="col-lg-2 " id="mainCard" key={podcast.showUri}>
               <div style={{ color: "white" }}>{`${rank++}.`}</div>
-              <div className="card ">
+              <div className="card">
                 <img
                   src={podcast.showImageUrl}
                   alt="podcastimg"
