@@ -2,33 +2,22 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { getSubscribedShows } from "../store/subscribedShows";
 
 class SubscribedPodcasts extends Component {
-  constructor() {
-    super();
-    this.state = {
-      userShows: [],
-    };
-  }
-
-  async componentDidMount() {
-    const { auth } = this.props;
+  componentDidMount() {
+    const { auth, getSubscribedShows } = this.props;
     const userId = auth.id;
     try {
-      const userShows = await axios.post("/api/shows/spotify/saved", {
-        userId,
-      });
-      this.setState({
-        userShows: userShows.data.items,
-      });
-      console.dir(this.state, "this.state");
+      getSubscribedShows({ userId: userId });
     } catch (err) {
       console.log(err);
     }
   }
 
   render() {
-    const { userShows } = this.state;
+    const { subscribedShows } = this.props;
+    const userShows = subscribedShows.data?.items;
     return (
       <>
         <h1 style={{ textAlign: "center", color: "white", fontWeight: 400 }}>
@@ -36,7 +25,7 @@ class SubscribedPodcasts extends Component {
         </h1>
 
         <div className="row p-5 m-2" style={{ color: "white" }}>
-          {userShows.map((userShow) => {
+          {userShows?.map((userShow) => {
             return (
               <div className="col-md-2 " key={userShow.show.id}>
                 <div className="card h-100">
@@ -76,10 +65,13 @@ class SubscribedPodcasts extends Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = ({ auth, subscribedShows }) => {
   return {
     auth,
+    subscribedShows,
   };
 };
 
-export default connect(mapStateToProps)(SubscribedPodcasts);
+const mapDispatchToProps = { getSubscribedShows };
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubscribedPodcasts);

@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./components/Navbar";
 import Routes from "./Routes";
-import "antd/dist/antd.css";
+// import 'antd/dist/antd.css';
 
 const App = () => {
   return (

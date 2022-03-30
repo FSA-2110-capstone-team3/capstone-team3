@@ -5,12 +5,6 @@ import { Link } from "react-router-dom";
 class TopPodcasts extends Component {
   render() {
     const { topCharts } = this.props;
-
-    /* Example for Priscilla - this is how you can grab first 4 in home component
-    let { topCharts } = this.props;
-    topCharts = topCharts.slice(0, 4);
-    */
-
     let rank = 1;
     return (
       // <div>
