@@ -78,7 +78,7 @@ export const commentReplies = (state = [], action) => {
     case UPDATE_COMMENT_REPLY:
       return state.map((commentReply) => commentReply.id === action.commentReply.id ? action.commentReply : commentReply)
     case DELETE_COMMENT_REPLY:
-      return state.filter((commentReply) => commentReply !== action.id)
+      return state.filter((commentReply) => commentReply.id !== action.id)
     default:
       return state
   }
