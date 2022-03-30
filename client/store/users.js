@@ -78,7 +78,7 @@ export const users = (state = [], action) => {
     case UPDATE_USER:
       return state.map((user) => user.id === action.user.id ? action.user : user)
     case DELETE_USER:
-      return state.filter((user) => user !== action.id)
+      return state.filter((user) => user.id !== action.id)
     default:
       return state
   }

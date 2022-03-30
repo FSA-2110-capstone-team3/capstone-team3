@@ -89,7 +89,7 @@ export const shows = (state = [], action) => {
     case UPDATE_SHOW:
       return state.map((show) => show.id === action.show.id ? action.show : show);
     case DELETE_SHOW:
-      return state.filter((show) => show !== action.id);
+      return state.filter((show) => show.id !== action.id);
     default:
       return state;
   }

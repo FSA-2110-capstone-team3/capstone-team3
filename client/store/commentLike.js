@@ -78,7 +78,7 @@ export const commentLikes = (state = [], action) => {
     case UPDATE_COMMENT_LIKE:
       return state.map((commentLike) => commentLike.id === action.commentLike.id ? action.commentLike : commentLike)
     case DELETE_COMMENT_LIKE:
-      return state.filter((commentLike) => commentLike !== action.id)
+      return state.filter((commentLike) => commentLike.id !== action.id)
     default:
       return state
   }

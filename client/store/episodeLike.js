@@ -78,7 +78,7 @@ export const episodeLikes = (state = [], action) => {
     case UPDATE_EPISODE_LIKE:
       return state.map((episodeLike) => episodeLike.id === action.episodeLike.id ? action.episodeLike : episodeLike)
     case DELETE_EPISODE_LIKE:
-      return state.filter((episodeLike) => episodeLike !== action.id)
+      return state.filter((episodeLike) => episodeLike.id !== action.id)
     default:
       return state
   }

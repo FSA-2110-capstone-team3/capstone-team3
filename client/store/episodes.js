@@ -95,7 +95,7 @@ export const episodes = (state = [], action) => {
     case UPDATE_EPISODE:
       return state.map((episode) => episode.id === action.episode.id ? action.episode : episode)
     case DELETE_EPISODE:
-      return state.filter((episode) => episode !== action.id)
+      return state.filter((episode) => episode.id !== action.id)
     default:
       return state
   }
