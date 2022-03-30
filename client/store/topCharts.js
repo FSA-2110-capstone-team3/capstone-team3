@@ -17,8 +17,8 @@ const _getTopCharts = (topCharts) => {
 
 export const getTopCharts = () => {
   return async (dispatch) => {
-    // Limit to top 25
-    const topCharts = (await axios.get("/api/shows/topcharts")).data.slice(0, 25);
+    // Returns top 200 but limit to top 50
+    const topCharts = (await axios.get("/api/shows/topcharts")).data.slice(0, 50);
     dispatch(_getTopCharts(topCharts));
   }
 };

@@ -61,7 +61,7 @@ const AuthForm = (props) => {
           </form>
         </div>
       </div> */}
-      <div class=" full-width d-flex flex-column min-vh-100 justify-content-center align-items-center ">
+      <div className=" full-width d-flex flex-column min-vh-100 justify-content-center align-items-center ">
         <div
           id="loginform"
           className="d-flex flex-column justify-content-center align-items-center  p-5 rounded-3"

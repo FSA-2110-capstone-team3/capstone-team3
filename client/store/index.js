@@ -9,6 +9,7 @@ import { comments } from './comments'
 import { episodeLikes } from './episodeLike'
 import { episodes } from './episodes'
 import { shows } from './shows'
+import { subscribedShows } from './subscribedShows'
 import { timeStamps } from './timeStamps'
 import { topCharts } from './topCharts'
 import { users } from './users'
@@ -22,6 +23,7 @@ const reducer = combineReducers(
     episodeLikes,
     episodes,
     shows,
+    subscribedShows,
     timeStamps,
     topCharts,
     users
@@ -42,6 +44,7 @@ export * from './comments'
 export * from './episodeLike'
 export * from './episodes'
 export * from './shows'
+export * from './subscribedShows'
 export * from './timeStamps'
 export * from './topCharts'
 export * from './users'
