@@ -95,16 +95,16 @@ const Search = () => {
   const useStyles = makeStyles({
     root: {
       "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-        borderColor: "gray",
+        borderColor: "white",
       },
       "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
         borderColor: "white",
       },
       "& .MuiOutlinedInput-input": {
-        color: "gray",
+        color: "white",
       },
       "& .MuiInputLabel-outlined": {
-        color: "gray",
+        color: "white",
       },
     },
   });
@@ -188,7 +188,7 @@ const Search = () => {
   return (
     <div>
       <h3 className="text-white text-center pb-3">Search sPodify+ Content </h3>
-      <Box className="p-5" style={{ color: "black" }}>
+      <Box className="p-5" /*style={{ color: "black" }}*/>
         <FormControl fullWidth>
           <TextField
             className={classes.root}
