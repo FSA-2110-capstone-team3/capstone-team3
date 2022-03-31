@@ -187,6 +187,7 @@ const Search = () => {
 
   return (
     <div>
+      <h3 className="text-white text-center pb-3">Search sPodify+ Content </h3>
       <Box className="p-5" style={{ color: "black" }}>
         <FormControl fullWidth>
           <TextField
@@ -231,49 +232,6 @@ const Search = () => {
           </div>
         </FormControl>
       </Box>
-
-      {/* <h3 className="text-white text-center pb-3">Search sPodify+ Content </h3>
-      {searchResults.length ? (
-        <div>
-          <hr></hr>
-
-          <h4 className="text-white">Shows or Episodes</h4>
-      <ul id="podcastCards" className="mt-4 list-group">
-
-       {searchResults.map((content) => (
-
-
-          <h4 className="text-white">Shows or Episodes</h4> */}
-      {/* <ul id="podcastCards" className="mt-4 list-group"> */}
-      {/* map over & render spotify search results */}
-      {/* {searchResults.map((content) => (
-
-              <li
-                key={content.id}
-                className="list-group-item bg-transparent text-white"
-              >
-                <img src={content.image} />
-                <div>{content.name}</div>
-              </li>
-
-          <h4 className="text-white">Shows or Episodes</h4>
-          <ul id="podcastCards" className="mt-4 list-group">
-            {/* map over & render spotify search results */}
-            {searchResults.map((content) => (
-              <Link key={content.id} to={`/${contentToggle.slice(0, -1)}/${content.id}`}>
-                <li className="list-group-item bg-transparent text-white">
-                  <img src={content.image} />
-                  <div>{content.name}</div>
-                </li>
-              </Link>
-
-            ))}
-          </ul>
-        </div>
-      ) : null} */}
-
-      {/* PLEASE COMMENT OUTTTT */}
-
       {searchResults.length ? (
         <>
           <h4 style={{ color: "white" }}>Shows or Episodes</h4>
