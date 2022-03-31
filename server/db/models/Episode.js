@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize')
 const { ARRAY, INTEGER, STRING, TEXT, UUID, UUIDV4 } = Sequelize;
 const db = require('../db');
-const EpisodeLike = require('./EpisodeLike');
 
 const Episode = db.define('episode', {
   id: {
@@ -50,13 +49,13 @@ const Episode = db.define('episode', {
     defaultValue: 0
   }
 },
-{
-  hooks: {
-    afterCreate: async(episode, options) => {
-      await EpisodeLike.create({episodeId: episode.id})
-    }
-  }
-}
+// {     <----deprecated hook - episodeLike now created when user likes/dislikes an episode
+//   hooks: {
+//     afterCreate: async(episode, options) => {
+//       await EpisodeLike.create({episodeId: episode.id})
+//     }
+//   }
+// }
 );
 
 module.exports = Episode;
