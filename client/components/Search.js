@@ -187,6 +187,7 @@ const Search = () => {
 
   return (
     <div>
+      <h3 className="text-white text-center pb-3">Search sPodify+ Content </h3>
       <Box className="p-5" style={{ color: "black" }}>
         <FormControl fullWidth>
           <TextField
@@ -231,7 +232,6 @@ const Search = () => {
           </div>
         </FormControl>
       </Box>
-
       {searchResults.length ? (
         <>
           <h4 style={{ color: "white" }}>Shows or Episodes</h4>
