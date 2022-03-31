@@ -11,6 +11,8 @@ import {
 import {
   getEpisodes,
   getComments,
+  getSavedEpisodes,
+  getSubscribedShows,
   getTimeStamps,
   getTopCharts,
   getUsers,
@@ -18,6 +20,7 @@ import {
 } from "./store";
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
+import SavedEpisodes from "./components/SavedEpisodes";
 import Search from "./components/Search";
 import SinglePodcast from "./components/SinglePodcast";
 import SingleEpisode from "./components/SingleEpisode";
@@ -27,7 +30,30 @@ import UserDeatils from "./components/UserDetails";
 
 class Routes extends Component {
   componentDidMount() {
-    this.props.loadInitialData();
+    const {
+      getComments,
+      getEpisodes,
+      getTimeStamps,
+      getTopCharts,
+      getUsers,
+      me,
+    } = this.props;
+    getComments();
+    getEpisodes();
+    getTimeStamps();
+    getTopCharts();
+    getUsers();
+    me();
+  }
+
+  componentDidUpdate() {
+    const { userId, getSavedEpisodes, getSubscribedShows } = this.props;
+    try {
+      getSavedEpisodes({ userId: userId });
+      getSubscribedShows({ userId: userId });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   render() {
@@ -36,24 +62,21 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
-            <Route path="/home" component={Home} />
-            <Route exact path="/subscribed" component={SubscribedPodcasts} />
-            <Route exact path="/topcharts" component={TopPodcasts} />
+            <Route exact path="/home" component={Home} />
+            {/* <Route exact path="/saved" component={SavedEpisodes} /> */}
+            <Route exact path="/search" component={Search} />
             <Route exact path="/show/:id" component={SinglePodcast} />
             <Route exact path="/episode/:id" component={SingleEpisode} />
-            <Route exact path="/search" component={Search} />
+            <Route exact path="/subscribed" component={SubscribedPodcasts} />
+            <Route exact path="/topcharts" component={TopPodcasts} />
             <Route exact path="/userDetails" component={UserDeatils} />
             <Redirect to="/home" />
           </Switch>
         ) : (
           <Switch>
             <Route exact path="/" component={Login} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/show/:id" component={SinglePodcast} />
-            <Route path="/episode/:id" component={SingleEpisode} />
-            <Route path="/topcharts" component={TopPodcasts} />
-            <Route path="/search" component={Search} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
           </Switch>
         )}
       </div>
@@ -66,20 +89,19 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
+    userId: state.auth.id,
   };
 };
 
-const mapDispatch = (dispatch) => {
-  return {
-    loadInitialData() {
-      dispatch(getComments());
-      dispatch(getEpisodes());
-      dispatch(getTimeStamps());
-      dispatch(getTopCharts());
-      dispatch(getUsers());
-      dispatch(me());
-    },
-  };
+const mapDispatch = {
+  getComments,
+  getEpisodes,
+  getSavedEpisodes,
+  getSubscribedShows,
+  getTimeStamps,
+  getTopCharts,
+  getUsers,
+  me,
 };
 
 // The `withRouter` wrapper makes sure that updates are not blocked

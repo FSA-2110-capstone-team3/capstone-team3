@@ -1,36 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import TopPodcasts from "./TopPodcasts";
 import { Link } from "react-router-dom";
-import { getSubscribedShows } from "../store/subscribedShows";
 
 class Home extends Component {
-  componentDidMount() {
-    const { auth, getSubscribedShows } = this.props;
-    const userId = auth.id;
-    try {
-      getSubscribedShows({ userId: userId });
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   render() {
     const { email, subscribedShows } = this.props;
     let username = email.split("@");
 
     const userShows = subscribedShows.data?.items.slice(0, 5) || [];
-    // console.log(userShows, "user shows-----");
 
     let { topCharts } = this.props;
-
     topCharts = topCharts.slice(0, 5);
-    console.log("TOP CHARTS---->", topCharts);
+
     return (
       <div style={{ color: "white", fontFamily: "roboto", fontWeight: 300 }}>
         <div>
           <h3 style={{ fontWeight: 400 }}>
-            Welcome to Spodify+ , {username[0]}
+            Welcome to Spodify+, {username[0]}
           </h3>
           <br />
           <h1 style={{ fontWeight: 400 }}>
@@ -178,13 +164,10 @@ class Home extends Component {
  */
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth,
     email: state.auth.email,
     subscribedShows: state.subscribedShows,
     topCharts: state.topCharts,
   };
 };
 
-const mapDispatchToProps = { getSubscribedShows };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);

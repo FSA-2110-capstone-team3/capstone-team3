@@ -38,7 +38,7 @@ router.get('/spotify/profile', async(req, res, next) => {
         'content-type': 'application/json',
         Authorization: `Bearer ${access_token}`
       }
-    })).data 
+    })).data
     res.send(response);
   } catch(ex) {
     next(ex);
@@ -49,7 +49,7 @@ router.get('/spotify/profile', async(req, res, next) => {
 
 //GET all episodes from single user library/saved episodes
   //using userId to pull access_token from db
-router.get('/spotify/episodes', async(req, res, next) => {
+router.post('/spotify/episodes', async(req, res, next) => {
   try {
     //use req.body to supply userId from front end
     const curr_user = await User.findByPk(req.body.userId)
@@ -62,7 +62,7 @@ router.get('/spotify/episodes', async(req, res, next) => {
         'content-type': 'application/json',
         Authorization: `Bearer ${access_token}`
       }
-    })).data 
+    })).data
     res.send(response);
   } catch(ex) {
     next(ex);
@@ -70,7 +70,7 @@ router.get('/spotify/episodes', async(req, res, next) => {
 });
 
 
-//GET(True/False) check if user library/saves contains show Ids 
+//GET(True/False) check if user library/saves contains show Ids
   //using userId to pull access_token from db
   router.get('/spotify/shows/contains', async(req, res, next) => {
     try {
@@ -87,7 +87,7 @@ router.get('/spotify/episodes', async(req, res, next) => {
           'content-type': 'application/json',
           Authorization: `Bearer ${access_token}`
         }
-      })).data 
+      })).data
       res.send(response);
     } catch(ex) {
       next(ex);
@@ -96,7 +96,7 @@ router.get('/spotify/episodes', async(req, res, next) => {
 
 
 
-//GET(True/False) check if user library/saves contains episode Ids 
+//GET(True/False) check if user library/saves contains episode Ids
   //using userId to pull access_token from db
   router.get('/spotify/episodes/contains', async(req, res, next) => {
     try {
@@ -113,7 +113,7 @@ router.get('/spotify/episodes', async(req, res, next) => {
           'content-type': 'application/json',
           Authorization: `Bearer ${access_token}`
         }
-      })).data 
+      })).data
       res.send(response);
     } catch(ex) {
       next(ex);
@@ -142,7 +142,7 @@ router.put('/spotify/add/:id', async(req, res, next) => {
         'content-type': 'application/json',
         Authorization: `Bearer ${access_token}`
       }
-    })).data 
+    })).data
     console.log('Success, episode added to user library')
     res.send(response);
   } catch(ex) {
@@ -169,7 +169,7 @@ router.put('/spotify/add/:id', async(req, res, next) => {
           'content-type': 'application/json',
           Authorization: `Bearer ${access_token}`
         }
-      })).data 
+      })).data
       console.log('Success, episode removed from user library')
       res.send(response);
     } catch(ex) {
