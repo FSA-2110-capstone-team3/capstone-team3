@@ -2,19 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { getSubscribedShows } from "../store/subscribedShows";
 
 class SubscribedPodcasts extends Component {
-  componentDidMount() {
-    const { auth, getSubscribedShows } = this.props;
-    const userId = auth.id;
-    try {
-      getSubscribedShows({ userId: userId });
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   render() {
     const { subscribedShows } = this.props;
     const userShows = subscribedShows.data?.items;
@@ -72,13 +61,10 @@ class SubscribedPodcasts extends Component {
   }
 }
 
-const mapStateToProps = ({ auth, subscribedShows }) => {
+const mapStateToProps = ({ subscribedShows }) => {
   return {
-    auth,
     subscribedShows,
   };
 };
 
-const mapDispatchToProps = { getSubscribedShows };
-
-export default connect(mapStateToProps, mapDispatchToProps)(SubscribedPodcasts);
+export default connect(mapStateToProps)(SubscribedPodcasts);
