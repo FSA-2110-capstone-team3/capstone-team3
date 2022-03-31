@@ -8,27 +8,26 @@ import {
   addTimeStamp,
   getTimeStamps,
   deleteComment,
-  updateComment
+  updateComment,
 } from "../store";
-import 'antd/lib/tooltip/style/index.css'
-import 'antd/lib/menu/style/index.css'
-import 'antd/lib/comment/style/index.css'
-import 'antd/lib/avatar/style/index.css'
-import { Comment, Avatar, Tooltip } from 'antd';
-import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import localizedFormat from 'dayjs/plugin/localizedFormat'
+import "antd/lib/tooltip/style/index.css";
+import "antd/lib/menu/style/index.css";
+import "antd/lib/comment/style/index.css";
+import "antd/lib/avatar/style/index.css";
+import { Comment, Avatar, Tooltip } from "antd";
+import ThumbUpOutlinedIcon from "@material-ui/icons/ThumbUpOutlined";
+import ThumbUpIcon from "@material-ui/icons/ThumbUp";
+import ThumbDownIcon from "@material-ui/icons/ThumbDown";
+import ThumbDownOutlinedIcon from "@material-ui/icons/ThumbDownOutlined";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(relativeTime);
 dayjs.extend(localizedFormat);
-
 
 const SingleEpisode = () => {
   const { id } = useParams();
@@ -47,6 +46,7 @@ const SingleEpisode = () => {
   const findUsers = useSelector((state) => state.users) || [];
   const getEpisode = useSelector((state) => state.episodes) || {};
 
+
   //---------------Setting Initial Local State for Episode/Comments/TimeStamps---------------//
   const [episode, setEpisode] = useState({});
   const [currComment, setCurrComment] = useState("");
@@ -56,8 +56,8 @@ const SingleEpisode = () => {
   const [hour, setHour] = useState(0);
   const [min, setMin] = useState(0);
   const [sec, setSec] = useState(0);
-  const [replyBox, setReplyBox] = useState({isOpen: false, id: ''});
-  const [editBox, setEditBox] = useState({isEditing: false, id: ''});
+  const [replyBox, setReplyBox] = useState({ isOpen: false, id: "" });
+  const [editBox, setEditBox] = useState({ isEditing: false, id: "" });
 
   useEffect(() => {
     dispatch(getTimeStamps());
@@ -85,7 +85,7 @@ const SingleEpisode = () => {
         spotify_id: episode.spotify_id,
       })
     );
-    setCurrComment('');
+    setCurrComment("");
   };
 
   const onReplyChange = (ev) => {
@@ -96,23 +96,25 @@ const SingleEpisode = () => {
 
   const submitReply = (ev, id) => {
     ev.preventDefault();
-    editBox.isEditing ? 
-    dispatch(updateComment({
-      id: editBox.id,
-      content: currReply
-    }))
-    : dispatch(
-      addComment({
-        userId: auth.id,
-        episodeId: episode.id,
-        content: currReply,
-        spotify_id: episode.spotify_id,
-        replyId: id
-      })
-    );
-    setCurrReply('');
-    setReplyBox({isOpen: false, id: ''});
-    setEditBox({isEditing: false, id: ''})
+    editBox.isEditing
+      ? dispatch(
+          updateComment({
+            id: editBox.id,
+            content: currReply,
+          })
+        )
+      : dispatch(
+          addComment({
+            userId: auth.id,
+            episodeId: episode.id,
+            content: currReply,
+            spotify_id: episode.spotify_id,
+            replyId: id,
+          })
+        );
+    setCurrReply("");
+    setReplyBox({ isOpen: false, id: "" });
+    setEditBox({ isEditing: false, id: "" });
   };
 
   const onTimeStampChange = (ev) => {
@@ -237,7 +239,8 @@ const SingleEpisode = () => {
         <div>
           <div className="mb-2 p-2">
             <span style={{ color: "white", fontSize: "25px", fontWeight: 400 }}>
-              Comments ({epComments.filter((cmt) => cmt.replyId === null).length})
+              Comments (
+              {epComments.filter((cmt) => cmt.replyId === null).length})
             </span>
           </div>
           {/* <div style={{ color: "white", fontSize: "20px", fontWeight: 300 }}>
@@ -249,21 +252,30 @@ const SingleEpisode = () => {
                 <fieldset>
                   <div className="row">
                     <div className="d-flex col-s-8 ">
-                      {/* <i className="bi bi-person-circle"></i> */}
                       <div>
-                        <Avatar src="https://joeschmoe.io/api/v1/random" style={{ width: '35px', height: '35px', border: '1px solid white', objectFit: 'cover'}}/>
+                        <Avatar
+                          src="https://joeschmoe.io/api/v1/random"
+                          style={{
+                            width: "35px",
+                            height: "35px",
+                            border: "1px solid white",
+                            objectFit: "cover",
+                          }}
+                        />
                       </div>
                       <textarea
+                        id="commentTextArea"
                         className="form-control"
                         type="text"
                         placeholder="Add comment here!"
                         name="name"
                         value={currComment}
                         onChange={onCommentChange}
+                        style={{ color: "white" }}
                       ></textarea>
                     </div>
                     <div className="d-flex flex-row-reverse">
-                      <button className="">Add Comment</button>
+                      <button>Add Comment</button>
                     </div>
                   </div>
                 </fieldset>
@@ -271,120 +283,143 @@ const SingleEpisode = () => {
             </div>
           </div>
         </div>
-            {
-              epComments.filter((epComment) => epComment.replyId === null).map((comment) => {
-                const commentUser = findUsers.find((user) => comment.userId === user.id) || {};
-                const editButton = comment.userId === auth.id ? 
-                  <Tooltip>
-                    <div class="dropdown" >
-                      <span data-bs-toggle="dropdown" aria-expanded="false">
-                        <MoreHorizIcon style={{color: 'white'}} fontSize='small' onClick={(ev) => ev.preventDefault()}/>
-                      </span>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li>
-                          <a 
-                            class="dropdown-item"
-                            onClick={() => {
-                              if (!editBox.isEditing) {
-                                setEditBox({isEditing: true, id: comment.id});
-                                setCurrReply(comment.content)
-                              }
-                              else setEditBox({isEditing: false, id: ''})
-                            }}
-                          >Edit Comment</a>
-                        </li>
-                        <li>
-                          <a 
-                            class="dropdown-item"
-                            onClick={() => dispatch(deleteComment(comment.id))}
-                          >Delete Comment</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </Tooltip> 
-                  : '';
-                const actions = [
-                  <Tooltip key="comment-basic-like">
-                    <span>
-                      <ThumbUpOutlinedIcon style={{color: 'white', cursor: 'pointer'}} fontSize='small'/>
-                      {/* {createElement(action === 'liked' ? LikeFilled : LikeOutlined)} */}
-                      <span className="comment-action" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>0</span>
+        {epComments
+          .filter((epComment) => epComment.replyId === null)
+          .map((comment) => {
+            const commentUser =
+              findUsers.find((user) => comment.userId === user.id) || {};
+            const editButton =
+              comment.userId === auth.id ? (
+                <Tooltip>
+                  <div className="dropdown">
+                    <span data-bs-toggle="dropdown" aria-expanded="false">
+                      <MoreHorizIcon
+                        style={{ color: "white" }}
+                        fontSize="small"
+                        onClick={(ev) => ev.preventDefault()}
+                      />
                     </span>
-                  </Tooltip>,
-                  <Tooltip key="comment-basic-dislike">
-                    <span>
-                      <ThumbDownOutlinedIcon style={{color: 'white', cursor: 'pointer'}} fontSize='small'/>
-                      {/* {React.createElement(action === 'disliked' ? DislikeFilled : DislikeOutlined)} */}
-                      <span className="comment-action" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>0</span>
-                    </span>
-                  </Tooltip>,
-                  <span 
-                    key="comment-basic-reply-to" 
-                    style={{color: 'white', cursor: 'pointer', fontSize: '0.8rem'}} 
-                    onClick={() => {
-                      if (!replyBox.isOpen) {
-                        setReplyBox({isOpen: true, id: comment.id});
-                        setCurrReply(`@${commentUser.display_name} `)
-                      }
-                      else setReplyBox({isOpen: false, id: ''})
+                    <ul
+                      className="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton1"
+                    >
+                      <li>
+                        <a
+                          className="dropdown-item"
+                          onClick={() => {
+                            if (!editBox.isEditing) {
+                              setEditBox({ isEditing: true, id: comment.id });
+                              setCurrReply(comment.content);
+                            } else setEditBox({ isEditing: false, id: "" });
+                          }}
+                        >
+                          Edit Comment
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="dropdown-item"
+                          onClick={() => dispatch(deleteComment(comment.id))}
+                        >
+                          Delete Comment
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </Tooltip>
+              ) : (
+                ""
+              );
+            const actions = [
+              <Tooltip key="comment-basic-like">
+                <span>
+                  <ThumbUpOutlinedIcon
+                    style={{ color: "white", cursor: "pointer" }}
+                    fontSize="small"
+                  />
+                  {/* {createElement(action === 'liked' ? LikeFilled : LikeOutlined)} */}
+                  <span
+                    className="comment-action"
+                    style={{
+                      color: "white",
+                      fontSize: "1rem",
+                      paddingLeft: "5px",
                     }}
                   >
-                    Reply
-                  </span>,
-                  editButton
-                ];
-                const commentReplies = epComments.filter((reply) => reply.replyId === comment.id);
-                return (
-                  <>
-                    <Comment
-                      datetime={
-                        <Tooltip title={dayjs(comment.createdAt).format('L LT')}>
-                          <span>{dayjs(comment.createdAt).fromNow()}</span>
-                        </Tooltip>
-                      }
-                      actions={actions}
-                      avatar={<Avatar src="https://joeschmoe.io/api/v1/random" style={{ width: '35px', height: '35px', border: '1px solid white', objectFit: 'cover'}}/>}
-                      author={<a style={{ color: "white" }}>{commentUser.display_name}</a>} 
-                      content={editBox.isEditing && comment.id === editBox.id ?                       
+                    0
+                  </span>
+                </span>
+              </Tooltip>,
+              <Tooltip key="comment-basic-dislike">
+                <span>
+                  <ThumbDownOutlinedIcon
+                    style={{ color: "white", cursor: "pointer" }}
+                    fontSize="small"
+                  />
+                  {/* {React.createElement(action === 'disliked' ? DislikeFilled : DislikeOutlined)} */}
+                  <span
+                    className="comment-action"
+                    style={{
+                      color: "white",
+                      fontSize: "1rem",
+                      paddingLeft: "5px",
+                    }}
+                  >
+                    0
+                  </span>
+                </span>
+              </Tooltip>,
+              <span
+                key="comment-basic-reply-to"
+                style={{
+                  color: "white",
+                  cursor: "pointer",
+                  fontSize: "0.8rem",
+                }}
+                onClick={() => {
+                  if (!replyBox.isOpen) {
+                    setReplyBox({ isOpen: true, id: comment.id });
+                    setCurrReply(`@${commentUser.display_name} `);
+                  } else setReplyBox({ isOpen: false, id: "" });
+                }}
+              >
+                Reply
+              </span>,
+              editButton,
+            ];
+            const commentReplies = epComments.filter(
+              (reply) => reply.replyId === comment.id
+            );
+            return (
+              <>
+                <Comment
+                  datetime={
+                    <Tooltip title={dayjs(comment.createdAt).format("L LT")}>
+                      <span>{dayjs(comment.createdAt).fromNow()}</span>
+                    </Tooltip>
+                  }
+                  actions={actions}
+                  avatar={
+                    <Avatar
+                      src="https://joeschmoe.io/api/v1/random"
+                      style={{
+                        width: "35px",
+                        height: "35px",
+                        border: "1px solid white",
+                        objectFit: "cover",
+                      }}
+                    />
+                  }
+                  author={
+                    <a style={{ color: "white" }}>{commentUser.display_name}</a>
+                  }
+                  content={
+                    editBox.isEditing && comment.id === editBox.id ? (
                       <div className="col-sm-4">
-                      <form onSubmit={submitReply}>
-                        <fieldset>
-                          <div className="row">
-                            <div className="d-flex col-s-8 ">
-                              {/* <i className="bi bi-person-circle"></i> */}
-                              <textarea
-                                className="form-control"
-                                type="text"
-                                placeholder="Add reply here!"
-                                name="reply"
-                                value={currReply}
-                                required
-                                // commentId={}
-                                onChange={onReplyChange}
-                              >{comment.content}</textarea>
-                            </div>
-                            <div className="d-flex flex-row-reverse">
-                              <button className="" style={{color: 'black'}}>Update</button>
-                              <button style={{color: 'black'}} onClick={() => {
-                                setEditBox({isEditing: false, id: ''})
-                                setCurrReply('');
-                              }}>Cancel</button>
-                            </div>
-                          </div>
-                        </fieldset>
-                      </form>
-                    </div> : <p style={{ color: "white" }}>{comment.content}</p>}
-                    >
-                    {(replyBox.isOpen && comment.id === replyBox.id) &&             
-                      <div className="col-sm-4">
-                        <form onSubmit={(ev) => submitReply(ev, comment.id)}>
+                        <form onSubmit={submitReply}>
                           <fieldset>
                             <div className="row">
                               <div className="d-flex col-s-8 ">
-                                {/* <i className="bi bi-person-circle"></i> */}
-                                <div>
-                                  <Avatar src="https://joeschmoe.io/api/v1/random" style={{ width: '35px', height: '35px', border: '1px solid white', objectFit: 'cover'}}/>
-                                </div>
                                 <textarea
                                   className="form-control"
                                   type="text"
@@ -394,95 +429,232 @@ const SingleEpisode = () => {
                                   required
                                   // commentId={}
                                   onChange={onReplyChange}
-                                ></textarea>
+                                >
+                                  {comment.content}
+                                </textarea>
                               </div>
                               <div className="d-flex flex-row-reverse">
-                                <button className="" style={{color: 'black'}}>Add Reply</button>
-                                <button style={{color: 'black'}} onClick={() => {
-                                  setReplyBox({isOpen: false, id: ''});
-                                  setCurrReply('');
-                                }}>Cancel</button>
+                                <button className="" style={{ color: "black" }}>
+                                  Update
+                                </button>
+                                <button
+                                  style={{ color: "black" }}
+                                  onClick={() => {
+                                    setEditBox({ isEditing: false, id: "" });
+                                    setCurrReply("");
+                                  }}
+                                >
+                                  Cancel
+                                </button>
                               </div>
                             </div>
                           </fieldset>
                         </form>
                       </div>
-                    }
-                    {
-                      commentReplies.map((reply) => {
-                        const replyUser = findUsers.find((user) => reply.userId === user.id) || {};
-                        const replyEditBtn = reply.userId === auth.id ? 
-                          <Tooltip>
-                            <div class="dropdown">
-                              <span data-bs-toggle="dropdown" aria-expanded="false">
-                                <MoreHorizIcon style={{color: 'white'}} fontSize='small' onClick={(ev) => ev.preventDefault()}/>
-                              </span>
-                              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li>
-                                  <a 
-                                    class="dropdown-item"
-                                    onClick={() => {
-                                      if (!editBox.isEditing) {
-                                        setEditBox({isEditing: true, id: reply.id});
-                                        setCurrReply(reply.content)
-                                      }
-                                      else setEditBox({isEditing: false, id: ''})
-                                    }}
-                                  >Edit Reply</a>
-                                </li>
-                                <li>
-                                  <a 
-                                    class="dropdown-item"
-                                    onClick={() => dispatch(deleteComment(reply.id))}
-                                  >Delete Reply</a>
-                                </li>
-                              </ul>
+                    ) : (
+                      <p style={{ color: "white" }}>{comment.content}</p>
+                    )
+                  }
+                >
+                  {replyBox.isOpen && comment.id === replyBox.id && (
+                    <div className="col-sm-4">
+                      <form onSubmit={(ev) => submitReply(ev, comment.id)}>
+                        <fieldset>
+                          <div className="row">
+                            <div className="d-flex col-s-8 ">
+                              {/* <i className="bi bi-person-circle"></i> */}
+                              <div>
+                                <Avatar
+                                  src="https://joeschmoe.io/api/v1/random"
+                                  style={{
+                                    width: "35px",
+                                    height: "35px",
+                                    border: "1px solid white",
+                                    objectFit: "cover",
+                                  }}
+                                />
+                              </div>
+                              <textarea
+                                className="form-control"
+                                type="text"
+                                placeholder="Add reply here!"
+                                name="reply"
+                                value={currReply}
+                                required
+                                // commentId={}
+                                onChange={onReplyChange}
+                              ></textarea>
                             </div>
-                        </Tooltip> 
-                        : '';
-                        const replyActions = [
-                          <Tooltip key="comment-basic-like">
-                            <span>
-                              <ThumbUpOutlinedIcon style={{color: 'white'}} fontSize='small'/>
-                              {/* {createElement(action === 'liked' ? LikeFilled : LikeOutlined)} */}
-                              <span className="comment-action" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>0</span>
+                            <div className="d-flex flex-row-reverse">
+                              <button className="" style={{ color: "black" }}>
+                                Add Reply
+                              </button>
+                              <button
+                                style={{ color: "black" }}
+                                onClick={() => {
+                                  setReplyBox({ isOpen: false, id: "" });
+                                  setCurrReply("");
+                                }}
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                            <textarea
+                              className="form-control"
+                              type="text"
+                              placeholder="Add reply here!"
+                              name="reply"
+                              value={currReply}
+                              required
+                              // commentId={}
+                              onChange={onReplyChange}
+                            ></textarea>
+                          </div>
+                        </fieldset>
+                      </form>
+                    </div>
+                  )}
+                  {commentReplies.map((reply) => {
+                    const replyUser =
+                      findUsers.find((user) => reply.userId === user.id) || {};
+                    const replyEditBtn =
+                      reply.userId === auth.id ? (
+                        <Tooltip>
+                          <div className="dropdown">
+                            <span
+                              data-bs-toggle="dropdown"
+                              aria-expanded="false"
+                            >
+                              <MoreHorizIcon
+                                style={{ color: "white" }}
+                                fontSize="small"
+                                onClick={(ev) => ev.preventDefault()}
+                              />
                             </span>
-                          </Tooltip>,
-                          <Tooltip key="comment-basic-dislike">
-                            <span>
-                              <ThumbDownOutlinedIcon style={{color: 'white'}} fontSize='small'/>
-                              {/* {React.createElement(action === 'disliked' ? DislikeFilled : DislikeOutlined)} */}
-                              <span className="comment-action" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>0</span>
-                            </span>
-                          </Tooltip>,
-                          <span 
-                          key="comment-basic-reply-to" 
-                          style={{color: 'white', cursor: 'pointer', fontSize: '0.8rem'}} 
-                          onClick={() => {
-                            if (!replyBox.isOpen) {
-                              setReplyBox({isOpen: true, id: reply.id});
-                              setCurrReply(`@${replyUser.display_name} `)
-                            }
-                            else setReplyBox({isOpen: false, id: ''})
-                          }}
+                            <ul
+                              className="dropdown-menu"
+                              aria-labelledby="dropdownMenuButton1"
+                            >
+                              <li>
+                                <a
+                                  className="dropdown-item"
+                                  onClick={() => {
+                                    if (!editBox.isEditing) {
+                                      setEditBox({
+                                        isEditing: true,
+                                        id: reply.id,
+                                      });
+                                      setCurrReply(reply.content);
+                                    } else
+                                      setEditBox({ isEditing: false, id: "" });
+                                  }}
+                                >
+                                  Edit Reply
+                                </a>
+                              </li>
+                              <li>
+                                <a
+                                  className="dropdown-item"
+                                  onClick={() =>
+                                    dispatch(deleteComment(reply.id))
+                                  }
+                                >
+                                  Delete Reply
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </Tooltip>
+                      ) : (
+                        ""
+                      );
+                    const replyActions = [
+                      <Tooltip key="comment-basic-like">
+                        <span>
+                          <ThumbUpOutlinedIcon
+                            style={{ color: "white" }}
+                            fontSize="small"
+                          />
+                          {/* {createElement(action === 'liked' ? LikeFilled : LikeOutlined)} */}
+                          <span
+                            className="comment-action"
+                            style={{
+                              color: "white",
+                              fontSize: "1rem",
+                              paddingLeft: "5px",
+                            }}
                           >
-                            Reply
-                          </span>,
-                          replyEditBtn
-                        ];
-                        return (
-                          <>
-                            <Comment
-                              datetime={
-                                <Tooltip title={dayjs(reply.createdAt).format('L LT')}>
-                                  <span>{dayjs(reply.createdAt).fromNow()}</span>
-                                </Tooltip>
-                              }
-                              actions={replyActions}
-                              avatar={<Avatar src="https://joeschmoe.io/api/v1/random" style={{ width: '35px', height: '35px', border: '1px solid white', objectFit: 'cover'}}/>}
-                              author={<a style={{ color: "white" }}>{replyUser.display_name}</a>} 
-                              content={editBox.isEditing && reply.id === editBox.id ?                       
-                                <div className="col-sm-4">
+                            0
+                          </span>
+                        </span>
+                      </Tooltip>,
+                      <Tooltip key="comment-basic-dislike">
+                        <span>
+                          <ThumbDownOutlinedIcon
+                            style={{ color: "white" }}
+                            fontSize="small"
+                          />
+                          {/* {React.createElement(action === 'disliked' ? DislikeFilled : DislikeOutlined)} */}
+                          <span
+                            className="comment-action"
+                            style={{
+                              color: "white",
+                              fontSize: "1rem",
+                              paddingLeft: "5px",
+                            }}
+                          >
+                            0
+                          </span>
+                        </span>
+                      </Tooltip>,
+                      <span
+                        key="comment-basic-reply-to"
+                        style={{
+                          color: "white",
+                          cursor: "pointer",
+                          fontSize: "0.8rem",
+                        }}
+                        onClick={() => {
+                          if (!replyBox.isOpen) {
+                            setReplyBox({ isOpen: true, id: reply.id });
+                            setCurrReply(`@${replyUser.display_name} `);
+                          } else setReplyBox({ isOpen: false, id: "" });
+                        }}
+                      >
+                        Reply
+                      </span>,
+                      replyEditBtn,
+                    ];
+                    return (
+                      <>
+                        <Comment
+                          datetime={
+                            <Tooltip
+                              title={dayjs(reply.createdAt).format("L LT")}
+                            >
+                              <span>{dayjs(reply.createdAt).fromNow()}</span>
+                            </Tooltip>
+                          }
+                          actions={replyActions}
+                          avatar={
+                            <Avatar
+                              src="https://joeschmoe.io/api/v1/random"
+                              style={{
+                                width: "35px",
+                                height: "35px",
+                                border: "1px solid white",
+                                objectFit: "cover",
+                              }}
+                            />
+                          }
+                          author={
+                            <a style={{ color: "white" }}>
+                              {replyUser.display_name}
+                            </a>
+                          }
+                          content={
+                            editBox.isEditing && reply.id === editBox.id ? (
+                              <div className="col-sm-4">
                                 <form onSubmit={submitReply}>
                                   <fieldset>
                                     <div className="row">
@@ -497,64 +669,109 @@ const SingleEpisode = () => {
                                           required
                                           // commentId={}
                                           onChange={onReplyChange}
-                                        >{reply.content}</textarea>
+                                        >
+                                          {reply.content}
+                                        </textarea>
                                       </div>
                                       <div className="d-flex flex-row-reverse">
-                                        <button className="" style={{color: 'black'}}>Update</button>
-                                        <button style={{color: 'black'}} onClick={() => {
-                                          setEditBox({isEditing: false, id: ''})
-                                          setCurrReply('');
-                                        }}>Cancel</button>
-                                      </div>
-                                    </div>
-                                  </fieldset>
-                                </form>
-                              </div> : <p style={{ color: "white" }}>{reply.content}</p>}
-                            />
-                            {(replyBox.isOpen && reply.id === replyBox.id) &&             
-                              <div className="col-sm-4">
-                                <form onSubmit={(ev) => submitReply(ev, comment.id)}>
-                                  <fieldset>
-                                    <div className="row">
-                                      <div className="d-flex col-s-8 ">
-                                        {/* <i className="bi bi-person-circle"></i> */}
-                                        <div>
-                                          <Avatar src="https://joeschmoe.io/api/v1/random" style={{ width: '35px', height: '35px', border: '1px solid white', objectFit: 'cover'}}/>
-                                        </div>
-                                        <textarea
-                                          className="form-control"
-                                          type="text"
-                                          placeholder="Add reply here!"
-                                          name="reply"
-                                          value={currReply}
-                                          required
-                                          // commentId={}
-                                          onChange={onReplyChange}
-                                        ></textarea>
-                                      </div>
-                                      <div className="d-flex flex-row-reverse">
-                                        <button className="" style={{color: 'black'}}>Add Reply</button>
-                                        <button style={{color: 'black'}} onClick={() => {
-                                          setReplyBox({isOpen: false, id: ''});
-                                          setCurrReply('');
-                                          
-                                        }}>Cancel</button>
+                                        <button
+                                          className=""
+                                          style={{ color: "black" }}
+                                        >
+                                          Update
+                                        </button>
+                                        <button
+                                          style={{ color: "black" }}
+                                          onClick={() => {
+                                            setEditBox({
+                                              isEditing: false,
+                                              id: "",
+                                            });
+                                            setCurrReply("");
+                                          }}
+                                        >
+                                          Cancel
+                                        </button>
                                       </div>
                                     </div>
                                   </fieldset>
                                 </form>
                               </div>
-                            }
-                          </>
-                        )
-                      })
-                    }
-                    </Comment>
-                  </>
-                )
-              })
-            }
-            {/* <Button>Hello</Button> */}
+                            ) : (
+                              <p style={{ color: "white" }}>{reply.content}</p>
+                            )
+                          }
+                        />
+                        } author=
+                        {
+                          <a style={{ color: "white" }}>
+                            {replyUser.display_name}
+                          </a>
+                        }
+                        content=
+                        {<p style={{ color: "white" }}>{reply.content}</p>}
+                        />
+                        {replyBox.isOpen && reply.id === replyBox.id && (
+                          <div className="col-sm-4">
+                            <form
+                              onSubmit={(ev) => submitReply(ev, comment.id)}
+                            >
+                              <fieldset>
+                                <div className="row">
+                                  <div className="d-flex col-s-8 ">
+                                    {/* <i className="bi bi-person-circle"></i> */}
+                                    <div>
+                                      <Avatar
+                                        src="https://joeschmoe.io/api/v1/random"
+                                        style={{
+                                          width: "35px",
+                                          height: "35px",
+                                          border: "1px solid white",
+                                          objectFit: "cover",
+                                        }}
+                                      />
+                                    </div>
+                                    <textarea
+                                      className="form-control"
+                                      type="text"
+                                      placeholder="Add reply here!"
+                                      name="reply"
+                                      value={currReply}
+                                      required
+                                      // commentId={}
+                                      onChange={onReplyChange}
+                                    ></textarea>
+                                  </div>
+                                  <div className="d-flex flex-row-reverse">
+                                    <button
+                                      className=""
+                                      style={{ color: "black" }}
+                                    >
+                                      Add Reply
+                                    </button>
+                                    <button
+                                      style={{ color: "black" }}
+                                      onClick={() => {
+                                        setReplyBox({ isOpen: false, id: "" });
+                                        setCurrReply("");
+                                      }}
+                                    >
+                                      Cancel
+                                    </button>
+                                  </div>
+                                </div>
+                              </fieldset>
+                            </form>
+                          </div>
+                        )}
+                      </>
+                    );
+                  })}
+                </Comment>
+              </>
+            );
+          })}
+        {/* <Button>Hello</Button> */}
       </div>
       <hr style={{ color: "white" }} />
       {/* ---------------------------------------------------------- */}

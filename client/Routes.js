@@ -8,7 +8,14 @@ import {
   useHistory,
   withRouter,
 } from "react-router-dom";
-import { getEpisodes, getComments, getTimeStamps, getTopCharts, getUsers, me } from "./store";
+import {
+  getEpisodes,
+  getComments,
+  getTimeStamps,
+  getTopCharts,
+  getUsers,
+  me,
+} from "./store";
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import Search from "./components/Search";
@@ -16,6 +23,7 @@ import SinglePodcast from "./components/SinglePodcast";
 import SingleEpisode from "./components/SingleEpisode";
 import SubscribedPodcasts from "./components/SubscribedPodcasts";
 import TopPodcasts from "./components/TopPodcasts";
+import UserDeatils from "./components/UserDetails";
 
 class Routes extends Component {
   componentDidMount() {
@@ -34,6 +42,7 @@ class Routes extends Component {
             <Route exact path="/show/:id" component={SinglePodcast} />
             <Route exact path="/episode/:id" component={SingleEpisode} />
             <Route exact path="/search" component={Search} />
+            <Route exact path="/userDetails" component={UserDeatils} />
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -64,7 +73,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData() {
       dispatch(getComments());
-      dispatch(getEpisodes())
+      dispatch(getEpisodes());
       dispatch(getTimeStamps());
       dispatch(getTopCharts());
       dispatch(getUsers());

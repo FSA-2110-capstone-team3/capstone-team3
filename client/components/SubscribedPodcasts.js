@@ -20,7 +20,14 @@ class SubscribedPodcasts extends Component {
     const userShows = subscribedShows.data?.items;
     return (
       <>
-        <h1 style={{ textAlign: "center", color: "white", fontWeight: 400 }}>
+        <h1
+          style={{
+            textAlign: "center",
+            color: "white",
+            fontWeight: 400,
+            fontSize: "2vw",
+          }}
+        >
           Current Subscribed Podcasts:
         </h1>
 

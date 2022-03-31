@@ -1,7 +1,14 @@
 body {
-  font-family: sans-serif;
+  /* font-family: sans-serif;
   background-color: #1c1c1c !important;
-  color: "white";
+  color: "white" !important;
+  font-family: "roboto" !important; */
+  background: rgb(28, 28, 28) !important;
+  background: linear-gradient(
+    0deg,
+    rgba(28, 28, 28, 1) 63%,
+    rgba(128, 128, 128, 1) 96%
+  ) !important;
 }
 
 a {
@@ -69,7 +76,7 @@ div.container {
 .navbar {
   /* position: fixed; */
   height: 100vh;
-  background-color: #454545;
+  background-color: rgb(28, 28, 28);
 }
 
 i {
@@ -81,8 +88,13 @@ i:hover {
   color: red;
 }
 
+nav a.nav-link {
+  font-size: 18px;
+  border-bottom: 1px solid white;
+}
+
 nav a.nav-link span:hover {
-  color: red;
+  color: red !important;
 }
 
 a.nav-link span:hover,
@@ -116,7 +128,13 @@ div.row {
 
 textarea.form-control {
   background-color: #1c1c1c;
-  border: 3px solid white;
+  border: 1px solid white;
+  box-shadow: 0 0 10px #ffffff;
+}
+
+textarea.form-control:focus {
+  background-color: #1c1c1c;
+  box-shadow: 0 0 10px #ffffff;
 }
 
 div.card {
@@ -124,6 +142,7 @@ div.card {
   /* margin: 45px; */
   margin-bottom: 20px;
   background-color: rgb(48, 47, 47);
+  transition: all 0.5s ease;
   /* width: calc(100% / 2- 30px); */
   /* border: 10px solid gray; */
   /* box-shadow: rgba(140, 84, 84, 0.19) 0px 50px 50px,
@@ -137,6 +156,11 @@ div#mainCard {
   padding: 0;
   margin: 0;
 } */
+
+#searchImg {
+  max-width: 32;
+  max-height: 32;
+}
 
 #mainCard {
   /* padding: 2px; */
@@ -199,6 +223,12 @@ div#mainCard {
   margin-top: 7px !important;
 }
 
+#heading {
+  font-size: 40px;
+  color: white;
+  font-weight: 300;
+}
+
 #login {
   padding: 1.3em 3em;
   font-size: 12px;
@@ -229,6 +259,11 @@ div#mainCard {
 #loginform {
   border: 1px solid white;
   box-shadow: 5px 5px 5px rgb(97, 94, 94);
+}
+
+div.card:hover {
+  border: 45px;
+  box-shadow: 0px 8px 20px white;
 }
 
 @media (max-width: 575.98px) {

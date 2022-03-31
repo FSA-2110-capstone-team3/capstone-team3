@@ -19,24 +19,21 @@ class Home extends Component {
     const { email, subscribedShows } = this.props;
     let username = email.split("@");
 
-    // Priscilla, here are the userShows (subscribed podcasts)
-    // You just need to map through them to grab the data you need
-    // See the results of my console.log below in the Chrome debugger to inspect the array of objects
-    // Please delete my console.log once you are finished
-    const userShows = subscribedShows.data?.items.slice(0, 5);
-    console.log(userShows, "user shows-----");
+    const userShows = subscribedShows.data?.items.slice(0, 5) || [];
+    // console.log(userShows, "user shows-----");
 
     let { topCharts } = this.props;
-    topCharts = topCharts.slice(0, 5);
 
+    topCharts = topCharts.slice(0, 5);
+    console.log("TOP CHARTS---->", topCharts);
     return (
-      <>
-        <div style={{ color: "white", fontFamily: "roboto", fontWeight: 300 }}>
+      <div style={{ color: "white", fontFamily: "roboto", fontWeight: 300 }}>
+        <div>
           <h3 style={{ fontWeight: 400 }}>
             Welcome to Spodify+ , {username[0]}
           </h3>
           <br />
-          <h1 style={{ fontWeight: 300 }}>
+          <h1 style={{ fontWeight: 400 }}>
             Find episodes, watch, comment, follow & more!
           </h1>
           <hr style={{ width: 100 + "%" }} />
@@ -50,12 +47,18 @@ class Home extends Component {
             className="col col-lg-2"
             style={{ fontSize: 20 + "px", textAlign: "right" }}
           >
-            <button>
+            {/* <button id="button">
               <a href="/topcharts">VIEW MORE</a>
-            </button>
+            </button> */}
+            <a href="/topcharts">
+              <button style={{ background: "darkGray", color: "white" }}>
+                View More
+              </button>
+              <span></span>
+            </a>
           </div>
         </div>
-        <div className="">
+        <div>
           <div className="row p-5 m-2">
             {topCharts.map((podcast) => (
               <div className="col-sm" key={podcast.showUri}>
@@ -66,9 +69,15 @@ class Home extends Component {
                     className="card-img-top"
                   />
                   <div className="card-body">
-                    <h5 style={{ textAlign: "center" }} className="card-title">
+                    <h5
+                      style={{ textAlign: "center" }}
+                      className="card-title text-truncate"
+                    >
                       {" "}
-                      <Link to={`/show/${podcast.showUri.slice(-22)}`}>
+                      <Link
+                        to={`/show/${podcast.showUri.slice(-22)}`}
+                        className="stretched-link"
+                      >
                         <span
                           style={{
                             fontWeight: "bold",
@@ -79,16 +88,87 @@ class Home extends Component {
                         </span>
                       </Link>
                     </h5>
+                    <span className="card-text ">
+                      <h6
+                        style={{
+                          textAlign: "center",
+                          fontSize: "14px",
+                          fontWeight: 400,
+                          color: "white",
+                        }}
+                      >
+                        {podcast.showPublisher}
+                      </h6>
+                    </span>
                   </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
-        <div>
-          <h3 style={{ fontWeight: 300, padding: 5 + "px" }}></h3>
+        <hr />
+        <div className="row p-2 m-2" style={{ color: "white" }}>
+          <div className="col" style={{ fontSize: 30 + "px" }}>
+            Subscribed Shows:
+          </div>
+          <div
+            className="col col-lg-2"
+            style={{ fontSize: 20 + "px", textAlign: "right" }}
+          >
+            <a href="/subscribed">
+              <button style={{ background: "darkGray", color: "white" }}>
+                View More
+              </button>
+              <span></span>
+            </a>
+          </div>
         </div>
-      </>
+        <div>
+          <div className="row p-5 m-2">
+            {userShows.map((userShow) => {
+              return (
+                <div className="col-sm " key={userShow.show.id}>
+                  <div className="card" style={{ width: 17 + "rem" }}>
+                    <img
+                      src={userShow.show.images[1].url}
+                      alt="podcastimg"
+                      className="card-img-top"
+                    />
+                    <div className="card-body">
+                      <h5
+                        style={{ textAlign: "center" }}
+                        className="card-title text-truncate"
+                      >
+                        <Link
+                          to={`/show/${userShow.show.id}`}
+                          className="stretched-link"
+                        >
+                          <span style={{ fontWeight: "bold", color: "white" }}>
+                            {userShow.show.name}
+                          </span>
+                        </Link>
+                      </h5>
+                      <span className="card-text">
+                        <h6
+                          style={{
+                            textAlign: "center",
+                            fontSize: "14px",
+                            fontWeight: 400,
+                            color: "white",
+                          }}
+                        >
+                          {" "}
+                          {userShow.show.publisher}
+                        </h6>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
     );
   }
 }

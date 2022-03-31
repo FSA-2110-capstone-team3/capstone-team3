@@ -5,7 +5,13 @@ import Routes from "./Routes";
 
 const App = () => {
   return (
-    <div className="main" style={{ fontFamily: "roboto" }}>
+    <div
+      className="main"
+      style={{
+        fontFamily: "roboto !important",
+        color: "white !important",
+      }}
+    >
       <nav className="wrapper">
         <Navbar />
       </nav>

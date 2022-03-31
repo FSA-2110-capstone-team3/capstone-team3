@@ -1,12 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import { authenticate } from "../store";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 /**
  * COMPONENT
  */
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error, isLoggedIn } = props;
+  const history = useHistory();
 
   return (
     <div style={{ color: "white" }}>
@@ -88,17 +91,17 @@ const AuthForm = (props) => {
             <div className="text-center mb-5">
               <span style={{ fontSize: "35px", fontWeight: 400 }}>Login</span>
             </div>
-            <div className="text-center ">
+            <div className="text-center">
               {!isLoggedIn ? (
-                <button className="mb-5 p-sm-3 " id="login">
-                  <a href="/login" style={{ color: "black" }}>
+                <a href="/login" style={{ color: "black" }}>
+                  <div className="mb-5 p-sm-3 " id="login">
                     {" "}
                     <span className="" style={{ fontSize: "16px" }}>
                       <i className=" fa-lg bi bi-spotify d-inline btn float-left p-0 mr-2"></i>
                       Continue with Spotify
                     </span>
-                  </a>
-                </button>
+                  </div>
+                </a>
               ) : (
                 ""
               )}
