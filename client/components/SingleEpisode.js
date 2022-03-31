@@ -46,7 +46,6 @@ const SingleEpisode = () => {
   const findUsers = useSelector((state) => state.users) || [];
   const getEpisode = useSelector((state) => state.episodes) || {};
 
-
   //---------------Setting Initial Local State for Episode/Comments/TimeStamps---------------//
   const [episode, setEpisode] = useState({});
   const [currComment, setCurrComment] = useState("");
@@ -702,15 +701,13 @@ const SingleEpisode = () => {
                             )
                           }
                         />
-                        } author=
                         {
                           <a style={{ color: "white" }}>
                             {replyUser.display_name}
                           </a>
                         }
-                        content=
                         {<p style={{ color: "white" }}>{reply.content}</p>}
-                        />
+
                         {replyBox.isOpen && reply.id === replyBox.id && (
                           <div className="col-sm-4">
                             <form

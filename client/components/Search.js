@@ -233,6 +233,8 @@ const Search = () => {
           </div>
         </FormControl>
       </Box>
+
+      {/* COMMMENT OUTTTTT----> */}
       {/*
       <h3 className="text-white text-center pb-3">Search sPodify+ Content </h3>
       {searchResults.length ? (
@@ -253,8 +255,6 @@ const Search = () => {
           </ul>
         </div>
       ) : null} */}
-
-      {/* commented out ^^ */}
 
       {searchResults.length ? (
         <>
