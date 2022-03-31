@@ -234,16 +234,14 @@ const Search = () => {
         </FormControl>
       </Box>
 
-      {/* COMMMENT OUTTTTT----> */}
-      {/*
-      <h3 className="text-white text-center pb-3">Search sPodify+ Content </h3>
+      {/* <h3 className="text-white text-center pb-3">Search sPodify+ Content </h3>
       {searchResults.length ? (
         <div>
           <hr></hr>
-          <h4 className="text-white">Shows or Episodes</h4> */}
-      {/* <ul id="podcastCards" className="mt-4 list-group"> */}
-      {/* map over & render spotify search results */}
-      {/* {searchResults.map((content) => (
+          <h4 className="text-white">Shows or Episodes</h4>
+      <ul id="podcastCards" className="mt-4 list-group">
+
+       {searchResults.map((content) => (
               <li
                 key={content.id}
                 className="list-group-item bg-transparent text-white"
@@ -256,13 +254,15 @@ const Search = () => {
         </div>
       ) : null} */}
 
+      {/* PLEASE COMMENT OUTTTT */}
+
       {searchResults.length ? (
         <>
           <h4 style={{ color: "white" }}>Shows or Episodes</h4>
           <div className="row p-2 m-2">
             {searchResults.map((content) => (
-              <>
-                <div className="col-sm-2 p-2" key={content.id}>
+              <div className="col-sm-2 p-2" key={content.id}>
+                <Link to={`/${contentToggle.slice(0, -1)}/${content.id}`}>
                   <div className="card">
                     <img
                       src={content.image}
@@ -270,7 +270,6 @@ const Search = () => {
                       className="card-img-top"
                       id="searchImg"
                     />
-
                     <div className="card-body">
                       <h5
                         className="card-title text-center"
@@ -281,8 +280,8 @@ const Search = () => {
                       </h5>
                     </div>
                   </div>
-                </div>
-              </>
+                </Link>
+              </div>
             ))}
           </div>
         </>
@@ -300,8 +299,8 @@ const Search = () => {
             {/* map over & render local comments search results  */}
             {searchComments(search, comments).map((comment) => (
               <Link
-                key={comment.item.id}
                 to={`/episode/${comment.item.spotify_id}`}
+                key={comment.item.id}
               >
                 <li className="list-group-item bg-transparent text-white">
                   <div className="d-flex flex-column">
@@ -344,8 +343,8 @@ const Search = () => {
             {/* map over & render local timeStamps search results  */}
             {searchTimeStamps(search, timeStamps).map((timeStamp) => (
               <Link
-                key={timeStamp.item.id}
                 to={`/episode/${timeStamp.item.spotify_id}`}
+                key={timeStamp.item.id}
               >
                 <li className="list-group-item bg-transparent text-white">
                   <div className="d-flex flex-column">
