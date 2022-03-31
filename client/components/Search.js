@@ -265,6 +265,8 @@ const Search = () => {
         </div>
       ) : null} */}
 
+      {/* commented out ^^ */}
+
       {searchResults.length ? (
         <>
           <h4 style={{ color: "white" }}>Shows or Episodes</h4>
