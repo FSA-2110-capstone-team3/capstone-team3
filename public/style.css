@@ -1,6 +1,14 @@
 body {
-  font-family: sans-serif;
-  background-color: #1c1c1c;
+  /* font-family: sans-serif;
+  background-color: #1c1c1c !important;
+  color: "white" !important;
+  font-family: "roboto" !important; */
+  background: rgb(28, 28, 28) !important;
+  background: linear-gradient(
+    0deg,
+    rgba(28, 28, 28, 1) 63%,
+    rgba(128, 128, 128, 1) 96%
+  ) !important;
 }
 
 a {
@@ -15,7 +23,12 @@ label {
   margin: 5px;
 } */
 
-form div {
+/* form div {
+  margin: 1em;
+  display: inline-block;
+} */
+
+#commentForm div {
   margin: 1em;
   display: inline-block;
 }
@@ -40,11 +53,17 @@ form div {
   width: 100%;
   /* margin-left: 60px; */
   display: flex;
-  padding: 40px;
+  padding: 20px;
 }
 
 div.content {
   flex-direction: column;
+}
+
+div.small-box {
+  border: 2px solid white;
+  width: 50%;
+  height: 50%;
 }
 
 div.container {
@@ -56,8 +75,8 @@ div.container {
 
 .navbar {
   /* position: fixed; */
-  height: 100%;
-  background-color: #454545;
+  height: 100vh;
+  background-color: rgb(28, 28, 28);
 }
 
 i {
@@ -69,8 +88,13 @@ i:hover {
   color: red;
 }
 
+nav a.nav-link {
+  font-size: 18px;
+  border-bottom: 1px solid white;
+}
+
 nav a.nav-link span:hover {
-  color: red;
+  color: red !important;
 }
 
 a.nav-link span:hover,
@@ -80,10 +104,10 @@ a.navbar-brand span:hover {
 
 div.row {
   /* background: rgb(176, 54, 54); */
-  margin-bottom: 50px;
-  transition: 0.5s;
-  border: 0;
-  border-radius: 2rem;
+  /* margin-bottom: 50px; */
+  /* transition: 0.5s;
+  border: 0; */
+  /* border-radius: 2rem; */
   /* position: relative; */
   width: 100%;
 }
@@ -102,11 +126,23 @@ div.row {
   min-height: 50%;
 }
 
+textarea.form-control {
+  background-color: #1c1c1c;
+  border: 1px solid white;
+  box-shadow: 0 0 10px #ffffff;
+}
+
+textarea.form-control:focus {
+  background-color: #1c1c1c;
+  box-shadow: 0 0 10px #ffffff;
+}
+
 div.card {
   /* padding: 15px; */
   /* margin: 45px; */
   margin-bottom: 20px;
   background-color: rgb(48, 47, 47);
+  transition: all 0.5s ease;
   /* width: calc(100% / 2- 30px); */
   /* border: 10px solid gray; */
   /* box-shadow: rgba(140, 84, 84, 0.19) 0px 50px 50px,
@@ -115,14 +151,19 @@ div.card {
   margin-left: 50px;
   margin-right: 50px; */
 }
-
+/*
 div#mainCard {
   padding: 0;
   margin: 0;
+} */
+
+#searchImg {
+  max-width: 32;
+  max-height: 32;
 }
 
 #mainCard {
-  padding: 2px;
+  /* padding: 2px; */
 }
 
 /* @media (min-width: 576px) {
@@ -177,3 +218,56 @@ div#mainCard {
 .sidebar.active {
   left: 0;
 } */
+
+.ant-comment-actions {
+  margin-top: 7px !important;
+}
+
+#heading {
+  font-size: 40px;
+  color: white;
+  font-weight: 300;
+}
+
+#login {
+  padding: 1.3em 3em;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #1ad760;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+#login:hover {
+  background-color: #1ad760;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+#login:active {
+  transform: translateY(-1px);
+}
+
+#loginform {
+  border: 1px solid white;
+  box-shadow: 5px 5px 5px rgb(97, 94, 94);
+}
+
+div.card:hover {
+  border: 45px;
+  box-shadow: 0px 8px 20px white;
+}
+
+@media (max-width: 575.98px) {
+  #loginForm {
+    width: 100%;
+  }
+}

@@ -78,7 +78,7 @@ export const timeStamps = (state = [], action) => {
     case UPDATE_TIMESTAMP:
       return state.map((timeStamp) => timeStamp.id === action.timeStamp.id ? action.timeStamp : timeStamp)
     case DELETE_TIMESTAMP:
-      return state.filter((timeStamp) => timeStamp !== action.id)
+      return state.filter((timeStamp) => timeStamp.id !== action.id)
     default:
       return state
   }

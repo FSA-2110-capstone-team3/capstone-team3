@@ -39,8 +39,14 @@ TimeStamp.belongsTo(Episode);
 Comment.hasMany(CommentLike);     //<-- Comment associations
 CommentLike.belongsTo(Comment);
 
-Comment.hasMany(CommentReply);
-CommentReply.belongsTo(Comment);
+User.hasMany(CommentLike);     //<-- Comment associations
+CommentLike.belongsTo(User);
+
+Comment.belongsTo(Comment, { as: 'reply'});
+Comment.hasMany(Comment, {foreignKey: 'replyId', as: 'replies'})
+
+// Comment.hasMany(CommentReply);
+// CommentReply.belongsTo(Comment);
 
 
 module.exports = {

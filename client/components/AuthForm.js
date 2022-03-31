@@ -1,15 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
 import { authenticate } from "../store";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 /**
  * COMPONENT
  */
 const AuthForm = (props) => {
-  const { name, displayName, handleSubmit, error } = props;
+  const { name, displayName, handleSubmit, error, isLoggedIn } = props;
+  const history = useHistory();
 
   return (
-    <div>
+    <div style={{ color: "white" }}>
       {/* <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="email">
@@ -28,10 +31,14 @@ const AuthForm = (props) => {
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form> */}
-      {/* {} */}
+      {/*
       <div className="loginContainer">
         <div className="small-box dark-box mx-auto text-center">
-          <span>Login</span>
+          <div>
+            <button>
+              <a href="/login">LOGIN</a>
+            </button>
+          </div>
           <form onSubmit={handleSubmit} name={name}>
             <table className="table table-user-information">
               <tbody>
@@ -53,12 +60,78 @@ const AuthForm = (props) => {
                 </tr>
               </tbody>
             </table>
-            <div>
-              <button type="submit">{displayName}</button>
-            </div>
-            {error && error.response && <div> {error.response.data} </div>}
+
           </form>
-          {/* ?? */}
+        </div>
+      </div> */}
+      <div className=" full-width d-flex flex-column min-vh-100 justify-content-center align-items-center ">
+        <div
+          id="loginform"
+          className="d-flex flex-column justify-content-center align-items-center  p-5 rounded-3"
+        >
+          {" "}
+          {/*
+          <div className="mb-5">
+            {" "}
+            <span style={{ fontWeight: 400, fontSize: "40px" }}> Login</span>
+          </div>
+
+          <button className="mb-5" id="login">
+            <a href="/login" style={{ color: "black" }}>
+              {" "}
+              Continue with Spotify
+            </a>
+          </button> */}
+          <form
+            onSubmit={handleSubmit}
+            name={name}
+            className="rounded p-6 p-sm-3 "
+            id="loginForm"
+          >
+            <div className="text-center mb-5">
+              <span style={{ fontSize: "35px", fontWeight: 400 }}>Login</span>
+            </div>
+            <div className="text-center">
+              {!isLoggedIn ? (
+                <a href="/login" style={{ color: "black" }}>
+                  <div className="mb-5 p-sm-3 " id="login">
+                    {" "}
+                    <span className="" style={{ fontSize: "16px" }}>
+                      <i className=" fa-lg bi bi-spotify d-inline btn float-left p-0 mr-2"></i>
+                      Continue with Spotify
+                    </span>
+                  </div>
+                </a>
+              ) : (
+                ""
+              )}
+            </div>
+            <div className="mb-3">
+              <input
+                name="email"
+                type="text"
+                className="form-control"
+                id="emailAddress"
+                aria-describedby="emailHelp"
+                placeholder="Email"
+                style={{ width: "300px" }}
+              />
+            </div>
+            <div className="mb-3 ">
+              <input
+                name="password"
+                type="password"
+                className="form-control"
+                id="password"
+                placeholder="Password"
+                style={{ width: "300px" }}
+              />
+            </div>
+            <button type="submit" className="btn btn-success">
+              {" "}
+              {displayName}
+            </button>
+          </form>
         </div>
       </div>
     </div>
@@ -77,6 +150,7 @@ const mapLogin = (state) => {
     name: "login",
     displayName: "Login",
     error: state.auth.error,
+    isLoggedIn: !!state.auth.id,
   };
 };
 

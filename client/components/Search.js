@@ -1,45 +1,62 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect, useState, useRef } from "react";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import Fuse from "fuse.js";
+import { Avatar } from "antd";
 
-//material ui imports
+/*<-------------------- material ui imports -------------------->*/
+
 import FormControl, { useFormControl } from "@mui/material/FormControl";
 import TextField from "@material-ui/core/TextField";
 import Box from "@mui/material/Box";
 import { makeStyles } from "@material-ui/core/styles";
 
-// functional component
+/*<-------------------- React functional component -------------------->*/
+
 const Search = () => {
+  /*<-------------------- hooks -------------------->*/
 
+  // create hook of local state for Spotify API form/search input
+  const [search, setSearch] = useState("");
+  // create hook of local state search results
+  const [searchResults, setSearchResults] = useState([]);
+  // create hook of local state for error handling obj (axios responses)
+  const [errorRes, setErrorRes] = useState({});
+  // create hook of local state for shows/episodes toggle
+  const [contentToggle, setContentToggle] = useState("shows");
+  // pull data from redux store for local search
+  const { comments, timeStamps, episodes } = useSelector((state) => state);
+  // create hook to monitor browser forward/back button history
+  const [locationKeys, setLocationKeys] = useState([]);
 
+  //create custom previous props hook to store state
+  const usePreviousProps = (state) => {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = state;
+    }, [state]);
+    return ref.current;
+  };
 
-  // hooks
-    // create hook of local state for form/search input
-  const [search, setSearch] = useState('');
-    // create hook of local state search results
-  const [ searchResults, setSearchResults] = useState([]);
-    // create hook of local state for error handling obj (axios responses)
-  const [ errorRes, setErrorRes ] = useState({});
-    // create hook of local state for shows/episodes toggle
-  const [ contentToggle, setContentToggle ] = useState('shows');
-
+  /*<-------------------- Spotify API calls & logic -------------------->*/
 
   // hook to update searchResult state with spotify search results
   useEffect(async () => {
     //empty results/error state if search empty
     if (!search) return setSearchResults([]);
     if (!search) return setErrorRes({});
+    if (!search) return setSearch("");
 
     // create cancel flag to stop old/current call when form/test box edited
     let cancel = false;
     if (cancel) return;
 
+    const response = (await axios.get(`/api/search/${contentToggle}/${search}`))
+      .data;
 
-    const response = (await axios.get(`/api/search/${contentToggle}/${search}`)).data
-
-    //error handling if response is an error
+    //error handling if response is an error from the spotify api
     if (response.body.error) {
       setErrorRes({
         message: response.body.error.message,
@@ -48,24 +65,31 @@ const Search = () => {
 
     setSearchResults(
       response.body[contentToggle].items.map((content) => {
-        const smallestContentImage = content.images.reduce(
-          (smallest, image) => {
-            if (image.height < smallest.height) {
-              return image;
-            } else return smallest;
-          },
-          content.images[0]
-        );
+        // const smallestContentImage = content.images.reduce(
+        //   (smallest, image) => {
+        //     if (image.height < smallest.height) {
+        //       return image;
+        //     } else return smallest;
+        //   },
+        //   content.images[0]
+        // );
         return {
           id: content.id,
           name: content.name,
-          image: smallestContentImage.url,
+          image: content.images[1].url,
         };
       })
     );
 
     return () => (cancel = true);
   }, [search]);
+
+  //search package function to set all search related hooks when form input changed
+  const setSearchStates = (target_value) => {
+    setSearch(target_value);
+  };
+
+  /*<-------------------- Material UI hook/logic -------------------->*/
 
   //hook for MUI styling
   const useStyles = makeStyles({
@@ -87,6 +111,7 @@ const Search = () => {
 
   const classes = useStyles();
 
+  /* <-------------------- Button Logic for Shows/Episodes buttons --------------------> */
 
   //add/remove active class to buttons
   const btnElem = document.getElementsByClassName("btn");
@@ -98,8 +123,7 @@ const Search = () => {
       const current = document.getElementsByClassName("active");
 
       //Remove active from class if present
-      if(current.length > 0) {
-
+      if (current.length > 0) {
         current[0].className = current[0].className.replace(" active", "");
       }
 
@@ -120,29 +144,72 @@ const Search = () => {
   const onClickInit = () => {
     adjContentToggle();
     setSearch("");
+    // setQueryState("");
   };
 
+  /*<-------------------- local search logic --------------------> */
+
+  //local search Comments function
+  const searchComments = (srchQryStr, srchDataArr) => {
+    const options = {
+      includeScore: true,
+      keys: ["content"],
+    };
+    const fuse = new Fuse(srchDataArr, options);
+    const results = fuse.search(srchQryStr);
+    return results;
+  };
+
+  //local search TimeStamp function
+  const searchTimeStamps = (srchQryStr, srchDataArr) => {
+    const options = {
+      includeScore: true,
+      keys: ["description"],
+    };
+    const fuse = new Fuse(srchDataArr, options);
+    const results = fuse.search(srchQryStr);
+    return results;
+  };
+
+  // get episode form store via spotify_id for local search output
+  const findEpisode = (spotifyIdStr, episodesArr) => {
+    try {
+      if (spotifyIdStr)
+        return episodesArr.find(
+          (episode) => spotifyIdStr === episode.spotify_id
+        );
+    } catch (ex) {
+      console.log("Spotify API Error -->", ex);
+    }
+  };
+
+  /*<-------------------- React render -------------------->*/
+
   return (
-    <div /*id='wrapper'*/ style={{ color: "white" }}>
-      <Box className="pt-5">
+    <div>
+      <Box className="p-5" style={{ color: "black" }}>
         <FormControl fullWidth>
           <TextField
             className={classes.root}
             fullWidth
-            helperText="Search Shows"
             id="outlined"
             label="Search"
             variant="outlined"
             type="search"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => setSearchStates(e.target.value)}
+            style={{ color: "black" }}
           />
 
           {errorRes ? (
-            <h6 className="text-center">{errorRes.message}</h6>
+            <h6 className=" pt-2 text-white text-center ">
+              {errorRes.message}
+            </h6>
           ) : null}
-
-          <div id="searchBtns" className="d-flex justify-content-center pd-5">
+          <div
+            id="searchBtns"
+            className=" pt-5 d-flex justify-content-center pd-5"
+          >
             <button
               type="button"
               className="me-3 btn btn-outline-light active"
@@ -165,20 +232,139 @@ const Search = () => {
         </FormControl>
       </Box>
 
-      <h3 className="text-center mt-5">
-        Search for Spotify Shows or Episodes{" "}
-      </h3>
-      <div>
-        <ul id="podcastCards">
-          {/* map over & render results */}
-          {searchResults.map((content) => (
-            <li key={content.id}>
-              <img src={content.image} />
-              {content.name}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {searchResults.length ? (
+        <>
+          <h4 style={{ color: "white" }}>Shows or Episodes</h4>
+          <div className="row p-2 m-2">
+            {searchResults.map((content) => (
+              <div className="col-sm-2 p-2" key={content.id}>
+                <Link to={`/${contentToggle.slice(0, -1)}/${content.id}`}>
+                  <div className="card">
+                    <img
+                      src={content.image}
+                      alt="podcastimg"
+                      className="card-img-top"
+                      id="searchImg"
+                    />
+                    <div className="card-body">
+                      <h5
+                        className="card-title text-center"
+                        style={{ color: "white" }}
+                      >
+                        {" "}
+                        {content.name}
+                      </h5>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </>
+      ) : null}
+
+      {/* ------------------------------ */}
+
+      {searchComments(search, comments).length && search ? (
+        <div>
+          <div className="pt-3">
+            <hr />
+          </div>
+          <h4 className="text-white">Comments</h4>
+          <ul id="podcastCards">
+            {/* map over & render local comments search results  */}
+            {searchComments(search, comments).map((comment) => (
+              <Link
+                to={`/episode/${comment.item.spotify_id}`}
+                key={comment.item.id}
+              >
+                <li className="list-group-item bg-transparent text-white">
+                  <div className="d-flex flex-column">
+                    <div>
+                      <span className="pe-2">
+                        <Avatar
+                          src="https://joeschmoe.io/api/v1/random"
+                          style={{
+                            width: "35px",
+                            height: "35px",
+                            border: "1px solid white",
+                            objectFit: "cover",
+                          }}
+                        />
+                      </span>
+                      <span className="text-secondary small">
+                        {findEpisode(comment.item.spotify_id, episodes)?.name}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="ps-5">
+                        {`"${comment.item.content}"`}
+                      </span>
+                    </div>
+                  </div>
+                </li>
+              </Link>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      {searchTimeStamps(search, timeStamps).length && search ? (
+        <div>
+          <div className="pt-3">
+            <hr />
+          </div>
+          <h4 className="text-white">TimeStamps</h4>
+          <ul id="podcastCards">
+            {/* map over & render local timeStamps search results  */}
+            {searchTimeStamps(search, timeStamps).map((timeStamp) => (
+              <Link
+                to={`/episode/${timeStamp.item.spotify_id}`}
+                key={timeStamp.item.id}
+              >
+                <li className="list-group-item bg-transparent text-white">
+                  <div className="d-flex flex-column">
+                    <div>
+                      <span className="pe-2">
+                        <Avatar
+                          src="https://joeschmoe.io/api/v1/random"
+                          style={{
+                            width: "35px",
+                            height: "35px",
+                            border: "1px solid white",
+                            objectFit: "cover",
+                          }}
+                        />
+                      </span>
+                      <span
+                        style={{ color: "orange", cursor: "pointer" }}
+                        className="ps-1 pe-2 small"
+                      >
+                        {timeStamp.item.hr}:
+                        {timeStamp.item.min < 10
+                          ? "0" + timeStamp.item.min
+                          : timeStamp.item.min}
+                        :
+                        {timeStamp.item.sec < 10
+                          ? "0" + timeStamp.item.sec
+                          : timeStamp.item.sec}
+                      </span>
+                      <span className="text-secondary small">
+                        {findEpisode(timeStamp.item.spotify_id, episodes)?.name}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="ps-5">
+                        {`"${timeStamp.item.description}"`}
+                      </span>
+                    </div>
+                  </div>
+                </li>
+              </Link>
+            ))}
+          </ul>
+        </div>
+      ) : null}
     </div>
   );
 };

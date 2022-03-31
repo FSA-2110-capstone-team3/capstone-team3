@@ -6,7 +6,12 @@ module.exports = router
 // GET all comments
 router.get('/', async (req, res, next) => {
   try {
-    const comments = await Comment.findAll();
+    const comments = await Comment.findAll({
+      include: [
+        // {model: Comment, as: 'reply'},
+        {model: Comment, as: 'replies'},
+      ]
+    });
     res.json(comments)
   } catch (err) {
     next(err)
@@ -32,7 +37,7 @@ router.put('/:id', async(req, res, next) => {
   //updating content must switch edited from false to true
   try {
     const commentId = req.params.id;
-    req.body.edited = 'true'
+    // req.body.edited = 'true'
     const updatedData = req.body;
     const comment = await Comment.findByPk(commentId);
     comment.update(updatedData);
@@ -69,7 +74,14 @@ router.post('/', async(req, res, next) => {
     try {
       const commentId = req.params.id;
       const recordToDelete = await Comment.findByPk(commentId);
+      const replies = await Comment.findAll({
+        where: {
+          replyId: commentId
+        }
+      });
+      // console.log(replies);
       await recordToDelete.destroy();
+      replies.forEach(async (reply) => await reply.destroy());
       console.log('Deletion Successful')
       res.sendStatus(200);
     } catch(err) {

@@ -5,12 +5,6 @@ import { Link } from "react-router-dom";
 class TopPodcasts extends Component {
   render() {
     const { topCharts } = this.props;
-
-    /* Example for Priscilla - this is how you can grab first 4 in home component
-    let { topCharts } = this.props;
-    topCharts = topCharts.slice(0, 4);
-    */
-
     let rank = 1;
     return (
       // <div>
@@ -123,11 +117,11 @@ class TopPodcasts extends Component {
 
       <div>
         <h1 style={{ color: "white", fontWeight: 400 }}>TOP CHARTS:</h1>
-        <div className="row gy-2">
+        <div className="row p-5 m-2">
           {topCharts.map((podcast) => (
-            <div className="col-md-2 p-3 " id="mainCard" key={podcast.showUri}>
+            <div className="col-lg-2 " id="mainCard" key={podcast.showUri}>
               <div style={{ color: "white" }}>{`${rank++}.`}</div>
-              <div className="card ">
+              <div className="card">
                 <img
                   src={podcast.showImageUrl}
                   alt="podcastimg"
@@ -136,7 +130,10 @@ class TopPodcasts extends Component {
                 <div className="card-body ">
                   <h5 style={{ textAlign: "center" }} className="card-title">
                     {" "}
-                    <Link to={`/show/${podcast.showUri.slice(-22)}`}>
+                    <Link
+                      to={`/show/${podcast.showUri.slice(-22)}`}
+                      className="stretched-link"
+                    >
                       <span
                         className="card-text"
                         style={{
