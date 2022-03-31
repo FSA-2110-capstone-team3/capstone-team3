@@ -29,16 +29,20 @@ const SinglePodcast = () => {
         })
       ).data;
 
-      // const findPodcast = (await axios.get(`https://api.spotify.com/v1/shows/${id}`, {
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Accept': 'application/json',
-      //     Authorization: `Bearer ${auth.access_token}`,
-      //   }
-      // })).data;
+      const findPodcast = (
+        await axios.get(`https://api.spotify.com/v1/shows/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${auth.access_token}`,
+          },
+        })
+      ).data;
+
+      console.log(findPodcast.name, "-------->");
 
       setEpisodes(episodes.items);
-      // setPodcast(findPodcast)
+      setPodcast(findPodcast);
       // setPodcastImage(findPodcast.images[0].url)
       // console.log(findPodcast);
       // console.log(episodes)
@@ -52,7 +56,7 @@ const SinglePodcast = () => {
   return (
     <>
       <div>
-        <h1 style={{ color: "white", fontWeight: 400 }}> EPISODES:</h1>
+        <h1 style={{ color: "white", fontWeight: 400 }}> {podcast.name}</h1>
         <div className=" row p-5 m-2">
           {episodes.map((episode, idx) => (
             <div className="col-lg-2" id="mainCard" key={idx}>

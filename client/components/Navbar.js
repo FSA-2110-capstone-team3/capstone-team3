@@ -151,7 +151,10 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                 <>
                   <ul className="navbar-nav w-100 d-flex flex-sm-column text-center text-sm-start ">
                     <li className="nav-item h-25">
-                      <a href="/login" className="nav-link text-light pl-4">
+                      <a
+                        href="/userDetails"
+                        className="nav-link text-light pl-4"
+                      >
                         <span style={{ fontWeight: 500, color: "gray" }}>
                           <i className="bi bi-person-circle"></i>
                           {username[0]}
