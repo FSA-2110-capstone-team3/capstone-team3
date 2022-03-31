@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import EpisodeLikes from "./EpisodeLikes";
 import axios from "axios";
 import {
   addComment,
@@ -159,6 +160,7 @@ const SingleEpisode = () => {
         <span style={{ fontWeight: 400, fontSize: 38 + "px" }}>
           {episode.name}
         </span>
+        <EpisodeLikes />
         <hr />
       </div>
       <span style={{ fontWeight: 400, fontSize: 25 + "px" }}>
