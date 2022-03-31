@@ -87,8 +87,6 @@ const Search = () => {
   //search package function to set all search related hooks when form input changed
   const setSearchStates = (target_value) => {
     setSearch(target_value);
-    // setQueryState(target_value);
-    // setSearchResults(search);
   };
 
   /*<-------------------- Material UI hook/logic -------------------->*/
@@ -238,6 +236,7 @@ const Search = () => {
       {searchResults.length ? (
         <div>
           <hr></hr>
+
           <h4 className="text-white">Shows or Episodes</h4> */}
       {/* <ul id="podcastCards" className="mt-4 list-group"> */}
       {/* map over & render spotify search results */}
@@ -249,6 +248,18 @@ const Search = () => {
                 <img src={content.image} />
                 <div>{content.name}</div>
               </li>
+
+          <h4 className="text-white">Shows or Episodes</h4>
+          <ul id="podcastCards" className="mt-4 list-group">
+            {/* map over & render spotify search results */}
+            {searchResults.map((content) => (
+              <Link key={content.id} to={`/${contentToggle.slice(0, -1)}/${content.id}`}>
+                <li className="list-group-item bg-transparent text-white">
+                  <img src={content.image} />
+                  <div>{content.name}</div>
+                </li>
+              </Link>
+
             ))}
           </ul>
         </div>
