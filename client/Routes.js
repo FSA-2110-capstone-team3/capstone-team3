@@ -12,6 +12,7 @@ import {
   getEpisodes,
   getComments,
   getSavedEpisodes,
+  getEpisodeLikes,
   getSubscribedShows,
   getTimeStamps,
   getTopCharts,
@@ -33,6 +34,7 @@ class Routes extends Component {
     const {
       getComments,
       getEpisodes,
+      getEpisodeLikes,
       getTimeStamps,
       getTopCharts,
       getUsers,
@@ -40,6 +42,7 @@ class Routes extends Component {
     } = this.props;
     getComments();
     getEpisodes();
+    getEpisodeLikes();
     getTimeStamps();
     getTopCharts();
     getUsers();
@@ -96,6 +99,7 @@ const mapState = (state) => {
 const mapDispatch = {
   getComments,
   getEpisodes,
+  getEpisodeLikes,
   getSavedEpisodes,
   getSubscribedShows,
   getTimeStamps,
