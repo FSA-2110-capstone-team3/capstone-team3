@@ -28,33 +28,26 @@ router.get('/:id', async (req, res, next) => {
 
 
 
-//PUT(Update) episode-like thumbsUp
-router.put('/thumbsup/:id', async(req, res, next) => {
+//PUT(Update) episode-like
+router.put('/:id', async(req, res, next) => {
   try {
     const episodeLikeId = req.params.id;
-    //please increment by 1 within redux-thunk
     const payload = req.body
-    const episodeLikeToUpdate = await EpisodeLike.findByPk(episodeLikeId);
-    //update db
-    await episodeLikeToUpdate.update(payload);
-    //send back updated full-record to update redux/store
-    res.send(episodeLikeToUpdate)
-  } catch(err) {
-    next(err);
-  }
-});
+    let episodeLikeToUpdate;
 
+    if(!episodeLikeToUpdate) {
+      episodeLikeToUpdate = await EpisodeLike.create({
+        userId: payload.userId,
+        episodeId: payload.episodeId,
+        thumbsUp: payload.status
+      })
+    } else {
+      //update db
+      episodeLikeToUpdate = await EpisodeLike.findByPk(episodeLikeId);
+      episodeLikeToUpdate.thumbsUp = payload.status;
+      await episodeLikeToUpdate.save();
+    }
 
-
-//PUT(Update) episode-like thumbsUp
-router.put('/thumbsdown/:id', async(req, res, next) => {
-  try {
-    const episodeLikeId = req.params.id;
-    //please increment by 1 within redux-thunk
-    const payload = req.body
-    const episodeLikeToUpdate = await EpisodeLike.findByPk(episodeLikeId);
-    //update db
-    await episodeLikeToUpdate.update(payload);
     //send back updated full-record to update redux/store
     res.send(episodeLikeToUpdate)
   } catch(err) {
@@ -66,7 +59,7 @@ router.put('/thumbsdown/:id', async(req, res, next) => {
 
 //POST(Create) a episode-like record using an episodeId
   //Also need to add userID to req.body to properly create record!!!!
-router.post('/:id', async(req, res, next) => {
+router.post('/', async(req, res, next) => {
   try {
     req.body.episodeId = req.params.id;     
     const payload = req.body          //Payload now includes episodeId property
