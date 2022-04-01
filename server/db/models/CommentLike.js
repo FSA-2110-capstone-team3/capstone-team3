@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const { INTEGER, UUID, UUIDV4, BOOLEAN } = Sequelize;
+const { INTEGER, UUID, UUIDV4, BOOLEAN, STRING } = Sequelize;
 const db = require('../db');
 
 const CommentLike = db.define('commentLike', {
@@ -16,7 +16,10 @@ const CommentLike = db.define('commentLike', {
   thumbsDown: {
     type: BOOLEAN,
     defaultValue: false
-  }
+  },
+  spotify_id: {
+    type: STRING
+  },
 });
 
 module.exports = CommentLike;
