@@ -16,7 +16,7 @@ const TimestampModal = ({episodeDuration, episodeId, episodeSpotifyId }) => {
   const convertToSec = (h, m, s) => {
     return Number(h) * 3600 + Number(m) * 60 + Number(s);
   };
-   
+
   const onTimeStampChange = (ev) => {
     if (ev.target.name === "hr") setHour(ev.target.value);
     if (ev.target.name === "min") setMin(ev.target.value);
