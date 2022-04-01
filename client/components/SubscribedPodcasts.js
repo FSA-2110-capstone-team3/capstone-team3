@@ -19,7 +19,6 @@ class SubscribedPodcasts extends Component {
         >
           Current Subscribed Podcasts:
         </h1>
-
         <div className="row p-5 m-2" style={{ color: "white" }}>
           {userShows?.map((userShow) => {
             return (
@@ -58,8 +57,8 @@ class SubscribedPodcasts extends Component {
         </div>
       </>
     );
-  }
-}
+  };
+};
 
 const mapStateToProps = ({ subscribedShows }) => {
   return {

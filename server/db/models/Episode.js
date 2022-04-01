@@ -18,7 +18,7 @@ const Episode = db.define('episode', {
     allowNull: false
   },
   description: {
-    type: STRING(2000),
+    type: TEXT,
     allowNull: false
   },
   duration_ms: {

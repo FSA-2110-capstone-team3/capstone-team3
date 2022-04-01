@@ -63,7 +63,7 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route exact path="/home" component={Home} />
-            {/* <Route exact path="/saved" component={SavedEpisodes} /> */}
+            <Route exact path="/saved" component={SavedEpisodes} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/show/:id" component={SinglePodcast} />
             <Route exact path="/episode/:id" component={SingleEpisode} />
