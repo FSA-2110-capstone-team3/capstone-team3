@@ -146,6 +146,14 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                   </span>
                 </a>
               </li>
+              <li>
+                <a href="/aboutUs" className="nav-link">
+                  <span style={{ fontWeight: 500, color: "gray" }}>
+                    <i className="bi bi-rainbow"></i>
+                    ABOUT US
+                  </span>
+                </a>
+              </li>
 
               {isLoggedIn ? (
                 <>

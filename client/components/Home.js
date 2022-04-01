@@ -69,10 +69,7 @@ class Home extends Component {
                     className="card-img-top"
                   />
                   <div className="card-body">
-                    <h5
-                      style={{ textAlign: "center" }}
-                      className="card-title text-truncate"
-                    >
+                    <h5 style={{ textAlign: "center" }} className="card-title ">
                       {" "}
                       <Link
                         to={`/show/${podcast.showUri.slice(-22)}`}
@@ -134,10 +131,10 @@ class Home extends Component {
                       alt="podcastimg"
                       className="card-img-top"
                     />
-                    <div className="card-body">
+                    <div className="card-body ">
                       <h5
                         style={{ textAlign: "center" }}
-                        className="card-title text-truncate"
+                        className="card-title  " //overflow-auto
                       >
                         <Link
                           to={`/show/${userShow.show.id}`}

@@ -266,6 +266,23 @@ div.card:hover {
   box-shadow: 0px 8px 20px white;
 }
 
+div.card-body {
+  overflow: hidden;
+  line-height: 30px;
+  padding: 5px;
+}
+
+div.card-body h5 {
+  overflow: auto;
+  white-space: nowrap;
+  transform: translateX(0);
+  transition: 1s;
+}
+
+div.card-body:hover span {
+  transform: translateX(calc(200px - 100%));
+}
+
 @media (max-width: 575.98px) {
   #loginForm {
     width: 100%;

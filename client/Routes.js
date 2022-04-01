@@ -24,6 +24,7 @@ import SingleEpisode from "./components/SingleEpisode";
 import SubscribedPodcasts from "./components/SubscribedPodcasts";
 import TopPodcasts from "./components/TopPodcasts";
 import UserDeatils from "./components/UserDetails";
+import AboutUs from "./components/AboutUs";
 
 class Routes extends Component {
   componentDidMount() {
@@ -43,6 +44,7 @@ class Routes extends Component {
             <Route exact path="/episode/:id" component={SingleEpisode} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/userDetails" component={UserDeatils} />
+            <Route exact path="/aboutUs" component={AboutUs} />
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -50,10 +52,11 @@ class Routes extends Component {
             <Route exact path="/" component={Login} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/show/:id" component={SinglePodcast} />
+            <Route exact path="/aboutUs" component={AboutUs} />
+            {/* <Route path="/show/:id" component={SinglePodcast} />
             <Route path="/episode/:id" component={SingleEpisode} />
             <Route path="/topcharts" component={TopPodcasts} />
-            <Route path="/search" component={Search} />
+            <Route path="/search" component={Search} /> */}
           </Switch>
         )}
       </div>
