@@ -99,9 +99,9 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
             {" "}
             <div className="display-6 font-weight-bold">
               <span
+                id="logo"
                 style={{ fontFamily: "roboto", fontWeight: 400, color: "gray" }}
               >
-                <i></i>
                 SPODify +
               </span>{" "}
             </div>{" "}

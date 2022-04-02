@@ -93,14 +93,16 @@ nav a.nav-link {
   border-bottom: 1px solid white;
 }
 
-nav a.nav-link span:hover {
+nav a.nav-link span:hover,
+span#logo:hover {
   color: red !important;
+  transition: all 1s ease;
 }
 
-a.nav-link span:hover,
-a.navbar-brand span:hover {
+/* a.nav-link span:hover,
+span#logo:hover {
   color: red;
-}
+} */
 
 div.row {
   /* background: rgb(176, 54, 54); */
@@ -261,6 +263,11 @@ div#mainCard {
   box-shadow: 5px 5px 5px rgb(97, 94, 94);
 }
 
+/* button:hover {
+  border: 45px;
+  box-shadow: 0px 8px 20px red;
+} */
+
 div.card:hover {
   border: 45px;
   box-shadow: 0px 8px 20px white;
@@ -281,7 +288,7 @@ div.card-body h5 {
 
 div.card-body:hover span {
   transform: translateX(calc(200px - 100%));
-  background-color: #1ad760;
+  /* background-color: #1ad760; */
 }
 
 @media (max-width: 575.98px) {

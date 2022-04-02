@@ -35,7 +35,7 @@ class SubscribedPodcasts extends Component {
           {userShows?.map((userShow) => {
             return (
               <div className="col-md-2 " key={userShow.show.id}>
-                <div className="card h-100">
+                <div className="card">
                   <img
                     src={userShow.show.images[1].url}
                     alt="podcastimg"

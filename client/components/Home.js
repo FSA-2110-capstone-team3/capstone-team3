@@ -50,9 +50,7 @@ class Home extends Component {
               <a href="/topcharts">VIEW MORE</a>
             </button> */}
             <a href="/topcharts">
-              <button style={{ background: "darkGray", color: "white" }}>
-                View More
-              </button>
+              <button className="btn btn-outline-light">View More</button>
               <span></span>
             </a>
           </div>
@@ -112,9 +110,7 @@ class Home extends Component {
             style={{ fontSize: 20 + "px", textAlign: "right" }}
           >
             <a href="/subscribed">
-              <button style={{ background: "darkGray", color: "white" }}>
-                View More
-              </button>
+              <button className="btn btn-outline-light">View More</button>
               <span></span>
             </a>
           </div>
