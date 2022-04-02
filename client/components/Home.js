@@ -4,14 +4,10 @@ import { Link } from "react-router-dom";
 
 class Home extends Component {
   render() {
-    const { email, subscribedShows } = this.props;
+    let { email, subscribedShows, topCharts } = this.props;
     let username = email.split("@");
-
-    const userShows = subscribedShows.data?.items.slice(0, 5) || [];
-
-    let { topCharts } = this.props;
+    subscribedShows = subscribedShows.slice(0, 5);
     topCharts = topCharts.slice(0, 5);
-
     return (
       <div style={{ color: "white", fontFamily: "roboto", fontWeight: 300 }}>
         <div>
@@ -111,12 +107,12 @@ class Home extends Component {
         </div>
         <div>
           <div className="row p-5 m-2">
-            {userShows.map((userShow) => {
+            {subscribedShows.map((subscribedShow) => {
               return (
-                <div className="col-sm " key={userShow.show.id}>
+                <div className="col-sm " key={subscribedShow.show.id}>
                   <div className="card" style={{ width: 17 + "rem" }}>
                     <img
-                      src={userShow.show.images[1].url}
+                      src={subscribedShow.show.images[1].url}
                       alt="podcastimg"
                       className="card-img-top"
                     />
@@ -126,11 +122,11 @@ class Home extends Component {
                         className="card-title text-truncate"
                       >
                         <Link
-                          to={`/show/${userShow.show.id}`}
+                          to={`/show/${subscribedShow.show.id}`}
                           className="stretched-link"
                         >
                           <span style={{ fontWeight: "bold", color: "white" }}>
-                            {userShow.show.name}
+                            {subscribedShow.show.name}
                           </span>
                         </Link>
                       </h5>
@@ -144,7 +140,7 @@ class Home extends Component {
                           }}
                         >
                           {" "}
-                          {userShow.show.publisher}
+                          {subscribedShow.show.publisher}
                         </h6>
                       </span>
                     </div>

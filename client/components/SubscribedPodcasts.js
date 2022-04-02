@@ -6,7 +6,6 @@ import axios from "axios";
 class SubscribedPodcasts extends Component {
   render() {
     const { subscribedShows } = this.props;
-    const userShows = subscribedShows.data?.items;
     return (
       <>
         <h1
@@ -20,20 +19,20 @@ class SubscribedPodcasts extends Component {
           Current Subscribed Podcasts:
         </h1>
         <div className="row p-5 m-2" style={{ color: "white" }}>
-          {userShows?.map((userShow) => {
+          {subscribedShows?.map((subscribedShow) => {
             return (
-              <div className="col-md-2 " key={userShow.show.id}>
+              <div className="col-md-2 " key={subscribedShow.show.id}>
                 <div className="card h-100">
                   <img
-                    src={userShow.show.images[1].url}
+                    src={subscribedShow.show.images[1].url}
                     alt="podcastimg"
                     className="card-img-top"
                   />
                   <div className="card-body">
                     <h5 style={{ textAlign: "center" }} className="card-title">
-                      <Link to={`/show/${userShow.show.id}`}>
+                      <Link to={`/show/${subscribedShow.show.id}`}>
                         <span style={{ fontWeight: "bold", color: "white" }}>
-                          {userShow.show.name}
+                          {subscribedShow.show.name}
                         </span>
                       </Link>
                     </h5>
@@ -46,7 +45,7 @@ class SubscribedPodcasts extends Component {
                         }}
                       >
                         {" "}
-                        {userShow.show.publisher}
+                        {subscribedShow.show.publisher}
                       </h6>
                     </span>
                   </div>

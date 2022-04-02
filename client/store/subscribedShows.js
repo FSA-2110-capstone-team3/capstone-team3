@@ -29,7 +29,7 @@ export const getSubscribedShows = (info) => {
 export const subscribedShows = (state = [], action) => {
   switch (action.type) {
     case GET_SUBSCRIBED_SHOWS:
-      return action.subscribedShows;
+      return action.subscribedShows.data.items;
     default:
       return state;
   }
