@@ -38,7 +38,7 @@ const SingleEpisode = () => {
         <span style={{ fontWeight: 400, fontSize: 38 + "px" }}>
           {episode.name}
         </span>
-        <EpisodeLikes />
+        <EpisodeLikes episode={episode} user={auth}/>
         <hr />
       </div>
       <span style={{ fontWeight: 400, fontSize: 25 + "px" }}>
