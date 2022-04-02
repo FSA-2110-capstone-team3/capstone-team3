@@ -281,6 +281,7 @@ div.card-body h5 {
 
 div.card-body:hover span {
   transform: translateX(calc(200px - 100%));
+  background-color: #1ad760;
 }
 
 @media (max-width: 575.98px) {

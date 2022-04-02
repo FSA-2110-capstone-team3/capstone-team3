@@ -23,9 +23,8 @@ class Home extends Component {
     // console.log(userShows, "user shows-----");
 
     let { topCharts } = this.props;
-
     topCharts = topCharts.slice(0, 5);
-    console.log("TOP CHARTS---->", topCharts);
+    //console.log("TOP CHARTS---->", topCharts);
     return (
       <div style={{ color: "white", fontFamily: "roboto", fontWeight: 300 }}>
         <div>
