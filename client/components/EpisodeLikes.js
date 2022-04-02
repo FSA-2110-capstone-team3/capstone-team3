@@ -16,7 +16,6 @@ const EpisodeLikes = (props) => {
   
   // func: sum up episodeLikes to be rendered
   const episodeLikesTotal = (dbFieldNum) => {
-    console.log('insideFunc-->', dbFieldNum)
       return episodeLikes.reduce((acc, elem) => {
         if(elem.episodeId === episode.id) {
           acc += elem[dbFieldNum];
@@ -28,7 +27,7 @@ const EpisodeLikes = (props) => {
   // func: find episodeLike record via redux store using both userId & episodeId from redux store
   const isEpisodeLikeRecord = () => {
     return episodeLikes.find((record) => {
-      record.userId === user.id && record.episodeId === episode.id
+      if (record.userId === user.id && record.episodeId === episode.id)
       return record;
     });
   };
@@ -36,11 +35,11 @@ const EpisodeLikes = (props) => {
   //func: what goes in button onClick for like/dislike
   // if no record, set thumbsUp/Down status (0 or 1) & create record with add thunk including:
   // if record exists, set thumbsUp/Down status (0 or 1) & update record with update thunk including:
-  const onClickDispatchLikes = (userId, episodeId, thumbNum) => {
+  const onClickDispatchLikes = (userId, episodeId, thumbObj) => {
     if (!isEpisodeLikeRecord()) {
-      return addEpisodeLike(userId, episodeId, adjLike);
+      return addEpisodeLike(userId, episodeId, thumbObj);
     } else {
-      return updateEpisodeLike(isEpisodeLikeRecord().id, thumbNum);
+      return updateEpisodeLike(isEpisodeLikeRecord().id, thumbObj);
     };
 
   };
@@ -48,8 +47,7 @@ const EpisodeLikes = (props) => {
   //func: evaluate if like exists, eval if opposing like/dislike has value, calculate increment/decrement, then use in thunk
   const adjustThumb = (thumbTypeStr) => {
     const episodeLike = isEpisodeLikeRecord(), result = {};
-    
-    if(!episodeLike) return {};
+    if(!episodeLike) return {[thumbTypeStr]: 1};
     if (episodeLike['thumbsUp'] === episodeLike['thumbsDown']) {
       result[thumbTypeStr] = 1;
     } else if (episodeLike['thumbsUp'] === 1 || episodeLike['thumbsDown'] === 1) {

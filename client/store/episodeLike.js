@@ -58,7 +58,6 @@ export const addEpisodeLike = (userId, episodeId, status) => {
 
 export const updateEpisodeLike = (id, status) => {
   return async(dispatch) => {
-    console.log(status)
     const episodeLike = (await axios.put(`/api/episodeLikes/${id}`, status)).data;
     dispatch(_updateEpisodeLike(episodeLike));
   }
