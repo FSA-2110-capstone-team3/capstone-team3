@@ -89,7 +89,16 @@ const Comments = ({ episodeId, episodeSpotifyId }) => {
           const actions = [
             <Tooltip key="comment-basic-like">
               <span>
-                <span onClick={() => matchingCmtLike.commentId === comment.id ? dispatch(deleteCommentLike(matchingCmtLike.id)) : dispatch(addCommentLike({spotify_id: id, userId: auth.id, commentId: comment.id, thumbsUp: true}))}>
+              <span onClick={() => {
+                  if (matchingCmtLike.commentId === comment.id) {
+                    if (matchingCmtLike.thumbsDown) {
+                      dispatch(deleteCommentLike(matchingCmtLike.id))
+                      dispatch(addCommentLike({spotify_id: id, userId: auth.id, commentId: comment.id, thumbsUp: true}))
+                    }
+                    else dispatch(deleteCommentLike(matchingCmtLike.id))
+                  }
+                  else dispatch(addCommentLike({spotify_id: id, userId: auth.id, commentId: comment.id, thumbsUp: true}))
+                }}>
                   {
                     matchingCmtLike.thumbsUp ? <ThumbUpIcon style={{color: 'white', cursor: 'pointer'}} fontSize='small'/> : <ThumbUpOutlinedIcon style={{color: 'white', cursor: 'pointer'}} fontSize='small'/>
                   }
@@ -100,7 +109,16 @@ const Comments = ({ episodeId, episodeSpotifyId }) => {
             </Tooltip>,
             <Tooltip key="comment-basic-dislike">
               <span>
-                <span onClick={() => matchingCmtLike.commentId === comment.id ? dispatch(deleteCommentLike(matchingCmtLike.id)) : dispatch(addCommentLike({spotify_id: id, userId: auth.id, commentId: comment.id, thumbsDown: true}))}>
+                <span onClick={() => {
+                  if (matchingCmtLike.commentId === comment.id) {
+                    if (matchingCmtLike.thumbsUp) {
+                      dispatch(deleteCommentLike(matchingCmtLike.id))
+                      dispatch(addCommentLike({spotify_id: id, userId: auth.id, commentId: comment.id, thumbsDown: true}))
+                    }
+                    else dispatch(deleteCommentLike(matchingCmtLike.id))
+                  }
+                  else dispatch(addCommentLike({spotify_id: id, userId: auth.id, commentId: comment.id, thumbsDown: true}))
+                }}>
                   {
                     matchingCmtLike.thumbsDown ? <ThumbDownIcon style={{color: 'white', cursor: 'pointer'}} fontSize='small'/> : <ThumbDownOutlinedIcon style={{color: 'white', cursor: 'pointer'}} fontSize='small'/>
                   }
@@ -142,6 +160,9 @@ const Comments = ({ episodeId, episodeSpotifyId }) => {
               {
                 commentReplies.map((reply) => {
                   const replyUser = findUsers.find((user) => reply.userId === user.id) || {};
+                  const matchingReplyLike = commentLikes.find((cmtLike) => cmtLike.commentId === reply.id && cmtLike.userId === auth.id) || {};
+                  const allReplyLikes = commentLikes.filter((cmtLike) => cmtLike.thumbsUp === true && cmtLike.commentId === reply.id) || [];
+                  const allReplyDislikes = commentLikes.filter((cmtLike) => cmtLike.thumbsDown === true && cmtLike.commentId === reply.id) || [];
                   const replyEditBtn = reply.userId === auth.id ? 
                     <Tooltip>
                       <div className="dropdown">
@@ -173,17 +194,39 @@ const Comments = ({ episodeId, episodeSpotifyId }) => {
                   : '';
                   const replyActions = [
                     <Tooltip key="comment-basic-like">
-                      <span>
-                        <ThumbUpOutlinedIcon style={{color: 'white'}} fontSize='small'/>
+                    <span onClick={() => {
+                      if (matchingReplyLike.commentId === reply.id) {
+                        if (matchingReplyLike.thumbsDown) {
+                          dispatch(deleteCommentLike(matchingReplyLike.id))
+                          dispatch(addCommentLike({spotify_id: id, userId: auth.id, commentId: reply.id, thumbsUp: true}))
+                        }
+                        else dispatch(deleteCommentLike(matchingReplyLike.id))
+                      }
+                      else dispatch(addCommentLike({spotify_id: id, userId: auth.id, commentId: reply.id, thumbsUp: true}))
+                    }}>
+                        {
+                          matchingReplyLike.thumbsUp ? <ThumbUpIcon style={{color: 'white', cursor: 'pointer'}} fontSize='small'/> : <ThumbUpOutlinedIcon style={{color: 'white', cursor: 'pointer'}} fontSize='small'/>
+                        }
                         {/* {createElement(action === 'liked' ? LikeFilled : LikeOutlined)} */}
-                        <span className="comment-action" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>0</span>
+                        <span className="comment-action" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>{allReplyLikes.length}</span>
                       </span>
                     </Tooltip>,
                     <Tooltip key="comment-basic-dislike">
-                      <span>
-                        <ThumbDownOutlinedIcon style={{color: 'white'}} fontSize='small'/>
+                      <span onClick={() => {
+                        if (matchingReplyLike.commentId === reply.id) {
+                          if (matchingReplyLike.thumbsUp) {
+                            dispatch(deleteCommentLike(matchingReplyLike.id))
+                            dispatch(addCommentLike({spotify_id: id, userId: auth.id, commentId: reply.id, thumbsDown: true}))
+                          }
+                          else dispatch(deleteCommentLike(matchingReplyLike.id))
+                        }
+                        else dispatch(addCommentLike({spotify_id: id, userId: auth.id, commentId: reply.id, thumbsDown: true}))
+                      }}>
+                        {
+                          matchingReplyLike.thumbsDown ? <ThumbDownIcon style={{color: 'white', cursor: 'pointer'}} fontSize='small'/> : <ThumbDownOutlinedIcon style={{color: 'white', cursor: 'pointer'}} fontSize='small'/>
+                        }
                         {/* {React.createElement(action === 'disliked' ? DislikeFilled : DislikeOutlined)} */}
-                        <span className="comment-action" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>0</span>
+                        <span className="comment-action" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>{allReplyDislikes.length}</span>
                       </span>
                     </Tooltip>,
                     <span 
