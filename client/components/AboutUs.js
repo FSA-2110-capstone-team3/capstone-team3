@@ -34,11 +34,7 @@ function AboutUs() {
                 <div class="row">
                   <div class="col-lg-12 col-md-12">
                     <div class="card work-desk rounded border-0 shadow-lg overflow-hidden">
-                      <img
-                        src="https://via.placeholder.com/337x450/87CEFA/000000"
-                        class="img-fluid"
-                        alt="Image"
-                      />
+                      <img src="/comment.png" class="img-fluid" alt="Image" />
                       <div class="img-overlay bg-dark"></div>
                     </div>
                   </div>
@@ -73,9 +69,11 @@ function AboutUs() {
                 make your life easier.
               </h4>
               <p class="text-muted mb-0">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit quod
-                debitis praesentium pariatur temporibus ipsa, cum quidem
-                obcaecati sunt?
+                <h1>Welcome, we are sPODify +</h1>
+                The purpose of our website is to create a space for podcast
+                listeners to comment ...... Lorem, ipsum dolor sit amet
+                consectetur adipisicing elit quod debitis praesentium pariatur
+                temporibus ipsa, cum quidem obcaecati sunt?
               </p>
 
               <div class="row">

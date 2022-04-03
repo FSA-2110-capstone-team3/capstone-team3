@@ -85,7 +85,7 @@ i {
 }
 
 i:hover {
-  color: red;
+  color: #b22222;
 }
 
 nav a.nav-link {
@@ -95,7 +95,7 @@ nav a.nav-link {
 
 nav a.nav-link span:hover,
 span#logo:hover {
-  color: red !important;
+  color: #b22222 !important;
   transition: all 1s ease;
 }
 
@@ -282,7 +282,7 @@ div.card-body {
 div.card-body h5 {
   overflow: auto;
   white-space: nowrap;
-  transform: translateX(0);
+  /* transform: translateX(0); */
   transition: 1s;
 }
 
