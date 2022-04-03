@@ -46,16 +46,19 @@ export const getEpisodeLikes = () => {
   }
 };
 
-export const addEpisodeLike = (episodeLike) => {
+export const addEpisodeLike = (userId, episodeId, status) => {
   return async(dispatch) => {
-    const newepisodeLike = (await axios.post('/api/episodeLikes', episodeLike)).data;
-    dispatch(_addEpisodeLike(newepisodeLike));
+    const startPayload = {userId: userId, episodeId: episodeId}
+    const finalPayload = Object.assign(startPayload, status)
+
+    const newEpisodeLike = (await axios.post('/api/episodeLikes', finalPayload )).data;
+    dispatch(_addEpisodeLike(newEpisodeLike));
   }
 };
 
-export const updateEpisodeLike = (episodeLike) => {
+export const updateEpisodeLike = (id, status) => {
   return async(dispatch) => {
-    episodeLike = (await axios.put(`/api/episodeLikes/${episodeLike.id}`, episodeLike)).data;
+    const episodeLike = (await axios.put(`/api/episodeLikes/${id}`, status)).data;
     dispatch(_updateEpisodeLike(episodeLike));
   }
 };

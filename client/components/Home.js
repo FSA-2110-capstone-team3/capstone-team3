@@ -1,35 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import TopPodcasts from "./TopPodcasts";
 import { Link } from "react-router-dom";
-import { getSubscribedShows } from "../store/subscribedShows";
 
 class Home extends Component {
-  componentDidMount() {
-    const { auth, getSubscribedShows } = this.props;
-    const userId = auth.id;
-    try {
-      getSubscribedShows({ userId: userId });
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   render() {
-    const { email, subscribedShows } = this.props;
+    let { email, subscribedShows, topCharts } = this.props;
     let username = email.split("@");
-
-    const userShows = subscribedShows.data?.items.slice(0, 5) || [];
-    // console.log(userShows, "user shows-----");
-
-    let { topCharts } = this.props;
+    subscribedShows = subscribedShows.slice(0, 5);
     topCharts = topCharts.slice(0, 5);
-    //console.log("TOP CHARTS---->", topCharts);
     return (
       <div style={{ color: "white", fontFamily: "roboto", fontWeight: 300 }}>
         <div>
           <h3 style={{ fontWeight: 400 }}>
-            Welcome to Spodify+ , {username[0]}
+            Welcome to Spodify+, {username[0]}
           </h3>
           <br />
           <h1 style={{ fontWeight: 400 }}>
@@ -117,12 +100,12 @@ class Home extends Component {
         </div>
         <div>
           <div className="row p-5 m-2">
-            {userShows.map((userShow) => {
+            {subscribedShows.map((subscribedShow) => {
               return (
-                <div className="col-sm " key={userShow.show.id}>
+                <div className="col-sm " key={subscribedShow.show.id}>
                   <div className="card" style={{ width: 17 + "rem" }}>
                     <img
-                      src={userShow.show.images[1].url}
+                      src={subscribedShow.show.images[1].url}
                       alt="podcastimg"
                       className="card-img-top"
                     />
@@ -132,11 +115,11 @@ class Home extends Component {
                         className="card-title  " //overflow-auto
                       >
                         <Link
-                          to={`/show/${userShow.show.id}`}
+                          to={`/show/${subscribedShow.show.id}`}
                           className="stretched-link"
                         >
                           <span style={{ fontWeight: "bold", color: "white" }}>
-                            {userShow.show.name}
+                            {subscribedShow.show.name}
                           </span>
                         </Link>
                       </h5>
@@ -150,7 +133,7 @@ class Home extends Component {
                           }}
                         >
                           {" "}
-                          {userShow.show.publisher}
+                          {subscribedShow.show.publisher}
                         </h6>
                       </span>
                     </div>
@@ -170,13 +153,10 @@ class Home extends Component {
  */
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth,
     email: state.auth.email,
     subscribedShows: state.subscribedShows,
     topCharts: state.topCharts,
   };
 };
 
-const mapDispatchToProps = { getSubscribedShows };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);

@@ -26,13 +26,6 @@ const Comment = db.define('comment', {
     type: BOOLEAN,
     defaultValue: false
   }
-},
-{
-  hooks: {
-    afterCreate: async(comment, options) => {
-      await CommentLike.create({ commentId: comment.id })
-    }
-  }
 });
 
 module.exports = Comment;

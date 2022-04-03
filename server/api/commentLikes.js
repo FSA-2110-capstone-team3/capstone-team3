@@ -65,12 +65,12 @@ router.put('/thumbsdown/:id', async(req, res, next) => {
 
 //POST(Create) a comment-like record using a commentId
   //Need to also add userId to req.body to fully create correct record!!! 
-router.post('/:id', async(req, res, next) => {
+router.post('/', async(req, res, next) => {
   try {
-    req.body.commentId = req.params.id;     
-    const payload = req.body          //Payload now includes commentId property
-    const newCommentLike = await CommentReply.create(payload);
-    res.send(newCommentLike)
+    // req.body.commentId = req.params.id;     
+    // const payload = req.body          //Payload now includes commentId property
+    // const newCommentLike = await CommentLike.create(payload);
+    res.send(await CommentLike.create(req.body))
   } catch(err) {
     next(err);
   }
