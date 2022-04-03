@@ -31,7 +31,6 @@ const EpisodeLikes = (props) => {
       return record;
     });
   };
-
   //func: what goes in button onClick for like/dislike
   // if no record, set thumbsUp/Down status (0 or 1) & create record with add thunk including:
   // if record exists, set thumbsUp/Down status (0 or 1) & update record with update thunk including:
@@ -56,6 +55,12 @@ const EpisodeLikes = (props) => {
     return result;
   };
 
+  //--------------------button logic for likes/dislikes--------------------//
+  
+    // button click icon swap testing
+  const btnElem = document.getElementsByClassName("likeicon");
+
+
   return (
 
     <div>
@@ -65,7 +70,12 @@ const EpisodeLikes = (props) => {
         className="bg-transparent border-0" 
         onClick={()=>{ dispatch(onClickDispatchLikes(user.id, episode.id, adjustThumb('thumbsUp'))) }}
       >
-        <ThumbUpOutlinedIcon style={{color: 'white'}} fontSize='medium'/>
+        { // filled in thumbUp icon evaluation
+          (isEpisodeLikeRecord()?.thumbsUp === 1) ?
+          <ThumbUp className="likeicon" style={{color: 'white'}} fontSize='medium'/> 
+          :
+          <ThumbUpOutlinedIcon className="likeicon" style={{color: 'white'}} fontSize='medium'/>  
+        }
       </button>
       <span className="episodeLike-action pe-3" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>{episodeLikesTotal('thumbsUp')}</span>
       <button 
@@ -73,7 +83,12 @@ const EpisodeLikes = (props) => {
         className="bg-transparent border-0" 
         onClick={()=>{ dispatch(onClickDispatchLikes(user.id, episode.id, adjustThumb('thumbsDown'))) }}
       >
-        <ThumbDownOutlinedIcon style={{color: 'white'}} fontSize='medium'/>
+        { // filled in thumbDown icon evaluation
+          (isEpisodeLikeRecord()?.thumbsDown === 1) ?
+          <ThumbDown className="likeicon" style={{color: 'white'}} fontSize='medium'/> 
+          :
+          <ThumbDownOutlinedIcon className="likeicon" style={{color: 'white'}} fontSize='medium'/>  
+        }
       </button>
       <span className="episodeLike-action pe-3" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>{episodeLikesTotal('thumbsDown')}</span>
     </div>
