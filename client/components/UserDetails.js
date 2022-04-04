@@ -4,20 +4,15 @@ import { getSubscribedShows } from "../store/subscribedShows";
 import { Link } from "react-router-dom";
 
 class userDetails extends Component {
-  componentDidMount() {
-    const { auth, getSubscribedShows, email } = this.props;
-    const userId = auth.id;
-    try {
-      getSubscribedShows({ userId: userId });
-    } catch (err) {
-      console.log(err);
-    }
-  }
   render() {
-    const { email, subscribedShows } = this.props;
+    let { email, subscribedShows, likedEpisodes } = this.props;
 
     let username = email.split("@");
-    const userShows = subscribedShows.data?.items.slice(0, 5) || [];
+    subscribedShows = subscribedShows.slice(0, 5);
+
+    console.log(likedEpisodes, "---->");
+
+    //console.log(subscribedShows, "======>");
 
     return (
       <>
@@ -45,13 +40,13 @@ class userDetails extends Component {
                 {/* <h6>Upload a different photo...</h6> */}
               </div>
               {/* <input type="file" class="form-control" /> */}
-              <div className="col-sm-8 pt-5">
+              <div className="col-8 pt-5">
                 <div>
                   <h2>{`@${username[0]}`}</h2>
-                  <div className="col-sm" style={{ fontSize: "25px" }}>
+                  <div className="col-2-sm" style={{ fontSize: "25px" }}>
                     Followers: 0
                   </div>
-                  <div className="col-sm" style={{ fontSize: "25px" }}>
+                  <div className="col-2-sm" style={{ fontSize: "25px" }}>
                     Following: 0
                   </div>
                 </div>
@@ -83,9 +78,9 @@ class userDetails extends Component {
                   </div>
                   <hr />
                   <div className="row">
-                    {userShows.map((podcast) => {
+                    {subscribedShows.map((podcast) => {
                       return (
-                        <div className="col-sm-2" key={podcast.show.id}>
+                        <div className="col-sm" key={podcast.show.id}>
                           <div
                             className="card "
                             style={{ width: "200px", height: "200px" }}
@@ -155,9 +150,10 @@ const mapState = (state) => {
     email: state.auth.email,
     subscribedShows: state.subscribedShows,
     auth: state.auth,
+    likedEpisodes: state.episodeLikes,
   };
 };
 
-const mapDispatchToProps = { getSubscribedShows };
+// const mapDispatchToProps = { getSubscribedShows };
 
-export default connect(mapState, mapDispatchToProps)(userDetails);
+export default connect(mapState)(userDetails);

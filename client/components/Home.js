@@ -8,6 +8,7 @@ class Home extends Component {
     let username = email.split("@");
     subscribedShows = subscribedShows.slice(0, 5);
     topCharts = topCharts.slice(0, 5);
+
     return (
       <div style={{ color: "white", fontFamily: "roboto", fontWeight: 300 }}>
         <div>
