@@ -14,6 +14,7 @@ import { subscribedShows } from "./subscribedShows";
 import { timeStamps } from "./timeStamps";
 import { topCharts } from "./topCharts";
 import { users } from "./users";
+import { singleEpisode } from "./singleEpisode";
 
 const reducer = combineReducers({
   auth,
@@ -28,6 +29,7 @@ const reducer = combineReducers({
   timeStamps,
   topCharts,
   users,
+  singleEpisode
 });
 
 const middleware = composeWithDevTools(
@@ -49,3 +51,4 @@ export * from "./subscribedShows";
 export * from "./timeStamps";
 export * from "./topCharts";
 export * from "./users";
+export * from "./singleEpisode";
