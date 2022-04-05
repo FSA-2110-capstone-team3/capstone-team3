@@ -4,35 +4,57 @@ import { Link } from "react-router-dom";
 import { deleteSavedEpisode } from "../store/savedEpisodes";
 
 class SavedEpisodes extends Component {
+  constructor() {
+    super();
+    this.state = {};
+  }
   render() {
     const { userId, savedEpisodes, deleteSavedEpisode } = this.props;
     console.log(savedEpisodes, "saved episodes-----");
+
     return (
-      <div>
-        {savedEpisodes?.map((fav) => {
-          return (
-            <div key={fav.episode.id}>
-              <button
-                onClick={() =>
-                  deleteSavedEpisode({ id: fav.episode.id, userId: userId })
-                }
-              >
-                X
-              </button>
-              {/* This blank div below forces button to go above image */}
-              <div></div>
-              <Link to={`/episode/${fav.episode.id}`}>
-                <img src={fav.episode.images[1].url} />
-                {/* This blank div below forces text to go under image */}
-                <div></div>
-                <span style={{ color: "white", whiteSpace: "nowrap" }}>
-                  {fav.episode.name}
-                </span>
-              </Link>
-            </div>
-          );
-        })}
-      </div>
+      <>
+        <h1>Saved Episodes:</h1>
+
+        <div className="row p-5 m-2 ">
+          {savedEpisodes?.map((saved) => {
+            return (
+              <div className="col-sm-2 " key={saved.episode.id}>
+                <div className="card">
+                  <button
+                    className="x-icon"
+                    onClick={() =>
+                      deleteSavedEpisode({
+                        id: saved.episode.id,
+                        userId: userId,
+                      })
+                    }
+                  >
+                    X
+                  </button>
+                  <img
+                    src={saved.episode.images[1].url}
+                    alt="podcastimg"
+                    className="card-img-top"
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title" style={{ textAlign: "center" }}>
+                      <Link
+                        to={`/episode/${saved.episode.id}`}
+                        className="stretched-link"
+                      >
+                        <span style={{ fontWeight: "bold", color: "white" }}>
+                          {saved.episode.name}
+                        </span>
+                      </Link>
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </>
     );
   }
 }

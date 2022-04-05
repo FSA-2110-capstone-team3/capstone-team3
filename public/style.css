@@ -85,7 +85,7 @@ i {
 }
 
 i:hover {
-  color: red;
+  color: #b22222;
 }
 
 nav a.nav-link {
@@ -93,14 +93,16 @@ nav a.nav-link {
   border-bottom: 1px solid white;
 }
 
-nav a.nav-link span:hover {
-  color: red !important;
+nav a.nav-link span:hover,
+span#logo:hover {
+  color: #b22222 !important;
+  transition: all 1s ease;
 }
 
-a.nav-link span:hover,
-a.navbar-brand span:hover {
+/* a.nav-link span:hover,
+span#logo:hover {
   color: red;
-}
+} */
 
 div.row {
   /* background: rgb(176, 54, 54); */
@@ -261,9 +263,79 @@ div#mainCard {
   box-shadow: 5px 5px 5px rgb(97, 94, 94);
 }
 
+/* button:hover {
+  border: 45px;
+  box-shadow: 0px 8px 20px red;
+} */
+
 div.card:hover {
   border: 45px;
   box-shadow: 0px 8px 20px white;
+}
+
+div.card-body {
+  overflow: hidden;
+  line-height: 30px;
+  padding: 5px;
+}
+
+div.card-body h5 {
+  overflow: auto;
+  white-space: nowrap;
+  /* transform: translateX(0); */
+  transition: 1s;
+}
+
+div.card-body:hover span {
+  transform: translateX(calc(200px - 100%));
+  /* background-color: #1ad760; */
+}
+.x-icon {
+  position: absolute;
+  top: 0px;
+  right: -20px;
+  border: none;
+  background-color: none;
+}
+
+button#getStarted {
+  width: 140px;
+  height: 45px;
+  font-size: 23px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+
+  font-weight: 700;
+  position: relative;
+  transition: all 0.5s;
+  z-index: 1;
+}
+
+button#getStarted::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background-color: white;
+  z-index: -1;
+  transition: all 0.5s;
+}
+
+button#getStarted:hover::before {
+  width: 100%;
+}
+
+button#getStarted:hover {
+  color: black;
+}
+
+button#getStarted:active:before {
+  background: #b9b9b9;
 }
 
 @media (max-width: 575.98px) {

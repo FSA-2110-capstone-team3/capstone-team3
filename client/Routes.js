@@ -28,6 +28,7 @@ import SingleEpisode from "./components/SingleEpisode";
 import SubscribedPodcasts from "./components/SubscribedPodcasts";
 import TopPodcasts from "./components/TopPodcasts";
 import UserDeatils from "./components/UserDetails";
+import AboutUs from "./components/AboutUs";
 
 class Routes extends Component {
   componentDidMount() {
@@ -73,6 +74,7 @@ class Routes extends Component {
             <Route exact path="/subscribed" component={SubscribedPodcasts} />
             <Route exact path="/topcharts" component={TopPodcasts} />
             <Route exact path="/userDetails" component={UserDeatils} />
+            <Route exact path="/aboutUs" component={AboutUs} />
             <Redirect to="/home" />
           </Switch>
         ) : (
