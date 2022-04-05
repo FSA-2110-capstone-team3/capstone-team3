@@ -22,23 +22,17 @@ router.get('/', async (req, res, next) => {
 
 
 // GET a single episode
-// router.get('/:id', async (req, res, next) => {
-//   try {
-//     const id = req.params.id;
-//     const episode = await Episode.findByPk(id);
-//     res.send(episode)
-//   } catch (err) {
-//     next(err)
-//   }
-// });
 router.post('/:id', async (req, res, next) => {
   try {
+
     const id = req.params.id;
     let episode = await Episode.findOne({
       where: {
-        spotify_id: id
+        spotify_id: id,
+        userId: req.body.userId
       }
     });
+    
     if (!episode) {
       const response = (await axios.get(`https://api.spotify.com/v1/episodes/${id}`, {
         headers: {
@@ -47,7 +41,7 @@ router.post('/:id', async (req, res, next) => {
           Authorization: `Bearer ${req.body.access_token}`,
         }
       })).data;
-      // const response = await spotifyApi.getEpisode(id, {market: 'US'});
+
       episode = await Episode.create({
         spotify_id: response.id,
         name: response.name,
@@ -56,7 +50,8 @@ router.post('/:id', async (req, res, next) => {
         href: response.href,
         release_date: response.release_date,
         images: response.images,
-        uri: response.uri
+        uri: response.uri,
+        userId: req.body.userId
       })
     }
     res.send(episode)
@@ -65,23 +60,28 @@ router.post('/:id', async (req, res, next) => {
   }
 });
 
-
-//PUT(Update) an episode (Admin only)
-  // Will need admin authorization!!!!!!! <--is this ready right now === NO;
+//PUT(Update) an episode
 router.put('/:id', async(req, res, next) => {
   try {
     const episodeId = req.params.id;
+    const episode = await Episode.findOne({
+      where: {
+        spotify_id: episodeId
+      }
+    });
+
     const updatedData = req.body;
-    const episode = await Episode.findByPk(episodeId);
+    console.log(updatedData)
     episode.update(updatedData);
+    // episode.save();
     res.send(episode)
+  
   } catch(err) {
     next(err);
   }
 });
 
-
-//POST(Create) a new episode via showId 
+// POST(Create) a new episode via showId // 
   router.post('/:id', async(req, res, next) => {
     try {
       const showId = req.params.id;

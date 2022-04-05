@@ -7,11 +7,15 @@ import { useSelector, useDispatch } from "react-redux";
 
 const EpisodeLikes = (props) => {
 
-  const { episodeLikes } = useSelector(state => state);
+  const { episodeLikes, episodes } = useSelector(state => state);
   const dispatch = useDispatch();
   
   const { episode, user} = props;
 
+  const updatedSingleEpisode = (obj, arr) => {
+    return arr.find(arrEpisode => arrEpisode.id === obj.id) 
+  };
+  
   //--------------------like/dislike calculations--------------------//
   
   // func: sum up episodeLikes to be rendered
@@ -25,28 +29,27 @@ const EpisodeLikes = (props) => {
   };
 
   // func: find episodeLike record via redux store using both userId & episodeId from redux store
-  const isEpisodeLikeRecord = () => {
+  const getEpisodeLikeRecord = () => {
     return episodeLikes.find((record) => {
       if (record.userId === user.id && record.episodeId === episode.id)
       return record;
     });
   };
-
   //func: what goes in button onClick for like/dislike
   // if no record, set thumbsUp/Down status (0 or 1) & create record with add thunk including:
   // if record exists, set thumbsUp/Down status (0 or 1) & update record with update thunk including:
   const onClickDispatchLikes = (userId, episodeId, thumbObj) => {
-    if (!isEpisodeLikeRecord()) {
+    if (!getEpisodeLikeRecord()) {
       return addEpisodeLike(userId, episodeId, thumbObj);
     } else {
-      return updateEpisodeLike(isEpisodeLikeRecord().id, thumbObj);
+      return updateEpisodeLike(getEpisodeLikeRecord().id, thumbObj);
     };
 
   };
   
   //func: evaluate if like exists, eval if opposing like/dislike has value, calculate increment/decrement, then use in thunk
   const adjustThumb = (thumbTypeStr) => {
-    const episodeLike = isEpisodeLikeRecord(), result = {};
+    const episodeLike = getEpisodeLikeRecord(), result = {};
     if(!episodeLike) return {[thumbTypeStr]: 1};
     if (episodeLike['thumbsUp'] === episodeLike['thumbsDown']) {
       result[thumbTypeStr] = 1;
@@ -59,13 +62,18 @@ const EpisodeLikes = (props) => {
   return (
 
     <div>
-      <span className="pe-3">0.0K views</span>
+      <span className="pe-3">{`${updatedSingleEpisode(episode, episodes)?.views} views`}</span>
       <button 
         type="button" 
         className="bg-transparent border-0" 
         onClick={()=>{ dispatch(onClickDispatchLikes(user.id, episode.id, adjustThumb('thumbsUp'))) }}
       >
-        <ThumbUpOutlinedIcon style={{color: 'white'}} fontSize='medium'/>
+        { // filled in thumbUp icon evaluation
+          (getEpisodeLikeRecord()?.thumbsUp === 1) ?
+          <ThumbUp className="likeicon" style={{color: 'white'}} fontSize='medium'/> 
+          :
+          <ThumbUpOutlinedIcon className="likeicon" style={{color: 'white'}} fontSize='medium'/>  
+        }
       </button>
       <span className="episodeLike-action pe-3" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>{episodeLikesTotal('thumbsUp')}</span>
       <button 
@@ -73,7 +81,12 @@ const EpisodeLikes = (props) => {
         className="bg-transparent border-0" 
         onClick={()=>{ dispatch(onClickDispatchLikes(user.id, episode.id, adjustThumb('thumbsDown'))) }}
       >
-        <ThumbDownOutlinedIcon style={{color: 'white'}} fontSize='medium'/>
+        { // filled in thumbDown icon evaluation
+          (getEpisodeLikeRecord()?.thumbsDown === 1) ?
+          <ThumbDown className="likeicon" style={{color: 'white'}} fontSize='medium'/> 
+          :
+          <ThumbDownOutlinedIcon className="likeicon" style={{color: 'white'}} fontSize='medium'/>  
+        }
       </button>
       <span className="episodeLike-action pe-3" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>{episodeLikesTotal('thumbsDown')}</span>
     </div>

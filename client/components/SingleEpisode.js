@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getSingleEpisode, getTimeStamps, getCommentLikes } from "../store";
+import { getEpisodes, getSingleEpisode, updateEpisode, getTimeStamps, getCommentLikes } from "../store";
 import EpisodeLikes from "./EpisodeLikes";
 import Comments from "./Comments";
 import Timestamps from "./Timestamps";
@@ -12,7 +12,7 @@ const SingleEpisode = () => {
 
   //---------------Defining State from Redux---------------//
   const auth = useSelector((state) => state.auth) || {};
-  const getEpisode = useSelector((state) => state.episodes) || {};
+  const singleEpisode = useSelector((state) => state.singleEpisode) || {};
 
   //---------------Setting Initial Local State---------------//
   const [episode, setEpisode] = useState({});
@@ -21,10 +21,13 @@ const SingleEpisode = () => {
   useEffect(() => {
     dispatch(getTimeStamps());
     dispatch(getCommentLikes());
-    dispatch(getSingleEpisode({ id: id, access_token: auth.access_token }));
-    setEpisode(getEpisode);
-  }, [getEpisode.id]);
+    dispatch(getSingleEpisode({ id: id, access_token: auth.access_token, userId: auth.id }));
+    dispatch(getEpisodes()); //re-render all episodes since getSingleEpisode creates new episode if not already in db
+    setEpisode(singleEpisode);
+    dispatch(updateEpisode(id, {views: singleEpisode.views + 1})) || {};  
+  }, [singleEpisode.id]);
 
+  console.log('current ep', singleEpisode)
   return (
     <div style={{ color: "white" }}>
       <iframe
