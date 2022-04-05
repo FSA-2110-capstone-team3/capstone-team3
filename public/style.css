@@ -359,6 +359,7 @@ ul.dropdown-menu.show a:hover {
 
 ul.dropdown-menu.show a {
   color: gray;
+  font-weight: 500;
 }
 
 @media (max-width: 575.98px) {
