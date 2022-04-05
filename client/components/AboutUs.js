@@ -103,8 +103,8 @@ function AboutUs() {
                     </h6>
                   </div> */}
                   <button id="getStarted">
-                    <a href="/login" style={{ textDecoration: "none" }}>
-                      <span>GET STARTED</span>
+                    <a href="/signup" style={{ color: "white" }} id="started">
+                      Get Started
                     </a>
                   </button>
                 </div>

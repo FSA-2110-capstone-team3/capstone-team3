@@ -93,6 +93,10 @@ nav a.nav-link {
   border-bottom: 1px solid white;
 }
 
+nav a.nav-link span {
+  padding-left: 8px;
+}
+
 nav a.nav-link span:hover,
 span#logo:hover {
   color: #b22222 !important;
@@ -307,11 +311,11 @@ button#getStarted {
   outline: none;
   background: transparent;
   color: white;
-
   font-weight: 700;
   position: relative;
   transition: all 0.5s;
   z-index: 1;
+  text-decoration: "none";
 }
 
 button#getStarted::before {
@@ -324,18 +328,38 @@ button#getStarted::before {
   background-color: white;
   z-index: -1;
   transition: all 0.5s;
+  color: white;
 }
 
 button#getStarted:hover::before {
   width: 100%;
 }
 
-button#getStarted:hover {
-  color: black;
+button#getStarted a:hover {
+  color: black !important;
 }
 
 button#getStarted:active:before {
   background: #b9b9b9;
+}
+
+#dropdownMenuButton1 {
+  border: none;
+  box-shadow: none;
+  border-bottom: 1px solid white;
+}
+
+ul.dropdown-menu.show {
+  background-color: rgb(28, 28, 28);
+}
+
+ul.dropdown-menu.show a:hover {
+  background-color: rgb(46, 46, 46);
+}
+
+ul.dropdown-menu.show a {
+  color: gray;
+  font-weight: 500;
 }
 
 @media (max-width: 575.98px) {

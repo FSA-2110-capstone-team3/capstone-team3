@@ -138,7 +138,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                   </span>
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a href="/subscribed" className="nav-link">
                   <span style={{ fontWeight: 500, color: "gray" }}>
                     <i className="bi bi-rainbow"></i>
@@ -153,7 +153,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                     SAVED{" "}
                   </span>
                 </a>
-              </li>
+              </li> */}
               <li>
                 <a href="/aboutUs" className="nav-link">
                   <span style={{ fontWeight: 500, color: "gray" }}>
@@ -167,7 +167,56 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                 <>
                   <ul className="navbar-nav w-100 d-flex flex-sm-column text-center text-sm-start ">
                     <li className="nav-item h-25">
-                      <a
+                      <div className="dropdown">
+                        <button
+                          class="btn btn-secondary btn-lg dropdown-toggle"
+                          type="button"
+                          id="dropdownMenuButton1"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                          style={{
+                            background: "rgb(28, 28, 28)",
+                          }}
+                        >
+                          <span
+                            style={{
+                              fontWeight: 500,
+                              color: "gray",
+                              marginRight: "10px",
+                            }}
+                          >
+                            <i className="bi bi-person-circle"></i>
+                            {username[0]}
+                          </span>
+                        </button>
+                        <ul
+                          className="dropdown-menu"
+                          aria-labelledby="dropdownMenuButton1"
+                        >
+                          <li>
+                            {" "}
+                            <a className="dropdown-item" href="/userDetails">
+                              {" "}
+                              My Account
+                            </a>
+                          </li>
+                          <li>
+                            {" "}
+                            <a className="dropdown-item" href="/subscribed">
+                              {" "}
+                              Library{" "}
+                            </a>
+                          </li>
+                          <li>
+                            {" "}
+                            <a className="dropdown-item" href="/saved">
+                              {" "}
+                              Saved
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      {/* <a
                         href="/userDetails"
                         className="nav-link text-light pl-4"
                       >
@@ -175,7 +224,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                           <i className="bi bi-person-circle"></i>
                           {username[0]}
                         </span>
-                      </a>
+                      </a> */}
                     </li>
                     <li className="nav-item h-25 ">
                       <a
