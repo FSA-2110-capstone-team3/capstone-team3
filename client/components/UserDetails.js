@@ -5,12 +5,34 @@ import { Link } from "react-router-dom";
 
 class userDetails extends Component {
   render() {
-    let { email, subscribedShows, likedEpisodes } = this.props;
+    let {
+      email,
+      subscribedShows,
+      likedEpisodes,
+      allEpisodes,
+      userId,
+      comments,
+    } = this.props;
 
     let username = email.split("@");
     subscribedShows = subscribedShows.slice(0, 5);
 
-    console.log(likedEpisodes, "---->");
+    console.log(allEpisodes, "ALL EPISODES");
+
+    const likedEps = likedEpisodes.map((ep) =>
+      allEpisodes.find((episode) => episode.id === ep.episodeId)
+    );
+
+    const comm = comments.filter((comment) => comment.userId === userId);
+
+    console.log(comm, "???");
+
+    console.log(comments, "comments---->");
+    console.log("likedEPS", likedEps);
+
+    // console.log(likedEpisode, "FILTER");
+
+    // console.log(likedEpisodes, "FROM DB---->");
 
     //console.log(subscribedShows, "======>");
 
@@ -151,6 +173,9 @@ const mapState = (state) => {
     subscribedShows: state.subscribedShows,
     auth: state.auth,
     likedEpisodes: state.episodeLikes,
+    allEpisodes: state.episodes,
+    userId: state.auth.id,
+    comments: state.comments,
   };
 };
 
