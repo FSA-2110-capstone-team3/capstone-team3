@@ -51,12 +51,32 @@ router.post('/:id', async (req, res, next) => {
         release_date: response.release_date,
         images: response.images,
         uri: response.uri,
-        userId: req.body.userId
+        userId: req.body.userId,
+        views: 1
       })
     }
     res.send(episode)
   } catch (err) {
     next(err)
+  }
+});
+
+//PUT(Update) an episode's views only to increment page view by 1
+router.put('/views/:id', async(req, res, next) => {
+  try {
+    const episodeId = req.params.id;
+    const episode = await Episode.findOne({
+      where: {
+        spotify_id: episodeId
+      }
+    });
+
+    episode.update({views: episode.views + 1});
+    episode.save();
+    res.send(episode);
+
+  } catch(ex) {
+    next(ex);
   }
 });
 
@@ -71,9 +91,7 @@ router.put('/:id', async(req, res, next) => {
     });
 
     const updatedData = req.body;
-    console.log(updatedData)
     episode.update(updatedData);
-    // episode.save();
     res.send(episode)
   
   } catch(err) {
