@@ -1,0 +1,161 @@
+import React from "react";
+
+function AboutUs() {
+  return (
+    <>
+      <h1>(ABOUT US PAGE)</h1>
+      <div className="container p-2 m-5" style={{ color: "white" }}>
+        <div className="row align-items-center">
+          <div className="col-lg-6 col-md-6 order-2 order-md-1 mt-4 pt-2 mt-sm-0 opt-sm-0">
+            <div className="row align-items-center">
+              <div className="col-lg-6 col-md-6 col-6">
+                <div className="row">
+                  <div className="col-lg-12 col-md-12 mt-4 pt-2">
+                    <div className="card work-desk rounded border-0 shadow-lg overflow-hidden">
+                      <img
+                        src="/listen.png"
+                        className="img-fluid"
+                        alt="Image"
+                      />
+                      <div className="img-overlay bg-dark"></div>
+                    </div>
+                  </div>
+                  {/* <!--end col--> */}
+
+                  <div className="col-12">
+                    <div className="mt-4 pt-2 text-right">
+                      {/* <a href="javascript:void(0)" class="btn btn-info">
+                        Read More <i class="mdi mdi-chevron-right"></i>
+                      </a> */}
+                    </div>
+                  </div>
+                </div>
+                {/* <!--end row--> */}
+              </div>
+              {/* <!--end col--> */}
+
+              <div className="col-lg-6 col-md-6 col-6">
+                <div className="row">
+                  <div className="col-lg-12 col-md-12">
+                    <div className="card work-desk rounded border-0 shadow-lg overflow-hidden">
+                      <img
+                        src="/comment3.png"
+                        className="img-fluid"
+                        alt="Image"
+                      />
+                      <div className="img-overlay bg-dark"></div>
+                    </div>
+                  </div>
+                  {/* <!--end col--> */}
+
+                  <div className="col-lg-12 col-md-12 mt-4 pt-2">
+                    <div className="card work-desk rounded border-0 shadow-lg overflow-hidden">
+                      <img
+                        src="/comments.png
+                        "
+                        className="img-fluid"
+                        alt="Image"
+                      />
+                      <div className="img-overlay bg-dark"></div>
+                    </div>
+                  </div>
+                  {/* <!--end col--> */}
+                </div>
+                {/* <!--end row--> */}
+              </div>
+              {/* <!--end col--> */}
+            </div>
+            {/* <!--end row--> */}
+          </div>
+          {/* <!--end col--> */}
+
+          <div className="col-lg-6 col-md-6 col-12 order-1 order-md-2">
+            <div className="section-title ml-lg-5">
+              <h2 className="text-custom font-weight-normal mb-3">About Us</h2>
+              <h4 className="title mb-4">
+                Our mission is to <br />
+                make your life easier.
+              </h4>
+              <p className="text-muted mb-0">
+                <span>Welcome, we are sPODify +</span>
+                The purpose of our website is to create a space for podcast
+                listeners toLorem, ipsum dolor sit amet consectetur adipisicing
+                elit quod debitis praesentium pariatur temporibus ipsa, cum
+                quidem obcaecati sunt?
+              </p>
+
+              <div className="row">
+                <div className="col-lg-6 mt-4 pt-2">
+                  {/* <div
+                    class="media align-items-center rounded shadow p-3"
+                    id="box1"
+                    style={{
+                      backgroundColor: "white",
+                      color: "black",
+                      border: "green",
+                    }}
+                  >
+                    <i class="fa fa-play h4 mb-0 text-custom"></i>
+                    <h6 class="ml-3 mb-0">
+                      <a href="/signUp" class="text-dark">
+                        Get Started
+                      </a>
+                    </h6>
+                  </div> */}
+                  <button id="getStarted">
+                    <a href="/login" style={{ textDecoration: "none" }}>
+                      <span>GET STARTED</span>
+                    </a>
+                  </button>
+                </div>
+
+                {/* <div class="col-lg-6 mt-4 pt-2">
+                  <div
+                    class="media align-items-center rounded shadow p-3"
+                    style={{ backgroundColor: "white", color: "black" }}
+                  >
+                    <i class="fa fa-play h4 mb-0 text-custom"></i>
+                    <h6 class="ml-3 mb-0">
+                      <a href="/subscribed" class="text-dark">
+                        SUBSCRIBED
+                      </a>
+                    </h6>
+                  </div>
+                </div>
+                <div class="col-lg-6 mt-4 pt-2">
+                  <div
+                    class="media align-items-center rounded shadow p-3"
+                    style={{ backgroundColor: "white", color: "black" }}
+                  >
+                    <i class="fa fa-user h4 mb-0 text-custom"></i>
+                    <h6 class="ml-3 mb-0">
+                      <a href="javascript:void(0)" class="text-dark">
+                        LIKED?
+                      </a>
+                    </h6>
+                  </div>
+                </div>
+                <div class="col-lg-6 mt-4 pt-2">
+                  <div
+                    class="media align-items-center rounded shadow p-3"
+                    style={{ backgroundColor: "white", color: "black" }}
+                  >
+                    <i class="fa fa-image h4 mb-0 text-custom"></i>
+                    <h6 class="ml-3 mb-0">
+                      <a href="javascript:void(0)" class="text-dark">
+                        COMMENTS?
+                      </a>
+                    </h6>
+                  </div>
+                </div> */}
+              </div>
+            </div>
+          </div>
+          {/* <!--end col--> */}
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default AboutUs;

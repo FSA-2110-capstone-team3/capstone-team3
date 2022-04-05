@@ -8,6 +8,7 @@ class Home extends Component {
     let username = email.split("@");
     subscribedShows = subscribedShows.slice(0, 5);
     topCharts = topCharts.slice(0, 5);
+
     return (
       <div style={{ color: "white", fontFamily: "roboto", fontWeight: 300 }}>
         <div>
@@ -33,9 +34,7 @@ class Home extends Component {
               <a href="/topcharts">VIEW MORE</a>
             </button> */}
             <a href="/topcharts">
-              <button style={{ background: "darkGray", color: "white" }}>
-                View More
-              </button>
+              <button className="btn btn-outline-light">View More</button>
               <span></span>
             </a>
           </div>
@@ -51,10 +50,7 @@ class Home extends Component {
                     className="card-img-top"
                   />
                   <div className="card-body">
-                    <h5
-                      style={{ textAlign: "center" }}
-                      className="card-title text-truncate"
-                    >
+                    <h5 style={{ textAlign: "center" }} className="card-title ">
                       {" "}
                       <Link
                         to={`/show/${podcast.showUri.slice(-22)}`}
@@ -98,9 +94,7 @@ class Home extends Component {
             style={{ fontSize: 20 + "px", textAlign: "right" }}
           >
             <a href="/subscribed">
-              <button style={{ background: "darkGray", color: "white" }}>
-                View More
-              </button>
+              <button className="btn btn-outline-light">View More</button>
               <span></span>
             </a>
           </div>
@@ -116,10 +110,10 @@ class Home extends Component {
                       alt="podcastimg"
                       className="card-img-top"
                     />
-                    <div className="card-body">
+                    <div className="card-body ">
                       <h5
                         style={{ textAlign: "center" }}
-                        className="card-title text-truncate"
+                        className="card-title  " //overflow-auto
                       >
                         <Link
                           to={`/show/${subscribedShow.show.id}`}
