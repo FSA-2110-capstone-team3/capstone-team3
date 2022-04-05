@@ -37,6 +37,7 @@ const Comments = ({ episodeId, episodeSpotifyId }) => {
   const [currReply, setCurrReply] = useState("");
   const [replyBox, setReplyBox] = useState({isOpen: false, id: ''});
   const [editBox, setEditBox] = useState({isEditing: false, id: ''});
+  const [repliesOpen, setRepliesOpen] = useState({isLoaded: false, id: ''});
 
   return (
     <div>
@@ -45,7 +46,7 @@ const Comments = ({ episodeId, episodeSpotifyId }) => {
         <div>
           <div className="mb-2 p-2">
             <span style={{ color: "white", fontSize: "25px", fontWeight: 400 }}>
-              Comments ({epComments.filter((cmt) => cmt.replyId === null).length})
+              Comments ({epComments.length})
             </span>
           </div>
         </div>
@@ -57,6 +58,7 @@ const Comments = ({ episodeId, episodeSpotifyId }) => {
           const matchingCmtLike = commentLikes.find((cmtLike) => cmtLike.commentId === comment.id && cmtLike.userId === auth.id) || {};
           const allCommentLikes = commentLikes.filter((cmtLike) => cmtLike.thumbsUp === true && cmtLike.commentId === comment.id) || [];
           const allCommentDislikes = commentLikes.filter((cmtLike) => cmtLike.thumbsDown === true && cmtLike.commentId === comment.id) || [];
+
           const editButton = comment.userId === auth.id ? 
             <Tooltip>
               <div className="dropdown" >
@@ -86,6 +88,9 @@ const Comments = ({ episodeId, episodeSpotifyId }) => {
               </div>
             </Tooltip> 
             : '';
+
+          const isEditedCmt = comment.edited ? <Tooltip><div style={{color: 'lightgrey', marginLeft: '10px'}}>edited</div></Tooltip> : '';
+
           const actions = [
             <Tooltip key="comment-basic-like">
               <span>
@@ -140,7 +145,8 @@ const Comments = ({ episodeId, episodeSpotifyId }) => {
             >
               Reply
             </span>,
-            editButton
+            editButton,
+            isEditedCmt
           ];
           const commentReplies = epComments.filter((reply) => reply.replyId === comment.id);
           return (
@@ -158,109 +164,117 @@ const Comments = ({ episodeId, episodeSpotifyId }) => {
               >
               {(replyBox.isOpen && comment.id === replyBox.id) &&  <ReplyBox episodeId={episodeId} episodeSpotifyId={episodeSpotifyId} setReplyBox={setReplyBox} replyBox={replyBox} currText={currReply} editBox={editBox} parentId={replyBox.id}/> }
               {
-                commentReplies.map((reply) => {
-                  const replyUser = findUsers.find((user) => reply.userId === user.id) || {};
-                  const matchingReplyLike = commentLikes.find((cmtLike) => cmtLike.commentId === reply.id && cmtLike.userId === auth.id) || {};
-                  const allReplyLikes = commentLikes.filter((cmtLike) => cmtLike.thumbsUp === true && cmtLike.commentId === reply.id) || [];
-                  const allReplyDislikes = commentLikes.filter((cmtLike) => cmtLike.thumbsDown === true && cmtLike.commentId === reply.id) || [];
-                  const replyEditBtn = reply.userId === auth.id ? 
-                    <Tooltip>
-                      <div className="dropdown">
-                        <span data-bs-toggle="dropdown" aria-expanded="false">
-                          <MoreHorizIcon style={{color: 'white'}} fontSize='small' onClick={(ev) => ev.preventDefault()}/>
-                        </span>
-                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <li>
-                            <a 
-                              className="dropdown-item"
-                              onClick={() => {
-                                if (!editBox.isEditing) {
-                                  setEditBox({isEditing: true, id: reply.id});
-                                  setCurrReply(reply.content)
-                                }
-                                else setEditBox({isEditing: false, id: ''})
-                              }}
-                            >Edit Reply</a>
-                          </li>
-                          <li>
-                            <a 
-                              className="dropdown-item"
-                              onClick={() => dispatch(deleteComment(reply.id))}
-                            >Delete Reply</a>
-                          </li>
-                        </ul>
-                      </div>
-                  </Tooltip> 
-                  : '';
-                  const replyActions = [
-                    <Tooltip key="comment-basic-like">
-                    <span onClick={() => {
-                      if (matchingReplyLike.commentId === reply.id) {
-                        if (matchingReplyLike.thumbsDown) {
-                          dispatch(deleteCommentLike(matchingReplyLike.id))
-                          dispatch(addCommentLike({spotify_id: id, userId: auth.id, commentId: reply.id, thumbsUp: true}))
-                        }
-                        else dispatch(deleteCommentLike(matchingReplyLike.id))
-                      }
-                      else dispatch(addCommentLike({spotify_id: id, userId: auth.id, commentId: reply.id, thumbsUp: true}))
-                    }}>
-                        {
-                          matchingReplyLike.thumbsUp ? <ThumbUpIcon style={{color: 'white', cursor: 'pointer'}} fontSize='small'/> : <ThumbUpOutlinedIcon style={{color: 'white', cursor: 'pointer'}} fontSize='small'/>
-                        }
-                        {/* {createElement(action === 'liked' ? LikeFilled : LikeOutlined)} */}
-                        <span className="comment-action" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>{allReplyLikes.length}</span>
-                      </span>
-                    </Tooltip>,
-                    <Tooltip key="comment-basic-dislike">
+                 commentReplies.length > 0 && !repliesOpen.isLoaded && comment.id === repliesOpen.id ? <p onClick={() => setRepliesOpen({isLoaded: true, id: comment.id})}>Load {commentReplies.length} replies</p> :   
+                 <>
+                 {/* <p onClick={() => setRepliesOpen({isLoaded: false, id: ''})}>Hide Replies</p> */}
+                 {
+                  commentReplies.map((reply) => {
+                    const replyUser = findUsers.find((user) => reply.userId === user.id) || {};
+                    const matchingReplyLike = commentLikes.find((cmtLike) => cmtLike.commentId === reply.id && cmtLike.userId === auth.id) || {};
+                    const allReplyLikes = commentLikes.filter((cmtLike) => cmtLike.thumbsUp === true && cmtLike.commentId === reply.id) || [];
+                    const allReplyDislikes = commentLikes.filter((cmtLike) => cmtLike.thumbsDown === true && cmtLike.commentId === reply.id) || [];
+
+                    const replyEditBtn = reply.userId === auth.id ? 
+                      <Tooltip>
+                        <div className="dropdown">
+                          <span data-bs-toggle="dropdown" aria-expanded="false">
+                            <MoreHorizIcon style={{color: 'white'}} fontSize='small' onClick={(ev) => ev.preventDefault()}/>
+                          </span>
+                          <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li>
+                              <a 
+                                className="dropdown-item"
+                                onClick={() => {
+                                  if (!editBox.isEditing) {
+                                    setEditBox({isEditing: true, id: reply.id});
+                                    setCurrReply(reply.content)
+                                  }
+                                  else setEditBox({isEditing: false, id: ''})
+                                }}
+                              >Edit Reply</a>
+                            </li>
+                            <li>
+                              <a 
+                                className="dropdown-item"
+                                onClick={() => dispatch(deleteComment(reply.id))}
+                              >Delete Reply</a>
+                            </li>
+                          </ul>
+                        </div>
+                    </Tooltip> 
+                    : '';
+
+                    const isEditedReply = reply.edited ? <Tooltip><div style={{color: 'lightgrey', marginLeft: '10px'}}>edited</div></Tooltip> : '';
+
+                    const replyActions = [
+                      <Tooltip key="comment-basic-like">
                       <span onClick={() => {
                         if (matchingReplyLike.commentId === reply.id) {
-                          if (matchingReplyLike.thumbsUp) {
+                          if (matchingReplyLike.thumbsDown) {
                             dispatch(deleteCommentLike(matchingReplyLike.id))
-                            dispatch(addCommentLike({spotify_id: id, userId: auth.id, commentId: reply.id, thumbsDown: true}))
+                            dispatch(addCommentLike({spotify_id: id, userId: auth.id, commentId: reply.id, thumbsUp: true}))
                           }
                           else dispatch(deleteCommentLike(matchingReplyLike.id))
                         }
-                        else dispatch(addCommentLike({spotify_id: id, userId: auth.id, commentId: reply.id, thumbsDown: true}))
+                        else dispatch(addCommentLike({spotify_id: id, userId: auth.id, commentId: reply.id, thumbsUp: true}))
                       }}>
-                        {
-                          matchingReplyLike.thumbsDown ? <ThumbDownIcon style={{color: 'white', cursor: 'pointer'}} fontSize='small'/> : <ThumbDownOutlinedIcon style={{color: 'white', cursor: 'pointer'}} fontSize='small'/>
-                        }
-                        {/* {React.createElement(action === 'disliked' ? DislikeFilled : DislikeOutlined)} */}
-                        <span className="comment-action" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>{allReplyDislikes.length}</span>
-                      </span>
-                    </Tooltip>,
-                    <span 
-                    key="comment-basic-reply-to" 
-                    style={{color: 'white', cursor: 'pointer', fontSize: '0.8rem'}} 
-                    onClick={() => {
-                      if (!replyBox.isOpen) {
-                        setReplyBox({isOpen: true, id: reply.id});
-                        setCurrReply(`@${replyUser.display_name} `)
-                      }
-                      else setReplyBox({isOpen: false, id: ''})
-                    }}
-                    >
-                      Reply
-                    </span>,
-                    replyEditBtn
-                  ];
-                  return (
-                    <>
-                      <Comment
-                        datetime={
-                          <Tooltip title={dayjs(reply.updatedAt).format('L LT')}>
-                            <span>{dayjs(reply.updatedAt).fromNow()}</span>
-                          </Tooltip>
-                        }
-                        actions={replyActions}
-                        avatar={<Avatar src={auth.avatarUrl} style={{ width: '35px', height: '35px', border: '1px solid white', objectFit: 'cover'}}/>}
-                        author={<a style={{ color: "white" }}>{replyUser.display_name}</a>} 
-                        content={editBox.isEditing && reply.id === editBox.id ? <ReplyBox episodeId={episodeId} episodeSpotifyId={episodeSpotifyId} setReplyBox={setReplyBox} setEditBox={setEditBox} replyBox={replyBox} currText={currReply} editBox={editBox}/> : <p style={{ color: "white" }}>{reply.content}</p>}
-                      />
-                      {(replyBox.isOpen && reply.id === replyBox.id) &&  <ReplyBox episodeId={episodeId} episodeSpotifyId={episodeSpotifyId} setReplyBox={setReplyBox} setEditBox={setEditBox} replyBox={replyBox} currText={currReply} editBox={editBox} parentId={reply.replyId}/> }
-                    </>
-                  )
-                })
+                          {
+                            matchingReplyLike.thumbsUp ? <ThumbUpIcon style={{color: 'white', cursor: 'pointer'}} fontSize='small'/> : <ThumbUpOutlinedIcon style={{color: 'white', cursor: 'pointer'}} fontSize='small'/>
+                          }
+                          <span className="comment-action" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>{allReplyLikes.length}</span>
+                        </span>
+                      </Tooltip>,
+                      <Tooltip key="comment-basic-dislike">
+                        <span onClick={() => {
+                          if (matchingReplyLike.commentId === reply.id) {
+                            if (matchingReplyLike.thumbsUp) {
+                              dispatch(deleteCommentLike(matchingReplyLike.id))
+                              dispatch(addCommentLike({spotify_id: id, userId: auth.id, commentId: reply.id, thumbsDown: true}))
+                            }
+                            else dispatch(deleteCommentLike(matchingReplyLike.id))
+                          }
+                          else dispatch(addCommentLike({spotify_id: id, userId: auth.id, commentId: reply.id, thumbsDown: true}))
+                        }}>
+                          {
+                            matchingReplyLike.thumbsDown ? <ThumbDownIcon style={{color: 'white', cursor: 'pointer'}} fontSize='small'/> : <ThumbDownOutlinedIcon style={{color: 'white', cursor: 'pointer'}} fontSize='small'/>
+                          }
+                          <span className="comment-action" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>{allReplyDislikes.length}</span>
+                        </span>
+                      </Tooltip>,
+                      <span 
+                        key="comment-basic-reply-to" 
+                        style={{color: 'white', cursor: 'pointer', fontSize: '0.8rem'}} 
+                        onClick={() => {
+                          if (!replyBox.isOpen) {
+                            setReplyBox({isOpen: true, id: reply.id});
+                            setCurrReply(`@${replyUser.display_name} `)
+                          }
+                          else setReplyBox({isOpen: false, id: ''})
+                        }}
+                      >
+                        Reply
+                      </span>,
+                      replyEditBtn,
+                      isEditedReply
+                    ];
+                    return (
+                      <>
+                        <Comment
+                          datetime={
+                            <Tooltip title={dayjs(reply.updatedAt).format('L LT')}>
+                              <span>{dayjs(reply.updatedAt).fromNow()}</span>
+                            </Tooltip>
+                          }
+                          actions={replyActions}
+                          avatar={<Avatar src={auth.avatarUrl} style={{ width: '35px', height: '35px', border: '1px solid white', objectFit: 'cover'}}/>}
+                          author={<a style={{ color: "white" }}>{replyUser.display_name}</a>} 
+                          content={editBox.isEditing && reply.id === editBox.id ? <ReplyBox episodeId={episodeId} episodeSpotifyId={episodeSpotifyId} setReplyBox={setReplyBox} setEditBox={setEditBox} replyBox={replyBox} currText={currReply} editBox={editBox}/> : <p style={{ color: "white" }}>{reply.content}</p>}
+                        />
+                        {(replyBox.isOpen && reply.id === replyBox.id) &&  <ReplyBox episodeId={episodeId} episodeSpotifyId={episodeSpotifyId} setReplyBox={setReplyBox} setEditBox={setEditBox} replyBox={replyBox} currText={currReply} editBox={editBox} parentId={reply.replyId}/> }
+                      </>
+                    )})
+                  }
+                </>
               }
               </Comment>
             </>

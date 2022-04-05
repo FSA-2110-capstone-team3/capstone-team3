@@ -22,7 +22,8 @@ const ReplyBox = ({ episodeId, episodeSpotifyId, setEditBox, editBox, setReplyBo
     editBox.isEditing ? 
     dispatch(updateComment({
       id: editBox.id,
-      content: currReply
+      content: currReply,
+      edited: true
     }))
     : dispatch(
       addComment({

@@ -21,9 +21,10 @@ const SingleEpisode = () => {
   useEffect(() => {
     dispatch(getTimeStamps());
     dispatch(getCommentLikes());
-    dispatch(getSingleEpisode({ id: id, access_token: auth.access_token }));
+    dispatch(getSingleEpisode({ id: id, access_token: auth.access_token, userId: auth.id }));
     setEpisode(getEpisode);
   }, [getEpisode.id]);
+
 
   return (
     <div style={{ color: "white" }}>

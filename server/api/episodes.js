@@ -36,7 +36,8 @@ router.post('/:id', async (req, res, next) => {
     const id = req.params.id;
     let episode = await Episode.findOne({
       where: {
-        spotify_id: id
+        spotify_id: id,
+        userId: req.body.userId
       }
     });
     if (!episode) {
@@ -56,7 +57,8 @@ router.post('/:id', async (req, res, next) => {
         href: response.href,
         release_date: response.release_date,
         images: response.images,
-        uri: response.uri
+        uri: response.uri,
+        userId: req.body.userId
       })
     }
     res.send(episode)
