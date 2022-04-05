@@ -5,6 +5,7 @@ import axios from 'axios'
 const GET_EPISODES = 'GET_EPISODES';
 // const ADD_EPISODE = 'ADD_EPISODE'; //Deprecated, see singleEpisode
 const UPDATE_EPISODE = 'UPDATE_EPISODE';
+const UPDATE_EPISODE_VIEWS = 'UPDATE_EPISODE_VIEWS'; 
 const DELETE_EPISODE = 'DELETE_EPISODE';
 
 //------------ACTION CREATORS------------//
@@ -27,6 +28,13 @@ const _getEpisodes = (episodes) => {
 const _updateEpisode = (episode) => {
   return {
     type: UPDATE_EPISODE,
+    episode
+  }
+};
+
+const _updateEpisodeViews = (episode) => {
+  return {
+    type: UPDATE_EPISODE_VIEWS,
     episode
   }
 };
@@ -65,6 +73,13 @@ export const updateEpisode = (spotify_id, payload) => {
   }
 };
 
+export const updateEpisodeViews = (spotify_id) => {
+  return async(dispatch) => {
+    const episode = (await axios.put(`/api/episodes/views/${spotify_id}`)).data;
+    dispatch(_updateEpisodeViews(episode));
+  }
+};
+
 export const deleteEpisode = (id) => {
   return async(dispatch) => {
     await axios.delete(`/api/episodes/${id}`);
@@ -81,6 +96,8 @@ export const episodes = (state = [], action) => {
     // case ADD_EPISODE: //Deprecated, see singleEpisode
     //   return [...state, action.episode]
     case UPDATE_EPISODE:
+      return state.map((episode) => episode.id === action.episode.id ? action.episode : episode)
+    case UPDATE_EPISODE_VIEWS:
       return state.map((episode) => episode.id === action.episode.id ? action.episode : episode)
     case DELETE_EPISODE:
       return state.filter((episode) => episode.id !== action.id)
