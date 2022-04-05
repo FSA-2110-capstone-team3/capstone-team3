@@ -307,11 +307,11 @@ button#getStarted {
   outline: none;
   background: transparent;
   color: white;
-
   font-weight: 700;
   position: relative;
   transition: all 0.5s;
   z-index: 1;
+  text-decoration: "none";
 }
 
 button#getStarted::before {
@@ -324,14 +324,15 @@ button#getStarted::before {
   background-color: white;
   z-index: -1;
   transition: all 0.5s;
+  color: white;
 }
 
 button#getStarted:hover::before {
   width: 100%;
 }
 
-button#getStarted:hover {
-  color: black;
+button#getStarted a:hover {
+  color: black !important;
 }
 
 button#getStarted:active:before {
