@@ -34,6 +34,10 @@ const User = db.define('user', {
   // password: {
   //   type: STRING,
   // },
+  avatarUrl: {
+    type: STRING,
+    defaultValue: 'https://joeschmoe.io/api/v1/jack'
+  },
   display_name: {
     type: STRING,
     defaultValue: null,
