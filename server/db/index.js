@@ -21,6 +21,9 @@ Comment.belongsTo(User);
 User.hasMany(Show);
 Show.belongsTo(User);
 
+User.hasMany(Episode);
+Episode.belongsTo(User);
+
 User.hasMany(EpisodeLike);
 EpisodeLike.belongsTo(User);
 

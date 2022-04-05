@@ -27,6 +27,7 @@ const SingleEpisode = () => {
     dispatch(updateEpisode(id, {views: singleEpisode.views + 1})) || {};  
   }, [singleEpisode.id]);
 
+
   return (
     <div style={{ color: "white" }}>
       <iframe
