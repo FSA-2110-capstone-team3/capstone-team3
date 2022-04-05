@@ -27,7 +27,7 @@ import SinglePodcast from "./components/SinglePodcast";
 import SingleEpisode from "./components/SingleEpisode";
 import SubscribedPodcasts from "./components/SubscribedPodcasts";
 import TopPodcasts from "./components/TopPodcasts";
-import UserDeatils from "./components/UserDetails";
+import UserDetails from "./components/UserDetails";
 import History from "./components/History";
 import AboutUs from "./components/AboutUs";
 
@@ -74,7 +74,7 @@ class Routes extends Component {
             <Route exact path="/episode/:id" component={SingleEpisode} />
             <Route exact path="/subscribed" component={SubscribedPodcasts} />
             <Route exact path="/topcharts" component={TopPodcasts} />
-            <Route exact path="/userDetails" component={UserDeatils} />
+            <Route exact path="/userDetails" component={UserDetails} />
             <Route exact path="/history" component={History} />
             <Route exact path="/aboutUs" component={AboutUs} />
             <Redirect to="/home" />
@@ -84,6 +84,7 @@ class Routes extends Component {
             <Route exact path="/" component={Login} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
+            <Route exact path="/aboutUs" component={AboutUs} />
           </Switch>
         )}
       </div>

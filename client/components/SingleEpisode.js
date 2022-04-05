@@ -21,13 +21,13 @@ const SingleEpisode = () => {
   useEffect(() => {
     dispatch(getTimeStamps());
     dispatch(getCommentLikes());
-    dispatch(getSingleEpisode({ id: id, access_token: auth.access_token }));
+    dispatch(getSingleEpisode({ id: id, access_token: auth.access_token, userId: auth.id }));
     dispatch(getEpisodes()); //re-render all episodes since getSingleEpisode creates new episode if not already in db
     setEpisode(singleEpisode);
     dispatch(updateEpisode(id, {views: singleEpisode.views + 1})) || {};  
   }, [singleEpisode.id]);
 
-
+  console.log('current ep', singleEpisode)
   return (
     <div style={{ color: "white" }}>
       <iframe
