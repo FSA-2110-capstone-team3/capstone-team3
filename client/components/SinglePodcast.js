@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { Component, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
+import { addSavedEpisode } from "../store/savedEpisodes";
 
 const SinglePodcast = () => {
   const auth = useSelector((state) => state.auth) || {};
@@ -13,6 +14,7 @@ const SinglePodcast = () => {
   // console.log(auth.access_token);
   // console.log(id);
   // console.log(match)
+
   const [episodes, setEpisodes] = useState([]);
   const [podcast, setPodcast] = useState({});
   const [podcastImage, setPodcastImage] = useState("");
@@ -53,6 +55,9 @@ const SinglePodcast = () => {
 
   // console.log(podcastImage)
   // console.log('podcastIMAGE', podcast.images)
+
+  const dispatch = useDispatch();
+
   return (
     <>
       <div>
@@ -61,6 +66,17 @@ const SinglePodcast = () => {
           {episodes.map((episode, idx) => (
             <div className="col-lg-2" id="mainCard" key={idx}>
               <div className="card">
+                <button
+                  className="x-icon"
+                  onClick={() =>
+                    dispatch(addSavedEpisode({
+                      id: episode.id,
+                      userId: auth.id,
+                    }))
+                  }
+                >
+                  +
+                </button>
                 <img
                   src={episode.images[0].url}
                   alt="podcastimg"
