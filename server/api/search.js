@@ -28,4 +28,16 @@ router.get('/episodes/:query', async (req, res, next) => {
   }
 });
 
+// GET BOTH Episodes & Shows to search from the Spotify Web API Node library
+router.get('/:query', async (req, res, next) => {
+  try {
+    const searchQueryStr = req.params.query;
+    const response = (await spotifyApi.searchEpisodes(searchQueryStr, {type: 'show,episode', market: 'US'}));
+    //return {shows, episodes} from response body
+    res.send(response.body);
+  } catch(ex) {
+    res.send(ex);
+    next(ex);
+  }
+});
 

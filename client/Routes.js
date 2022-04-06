@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import {
   getEpisodes,
+  getShows,
   getComments,
   getSavedEpisodes,
   getEpisodeLikes,
@@ -35,6 +36,7 @@ class Routes extends Component {
   componentDidMount() {
     const {
       getComments,
+      getShows,
       getEpisodes,
       getEpisodeLikes,
       getTimeStamps,
@@ -43,6 +45,7 @@ class Routes extends Component {
       me,
     } = this.props;
     getComments();
+    getShows();
     getEpisodes();
     getEpisodeLikes();
     getTimeStamps();
@@ -104,6 +107,7 @@ const mapState = (state) => {
 const mapDispatch = {
   getComments,
   getEpisodes,
+  getShows,
   getEpisodeLikes,
   getSavedEpisodes,
   getSubscribedShows,
