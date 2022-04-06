@@ -185,9 +185,47 @@ class userDetails extends Component {
                           <div className="col-sm box-inline ">
                             <span style={{ paddingLeft: "70px" }}>
                               {comment.comments[0].content}
-                              {/* {comment.comments.length === 1
-                                ? comment.comments[0].content
-                                : comment.comments.map((comm) => comm.content)} */}
+
+                              {comment.comments.length > 1 ? (
+                                <>
+                                  {" "}
+                                  <div
+                                    className="media-block"
+                                    style={{ paddingLeft: "70px" }}
+                                  >
+                                    <div className="media-left">
+                                      <img
+                                        className="img-circle rounded-circle img-sm ps-10"
+                                        alt="Profile Picture"
+                                        src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                                        style={{
+                                          width: "50px",
+                                          height: "50px",
+                                        }}
+                                      />
+
+                                      <a
+                                        href={`/episode/${comment.spotify_id}`}
+                                        className="btn-link text-semibold media-heading box-inline "
+                                      >
+                                        <span className="p-2 m-2">
+                                          {comment.name}
+                                        </span>
+                                      </a>
+                                    </div>
+                                    <div className="col-sm box-inline">
+                                      <span style={{ paddingLeft: "70px" }}>
+                                        {" "}
+                                        {comment.comments.map(
+                                          (comm) => `REPLY: ${comm.content} `
+                                        )}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </>
+                              ) : (
+                                comment.comments[0].content
+                              )}
                             </span>
                           </div>
                           <hr />

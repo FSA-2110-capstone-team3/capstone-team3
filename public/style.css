@@ -362,6 +362,20 @@ ul.dropdown-menu.show a {
   font-weight: 500;
 }
 
+#savedEpModal {
+  background-color: rgb(0, 0, 0, 0);
+  width: 500px;
+  height: 300px;
+  align-items: center;
+}
+
+@media (max-width: 200px) {
+  #idk {
+    width: 100%;
+    position: absolute;
+  }
+}
+
 @media (max-width: 575.98px) {
   #loginForm {
     width: 100%;

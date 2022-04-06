@@ -13,57 +13,6 @@ const AuthForm = (props) => {
 
   return (
     <div style={{ color: "white" }}>
-      {/* <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>User Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form> */}
-      {/*
-      <div className="loginContainer">
-        <div className="small-box dark-box mx-auto text-center">
-          <div>
-            <button>
-              <a href="/login">LOGIN</a>
-            </button>
-          </div>
-          <form onSubmit={handleSubmit} name={name}>
-            <table className="table table-user-information">
-              <tbody>
-                <tr>
-                  <td className="p-0 m-0">
-                    <span style={{ color: "white" }}>User Email:</span>
-                  </td>
-                  <td>
-                    <input name="email" type="text" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span style={{ color: "white" }}>Password: </span>
-                  </td>
-                  <td>
-                    <input name="password" type="password" />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-
-          </form>
-        </div>
-      </div> */}
       <div className=" full-width d-flex flex-column min-vh-100 justify-content-center align-items-center ">
         <div
           id="loginform"
@@ -106,7 +55,7 @@ const AuthForm = (props) => {
                 ""
               )}
             </div>
-            <div className="mb-3">
+            {/* <div className="mb-3">
               <input
                 name="email"
                 type="text"
@@ -126,11 +75,11 @@ const AuthForm = (props) => {
                 placeholder="Password"
                 style={{ width: "300px" }}
               />
-            </div>
-            <button type="submit" className="btn btn-success">
+            </div> */}
+            {/* <button type="submit" className="btn btn-success">
               {" "}
               {displayName}
-            </button>
+            </button> */}
           </form>
         </div>
       </div>
