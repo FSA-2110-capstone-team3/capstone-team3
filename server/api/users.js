@@ -54,7 +54,7 @@ router.post("/spotify/episodes", async (req, res, next) => {
 
 //PUT(add) an episode to user library/saved episodes
 //Spotify API scope must be 'user-library-modify'
-router.put("/spotify/add/:id", async (req, res, next) => {
+router.post("/spotify/add/:id", async (req, res, next) => {
   try {
     const episodeId = req.params.id;
     const curr_user = await User.findByPk(req.body.userId);
@@ -80,6 +80,7 @@ router.put("/spotify/add/:id", async (req, res, next) => {
     console.log("Success, episode added to user library");
     res.send(response);
   } catch (ex) {
+    console.log(ex);
     next(ex);
   }
 });
