@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { models: { Episode, Comment }} = require('../db')
+const { models: { Episode, Show, Comment }} = require('../db')
 const { spotifyApi } = require('../app');
 const axios = require("axios");
 module.exports = router
@@ -52,8 +52,38 @@ router.post('/:id', async (req, res, next) => {
         images: response.images,
         uri: response.uri,
         userId: req.body.userId,
-        views: 1
+        views: 1,
+        showSpotify_id: response.show.id
       })
+
+      //show check: if show also not in db, create show in db
+      let show = await Show.findOne({
+        where: {
+          spotify_id: response.show.id        
+        }
+      });
+
+      if (!show) {
+        const showResponse = (await axios.get(`https://api.spotify.com/v1/shows/${response.show.id}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            Authorization: `Bearer ${req.body.access_token}`,
+          }
+        })).data;
+        
+        show = await Show.create({
+          spotify_id: showResponse.id,
+          name: showResponse.name,
+          description: showResponse.description,
+          publisher: showResponse.publisher,
+          media_type: showResponse.media_type,
+          href: showResponse.href,
+          images: showResponse.images
+        });
+      }
+      
+
     }
     res.send(episode)
   } catch (err) {
