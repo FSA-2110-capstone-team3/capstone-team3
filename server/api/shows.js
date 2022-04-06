@@ -59,7 +59,7 @@ router.get("/spotify/:id", async (req, res, next) => {
 router.get("/", async (req, res, next) => {
   try {
     const shows = await Show.findAll();
-    res.json(shows);
+    res.send(shows);
   } catch (err) {
     next(err);
   }
