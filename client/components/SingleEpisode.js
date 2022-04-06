@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getEpisodes, getSingleEpisode, updateEpisodeViews, getTimeStamps, getCommentLikes } from "../store";
+import { getEpisodes, getSingleEpisode, updateEpisodeViews, getTimeStamps, getCommentLikes, getShows } from "../store";
 import EpisodeLikes from "./EpisodeLikes";
 import Comments from "./Comments";
 import Timestamps from "./Timestamps";
@@ -20,6 +20,7 @@ const SingleEpisode = () => {
   const [stamp, setStamp] = useState(0);
 
   useEffect(() => {
+    dispatch(getShows()); //re-render all shows in case first episode added to db
     dispatch(getTimeStamps());
     dispatch(getCommentLikes());
     dispatch(getSingleEpisode({ id: id, access_token: auth.access_token, userId: auth.id }));
