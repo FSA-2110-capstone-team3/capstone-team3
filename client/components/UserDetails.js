@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getSubscribedShows } from "../store/subscribedShows";
 import { Link } from "react-router-dom";
 
 class userDetails extends Component {
@@ -19,8 +18,8 @@ class userDetails extends Component {
 
     console.log(allEpisodes, "ALL EPISODES");
 
-    const likedEps = likedEpisodes.map((ep) =>
-      allEpisodes.find((episode) => episode.id === ep.episodeId)
+    const likedEps = likedEpisodes.map(
+      (ep) => allEpisodes.find((episode) => episode.id === ep.episodeId) || []
     );
 
     const comm = comments.filter((comment) => comment.userId === userId);
@@ -28,7 +27,9 @@ class userDetails extends Component {
     console.log(comm, "???");
 
     console.log(comments, "comments---->");
-    console.log("likedEPS", likedEps);
+
+    console.log(likedEps, "likedEPS----->");
+    console.log(subscribedShows, "sub shows---->");
 
     // console.log(likedEpisode, "FILTER");
 
@@ -126,6 +127,26 @@ class userDetails extends Component {
                 <div>
                   <div>Liked:</div>
                   <hr />
+                  <div className="row">
+                    {likedEps.map((ep) => {
+                      return (
+                        <div className="col-sm" key={ep.id}>
+                          <div
+                            className="card"
+                            style={{ width: "200px", height: "200px" }}
+                          >
+                            <Link to={`/episode/${ep.spotify_id}`}>
+                              <img
+                                src={JSON.parse(ep.images[0]).url}
+                                alt="podcastimg"
+                                className="card-img-top"
+                              />
+                            </Link>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
 
                 <div>
