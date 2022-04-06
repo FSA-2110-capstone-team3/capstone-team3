@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import Fuse from "fuse.js";
 import { Avatar } from "antd";
-import { setShows, setEpisodes, setComments, setTimeStamps, searchEpisodes } from "../store";
+import { setShows, setEpisodes, setComments, setTimeStamps, addSavedEpisode } from "../store";
 
 
 /*<-------------------- material ui imports -------------------->*/
@@ -28,7 +28,7 @@ const Search = () => {
   // create hook of local state for shows/episodes toggle
   const [contentToggle, setContentToggle] = useState("shows");
   // pull data from redux store for local search
-  const { comments, timeStamps, searchShows, searchEpisodes, searchComments, searchTimeStamps } = useSelector((state) => state) || [];
+  const { comments, timeStamps, searchShows, searchEpisodes, searchComments, searchTimeStamps, auth } = useSelector((state) => state) || [];
   // pull seperate redux-store due to Spotify API naming conflict
   const reduxEpisodes = useSelector(state => state.episodes) || [];
   const reduxShows = useSelector(state => state.shows) || [];
@@ -253,8 +253,22 @@ const initiateSearchResult = async(search) => {
           <div className="row p-2 m-2">
             {toggleSearchResults().items.map((content) => (
               <div className="col-sm-2 p-2" key={content.id}>
-                <Link to={`/${contentToggle.slice(0, -1)}/${content.id}`}>
                   <div className="card">
+                    { contentToggle === 'episodes' ?
+                      <button
+                        className="x-icon"
+                        onClick={() =>
+                          dispatch(addSavedEpisode({
+                            id: content.id,
+                            userId: auth.id,
+                          }))
+                        }
+                        >
+                        +
+                      </button>
+                      : null
+                    }
+                  <Link to={`/${contentToggle.slice(0, -1)}/${content.id}`}>
                     <img
                       src={content.images[1].url}
                       alt="podcastimg"
@@ -270,8 +284,8 @@ const initiateSearchResult = async(search) => {
                         {content.name}
                       </h5>
                     </div>
+                  </Link>
                   </div>
-                </Link>
               </div>
             ))}
           </div>
