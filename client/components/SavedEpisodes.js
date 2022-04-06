@@ -4,14 +4,8 @@ import { Link } from "react-router-dom";
 import { deleteSavedEpisode } from "../store/savedEpisodes";
 
 class SavedEpisodes extends Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
   render() {
     const { userId, savedEpisodes, deleteSavedEpisode } = this.props;
-    console.log(savedEpisodes, "saved episodes-----");
-
     return (
       <>
         <h1>Saved Episodes:</h1>

@@ -102,7 +102,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                 id="logo"
                 style={{ fontFamily: "roboto", fontWeight: 400, color: "gray" }}
               >
-                SPODify +
+                PODify
               </span>{" "}
             </div>{" "}
           </a>
@@ -204,7 +204,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                             {" "}
                             <a className="dropdown-item" href="/subscribed">
                               {" "}
-                              Library{" "}
+                              Subscribed{" "}
                             </a>
                           </li>
                           <li>
