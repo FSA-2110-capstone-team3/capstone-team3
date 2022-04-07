@@ -18,14 +18,14 @@ const _getSingleEpisode = (episode) => {
 
 export const getSingleEpisode = (info) => {
   return async(dispatch) => {
-    const episode = (await axios.post(`/api/episodes/${info.id}`, {access_token: info.access_token})).data;
+    const episode = (await axios.post(`/api/episodes/${info.id}`, {access_token: info.access_token, userId: info.userId})).data;
     dispatch(_getSingleEpisode(episode));
   }
 };
 
 //------------REDUCER------------//
 
-export const singleEpisode = (state = [], action) => {
+export const singleEpisode = (state = {}, action) => {
   switch (action.type) {
     case GET_SINGLE_EPISODE:
       return action.episode

@@ -16,6 +16,7 @@ function AboutUs() {
                         src="/listen.png"
                         className="img-fluid"
                         alt="Image"
+                        id="aboutUsImg"
                       />
                       <div className="img-overlay bg-dark"></div>
                     </div>
@@ -42,6 +43,7 @@ function AboutUs() {
                         src="/comment3.png"
                         className="img-fluid"
                         alt="Image"
+                        id="aboutUsImg"
                       />
                       <div className="img-overlay bg-dark"></div>
                     </div>
@@ -55,6 +57,7 @@ function AboutUs() {
                         "
                         className="img-fluid"
                         alt="Image"
+                        id="aboutUsImg"
                       />
                       <div className="img-overlay bg-dark"></div>
                     </div>
@@ -103,8 +106,8 @@ function AboutUs() {
                     </h6>
                   </div> */}
                   <button id="getStarted">
-                    <a href="/login" style={{ textDecoration: "none" }}>
-                      <span>GET STARTED</span>
+                    <a href="/signup" style={{ color: "white" }} id="started">
+                      Get Started
                     </a>
                   </button>
                 </div>

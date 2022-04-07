@@ -2,7 +2,7 @@ import React from "react";
 import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
 import { ThumbDown, ThumbUp } from "@material-ui/icons";
-import { updateEpisodeLike, addEpisodeLike } from "../store";
+import { updateEpisodeLike, addEpisodeLike, addSavedEpisode } from "../store";
 import { useSelector, useDispatch } from "react-redux";
 
 const EpisodeLikes = (props) => {
@@ -49,15 +49,16 @@ const EpisodeLikes = (props) => {
   
   //func: evaluate if like exists, eval if opposing like/dislike has value, calculate increment/decrement, then use in thunk
   const adjustThumb = (thumbTypeStr) => {
-    const episodeLike = getEpisodeLikeRecord(), result = {};
-    if(!episodeLike) return {[thumbTypeStr]: 1};
-    if (episodeLike['thumbsUp'] === episodeLike['thumbsDown']) {
-      result[thumbTypeStr] = 1;
-    } else if (episodeLike['thumbsUp'] === 1 || episodeLike['thumbsDown'] === 1) {
-      result[thumbTypeStr] = 0;
-    };
-    return result;
+    const episodeLike = getEpisodeLikeRecord();
+    if (!episodeLike) return { [thumbTypeStr]: 1 };
+    if (episodeLike['thumbsUp'] === episodeLike['thumbsDown']) return { [thumbTypeStr]: 1 };
+    if (thumbTypeStr === 'thumbsUp' && episodeLike.thumbsDown === 1) return { thumbsUp: 1, thumbsDown: 0 };
+    if (thumbTypeStr === 'thumbsUp' && episodeLike.thumbsDown === 0) return { thumbsUp: 0};
+    if (thumbTypeStr === 'thumbsDown' && episodeLike.thumbsUp === 1) return { thumbsUp: 0, thumbsDown: 1 };
+    if (thumbTypeStr === 'thumbsDown' && episodeLike.thumbsDown === 1) return { thumbsDown: 0 };
+    if (episodeLike['thumbsUp'] === 1 || episodeLike['thumbsDown'] === 1) return {[thumbTypeStr]: 0}
   };
+  
 
   return (
 
@@ -89,6 +90,17 @@ const EpisodeLikes = (props) => {
         }
       </button>
       <span className="episodeLike-action pe-3" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>{episodeLikesTotal('thumbsDown')}</span>
+      <button
+          className="btn btn-outline-light btn-sm"
+          onClick={() =>
+            dispatch(addSavedEpisode({
+              id: episode.spotify_id,
+              userId: user.id,
+            }))
+          }
+        >
+          +
+      </button>
     </div>
 
   );

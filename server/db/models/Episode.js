@@ -36,10 +36,10 @@ const Episode = db.define('episode', {
     type: STRING,
     allowNull: false
   },
-  // audio_preview_url: {
-  //   type: STRING,
-  //   allowNull: false
-  // },
+  showSpotify_id: {
+    type: STRING,
+    allowNull: false
+  },
   images: {
     type: ARRAY(TEXT),
     allowNull: false
@@ -48,7 +48,7 @@ const Episode = db.define('episode', {
     type: INTEGER,
     defaultValue: 0
   }
-},
+}
 // {     <----deprecated hook - episodeLike now created when user likes/dislikes an episode
 //   hooks: {
 //     afterCreate: async(episode, options) => {

@@ -42,18 +42,8 @@ const _deleteShow = (id) => {
 
 export const getShows = () => {
   return async(dispatch) => {
-    try {
-      // let parsed = queryString.parse(window.location.search);
-      // console.log(parsed);
-      // let token = 'BQDSSGQaAY07tjlVQsf_84XXBLUfFWvELuEaKEmz8o343oiF2c5Cy2iqJSWikAjnVAZIy3VbtkGNTXKljoUg7aUKwD0XSI-6Tja-6ij5Mr30uwRgMRaHGUXV_Wp9eC0tYaKg8S3Rs-dbPVdp7DWUnPU9A7VvFEasK9g'
-      // // const headers = `Authorization: Bearer ${token}`;
-      // const show = (await axios.get('https://api.spotify.com/v1/shows/38bS44xjbVVZ3No3ByF1dJ'), {headers: {'Authorization': 'Bearer ' + token}}).data;
-      // console.log(show)
-      // dispatch(_getShows(show));
-    }
-   catch(ex) {
-     console.log(ex)
-   }
+    const shows = (await axios.get('/api/shows/')).data
+    dispatch(_getShows(shows));
   }
 };
 
