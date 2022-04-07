@@ -111,7 +111,7 @@ class Home extends Component {
                     <div className="card-body ">
                       <h5
                         style={{ textAlign: "center" }}
-                        className="card-title  " //overflow-auto
+                        className="card-title  overflow-auto" //overflow-auto
                       >
                         <Link
                           to={`/show/${subscribedShow.show.id}`}
