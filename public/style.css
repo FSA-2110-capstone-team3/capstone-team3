@@ -19,6 +19,15 @@ label {
   display: block;
 }
 
+div.card {
+  border-radius: 5%;
+}
+
+div.card img {
+  border-top-right-radius: 5%;
+  border-top-left-radius: 5%;
+}
+
 /* nav a {
   margin: 5px;
 } */
