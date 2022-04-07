@@ -4,27 +4,26 @@ import { Link } from "react-router-dom";
 
 class Home extends Component {
   render() {
-    let { email, subscribedShows, topCharts } = this.props;
-    let username = email.split("@");
+    let { displayName, subscribedShows, topCharts } = this.props;
     subscribedShows = subscribedShows.slice(0, 5);
     topCharts = topCharts.slice(0, 5);
 
     return (
       <div style={{ color: "white", fontFamily: "roboto", fontWeight: 300 }}>
         <div>
-          <h3 style={{ fontWeight: 400 }}>
-            Welcome to Spodify+, {username[0]}
-          </h3>
+          <h2 style={{ fontWeight: 400, textAlign: "center" }}>
+            Welcome to Podify, {displayName}!
+          </h2>
           <br />
-          <h1 style={{ fontWeight: 400 }}>
-            Find episodes, watch, comment, follow & more!
-          </h1>
+          <h3 style={{ fontWeight: 300, textAlign: "center" }}>
+            Search podcasts, listen, comment, follow & more...
+          </h3>
           <hr style={{ width: 100 + "%" }} />
         </div>
 
         <div className="row p-2 m-2" style={{ color: "white" }}>
           <div className="col" style={{ fontSize: 30 + "px" }}>
-            Top Charts:
+            Top Podcasts:
           </div>
           <div
             className="col col-lg-2"
@@ -87,7 +86,7 @@ class Home extends Component {
         <hr />
         <div className="row p-2 m-2" style={{ color: "white" }}>
           <div className="col" style={{ fontSize: 30 + "px" }}>
-            Subscribed Shows:
+            Subscribed Podcasts:
           </div>
           <div
             className="col col-lg-2"
@@ -113,13 +112,16 @@ class Home extends Component {
                     <div className="card-body ">
                       <h5
                         style={{ textAlign: "center" }}
-                        className="card-title  " //overflow-auto
+                        className="card-title  overflow-auto" //overflow-auto
                       >
                         <Link
                           to={`/show/${subscribedShow.show.id}`}
                           className="stretched-link"
                         >
-                          <span style={{ fontWeight: "bold", color: "white" }}>
+                          <span
+                            className="showName"
+                            style={{ fontWeight: "bold", color: "white" }}
+                          >
                             {subscribedShow.show.name}
                           </span>
                         </Link>
@@ -154,7 +156,7 @@ class Home extends Component {
  */
 const mapStateToProps = (state) => {
   return {
-    email: state.auth.email,
+    displayName: state.auth.display_name,
     subscribedShows: state.subscribedShows,
     topCharts: state.topCharts,
   };

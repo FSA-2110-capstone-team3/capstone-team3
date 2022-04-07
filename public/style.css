@@ -73,6 +73,26 @@ div.container {
   margin: 0;
 }
 
+div.card {
+  border-radius: 5%;
+  width: 17rem;
+}
+
+div.card img {
+  border-top-right-radius: 5%;
+  border-top-left-radius: 5%;
+}
+
+#userSub,
+#userLiked {
+  border-radius: 5%;
+}
+
+#aboutUsImg {
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+
 .navbar {
   /* position: fixed; */
   height: 100vh;
@@ -360,6 +380,20 @@ ul.dropdown-menu.show a:hover {
 ul.dropdown-menu.show a {
   color: gray;
   font-weight: 500;
+}
+
+#savedEpModal {
+  background-color: rgb(0, 0, 0, 0);
+  width: 500px;
+  height: 300px;
+  align-items: center;
+}
+
+@media (max-width: 200) {
+  #idk {
+    width: 100%;
+    position: absolute;
+  }
 }
 
 @media (max-width: 575.98px) {
