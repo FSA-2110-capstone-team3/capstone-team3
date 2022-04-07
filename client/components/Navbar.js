@@ -41,20 +41,28 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
           >
             <ul className="navbar-nav w-100 d-flex flex-sm-column text-center text-sm-start ">
               <li>
-                <a href="/home " className="nav-link" aria-current="page">
-                  <span style={{ fontWeight: 500, color: "gray" }}>
-                    <i className="bi bi-house-door "></i>
-                    HOME
-                  </span>
-                </a>
+                {isLoggedIn ? (
+                  <a href="/home " className="nav-link" aria-current="page">
+                    <span style={{ fontWeight: 500, color: "gray" }}>
+                      <i className="bi bi-house-door "></i>
+                      HOME
+                    </span>
+                  </a>
+                ) : (
+                  ""
+                )}
               </li>
               <li>
-                <a href="/search" className="nav-link">
-                  <span style={{ fontWeight: 500, color: "gray" }}>
-                    <i className="bi bi-search"></i>
-                    SEARCH
-                  </span>
-                </a>
+                {isLoggedIn ? (
+                  <a href="/search" className="nav-link">
+                    <span style={{ fontWeight: 500, color: "gray" }}>
+                      <i className="bi bi-search"></i>
+                      SEARCH
+                    </span>
+                  </a>
+                ) : (
+                  ""
+                )}
               </li>
               {/* <li>
                 <a href="/subscribed" className="nav-link">
