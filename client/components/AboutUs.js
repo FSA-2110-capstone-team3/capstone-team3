@@ -16,6 +16,7 @@ function AboutUs() {
                         src="/listen.png"
                         className="img-fluid"
                         alt="Image"
+                        id="aboutUsImg"
                       />
                       <div className="img-overlay bg-dark"></div>
                     </div>
@@ -42,6 +43,7 @@ function AboutUs() {
                         src="/comment3.png"
                         className="img-fluid"
                         alt="Image"
+                        id="aboutUsImg"
                       />
                       <div className="img-overlay bg-dark"></div>
                     </div>
@@ -55,6 +57,7 @@ function AboutUs() {
                         "
                         className="img-fluid"
                         alt="Image"
+                        id="aboutUsImg"
                       />
                       <div className="img-overlay bg-dark"></div>
                     </div>

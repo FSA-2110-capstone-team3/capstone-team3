@@ -136,6 +136,7 @@ class userDetails extends Component {
                                 src={podcast.show.images[1].url}
                                 alt="podcastimg"
                                 className="card-img-top"
+                                id="userSub"
                               />
                             </Link>
                           </div>
@@ -160,6 +161,7 @@ class userDetails extends Component {
                                 src={JSON.parse(ep.images[0]).url}
                                 alt="podcastimg"
                                 className="card-img-top"
+                                id="userLiked"
                               />
                             </Link>
                           </div>
