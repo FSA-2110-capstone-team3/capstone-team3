@@ -42,12 +42,12 @@ const initiateSearchResult = async(search) => {
       const { shows, episodes } = searchData;
       const commentsData  = srchComments(search, comments);
       const timeStampData = srchTimeStamps(search, timeStamps);
-      
+
       dispatch(setShows(shows));
       dispatch(setEpisodes(episodes));
       dispatch(setComments(commentsData));
       dispatch(setTimeStamps(timeStampData));
-      
+
     } catch(ex) {
       console.log('error', error);
     }
@@ -113,7 +113,7 @@ const initiateSearchResult = async(search) => {
     // setQueryState("");
   };
 
-  //switch API search results between 'shows' & 'episodes' 
+  //switch API search results between 'shows' & 'episodes'
   const toggleSearchResults = () => {
     if ( contentToggle === 'shows') return searchShows;
     else return searchEpisodes;
@@ -171,7 +171,7 @@ const initiateSearchResult = async(search) => {
   //<--------------------event & error handling-------------------->//
 
   const [errorMsg, setErrorMsg] = useState('');
-  
+
   const handleInputChange = (event) => {
     const searchTerm = event;
     setSearch(searchTerm);
@@ -199,7 +199,7 @@ const initiateSearchResult = async(search) => {
 
   return (
     <div>
-      <h3 className="text-white text-center pb-3">Search sPodify+ Content </h3>
+      <h3 className="text-white text-center pb-3">Search Podify Content </h3>
       <Box className="p-5">
         <FormControl fullWidth>
           <TextField
@@ -221,7 +221,7 @@ const initiateSearchResult = async(search) => {
               {errorRes.message}
             </h6>
           ) : null}
-          
+
           <div
             id="searchBtns"
             className=" pt-5 d-flex justify-content-center pd-5"

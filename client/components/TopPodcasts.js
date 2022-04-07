@@ -8,7 +8,16 @@ class TopPodcasts extends Component {
     let rank = 1;
     return (
       <div>
-        <h1 style={{ color: "white", fontWeight: 400 }}>TOP CHARTS:</h1>
+        <h1
+          style={{
+            textAlign: "center",
+            color: "white",
+            fontWeight: 400,
+            fontSize: "2vw",
+          }}
+        >
+          Spotify's Top 50 Podcasts:
+        </h1>
         <div className="row p-5 m-2">
           {topCharts.map((podcast) => (
             <div className="col-sm" id="mainCard" key={podcast.showUri}>
