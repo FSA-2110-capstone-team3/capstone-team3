@@ -42,6 +42,34 @@ router.post("/spotify/saved", async (req, res, next) => {
   }
 });
 
+// DELETE user's saved/subscribed show
+router.post("/spotify/remove/:id", async (req, res, next) => {
+  try {
+    const showId = req.params.id;
+    const curr_user = await User.findByPk(req.body.userId);
+    const access_token = curr_user.access_token;
+    const response = await axios.delete(
+      "https://api.spotify.com/v1/me/shows",
+      {
+        params: {
+          ids: `${showId}`,
+        },
+        form: {
+          market: "US",
+        },
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
+    console.log("Success, show removed from user library");
+    res.send(response.data);
+  } catch (ex) {
+    next(ex);
+  }
+});
+
 // GET show
 router.get("/spotify/:id", async (req, res, next) => {
   try {

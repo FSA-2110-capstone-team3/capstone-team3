@@ -39,7 +39,7 @@ const AuthForm = (props) => {
           >
             <div className="text-center mb-5">
               <span style={{ fontSize: "35px", fontWeight: 400 }}>
-                Welcome to Podify
+                Welcome to Podify!
               </span>
             </div>
             <div className="text-center">
@@ -49,7 +49,7 @@ const AuthForm = (props) => {
                     {" "}
                     <span className="" style={{ fontSize: "16px" }}>
                       <i className=" fa-lg bi bi-spotify d-inline btn float-left p-0 mr-2"></i>
-                      Continue with Spotify
+                      Login with Spotify
                     </span>
                   </div>
                 </a>

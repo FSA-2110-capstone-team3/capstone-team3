@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { deleteSubscribedShow } from "../store/subscribedShows";
 
 class SubscribedPodcasts extends Component {
   render() {
-    const { subscribedShows } = this.props;
+    const { auth, subscribedShows, deleteSubscribedShow } = this.props;
     return (
       <>
         <h1
@@ -16,14 +17,29 @@ class SubscribedPodcasts extends Component {
             fontSize: "2vw",
           }}
         >
-          Current Subscribed Podcasts:
+          Subscribed Podcasts:
         </h1>
         <div className="row p-5 m-2" style={{ color: "white" }}>
           {subscribedShows?.map((subscribedShow) => {
             return (
               <div className="col-sm" key={subscribedShow.show.id}>
                 <div></div>
+<<<<<<< HEAD
                 <div className="card" style={{ width: "17rem" }}>
+=======
+                <div className="card">
+                  <button
+                    className="x-icon"
+                    onClick={() =>
+                      deleteSubscribedShow({
+                        id: subscribedShow.show.id,
+                        userId: auth.id,
+                      })
+                    }
+                  >
+                    X
+                  </button>
+>>>>>>> d8ff711453e2638f0baab95bac147af51af0632f
                   <img
                     src={subscribedShow.show.images[1].url}
                     alt="podcastimg"
@@ -60,10 +76,13 @@ class SubscribedPodcasts extends Component {
   }
 }
 
-const mapStateToProps = ({ subscribedShows }) => {
+const mapStateToProps = ({ auth, subscribedShows }) => {
   return {
+    auth,
     subscribedShows,
   };
 };
 
-export default connect(mapStateToProps)(SubscribedPodcasts);
+const mapDispatchToProps = { deleteSubscribedShow };
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubscribedPodcasts);
