@@ -39,7 +39,7 @@ const AuthForm = (props) => {
           >
             <div className="text-center mb-5">
               <span style={{ fontSize: "35px", fontWeight: 400 }}>
-                Welcome to PODify
+                Welcome to Podify
               </span>
             </div>
             <div className="text-center">
