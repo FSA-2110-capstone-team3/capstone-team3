@@ -15,7 +15,7 @@ class SavedEpisodes extends Component {
     const { userId, savedEpisodes, deleteSavedEpisode } = this.props;
     return (
       <>
-        <h1>Saved Episodes:</h1>
+        <h1>Favorite Episodes:</h1>
 
         <div className="row p-5 m-2 ">
           {savedEpisodes?.map((saved) => {
