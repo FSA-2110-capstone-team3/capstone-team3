@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
@@ -21,6 +22,7 @@ const Search = () => {
   /*<-------------------- hooks -------------------->*/
 
   const dispatch = useDispatch();
+  const history = useHistory();
   // create hook of local state for Spotify API form/search input
   const [search, setSearch] = useState("");
   // create hook of local state for error handling obj (axios responses)
@@ -33,11 +35,19 @@ const Search = () => {
   const reduxEpisodes = useSelector(state => state.episodes) || [];
   const reduxShows = useSelector(state => state.shows) || [];
 
+
+ //<--------------------componenetDidMount-------------------->//
+
+ useEffect(() => {
+   //get all URL Params for query string
+   const params = new URLSearchParams(location.search);
+ }, []);
+
+
   /*<-------------------- Spotify API calls & logic -------------------->*/
 
 const initiateSearchResult = async(search) => {
     try {
-      console.log('initFunc!!!!')
       const searchData = (await axios.get(`/api/search/${search}`)).data;
       const { shows, episodes } = searchData;
       const commentsData  = srchComments(search, comments);
@@ -48,6 +58,8 @@ const initiateSearchResult = async(search) => {
       dispatch(setComments(commentsData));
       dispatch(setTimeStamps(timeStampData));
 
+      history.push('/search?q=' + search);
+      
     } catch(ex) {
       console.log('error', error);
     }

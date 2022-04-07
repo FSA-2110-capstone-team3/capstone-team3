@@ -7,15 +7,11 @@ import { useSelector, useDispatch } from "react-redux";
 
 const EpisodeLikes = (props) => {
 
-  const { episodeLikes, episodes } = useSelector(state => state);
+  const { episodeLikes } = useSelector(state => state);
   const dispatch = useDispatch();
   
   const { episode, user} = props;
 
-  const updatedSingleEpisode = (obj, arr) => {
-    return arr.find(arrEpisode => arrEpisode.id === obj.id) 
-  };
-  
   //--------------------like/dislike calculations--------------------//
   
   // func: sum up episodeLikes to be rendered
@@ -36,8 +32,8 @@ const EpisodeLikes = (props) => {
     });
   };
   //func: what goes in button onClick for like/dislike
-  // if no record, set thumbsUp/Down status (0 or 1) & create record with add thunk including:
-  // if record exists, set thumbsUp/Down status (0 or 1) & update record with update thunk including:
+    // if no record, set thumbsUp/Down status (0 or 1) & create record with add thunk including:
+    // if record exists, set thumbsUp/Down status (0 or 1) & update record with update thunk including:
   const onClickDispatchLikes = (userId, episodeId, thumbObj) => {
     if (!getEpisodeLikeRecord()) {
       return addEpisodeLike(userId, episodeId, thumbObj);
@@ -63,7 +59,7 @@ const EpisodeLikes = (props) => {
   return (
 
     <div>
-      <span className="pe-3">{`${updatedSingleEpisode(episode, episodes)?.views} views`}</span>
+      <span className="pe-3">{`${episode.views} views`}</span>
       <button 
         type="button" 
         className="bg-transparent border-0" 

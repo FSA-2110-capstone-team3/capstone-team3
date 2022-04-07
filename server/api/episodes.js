@@ -32,6 +32,11 @@ router.post('/:id', async (req, res, next) => {
         userId: req.body.userId
       }
     });
+
+    if (episode) {
+      episode.update({views: episode.views + 1})
+      episode.save();
+    };
     
     if (!episode) {
       const response = (await axios.get(`https://api.spotify.com/v1/episodes/${id}`, {
