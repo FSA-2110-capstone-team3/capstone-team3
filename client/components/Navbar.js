@@ -45,7 +45,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                   <a href="/home " className="nav-link" aria-current="page">
                     <span style={{ fontWeight: 500, color: "gray" }}>
                       <i className="bi bi-house-door "></i>
-                      HOME
+                      Home
                     </span>
                   </a>
                 ) : (
@@ -57,7 +57,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                   <a href="/search" className="nav-link">
                     <span style={{ fontWeight: 500, color: "gray" }}>
                       <i className="bi bi-search"></i>
-                      SEARCH
+                      Search
                     </span>
                   </a>
                 ) : (
@@ -84,7 +84,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                 <a href="/aboutUs" className="nav-link">
                   <span style={{ fontWeight: 500, color: "gray" }}>
                     <i className="bi bi-rainbow"></i>
-                    ABOUT US
+                    About Us
                   </span>
                 </a>
               </li>
@@ -130,14 +130,14 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                             {" "}
                             <a className="dropdown-item" href="/subscribed">
                               {" "}
-                              Library{" "}
+                              Subscribed Podcasts{" "}
                             </a>
                           </li>
                           <li>
                             {" "}
                             <a className="dropdown-item" href="/saved">
                               {" "}
-                              Saved
+                              Favorite Episodes
                             </a>
                           </li>
                         </ul>
@@ -160,7 +160,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                       >
                         <span style={{ fontWeight: 500, color: "gray" }}>
                           <i className="fa fa-sign-out" aria-hidden="false"></i>
-                          LOGOUT
+                          Logout
                         </span>
                       </a>
                     </li>
@@ -172,7 +172,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                     <a href="/signup" className="nav-link text-light pl-4">
                       <span style={{ fontWeight: 500 }}>
                         <i className="fa fa-sign-in" aria-hidden="true"></i>
-                        LOGIN
+                        Login
                       </span>
                     </a>
                   </li>
