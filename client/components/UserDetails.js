@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getSubscribedShows } from "../store/subscribedShows";
 import { Link } from "react-router-dom";
+import { Comment, Avatar, Tooltip } from "antd";
+import "antd/lib/tooltip/style/index.css";
+import "antd/lib/comment/style/index.css";
 
 class userDetails extends Component {
   render() {
@@ -17,18 +19,37 @@ class userDetails extends Component {
     let username = email.split("@");
     subscribedShows = subscribedShows.slice(0, 5);
 
-    console.log(allEpisodes, "ALL EPISODES");
+    //console.log(allEpisodes, "ALL EPISODES");
 
-    const likedEps = likedEpisodes.map((ep) =>
-      allEpisodes.find((episode) => episode.id === ep.episodeId)
+    const likedEps = likedEpisodes.map(
+      (ep) => allEpisodes.find((episode) => episode.id === ep.episodeId) || []
     );
 
-    const comm = comments.filter((comment) => comment.userId === userId);
+    //const comm = comments.filter((comment) => comment.userId === userId);
 
-    console.log(comm, "???");
+    const comm = comments.map((comment) => {
+      if (comment.userId === userId) {
+        const matchingEp = allEpisodes.find(
+          (episode) =>
+            episode.id === comment.episodeId && episode.userId === userId
+        );
+        // console.log(matchingEp);
+        const newComment = {
+          ...comment,
+          epName: matchingEp?.name,
+          images: matchingEp?.images,
+        };
+        console.log(newComment);
+        return newComment;
+      }
+    });
 
-    console.log(comments, "comments---->");
-    console.log("likedEPS", likedEps);
+    console.log(comm, "USERS COMMENTS");
+
+    //console.log(comments, "comments---->");
+
+    //console.log(likedEps, "likedEPS----->");
+    //console.log(subscribedShows, "sub shows---->");
 
     // console.log(likedEpisode, "FILTER");
 
@@ -91,7 +112,7 @@ class userDetails extends Component {
 
               {/* <h3>Personal info</h3> */}
 
-              <form className="form-horizontal p-4">
+              <div className=" p-4">
                 <div>
                   <div>
                     <a href="/subscribed" style={{ color: "white" }}>
@@ -126,40 +147,73 @@ class userDetails extends Component {
                 <div>
                   <div>Liked:</div>
                   <hr />
+                  <div className="row">
+                    {likedEps.map((ep) => {
+                      return (
+                        <div className="col-sm" key={ep.id}>
+                          <div
+                            className="card"
+                            style={{ width: "200px", height: "200px" }}
+                          >
+                            <Link to={`/episode/${ep.spotify_id}`}>
+                              <img
+                                src={JSON.parse(ep.images[0]).url}
+                                alt="podcastimg"
+                                className="card-img-top"
+                              />
+                            </Link>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
 
                 <div>
                   <div>Comments:</div>
                   <hr />
-                </div>
-                {/*
-              <div class="form-group">
-                <label class="col-lg-3 control-label">Password:</label>
-                <div class="col-lg-8">
-                  <input class="form-control" type="text" value="bootdey" />
-                </div>
-              </div>
+                  {comm.map((comment) => {
+                    return (
+                      <div className="col-md">
+                        <div className="media-block">
+                          <div
+                            className="media-left"
+                            style={{ color: "white" }}
+                          >
+                            <img
+                              className="img-circle rounded-circle img-sm ps-10"
+                              alt="Profile Picture"
+                              src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                              style={{
+                                width: "50px",
+                                height: "50px",
+                              }}
+                            />
 
-              <div class="form-group">
-                <label class="col-lg-3 control-label">Company:</label>
-                <div class="col-lg-8">
-                  <input class="form-control" type="text" value="" />
+                            <a
+                              href={`/episode/${comment.spotify_id}`}
+                              className="btn-link text-semibold media-heading box-inline "
+                            >
+                              <span className="p-2 m-2">{comment.epName}</span>
+                            </a>
+                          </div>
+
+                          <div className="col-sm box-inline ">
+                            <span style={{ paddingLeft: "70px" }}>
+                              {comment.content}{" "}
+                            </span>
+                          </div>
+                          <hr />
+                        </div>
+                      </div>
+                      // </div>
+                    );
+                  })}
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-lg-3 control-label">Email:</label>
-                <div class="col-lg-8">
-                  <input
-                    class="form-control"
-                    type="text"
-                    value="janesemail@gmail.com"
-                  />
-                </div>
-              </div> */}
-              </form>
             </div>
           </div>
-          {/* </div> */}
+
           <hr></hr>
         </div>
       </>
