@@ -12,9 +12,7 @@ class Home extends Component {
     return (
       <div style={{ color: "white", fontFamily: "roboto", fontWeight: 300 }}>
         <div>
-          <h3 style={{ fontWeight: 400 }}>
-            Welcome to Spodify+, {username[0]}
-          </h3>
+          <h3 style={{ fontWeight: 400 }}>Welcome to Podify, {username[0]}</h3>
           <br />
           <h1 style={{ fontWeight: 400 }}>
             Find episodes, watch, comment, follow & more!
@@ -119,7 +117,10 @@ class Home extends Component {
                           to={`/show/${subscribedShow.show.id}`}
                           className="stretched-link"
                         >
-                          <span style={{ fontWeight: "bold", color: "white" }}>
+                          <span
+                            className="showName"
+                            style={{ fontWeight: "bold", color: "white" }}
+                          >
                             {subscribedShow.show.name}
                           </span>
                         </Link>

@@ -27,9 +27,22 @@ class userDetails extends Component {
 
     //const comm = comments.filter((comment) => comment.userId === userId);
 
-    const comm = comments.map((comment) =>
-      allEpisodes.find((episode) => episode.id === comment.episodeId)
-    );
+    const comm = comments.map((comment) => {
+      if (comment.userId === userId) {
+        const matchingEp = allEpisodes.find(
+          (episode) =>
+            episode.id === comment.episodeId && episode.userId === userId
+        );
+        // console.log(matchingEp);
+        const newComment = {
+          ...comment,
+          epName: matchingEp?.name,
+          images: matchingEp?.images,
+        };
+        console.log(newComment);
+        return newComment;
+      }
+    });
 
     console.log(comm, "USERS COMMENTS");
 
@@ -163,7 +176,10 @@ class userDetails extends Component {
                     return (
                       <div className="col-md">
                         <div className="media-block">
-                          <div className="media-left">
+                          <div
+                            className="media-left"
+                            style={{ color: "white" }}
+                          >
                             <img
                               className="img-circle rounded-circle img-sm ps-10"
                               alt="Profile Picture"
@@ -178,60 +194,19 @@ class userDetails extends Component {
                               href={`/episode/${comment.spotify_id}`}
                               className="btn-link text-semibold media-heading box-inline "
                             >
-                              <span className="p-2 m-2">{comment.name}</span>
+                              <span className="p-2 m-2">{comment.epName}</span>
                             </a>
                           </div>
 
                           <div className="col-sm box-inline ">
                             <span style={{ paddingLeft: "70px" }}>
-                              {comment.comments[0].content}
-
-                              {comment.comments.length > 1 ? (
-                                <>
-                                  {" "}
-                                  <div
-                                    className="media-block"
-                                    style={{ paddingLeft: "70px" }}
-                                  >
-                                    <div className="media-left">
-                                      <img
-                                        className="img-circle rounded-circle img-sm ps-10"
-                                        alt="Profile Picture"
-                                        src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                                        style={{
-                                          width: "50px",
-                                          height: "50px",
-                                        }}
-                                      />
-
-                                      <a
-                                        href={`/episode/${comment.spotify_id}`}
-                                        className="btn-link text-semibold media-heading box-inline "
-                                      >
-                                        <span className="p-2 m-2">
-                                          {comment.name}
-                                        </span>
-                                      </a>
-                                    </div>
-                                    <div className="col-sm box-inline">
-                                      <span style={{ paddingLeft: "70px" }}>
-                                        {" "}
-                                        {comment.comments.map(
-                                          (comm) => `REPLY: ${comm.content} `
-                                        )}
-                                      </span>
-                                    </div>
-                                  </div>
-                                </>
-                              ) : (
-                                comment.comments[0].content
-                              )}
+                              {comment.content}{" "}
                             </span>
                           </div>
                           <hr />
-                          {/* </div> */}
                         </div>
                       </div>
+                      // </div>
                     );
                   })}
                 </div>

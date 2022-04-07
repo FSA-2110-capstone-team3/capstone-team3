@@ -38,7 +38,9 @@ const AuthForm = (props) => {
             id="loginForm"
           >
             <div className="text-center mb-5">
-              <span style={{ fontSize: "35px", fontWeight: 400 }}>Login</span>
+              <span style={{ fontSize: "35px", fontWeight: 400 }}>
+                Welcome to PODify
+              </span>
             </div>
             <div className="text-center">
               {!isLoggedIn ? (

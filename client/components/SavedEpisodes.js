@@ -4,6 +4,13 @@ import { Link } from "react-router-dom";
 import { deleteSavedEpisode } from "../store/savedEpisodes";
 
 class SavedEpisodes extends Component {
+  constructor() {
+    super();
+    this.state = {
+      id: null,
+    };
+  }
+
   render() {
     const { userId, savedEpisodes, deleteSavedEpisode } = this.props;
     return (
@@ -18,6 +25,7 @@ class SavedEpisodes extends Component {
                   className="card "
                   data-bs-toggle="modal"
                   data-bs-target="#staticBackdrop"
+                  onClick={() => this.setState({ id: saved.episode.id })}
                 >
                   <button
                     className="x-icon"
@@ -48,21 +56,24 @@ class SavedEpisodes extends Component {
                     </h5>
                   </div>
                 </div>
-                <div
-                  className="modal fade"
-                  id="staticBackdrop"
-                  data-bs-backdrop="static"
-                  data-bs-keyboard="false"
-                  tabindex="-1"
-                  aria-labelledby="staticBackdropLabel"
-                  aria-hidden="true"
-                >
-                  <div
-                    className="modal-dialog"
-                    style={{ top: "50%", transform: "translateY(-50%)" }}
-                  >
-                    <div class="modal-content" id="savedEpModal">
-                      {/* <div class="modal-header">
+              </div>
+            );
+          })}
+          <div
+            className="modal fade"
+            id="staticBackdrop"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabIndex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
+            <div
+              className="modal-dialog"
+              style={{ top: "50%", transform: "translateY(-50%)" }}
+            >
+              <div className="modal-content" id="savedEpModal">
+                {/* <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">
                           Modal title
                         </h5>
@@ -73,58 +84,57 @@ class SavedEpisodes extends Component {
                           aria-label="Close"
                         ></button>
                       </div> */}
-                      <div className="modal-body col-sm" id="idk">
-                        <button
-                          style={{ background: "none" }}
-                          data-bs-dismiss="modal"
+                <div className="modal-body col-sm" id="idk">
+                  <button
+                    style={{ background: "none" }}
+                    data-bs-dismiss="modal"
+                    id="savedIcon"
+                    onClick={() => {
+                      // console.log(saved.episode.id, "episode id-------");
+                      // console.log(saved.episode.name, "episode name---");
+                      deleteSavedEpisode({
+                        id: this.state.id,
+                        userId: userId,
+                      });
+                    }}
+                  >
+                    <span style={{ color: "white" }}>
+                      {" "}
+                      <i
+                        className="bi bi-trash3 fa-5x"
+                        style={{ fontSize: "200px" }}
+                      ></i>
+                    </span>
+                  </button>
+                  <button
+                    data-bs-dismiss="modal"
+                    style={{ background: "none" }}
+                  >
+                    <Link to={`/episode/${this.state.id}`}>
+                      {" "}
+                      <span style={{ color: "white" }}>
+                        {" "}
+                        <i
+                          className="bi bi-arrow-bar-right fa-5x"
                           id="savedIcon"
-                          onClick={() =>
-                            deleteSavedEpisode({
-                              id: saved.episode.id,
-                              userId: userId,
-                            })
-                          }
-                        >
-                          <span style={{ color: "white" }}>
-                            {" "}
-                            <i
-                              className="bi bi-trash3 fa-5x"
-                              style={{ fontSize: "200px" }}
-                            ></i>
-                          </span>
-                        </button>
-                        <button
-                          data-bs-dismiss="modal"
-                          style={{ background: "none" }}
-                        >
-                          <Link to={`/episode/${saved.episode.id}`}>
-                            {" "}
-                            <span style={{ color: "white" }}>
-                              {" "}
-                              <i
-                                className="bi bi-arrow-bar-right fa-5x"
-                                id="savedIcon"
-                                style={{ fontSize: "200px" }}
-                              ></i>
-                            </span>
-                          </Link>
-                        </button>
-                      </div>
-                      <div class="modal-footer">
-                        <button
-                          type="button"
-                          class="btn btn-secondary"
-                          data-bs-dismiss="modal"
-                        >
-                          Close
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                          style={{ fontSize: "200px" }}
+                        ></i>
+                      </span>
+                    </Link>
+                  </button>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          </div>
         </div>
       </>
     );

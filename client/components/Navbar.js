@@ -20,7 +20,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                 id="logo"
                 style={{ fontFamily: "roboto", fontWeight: 400, color: "gray" }}
               >
-                PODify
+                Podify
               </span>{" "}
             </div>{" "}
           </a>
@@ -87,7 +87,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                     <li className="nav-item h-25">
                       <div className="dropdown">
                         <button
-                          class="btn btn-secondary btn-lg dropdown-toggle"
+                          className="btn btn-secondary btn-lg dropdown-toggle"
                           type="button"
                           id="dropdownMenuButton1"
                           data-bs-toggle="dropdown"
@@ -170,7 +170,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                   </li>
                   <li className="nav-item h-25">
                     <div
-                      className="p-4"
+                      className="btn btn-secondary btn-lg disabled"
                       style={{
                         background: "rgb(28, 28, 28)",
                         border: "none",
