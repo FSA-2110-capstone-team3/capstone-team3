@@ -40,6 +40,7 @@ const TimestampModal = ({ episodeDuration, episodeId, episodeSpotifyId }) => {
     setHour(0);
     setMin(0);
     setSec(0);
+    setStampText('');
   };
 
   const hourLength = episodeDuration
@@ -96,7 +97,7 @@ const TimestampModal = ({ episodeDuration, episodeId, episodeSpotifyId }) => {
                         {Array(hourLength)
                           .fill("")
                           .map((min, idx) => {
-                            return <option value={idx}>{idx}</option>;
+                            return <option value={idx} key={idx}>{idx}</option>;
                           })}
                       </select>
                     </td>
@@ -116,7 +117,7 @@ const TimestampModal = ({ episodeDuration, episodeId, episodeSpotifyId }) => {
                         {Array(60)
                           .fill("")
                           .map((min, idx) => {
-                            return <option value={idx}>{idx}</option>;
+                            return <option value={idx} key={idx}>{idx}</option>;
                           })}
                       </select>
                     </td>
@@ -133,7 +134,7 @@ const TimestampModal = ({ episodeDuration, episodeId, episodeSpotifyId }) => {
                         {Array(60)
                           .fill("")
                           .map((sec, idx) => {
-                            return <option value={idx}>{idx}</option>;
+                            return <option value={idx} key={idx}>{idx}</option>;
                           })}
                       </select>
                     </td>

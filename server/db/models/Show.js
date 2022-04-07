@@ -18,7 +18,7 @@ const Show = db.define("show", {
     allowNull: false,
   },
   description: {
-    type: STRING(2000),
+    type: STRING(5000),
     allowNull: false,
   },
   publisher: {

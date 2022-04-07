@@ -1,14 +1,15 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Link, useLocation, useHistory } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import Fuse from "fuse.js";
 import { Avatar } from "antd";
+import { setShows, setEpisodes, setComments, setTimeStamps, addSavedEpisode } from "../store";
+
 
 /*<-------------------- material ui imports -------------------->*/
 
-import FormControl, { useFormControl } from "@mui/material/FormControl";
+import FormControl from "@mui/material/FormControl";
 import TextField from "@material-ui/core/TextField";
 import Box from "@mui/material/Box";
 import { makeStyles } from "@material-ui/core/styles";
@@ -16,78 +17,42 @@ import { makeStyles } from "@material-ui/core/styles";
 /*<-------------------- React functional component -------------------->*/
 
 const Search = () => {
+
   /*<-------------------- hooks -------------------->*/
 
+  const dispatch = useDispatch();
   // create hook of local state for Spotify API form/search input
   const [search, setSearch] = useState("");
-  // create hook of local state search results
-  const [searchResults, setSearchResults] = useState([]);
   // create hook of local state for error handling obj (axios responses)
   const [errorRes, setErrorRes] = useState({});
   // create hook of local state for shows/episodes toggle
   const [contentToggle, setContentToggle] = useState("shows");
   // pull data from redux store for local search
-  const { comments, timeStamps, episodes } = useSelector((state) => state);
-  // create hook to monitor browser forward/back button history
-  const [locationKeys, setLocationKeys] = useState([]);
-
-  //create custom previous props hook to store state
-  const usePreviousProps = (state) => {
-    const ref = useRef();
-    useEffect(() => {
-      ref.current = state;
-    }, [state]);
-    return ref.current;
-  };
+  const { comments, timeStamps, searchShows, searchEpisodes, searchComments, searchTimeStamps, auth } = useSelector((state) => state) || [];
+  // pull seperate redux-store due to Spotify API naming conflict
+  const reduxEpisodes = useSelector(state => state.episodes) || [];
+  const reduxShows = useSelector(state => state.shows) || [];
 
   /*<-------------------- Spotify API calls & logic -------------------->*/
 
-  // hook to update searchResult state with spotify search results
-  useEffect(async () => {
-    //empty results/error state if search empty
-    if (!search) return setSearchResults([]);
-    if (!search) return setErrorRes({});
-    if (!search) return setSearch("");
-
-    // create cancel flag to stop old/current call when form/test box edited
-    let cancel = false;
-    if (cancel) return;
-
-    const response = (await axios.get(`/api/search/${contentToggle}/${search}`))
-      .data;
-
-    //error handling if response is an error from the spotify api
-    if (response.body.error) {
-      setErrorRes({
-        message: response.body.error.message,
-      });
+const initiateSearchResult = async(search) => {
+    try {
+      console.log('initFunc!!!!')
+      const searchData = (await axios.get(`/api/search/${search}`)).data;
+      const { shows, episodes } = searchData;
+      const commentsData  = srchComments(search, comments);
+      const timeStampData = srchTimeStamps(search, timeStamps);
+      
+      dispatch(setShows(shows));
+      dispatch(setEpisodes(episodes));
+      dispatch(setComments(commentsData));
+      dispatch(setTimeStamps(timeStampData));
+      
+    } catch(ex) {
+      console.log('error', error);
     }
+};
 
-    setSearchResults(
-      response.body[contentToggle].items.map((content) => {
-        // const smallestContentImage = content.images.reduce(
-        //   (smallest, image) => {
-        //     if (image.height < smallest.height) {
-        //       return image;
-        //     } else return smallest;
-        //   },
-        //   content.images[0]
-        // );
-        return {
-          id: content.id,
-          name: content.name,
-          image: content.images[1].url,
-        };
-      })
-    );
-
-    return () => (cancel = true);
-  }, [search]);
-
-  //search package function to set all search related hooks when form input changed
-  const setSearchStates = (target_value) => {
-    setSearch(target_value);
-  };
 
   /*<-------------------- Material UI hook/logic -------------------->*/
 
@@ -110,6 +75,7 @@ const Search = () => {
   });
 
   const classes = useStyles();
+
 
   /* <-------------------- Button Logic for Shows/Episodes buttons --------------------> */
 
@@ -143,14 +109,20 @@ const Search = () => {
   //onClick button package
   const onClickInit = () => {
     adjContentToggle();
-    setSearch("");
+    // setSearch("");
     // setQueryState("");
+  };
+
+  //switch API search results between 'shows' & 'episodes' 
+  const toggleSearchResults = () => {
+    if ( contentToggle === 'shows') return searchShows;
+    else return searchEpisodes;
   };
 
   /*<-------------------- local search logic --------------------> */
 
   //local search Comments function
-  const searchComments = (srchQryStr, srchDataArr) => {
+  const srchComments = (srchQryStr, srchDataArr) => {
     const options = {
       includeScore: true,
       keys: ["content"],
@@ -161,7 +133,7 @@ const Search = () => {
   };
 
   //local search TimeStamp function
-  const searchTimeStamps = (srchQryStr, srchDataArr) => {
+  const srchTimeStamps = (srchQryStr, srchDataArr) => {
     const options = {
       includeScore: true,
       keys: ["description"],
@@ -171,7 +143,7 @@ const Search = () => {
     return results;
   };
 
-  // get episode form store via spotify_id for local search output
+  // get episode from store via spotify_id for local search output
   const findEpisode = (spotifyIdStr, episodesArr) => {
     try {
       if (spotifyIdStr)
@@ -183,22 +155,64 @@ const Search = () => {
     }
   };
 
+  // get show from store via spotify_id for local search output
+  const findShow = (spotifyIdStr, showsArr) => {
+    try {
+      if (spotifyIdStr)
+        return showsArr.find(
+          (show) => spotifyIdStr === show.spotify_id
+        );
+    } catch (ex) {
+      console.log("Spotify API Error -->", ex);
+    }
+  };
+
+
+  //<--------------------event & error handling-------------------->//
+
+  const [errorMsg, setErrorMsg] = useState('');
+  
+  const handleInputChange = (event) => {
+    const searchTerm = event;
+    setSearch(searchTerm);
+  };
+
+  // const handleSearch = (event) => {
+  //   event.preventDefault();
+  //   if(search.trim() !== '') {
+  //     setErrorMsg('');
+  //     props.handleSearch(search);
+  //   } else {
+  //     setErrorMsg('Please enter a search term.');
+  //   }
+  // };
+  // console.log(search)
+
+  const handleSearch = (event) => {
+    // event.preventDefault();
+    return initiateSearchResult(event);
+  };
+
+
+
   /*<-------------------- React render -------------------->*/
 
   return (
     <div>
       <h3 className="text-white text-center pb-3">Search sPodify+ Content </h3>
-      <Box className="p-5" /*style={{ color: "black" }}*/>
+      <Box className="p-5">
         <FormControl fullWidth>
           <TextField
+            onKeyPress={(e) => {e.key === "Enter" ? handleSearch(e.target.value) : null}}
             className={classes.root}
             fullWidth
             id="outlined"
             label="Search"
             variant="outlined"
-            type="search"
+            type="input"
             value={search}
-            onChange={(e) => setSearchStates(e.target.value)}
+            onChange={(e) => handleInputChange(e.target.value)}
+            autoComplete="off"
             style={{ color: "black" }}
           />
 
@@ -207,6 +221,7 @@ const Search = () => {
               {errorRes.message}
             </h6>
           ) : null}
+          
           <div
             id="searchBtns"
             className=" pt-5 d-flex justify-content-center pd-5"
@@ -232,16 +247,30 @@ const Search = () => {
           </div>
         </FormControl>
       </Box>
-      {searchResults.length ? (
+      {Object.entries(toggleSearchResults()).length ? (
         <>
           <h4 style={{ color: "white" }}>Shows or Episodes</h4>
           <div className="row p-2 m-2">
-            {searchResults.map((content) => (
+            {toggleSearchResults().items.map((content) => (
               <div className="col-sm-2 p-2" key={content.id}>
-                <Link to={`/${contentToggle.slice(0, -1)}/${content.id}`}>
                   <div className="card">
+                    { contentToggle === 'episodes' ?
+                      <button
+                        className="x-icon"
+                        onClick={() =>
+                          dispatch(addSavedEpisode({
+                            id: content.id,
+                            userId: auth.id,
+                          }))
+                        }
+                        >
+                        +
+                      </button>
+                      : null
+                    }
+                  <Link to={`/${contentToggle.slice(0, -1)}/${content.id}`}>
                     <img
-                      src={content.image}
+                      src={content.images[1].url}
                       alt="podcastimg"
                       className="card-img-top"
                       id="searchImg"
@@ -255,8 +284,8 @@ const Search = () => {
                         {content.name}
                       </h5>
                     </div>
+                  </Link>
                   </div>
-                </Link>
               </div>
             ))}
           </div>
@@ -265,7 +294,7 @@ const Search = () => {
 
       {/* ------------------------------ */}
 
-      {searchComments(search, comments).length && search ? (
+      {searchComments.length ? (
         <div>
           <div className="pt-3">
             <hr />
@@ -273,7 +302,7 @@ const Search = () => {
           <h4 className="text-white">Comments</h4>
           <ul id="podcastCards">
             {/* map over & render local comments search results  */}
-            {searchComments(search, comments).map((comment) => (
+            {searchComments.map((comment) => (
               <Link
                 to={`/episode/${comment.item.spotify_id}`}
                 key={comment.item.id}
@@ -293,7 +322,11 @@ const Search = () => {
                         />
                       </span>
                       <span className="text-secondary small">
-                        {findEpisode(comment.item.spotify_id, episodes)?.name}
+                        {findShow(findEpisode(comment.item.spotify_id, reduxEpisodes)?.showSpotify_id, reduxShows)?.name}
+                      </span>
+                      <span className="text-secondary small">{" - "}</span>
+                      <span className="text-secondary small">
+                        {findEpisode(comment.item.spotify_id, reduxEpisodes)?.name}
                       </span>
                     </div>
                     <div>
@@ -309,7 +342,7 @@ const Search = () => {
         </div>
       ) : null}
 
-      {searchTimeStamps(search, timeStamps).length && search ? (
+      {searchTimeStamps.length ? (
         <div>
           <div className="pt-3">
             <hr />
@@ -317,7 +350,7 @@ const Search = () => {
           <h4 className="text-white">TimeStamps</h4>
           <ul id="podcastCards">
             {/* map over & render local timeStamps search results  */}
-            {searchTimeStamps(search, timeStamps).map((timeStamp) => (
+            {searchTimeStamps.map((timeStamp) => (
               <Link
                 to={`/episode/${timeStamp.item.spotify_id}`}
                 key={timeStamp.item.id}
@@ -350,7 +383,11 @@ const Search = () => {
                           : timeStamp.item.sec}
                       </span>
                       <span className="text-secondary small">
-                        {findEpisode(timeStamp.item.spotify_id, episodes)?.name}
+                        {findShow(findEpisode(timeStamp.item.spotify_id, reduxEpisodes)?.showSpotify_id, reduxShows)?.name}
+                      </span>
+                      <span className="text-secondary small">{" - "}</span>
+                      <span className="text-secondary small">
+                        {findEpisode(timeStamp.item.spotify_id, reduxEpisodes)?.name}
                       </span>
                     </div>
                     <div>

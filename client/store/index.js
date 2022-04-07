@@ -15,6 +15,10 @@ import { timeStamps } from "./timeStamps";
 import { topCharts } from "./topCharts";
 import { users } from "./users";
 import { singleEpisode } from "./singleEpisode";
+import { searchShows } from "./searchShows";
+import { searchComments } from "./searchComments";
+import { searchTimeStamps } from "./searchTimeStamps";
+import { searchEpisodes } from "./searchEpisodes";
 
 const reducer = combineReducers({
   auth,
@@ -29,7 +33,11 @@ const reducer = combineReducers({
   timeStamps,
   topCharts,
   users,
-  singleEpisode
+  singleEpisode,
+  searchShows,
+  searchComments,
+  searchTimeStamps,
+  searchEpisodes
 });
 
 const middleware = composeWithDevTools(
@@ -52,3 +60,7 @@ export * from "./timeStamps";
 export * from "./topCharts";
 export * from "./users";
 export * from "./singleEpisode";
+export * from "./searchShows";
+export * from "./searchComments";
+export * from "./searchTimeStamps";
+export * from "./searchEpisodes";
