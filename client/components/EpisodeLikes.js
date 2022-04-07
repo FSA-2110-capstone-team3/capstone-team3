@@ -2,7 +2,7 @@ import React from "react";
 import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
 import { ThumbDown, ThumbUp } from "@material-ui/icons";
-import { updateEpisodeLike, addEpisodeLike } from "../store";
+import { updateEpisodeLike, addEpisodeLike, addSavedEpisode } from "../store";
 import { useSelector, useDispatch } from "react-redux";
 
 const EpisodeLikes = (props) => {
@@ -90,6 +90,17 @@ const EpisodeLikes = (props) => {
         }
       </button>
       <span className="episodeLike-action pe-3" style={{color: 'white', fontSize: '1rem', paddingLeft: '5px'}}>{episodeLikesTotal('thumbsDown')}</span>
+      <button
+          className="btn btn-outline-light btn-sm"
+          onClick={() =>
+            dispatch(addSavedEpisode({
+              id: episode.spotify_id,
+              userId: user.id,
+            }))
+          }
+        >
+          +
+      </button>
     </div>
 
   );
