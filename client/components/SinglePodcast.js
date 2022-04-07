@@ -62,6 +62,8 @@ const SinglePodcast = () => {
     <>
       <div>
         <h1 style={{ color: "white", fontWeight: 400 }}> {podcast.name}</h1>
+        <h4 className="ms-3 mt-4">About</h4>
+        <div className="ms-3">{podcast.description}</div>
         <div className=" row p-5 m-2">
           {episodes.map((episode, idx) => (
             <div className="col-lg-2" id="mainCard" key={idx}>
