@@ -164,9 +164,9 @@ const Comments = ({ episodeId, episodeSpotifyId }) => {
               >
               {(replyBox.isOpen && comment.id === replyBox.id) &&  <ReplyBox episodeId={episodeId} episodeSpotifyId={episodeSpotifyId} setReplyBox={setReplyBox} replyBox={replyBox} currText={currReply} editBox={editBox} parentId={replyBox.id}/> }
               {
-                 commentReplies.length > 0 && !repliesOpen.isLoaded && comment.id === repliesOpen.id ? <p onClick={() => setRepliesOpen({isLoaded: true, id: comment.id})}>Load {commentReplies.length} replies</p> :   
+                 (repliesOpen.isLoaded && comment.id === repliesOpen.id) ?    
                  <>
-                 {/* <p onClick={() => setRepliesOpen({isLoaded: false, id: ''})}>Hide Replies</p> */}
+                 {commentReplies.length > 0 ? <p style={{cursor: 'pointer', fontSize: '14px'}} onClick={() => setRepliesOpen({isLoaded: false, id: ''})}>Hide Replies</p> : ''}
                  {
                   commentReplies.map((reply) => {
                     const replyUser = findUsers.find((user) => reply.userId === user.id) || {};
@@ -274,7 +274,8 @@ const Comments = ({ episodeId, episodeSpotifyId }) => {
                       </>
                     )})
                   }
-                </>
+                </> :  commentReplies.length > 0 ? <p style={{cursor: 'pointer', fontSize: '14px'}} onClick={() => setRepliesOpen({isLoaded: true, id: comment.id})}>Load {commentReplies.length} replies</p> : ''
+
               }
               </Comment>
             </>

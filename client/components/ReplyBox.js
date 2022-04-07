@@ -64,16 +64,16 @@ const ReplyBox = ({ episodeId, episodeSpotifyId, setEditBox, editBox, setReplyBo
                 {
                   editBox.isEditing ?              
                   <div className="d-flex flex-row-reverse">
-                    <button className="" style={{color: 'black'}}>Update</button>
-                    <button style={{color: 'black'}} onClick={() => {
+                    <button className="btn btn-outline-light">Update</button>
+                    <button className="btn btn-outline-light" onClick={() => {
                       setEditBox({isEditing: false, id: ''})
                       setCurrReply('');
                     }}>Cancel</button>
                   </div>
                   :
                   <div className="d-flex flex-row-reverse">
-                    <button className="" type='submit' style={{color: 'black'}}>Add Reply</button>
-                    <button style={{color: 'black'}} onClick={() => {
+                    <button className="btn btn-outline-light" type='submit'>Add Reply</button>
+                    <button className="btn btn-outline-light" onClick={() => {
                       setReplyBox({isOpen: false, id: ''});
                       setCurrReply('');
                     }}>Cancel</button>
