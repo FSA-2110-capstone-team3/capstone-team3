@@ -33,6 +33,14 @@ import History from "./components/History";
 import AboutUs from "./components/AboutUs";
 
 class Routes extends Component {
+  constructor() {
+    super();
+    this.state = {
+      loading: true
+    }
+  }
+
+
   componentDidMount() {
     const {
       getComments,
@@ -52,6 +60,14 @@ class Routes extends Component {
     getTopCharts();
     getUsers();
     me();
+
+    //loading animation toggle for render evaluation
+    const loadData = async () => {  
+      await new Promise((r) => setTimeout(r, 1000));
+      this.setState({loading: false});
+    }
+    loadData();
+
   }
 
   componentDidUpdate() {
@@ -66,6 +82,16 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn } = this.props;
+
+    if ( this.state.loading) {
+
+      return (
+        //all divs used for dotted circle animation (custom animation setup)
+        <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div></div>
+      );
+
+    } else {
+
     return (
       <div>
         {isLoggedIn ? (
@@ -92,6 +118,7 @@ class Routes extends Component {
         )}
       </div>
     );
+    } //if statement
   }
 }
 
