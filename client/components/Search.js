@@ -15,6 +15,7 @@ import {
 //page transition imports
 import { motion } from "framer-motion";
 import { pageTransition } from "..";
+import { getPodLinkClass } from "./utils/utils";
 
 /*<-------------------- material ui imports -------------------->*/
 
@@ -288,7 +289,10 @@ const Search = () => {
                       +
                     </button>
                   ) : null}
-                  <Link to={`/${contentToggle.slice(0, -1)}/${content.id}`}>
+                  <Link
+                    to={`/${contentToggle.slice(0, -1)}/${content.id}`}
+                    className={getPodLinkClass(content.name, 262)}
+                  >
                     <img
                       src={content.images[1].url}
                       alt="podcastimg"
@@ -297,7 +301,7 @@ const Search = () => {
                     />
                     <div className="card-body">
                       <h5
-                        className="card-title text-center"
+                        className="card-title pod-link-title"
                         style={{ color: "white" }}
                       >
                         {" "}
