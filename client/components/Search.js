@@ -104,7 +104,7 @@ const Search = () => {
 
   //add/remove active class to buttons
 
-    //create array to map with all button elements
+  //create array to map with all button elements
   const btnElem = document.getElementsByClassName("btn-outline-light");
   const btnElemArr = [].slice.call(btnElem);
 
@@ -119,23 +119,21 @@ const Search = () => {
 
       //Add active to class if not present
       this.className += " active";
-
     });
   });
 
   const adjContentToggle = () => {
-  const btnElem = document.getElementsByClassName("btn-outline-light");
-  const btnElemArr = [].slice.call(btnElem);
+    const btnElem = document.getElementsByClassName("btn-outline-light");
+    const btnElemArr = [].slice.call(btnElem);
     //fetch button elements
     btnElemArr.map(() => {
       const currentButton = document.getElementsByClassName("active");
-      
-      if(currentButton.length >0 ) {
-        setContentToggle(currentButton[0].innerHTML.toLowerCase())
+
+      if (currentButton.length > 0) {
+        setContentToggle(currentButton[0].innerHTML.toLowerCase());
       }
     });
   };
-
 
   /*<-------------------- local search logic --------------------> */
 
@@ -281,9 +279,9 @@ const Search = () => {
 
       {/* ---------- shows render logic -------------------- */}
 
-      {Object.entries(searchShows).length && contentToggle === 'shows' || 
-       Object.entries(searchShows).length && contentToggle === 'all content' ? 
-      (
+      {(Object.entries(searchShows).length && contentToggle === "shows") ||
+      (Object.entries(searchShows).length &&
+        contentToggle === "all content") ? (
         <>
           <h4 style={{ color: "white" }}>Shows</h4>
           <hr style={{ color: "white" }}></hr>
@@ -302,7 +300,6 @@ const Search = () => {
                       className="card-title pod-link-title"
                       style={{ color: "white" }}
                     >
-<<<<<<< HEAD
                       {" "}
                       {content.name}
                     </h5>
@@ -310,14 +307,6 @@ const Search = () => {
                   <div
                     className="card-text"
                     style={{ padding: "none", margin: "none" }}
-=======
-                      +
-                    </button>
-                  ) : null}
-                  <Link
-                    to={`/show/${content.id}`}
-                    className={getPodLinkClass(content.name, 262)}
->>>>>>> dd4a14ef0177071e03b6a1d837838ec16fcf8410
                   >
                     {contentToggle === "episodes" ? (
                       <button
@@ -403,12 +392,13 @@ const Search = () => {
           </div>
         </>
       ) : null}
-      
+
       {/* ---------- episodes render logic -------------------- */}
 
-      {Object.entries(searchEpisodes).length && contentToggle === 'episodes' || 
-       Object.entries(searchEpisodes).length && contentToggle === 'all content' ? 
-       (
+      {(Object.entries(searchEpisodes).length &&
+        contentToggle === "episodes") ||
+      (Object.entries(searchEpisodes).length &&
+        contentToggle === "all content") ? (
         <>
           <h4 style={{ color: "white" }}>Episodes</h4>
           <hr style={{ color: "white" }}></hr>
@@ -416,7 +406,8 @@ const Search = () => {
             {searchEpisodes.items.map((content) => (
               <div className="col-sm p-2" key={content.id}>
                 <div className="card" style={{ width: "17rem" }}>
-                  {contentToggle === "episodes" || contentToggle === 'all content' ? (
+                  {contentToggle === "episodes" ||
+                  contentToggle === "all content" ? (
                     <button
                       className="x-icon"
                       onClick={() =>
@@ -460,9 +451,8 @@ const Search = () => {
 
       {/* ---------- comments render logic -------------------- */}
 
-      {searchComments.length && contentToggle === 'comments' || 
-       searchComments.length && contentToggle === 'all content' ? 
-       (
+      {(searchComments.length && contentToggle === "comments") ||
+      (searchComments.length && contentToggle === "all content") ? (
         <div>
           <div className="pt-3">
             <hr />
@@ -522,9 +512,8 @@ const Search = () => {
 
       {/* ---------- timestamps render logic -------------------- */}
 
-      {searchTimeStamps.length && contentToggle === 'timestamps' || 
-       searchTimeStamps.length && contentToggle === 'all content' ? 
-       (
+      {(searchTimeStamps.length && contentToggle === "timestamps") ||
+      (searchTimeStamps.length && contentToggle === "all content") ? (
         <div>
           <div className="pt-3">
             <hr />
