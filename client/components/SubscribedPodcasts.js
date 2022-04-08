@@ -11,7 +11,7 @@ class SubscribedPodcasts extends Component {
       <>
         <h1
           style={{
-            textAlign: "center",
+            // textAlign: "center",
             color: "white",
             fontWeight: 400,
             fontSize: "2vw",
@@ -19,17 +19,14 @@ class SubscribedPodcasts extends Component {
         >
           Subscribed Podcasts:
         </h1>
-        <div className="row p-5 m-2" style={{ color: "white" }}>
+        <div className="row p-5 m-2 " style={{ color: "white" }}>
           {subscribedShows?.map((subscribedShow) => {
             return (
-              <div className="col-sm" key={subscribedShow.show.id}>
-                <div></div>
-<<<<<<< HEAD
+              <div className="col-sm p-2" key={subscribedShow.show.id}>
                 <div className="card" style={{ width: "17rem" }}>
-=======
-                <div className="card">
-                  <button
+                  {/* <button
                     className="x-icon"
+                    style={{ background: "none", border: "none" }}
                     onClick={() =>
                       deleteSubscribedShow({
                         id: subscribedShow.show.id,
@@ -37,9 +34,11 @@ class SubscribedPodcasts extends Component {
                       })
                     }
                   >
-                    X
-                  </button>
->>>>>>> d8ff711453e2638f0baab95bac147af51af0632f
+                    <i
+                      className="bi bi-trash3 fa-5x"
+                      style={{ fontSize: "25px" }}
+                    ></i>
+                  </button> */}
                   <img
                     src={subscribedShow.show.images[1].url}
                     alt="podcastimg"
@@ -65,6 +64,52 @@ class SubscribedPodcasts extends Component {
                         {subscribedShow.show.publisher}
                       </h6>
                     </span>
+                    <div
+                      className="card-text"
+                      style={{ padding: "none", margin: "none" }}
+                    >
+                      <button
+                        id="deleteButton"
+                        style={{
+                          background: "none",
+                          border: "none",
+                          padding: "none",
+                        }}
+                        onClick={() =>
+                          deleteSubscribedShow({
+                            id: subscribedShow.show.id,
+                            userId: auth.id,
+                          })
+                        }
+                      >
+                        <span style={{ color: "white" }}>
+                          <i
+                            className="bi bi-trash3"
+                            style={{ fontSize: "25px", padding: "none" }}
+                          ></i>
+                        </span>
+                      </button>
+                      <button
+                        id="epiClick"
+                        style={{
+                          background: "none",
+                          border: "none",
+                          padding: "none",
+                        }}
+                      >
+                        <Link to={`/show/${subscribedShow.show.id}`}>
+                          {" "}
+                          <span style={{ color: "white" }}>
+                            {" "}
+                            <i
+                              className="bi bi-arrow-bar-right fa-5x"
+                              id="savedIcon"
+                              style={{ fontSize: "25px" }}
+                            ></i>
+                          </span>{" "}
+                        </Link>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
