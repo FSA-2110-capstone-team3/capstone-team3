@@ -306,26 +306,33 @@ const Search = () => {
                       +
                     </button>
                   ) : null}
-                  <Link
-                    to={`/show/${content.id}`}
-                    className={getPodLinkClass(content.name, 262)}
-                  >
                     <img
                       src={content.images[1].url}
                       alt="podcastimg"
                       className="card-img-top"
                       id="searchImg"
                     />
-                    <div className="card-body">
-                      <h5
-                        className="card-title pod-link-title"
-                        style={{ color: "white" }}
+                  <div className="card-body">
+                    <h5
+                      className="card-title pod-link-title"
+                      style={{ color: "white" }}
+                    >
+                      {" "}
+                      <Link
+                        to={`/show/${content.id}`}
+                        className={getPodLinkClass(content.name, 262)}
                       >
-                        {" "}
+                      <span
+                        style={{
+                          // fontWeight: "bold",
+                          color: "white",
+                        }}
+                      >
                         {content.name}
-                      </h5>
-                    </div>
-                  </Link>
+                      </span>
+                      </Link>
+                    </h5>
+                  </div>
                 </div>
               </div>
             ))}
@@ -360,10 +367,6 @@ const Search = () => {
                       +
                     </button>
                   ) : null}
-                  <Link
-                    to={`/episode/${content.id}`}
-                    className={getPodLinkClass(content.name, 262)}
-                  >
                     <img
                       src={content.images[1].url}
                       alt="podcastimg"
@@ -375,11 +378,22 @@ const Search = () => {
                         className="card-title pod-link-title"
                         style={{ color: "white" }}
                       >
-                        {" "}
-                        {content.name}
+                        <Link
+                          to={`/episode/${content.id}`}
+                          className={getPodLinkClass(content.name, 262)}
+                        >
+                          {" "}
+                          <span
+                            style={{
+                              // fontWeight: "bold",
+                              color: "white",
+                            }}
+                          >
+                            {content.name}
+                          </span>
+                        </Link>
                       </h5>
                     </div>
-                  </Link>
                 </div>
               </div>
             ))}
