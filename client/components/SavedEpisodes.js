@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { deleteSavedEpisode } from "../store/savedEpisodes";
 import { motion } from "framer-motion";
 import { pageTransition } from "..";
+import toast, { Toaster } from "react-hot-toast";
+import { getPodLinkClass } from "./utils/utils";
 
 class SavedEpisodes extends Component {
   constructor() {
@@ -15,6 +17,10 @@ class SavedEpisodes extends Component {
 
   render() {
     const { userId, savedEpisodes, deleteSavedEpisode } = this.props;
+    const notify = () =>
+      toast("Successfully removed from favorites!", {
+        position: "top-right",
+      });
     return (
       <>
         <motion.div
@@ -40,7 +46,10 @@ class SavedEpisodes extends Component {
                     className="card-img-top"
                   />
                   <div className="card-body">
-                    <h5 className="card-title" style={{ textAlign: "center" }}>
+                    <h5
+                      className="card-title pod-link-title"
+                      style={{ textAlign: "center" }}
+                    >
                       {/* <Link
                         to={`/episode/${saved.episode.id}`}
                         className="stretched-link"
@@ -65,12 +74,15 @@ class SavedEpisodes extends Component {
                           padding: "none",
                           color: "white",
                         }}
-                        onClick={() =>
+                        onClick={() => {
                           deleteSavedEpisode({
                             id: saved.episode.id,
                             userId: userId,
-                          })
-                        }
+                          });
+                          {
+                            notify();
+                          }
+                        }}
                       >
                         <span style={{ color: "white" }}>
                           <i
@@ -79,6 +91,7 @@ class SavedEpisodes extends Component {
                           ></i>
                         </span>
                       </button>
+                      <Toaster />
                       <button
                         id="epiClick"
                         style={{
@@ -87,7 +100,10 @@ class SavedEpisodes extends Component {
                           padding: "none",
                         }}
                       >
-                        <Link to={`/episode/${saved.episode.id}`}>
+                        <Link
+                          to={`/episode/${saved.episode.id}`}
+                          className={getPodLinkClass(saved.episode.name, 262)}
+                        >
                           {" "}
                           <span style={{ color: "white" }}>
                             {" "}

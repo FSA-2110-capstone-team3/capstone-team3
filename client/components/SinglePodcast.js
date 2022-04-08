@@ -5,6 +5,8 @@ import { useParams, Link } from "react-router-dom";
 import { addSavedEpisode } from "../store/savedEpisodes";
 import { motion } from "framer-motion";
 import { pageTransition } from "..";
+import toast, { Toaster } from "react-hot-toast";
+import { getPodLinkClass } from "./utils/utils";
 
 const SinglePodcast = () => {
   const auth = useSelector((state) => state.auth) || {};
@@ -58,6 +60,11 @@ const SinglePodcast = () => {
   // console.log(podcastImage)
   // console.log('podcastIMAGE', podcast.images)
 
+  const notify = () =>
+    toast("Successfully added to favorites!", {
+      position: "top-right",
+    });
+
   const dispatch = useDispatch();
 
   return (
@@ -76,7 +83,10 @@ const SinglePodcast = () => {
                   className="card-img-top"
                 />
                 <div className="card-body">
-                  <h5 className="card-title" style={{ textAlign: "center" }}>
+                  <h5
+                    className="card-title pod-link-title"
+                    style={{ textAlign: "center" }}
+                  >
                     {/* <Link
                       to={`/episode/${episode.id}`}
                       className="stretched-link"
@@ -102,22 +112,26 @@ const SinglePodcast = () => {
                         border: "none",
                         padding: "none",
                       }}
-                      onClick={() =>
+                      onClick={() => {
                         dispatch(
                           addSavedEpisode({
                             id: episode.id,
                             userId: auth.id,
                           })
-                        )
-                      }
+                        );
+                        {
+                          notify();
+                        }
+                      }}
                     >
                       <span style={{ color: "white" }}>
                         <i
-                          class="bi bi-plus-circle"
+                          className="bi bi-plus-circle"
                           style={{ fontSize: "25px", padding: "none" }}
                         ></i>
                       </span>
                     </button>
+                    <Toaster />
                     <button
                       id="epiClick"
                       style={{
@@ -126,7 +140,10 @@ const SinglePodcast = () => {
                         padding: "none",
                       }}
                     >
-                      <Link to={`/episode/${episode.id}`}>
+                      <Link
+                        to={`/episode/${episode.id}`}
+                        className={getPodLinkClass(episode.name, 262)}
+                      >
                         {" "}
                         <span style={{ color: "white" }}>
                           {" "}
