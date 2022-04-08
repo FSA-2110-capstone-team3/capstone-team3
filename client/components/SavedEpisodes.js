@@ -50,17 +50,17 @@ class SavedEpisodes extends Component {
                       className="card-title pod-link-title"
                       style={{ textAlign: "center" }}
                     >
-                      {/* <Link
+                      <Link
                         to={`/episode/${saved.episode.id}`}
-                        className="stretched-link"
-                      > */}
-                      <span
-                        id="savedName"
-                        style={{ fontWeight: "bold", color: "white" }}
+                        className={getPodLinkClass(saved.episode.name, 262)}
                       >
-                        {saved.episode.name}
-                      </span>
-                      {/* </Link> */}
+                        <span
+                          id="savedName"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
+                          {saved.episode.name}
+                        </span>
+                      </Link>
                     </h5>
                     <div
                       className="card-text"
@@ -100,20 +100,16 @@ class SavedEpisodes extends Component {
                           padding: "none",
                         }}
                       >
-                        <Link
-                          to={`/episode/${saved.episode.id}`}
-                          className={getPodLinkClass(saved.episode.name, 262)}
-                        >
+                        {" "}
+                        <span style={{ color: "white" }}>
                           {" "}
-                          <span style={{ color: "white" }}>
-                            {" "}
-                            <i
-                              className="bi bi-arrow-bar-right fa-5x"
-                              id="savedIcon"
-                              style={{ fontSize: "25px" }}
-                            ></i>
-                          </span>{" "}
-                        </Link>
+                          <i
+                            className="bi bi-arrow-bar-right fa-5x"
+                            id="savedIcon"
+                            style={{ fontSize: "25px" }}
+                          ></i>
+                        </span>{" "}
+                        {/* </Link> */}
                       </button>
                     </div>
                   </div>

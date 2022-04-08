@@ -77,6 +77,7 @@ const SinglePodcast = () => {
           {episodes.map((episode, idx) => (
             <div className="col-sm p-2" id="mainCard" key={idx}>
               <div className="card" style={{ width: "17rem" }}>
+                {/* <div class="x-icon">X</div> */}
                 <img
                   src={episode.images[0].url}
                   alt="podcastimg"
@@ -87,19 +88,19 @@ const SinglePodcast = () => {
                     className="card-title pod-link-title"
                     style={{ textAlign: "center" }}
                   >
-                    {/* <Link
+                    <Link
                       to={`/episode/${episode.id}`}
-                      className="stretched-link"
-                    > */}
-                    <span
-                      style={{
-                        color: "white",
-                        fontWeight: 400,
-                      }}
+                      className={getPodLinkClass(episode.name, 262)}
                     >
-                      {episode.name}
-                    </span>
-                    {/* </Link> */}
+                      <span
+                        style={{
+                          color: "white",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {episode.name}
+                      </span>
+                    </Link>
                   </h5>
                   <div
                     className="card-text"
@@ -140,20 +141,19 @@ const SinglePodcast = () => {
                         padding: "none",
                       }}
                     >
-                      <Link
+                      {/* <Link
                         to={`/episode/${episode.id}`}
                         className={getPodLinkClass(episode.name, 262)}
-                      >
-                        {" "}
-                        <span style={{ color: "white" }}>
+                      > */}{" "}
+                      {/* <span style={{ color: "white" }}>
                           {" "}
                           <i
                             className="bi bi-arrow-bar-right fa-5x"
                             id="savedIcon"
                             style={{ fontSize: "25px" }}
                           ></i>
-                        </span>{" "}
-                      </Link>
+                        </span>{" "} */}
+                      {/* </Link> */}
                     </button>
                   </div>
                 </div>
