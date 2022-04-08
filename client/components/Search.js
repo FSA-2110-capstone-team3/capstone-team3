@@ -12,6 +12,9 @@ import {
   setTimeStamps,
   addSavedEpisode,
 } from "../store";
+//page transition imports
+import { motion } from "framer-motion";
+import { pageTransition } from "..";
 
 /*<-------------------- material ui imports -------------------->*/
 
@@ -212,7 +215,7 @@ const Search = () => {
   /*<-------------------- React render -------------------->*/
 
   return (
-    <div>
+    <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
       <h3 className="text-white text-center pb-3">Search Podify Content </h3>
       <Box className="p-5">
         <FormControl fullWidth>
@@ -439,7 +442,7 @@ const Search = () => {
           </ul>
         </div>
       ) : null}
-    </div>
+    </motion.div>
   );
 };
 

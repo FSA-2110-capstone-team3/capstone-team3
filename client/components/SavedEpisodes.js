@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteSavedEpisode } from "../store/savedEpisodes";
+import { motion } from "framer-motion";
+import { pageTransition } from "..";
 
 class SavedEpisodes extends Component {
   constructor() {
@@ -15,6 +17,12 @@ class SavedEpisodes extends Component {
     const { userId, savedEpisodes, deleteSavedEpisode } = this.props;
     return (
       <>
+        <motion.div
+          initial="out"
+          exit="out"
+          animate="in"
+          variants={pageTransition}
+        />
         <h1>Favorite Episodes:</h1>
 
         <div className="row p-5 m-2 ">
@@ -113,84 +121,3 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = { deleteSavedEpisode };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SavedEpisodes);
-
-{
-  /* <div
-            className="modal fade"
-            id="staticBackdrop"
-            data-bs-backdrop="static"
-            data-bs-keyboard="false"
-            tabIndex="-1"
-            aria-labelledby="staticBackdropLabel"
-            aria-hidden="true"
-          >
-            <div
-              className="modal-dialog"
-              style={{ top: "50%", transform: "translateY(-50%)" }}
-            >
-              <div className="modal-content" id="savedEpModal"> */
-}
-{
-  /* <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">
-                          Modal title
-                        </h5>
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div> */
-}
-//       <div className="modal-body col-sm" id="idk">
-//         <button
-//           style={{ background: "none" }}
-//           data-bs-dismiss="modal"
-//           id="savedIcon"
-//           onClick={() => {
-//             // console.log(saved.episode.id, "episode id-------");
-//             // console.log(saved.episode.name, "episode name---");
-//             deleteSavedEpisode({
-//               id: this.state.id,
-//               userId: userId,
-//             });
-//           }}
-//         >
-//           <span style={{ color: "white" }}>
-//             {" "}
-//             <i
-//               className="bi bi-trash3 fa-5x"
-//               style={{ fontSize: "200px" }}
-//             ></i>
-//           </span>
-//         </button>
-//         <button
-//           data-bs-dismiss="modal"
-//           style={{ background: "none" }}
-//         >
-//           <Link to={`/episode/${this.state.id}`}>
-//             {" "}
-//             <span style={{ color: "white" }}>
-//               {" "}
-//               <i
-//                 className="bi bi-arrow-bar-right fa-5x"
-//                 id="savedIcon"
-//                 style={{ fontSize: "200px" }}
-//               ></i>
-//             </span>
-//           </Link>
-//         </button>
-//       </div>
-//       <div className="modal-footer">
-//         <button
-//           type="button"
-//           className="btn btn-secondary"
-//           data-bs-dismiss="modal"
-//         >
-//           Close
-//         </button>
-//       </div>
-//     </div>
-//   </div>
-// </div>
