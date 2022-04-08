@@ -5,12 +5,23 @@ import axios from "axios";
 import { deleteSubscribedShow } from "../store/subscribedShows";
 import { motion } from "framer-motion";
 import { pageTransition } from "..";
+import toast, { Toaster } from "react-hot-toast";
+import { getPodLinkClass } from "./utils/utils";
 
 class SubscribedPodcasts extends Component {
   render() {
     const { auth, subscribedShows, deleteSubscribedShow } = this.props;
+    const notify = () =>
+      toast("Successfully unfollowed!", {
+        position: "top-right",
+      });
     return (
-      <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
+      <motion.div
+        initial="out"
+        exit="out"
+        animate="in"
+        variants={pageTransition}
+      >
         <h1
           style={{
             // textAlign: "center",
@@ -47,8 +58,17 @@ class SubscribedPodcasts extends Component {
                     className="card-img-top"
                   />
                   <div className="card-body">
-                    <h5 style={{ textAlign: "center" }} className="card-title">
-                      <Link to={`/show/${subscribedShow.show.id}`}>
+                    <h5
+                      style={{ textAlign: "center" }}
+                      className="card-title pod-link-title"
+                    >
+                      <Link
+                        to={`/show/${subscribedShow.show.id}`}
+                        className={getPodLinkClass(
+                          subscribedShow.show.name,
+                          262
+                        )}
+                      >
                         <span style={{ fontWeight: "bold", color: "white" }}>
                           {subscribedShow.show.name}
                         </span>
@@ -77,12 +97,15 @@ class SubscribedPodcasts extends Component {
                           border: "none",
                           padding: "none",
                         }}
-                        onClick={() =>
+                        onClick={() => {
                           deleteSubscribedShow({
                             id: subscribedShow.show.id,
                             userId: auth.id,
-                          })
-                        }
+                          });
+                          {
+                            notify();
+                          }
+                        }}
                       >
                         <span style={{ color: "white" }}>
                           <i
@@ -91,6 +114,7 @@ class SubscribedPodcasts extends Component {
                           ></i>
                         </span>
                       </button>
+                      <Toaster />
                       <button
                         id="epiClick"
                         style={{
