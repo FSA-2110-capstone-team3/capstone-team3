@@ -16,13 +16,16 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
           <a href="/" className="navbar-brand text-light mt-2">
             {" "}
             <div className="display-6 font-weight-bold">
-              <span
-                id="logo"
-                style={{ fontFamily: "roboto", fontWeight: 400, color: "gray" }}
-              >
+              <span id="logo" style={{ fontWeight: 400, color: "gray" }}>
                 Podify
               </span>{" "}
             </div>{" "}
+            <div>
+              {/* <img
+                src="/logo.png"
+                style={{ width: "180px", height: "180px" }}
+              /> */}
+            </div>
           </a>
           <button
             className="navbar-toggler"
