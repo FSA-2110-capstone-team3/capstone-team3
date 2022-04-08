@@ -5,6 +5,7 @@ import { useParams, Link } from "react-router-dom";
 import { addSavedEpisode } from "../store/savedEpisodes";
 import { motion } from "framer-motion";
 import { pageTransition } from "..";
+import toast, { Toaster } from "react-hot-toast";
 import { getPodLinkClass } from "./utils/utils";
 
 const SinglePodcast = () => {
@@ -59,6 +60,11 @@ const SinglePodcast = () => {
   // console.log(podcastImage)
   // console.log('podcastIMAGE', podcast.images)
 
+  const notify = () =>
+    toast("Successfully added to favorites!", {
+      position: "top-right",
+    });
+
   const dispatch = useDispatch();
 
   return (
@@ -106,14 +112,17 @@ const SinglePodcast = () => {
                         border: "none",
                         padding: "none",
                       }}
-                      onClick={() =>
+                      onClick={() => {
                         dispatch(
                           addSavedEpisode({
                             id: episode.id,
                             userId: auth.id,
                           })
-                        )
-                      }
+                        );
+                        {
+                          notify();
+                        }
+                      }}
                     >
                       <span style={{ color: "white" }}>
                         <i
@@ -122,6 +131,7 @@ const SinglePodcast = () => {
                         ></i>
                       </span>
                     </button>
+                    <Toaster />
                     <button
                       id="epiClick"
                       style={{
