@@ -38,9 +38,6 @@ class Home extends Component {
               className="col col-lg-2"
               style={{ fontSize: 20 + "px", textAlign: "right" }}
             >
-              {/* <button id="button">
-                <a href="/topcharts">VIEW MORE</a>
-              </button> */}
               <a href="/topcharts">
                 <button className="btn btn-outline-light">View More</button>
                 <span></span>
