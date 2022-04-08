@@ -22,7 +22,7 @@ class TopPodcasts extends Component {
         </h1>
         <div className="row p-5 m-2">
           {topCharts.map((podcast) => (
-            <div className="col-sm" id="mainCard" key={podcast.showUri}>
+            <div className="col-sm " id="mainCard" key={podcast.showUri}>
               <div style={{ color: "white" }}>{`${rank++}.`}</div>
               <div className="card" style={{ width: 17 + "rem" }}>
                 <img
