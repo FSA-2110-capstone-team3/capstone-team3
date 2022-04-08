@@ -68,19 +68,8 @@ const SinglePodcast = () => {
         <div className="ms-3">{podcast.description}</div>
         <div className=" row p-5 m-2">
           {episodes.map((episode, idx) => (
-            <div className="col-lg-2" id="mainCard" key={idx}>
-              <div className="card">
-                <button
-                  className="x-icon"
-                  onClick={() =>
-                    dispatch(addSavedEpisode({
-                      id: episode.id,
-                      userId: auth.id,
-                    }))
-                  }
-                >
-                  +
-                </button>
+            <div className="col-sm p-2" id="mainCard" key={idx}>
+              <div className="card" style={{ width: "17rem" }}>
                 <img
                   src={episode.images[0].url}
                   alt="podcastimg"
@@ -88,20 +77,68 @@ const SinglePodcast = () => {
                 />
                 <div className="card-body">
                   <h5 className="card-title" style={{ textAlign: "center" }}>
-                    <Link
+                    {/* <Link
                       to={`/episode/${episode.id}`}
                       className="stretched-link"
+                    > */}
+                    <span
+                      style={{
+                        color: "white",
+                        fontWeight: 400,
+                      }}
                     >
-                      <span
-                        style={{
-                          color: "white",
-                          fontWeight: 400,
-                        }}
-                      >
-                        {episode.name}
-                      </span>
-                    </Link>
+                      {episode.name}
+                    </span>
+                    {/* </Link> */}
                   </h5>
+                  <div
+                    className="card-text"
+                    style={{ padding: "none", margin: "none" }}
+                  >
+                    <button
+                      id="deleteButton"
+                      style={{
+                        background: "none",
+                        border: "none",
+                        padding: "none",
+                      }}
+                      onClick={() =>
+                        dispatch(
+                          addSavedEpisode({
+                            id: episode.id,
+                            userId: auth.id,
+                          })
+                        )
+                      }
+                    >
+                      <span style={{ color: "white" }}>
+                        <i
+                          class="bi bi-plus-circle"
+                          style={{ fontSize: "25px", padding: "none" }}
+                        ></i>
+                      </span>
+                    </button>
+                    <button
+                      id="epiClick"
+                      style={{
+                        background: "none",
+                        border: "none",
+                        padding: "none",
+                      }}
+                    >
+                      <Link to={`/episode/${episode.id}`}>
+                        {" "}
+                        <span style={{ color: "white" }}>
+                          {" "}
+                          <i
+                            className="bi bi-arrow-bar-right fa-5x"
+                            id="savedIcon"
+                            style={{ fontSize: "25px" }}
+                          ></i>
+                        </span>{" "}
+                      </Link>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
