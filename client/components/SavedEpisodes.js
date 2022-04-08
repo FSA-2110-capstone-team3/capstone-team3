@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteSavedEpisode } from "../store/savedEpisodes";
+import { motion } from "framer-motion";
+import { pageTransition } from "..";
 
 class SavedEpisodes extends Component {
   constructor() {
@@ -14,7 +16,7 @@ class SavedEpisodes extends Component {
   render() {
     const { userId, savedEpisodes, deleteSavedEpisode } = this.props;
     return (
-      <>
+      <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
         <h1>Favorite Episodes:</h1>
 
         <div className="row p-5 m-2 ">
@@ -136,7 +138,7 @@ class SavedEpisodes extends Component {
             </div>
           </div>
         </div>
-      </>
+      </motion.div>
     );
   }
 }

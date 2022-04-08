@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { pageTransition } from "..";
 
 class TopPodcasts extends Component {
   render() {
     const { topCharts } = this.props;
     let rank = 1;
     return (
-      <div>
+      <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
         <h1
           style={{
             textAlign: "center",
@@ -63,7 +65,7 @@ class TopPodcasts extends Component {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
     );
   }
 }

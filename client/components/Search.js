@@ -6,6 +6,9 @@ import axios from "axios";
 import Fuse from "fuse.js";
 import { Avatar } from "antd";
 import { setShows, setEpisodes, setComments, setTimeStamps, addSavedEpisode } from "../store";
+  //page transition imports
+import { motion } from "framer-motion";
+import { pageTransition } from "..";
 
 
 /*<-------------------- material ui imports -------------------->*/
@@ -210,7 +213,7 @@ const initiateSearchResult = async(search) => {
   /*<-------------------- React render -------------------->*/
 
   return (
-    <div>
+    <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
       <h3 className="text-white text-center pb-3">Search Podify Content </h3>
       <Box className="p-5">
         <FormControl fullWidth>
@@ -414,7 +417,7 @@ const initiateSearchResult = async(search) => {
           </ul>
         </div>
       ) : null}
-    </div>
+    </motion.div>
   );
 };
 

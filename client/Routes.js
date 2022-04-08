@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
+import { AnimatePresence } from "framer-motion";
 import {
   Redirect,
   Route,
   Switch,
   useHistory,
-  withRouter,
+  withRouter
 } from "react-router-dom";
 import {
   getEpisodes,
@@ -63,7 +64,7 @@ class Routes extends Component {
 
     //loading animation toggle for render evaluation
     const loadData = async () => {  
-      await new Promise((r) => setTimeout(r, 1000));
+      await new Promise((r) => setTimeout(r, 500));
       this.setState({loading: false});
     }
     loadData();
@@ -83,6 +84,8 @@ class Routes extends Component {
   render() {
     const { isLoggedIn } = this.props;
 
+    // const location = window.location;
+
     if ( this.state.loading) {
 
       return (
@@ -95,26 +98,32 @@ class Routes extends Component {
     return (
       <div>
         {isLoggedIn ? (
-          <Switch>
-            <Route exact path="/home" component={Home} />
-            <Route exact path="/saved" component={SavedEpisodes} />
-            <Route exact path="/search" component={Search} />
-            <Route exact path="/show/:id" component={SinglePodcast} />
-            <Route exact path="/episode/:id" component={SingleEpisode} />
-            <Route exact path="/subscribed" component={SubscribedPodcasts} />
-            <Route exact path="/topcharts" component={TopPodcasts} />
-            <Route exact path="/userDetails" component={UserDetails} />
-            <Route exact path="/history" component={History} />
-            <Route exact path="/aboutUs" component={AboutUs} />
-            <Redirect to="/home" />
-          </Switch>
+          <AnimatePresence exitBeforeEnter>
+            <Switch>
+            {/* <Switch location={location} key={location.pathname}> */}
+              <Route exact path="/home" component={Home} />
+              <Route exact path="/saved" component={SavedEpisodes} />
+              <Route exact path="/search" component={Search} />
+              <Route exact path="/show/:id" component={SinglePodcast} />
+              <Route exact path="/episode/:id" component={SingleEpisode} />
+              <Route exact path="/subscribed" component={SubscribedPodcasts} />
+              <Route exact path="/topcharts" component={TopPodcasts} />
+              <Route exact path="/userDetails" component={UserDetails} />
+              <Route exact path="/history" component={History} />
+              <Route exact path="/aboutUs" component={AboutUs} />
+              <Redirect to="/home" />
+            </Switch>
+          </AnimatePresence>
         ) : (
-          <Switch>
-            <Route exact path="/" component={Login} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={Signup} />
-            <Route exact path="/aboutUs" component={AboutUs} />
-          </Switch>
+          <AnimatePresence exitBeforeEnter>
+            <Switch>
+            {/* <Switch location={location} key={location.pathname}> */}
+              <Route exact path="/" component={Login} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/signup" component={Signup} />
+              <Route exact path="/aboutUs" component={AboutUs} />
+            </Switch>
+          </AnimatePresence>
         )}
       </div>
     );

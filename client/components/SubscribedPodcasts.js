@@ -3,12 +3,14 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { deleteSubscribedShow } from "../store/subscribedShows";
+import { motion } from "framer-motion";
+import { pageTransition } from "..";
 
 class SubscribedPodcasts extends Component {
   render() {
     const { auth, subscribedShows, deleteSubscribedShow } = this.props;
     return (
-      <>
+      <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
         <h1
           style={{
             textAlign: "center",
@@ -67,7 +69,7 @@ class SubscribedPodcasts extends Component {
             );
           })}
         </div>
-      </>
+      </motion.div>
     );
   }
 }
