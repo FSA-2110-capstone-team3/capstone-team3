@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getEpisodes } from "../store";
+import { motion } from "framer-motion";
+import { pageTransition } from "..";
 
 const History = () => {
   const { id } = useParams();
@@ -15,7 +17,7 @@ const History = () => {
     dispatch(getEpisodes);
   }, []);
   return (
-    <div>
+    <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
       <h1 style={{ color: "white", fontWeight: 400 }}>Recently Viewed Episodes</h1>
       <div className=" row p-5 m-2">
         {
@@ -51,7 +53,7 @@ const History = () => {
           })
         }
       </div>
-    </div>
+    </motion.div>
   )
 }
 

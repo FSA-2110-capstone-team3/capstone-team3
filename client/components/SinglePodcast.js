@@ -3,6 +3,8 @@ import React, { Component, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { addSavedEpisode } from "../store/savedEpisodes";
+import { motion } from "framer-motion";
+import { pageTransition } from "..";
 
 const SinglePodcast = () => {
   const auth = useSelector((state) => state.auth) || {};
@@ -59,7 +61,7 @@ const SinglePodcast = () => {
   const dispatch = useDispatch();
 
   return (
-    <>
+    <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
       <div>
         <h1 style={{ color: "white", fontWeight: 400 }}> {podcast.name}</h1>
         <h4 className="ms-3 mt-4">About</h4>
@@ -106,7 +108,7 @@ const SinglePodcast = () => {
           ))}
         </div>
       </div>
-    </>
+    </motion.div>
   );
 };
 
