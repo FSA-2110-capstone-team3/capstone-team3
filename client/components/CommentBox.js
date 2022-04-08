@@ -54,6 +54,7 @@ const CommentBox = ({ episodeId, episodeSpotifyId }) => {
                 value={currComment}
                 onChange={onCommentChange}
                 style={{ color: "white" }}
+                required
               ></textarea>
             </div>
             <div className="d-flex flex-row-reverse">

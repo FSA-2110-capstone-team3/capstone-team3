@@ -159,7 +159,11 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                         className="nav-link text-light pl-4"
                       >
                         <span style={{ fontWeight: 500, color: "gray" }}>
-                          <i className="fa fa-sign-out" aria-hidden="false"></i>
+                          <i
+                            className="fa fa-sign-out"
+                            aria-hidden="false"
+                            style={{ fontSize: "25px" }}
+                          ></i>
                           Logout
                         </span>
                       </a>

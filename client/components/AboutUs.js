@@ -1,8 +1,10 @@
 import React from "react";
+import { motion } from "framer-motion";
+import { pageTransition } from "..";
 
 function AboutUs() {
   return (
-    <>
+    <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>  
       <h1>(ABOUT US PAGE)</h1>
       <div className="container p-2 m-5" style={{ color: "white" }}>
         <div className="row align-items-center">
@@ -157,7 +159,7 @@ function AboutUs() {
           {/* <!--end col--> */}
         </div>
       </div>
-    </>
+    </motion.div>
   );
 }
 

@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { Comment, Avatar, Tooltip } from "antd";
 import "antd/lib/tooltip/style/index.css";
 import "antd/lib/comment/style/index.css";
+import { motion } from "framer-motion";
+import { pageTransition } from "..";
 
 class userDetails extends Component {
   render() {
@@ -58,7 +60,7 @@ class userDetails extends Component {
     //console.log(subscribedShows, "======>");
 
     return (
-      <>
+      <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
         <h1>User Details Page</h1>
         {/* <div
         className="container bootstrap snippets bootdey"
@@ -218,7 +220,7 @@ class userDetails extends Component {
 
           <hr></hr>
         </div>
-      </>
+      </motion.div>
     );
   }
 }

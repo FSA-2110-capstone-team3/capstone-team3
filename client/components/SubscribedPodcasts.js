@@ -2,28 +2,45 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { deleteSubscribedShow } from "../store/subscribedShows";
+import { motion } from "framer-motion";
+import { pageTransition } from "..";
 
 class SubscribedPodcasts extends Component {
   render() {
-    const { subscribedShows } = this.props;
+    const { auth, subscribedShows, deleteSubscribedShow } = this.props;
     return (
-      <>
+      <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
         <h1
           style={{
-            textAlign: "center",
+            // textAlign: "center",
             color: "white",
             fontWeight: 400,
             fontSize: "2vw",
           }}
         >
-          Current Subscribed Podcasts:
+          Subscribed Podcasts:
         </h1>
-        <div className="row p-5 m-2" style={{ color: "white" }}>
+        <div className="row p-5 m-2 " style={{ color: "white" }}>
           {subscribedShows?.map((subscribedShow) => {
             return (
-              <div className="col-sm-2" key={subscribedShow.show.id}>
-                <div></div>
-                <div className="card">
+              <div className="col-sm p-2" key={subscribedShow.show.id}>
+                <div className="card" style={{ width: "17rem" }}>
+                  {/* <button
+                    className="x-icon"
+                    style={{ background: "none", border: "none" }}
+                    onClick={() =>
+                      deleteSubscribedShow({
+                        id: subscribedShow.show.id,
+                        userId: auth.id,
+                      })
+                    }
+                  >
+                    <i
+                      className="bi bi-trash3 fa-5x"
+                      style={{ fontSize: "25px" }}
+                    ></i>
+                  </button> */}
                   <img
                     src={subscribedShow.show.images[1].url}
                     alt="podcastimg"
@@ -49,21 +66,70 @@ class SubscribedPodcasts extends Component {
                         {subscribedShow.show.publisher}
                       </h6>
                     </span>
+                    <div
+                      className="card-text"
+                      style={{ padding: "none", margin: "none" }}
+                    >
+                      <button
+                        id="deleteButton"
+                        style={{
+                          background: "none",
+                          border: "none",
+                          padding: "none",
+                        }}
+                        onClick={() =>
+                          deleteSubscribedShow({
+                            id: subscribedShow.show.id,
+                            userId: auth.id,
+                          })
+                        }
+                      >
+                        <span style={{ color: "white" }}>
+                          <i
+                            className="bi bi-trash3"
+                            style={{ fontSize: "25px", padding: "none" }}
+                          ></i>
+                        </span>
+                      </button>
+                      <button
+                        id="epiClick"
+                        style={{
+                          background: "none",
+                          border: "none",
+                          padding: "none",
+                        }}
+                      >
+                        <Link to={`/show/${subscribedShow.show.id}`}>
+                          {" "}
+                          <span style={{ color: "white" }}>
+                            {" "}
+                            <i
+                              className="bi bi-arrow-bar-right fa-5x"
+                              id="savedIcon"
+                              style={{ fontSize: "25px" }}
+                            ></i>
+                          </span>{" "}
+                        </Link>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             );
           })}
         </div>
-      </>
+      </motion.div>
     );
   }
 }
 
-const mapStateToProps = ({ subscribedShows }) => {
+const mapStateToProps = ({ auth, subscribedShows }) => {
   return {
+    auth,
     subscribedShows,
   };
 };
 
-export default connect(mapStateToProps)(SubscribedPodcasts);
+const mapDispatchToProps = { deleteSubscribedShow };
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubscribedPodcasts);

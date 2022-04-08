@@ -1,131 +1,74 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { pageTransition } from "..";
 
 class Home extends Component {
   render() {
-    let { email, subscribedShows, topCharts } = this.props;
-    let username = email.split("@");
+    let { displayName, subscribedShows, topCharts } = this.props;
     subscribedShows = subscribedShows.slice(0, 5);
     topCharts = topCharts.slice(0, 5);
 
     return (
-      <div style={{ color: "white", fontFamily: "roboto", fontWeight: 300 }}>
-        <div>
-          <h3 style={{ fontWeight: 400 }}>Welcome to Podify, {username[0]}</h3>
-          <br />
-          <h1 style={{ fontWeight: 400 }}>
-            Find episodes, watch, comment, follow & more!
-          </h1>
-          <hr style={{ width: 100 + "%" }} />
-        </div>
+      <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
+        <div style={{ color: "white", fontFamily: "roboto", fontWeight: 300 }}>
+          <div>
+            <h2 style={{ fontWeight: 400, textAlign: "center" }}>
+              Welcome to Podify, {displayName}!
+            </h2>
+            <br />
+            <h3 style={{ fontWeight: 300, textAlign: "center" }}>
+              Search podcasts, listen, comment, follow & more...
+            </h3>
+            <hr style={{ width: 100 + "%" }} />
+          </div>
 
-        <div className="row p-2 m-2" style={{ color: "white" }}>
-          <div className="col" style={{ fontSize: 30 + "px" }}>
-            Top Charts:
+          <div className="row p-2 m-2" style={{ color: "white" }}>
+            <div className="col" style={{ fontSize: 30 + "px" }}>
+              Top Podcasts:
+            </div>
+            <div
+              className="col col-lg-2"
+              style={{ fontSize: 20 + "px", textAlign: "right" }}
+            >
+              {/* <button id="button">
+                <a href="/topcharts">VIEW MORE</a>
+              </button> */}
+              <a href="/topcharts">
+                <button className="btn btn-outline-light">View More</button>
+                <span></span>
+              </a>
+            </div>
           </div>
-          <div
-            className="col col-lg-2"
-            style={{ fontSize: 20 + "px", textAlign: "right" }}
-          >
-            {/* <button id="button">
-              <a href="/topcharts">VIEW MORE</a>
-            </button> */}
-            <a href="/topcharts">
-              <button className="btn btn-outline-light">View More</button>
-              <span></span>
-            </a>
-          </div>
-        </div>
-        <div>
-          <div className="row p-5 m-2">
-            {topCharts.map((podcast) => (
-              <div className="col-sm" key={podcast.showUri}>
-                <div className="card " style={{ width: 17 + "rem" }}>
-                  <img
-                    src={podcast.showImageUrl}
-                    alt="podcastimg"
-                    className="card-img-top"
-                  />
-                  <div className="card-body">
-                    <h5 style={{ textAlign: "center" }} className="card-title ">
-                      {" "}
-                      <Link
-                        to={`/show/${podcast.showUri.slice(-22)}`}
-                        className="stretched-link"
-                      >
-                        <span
-                          style={{
-                            fontWeight: "bold",
-                            color: "white",
-                          }}
-                        >
-                          {podcast.showName}
-                        </span>
-                      </Link>
-                    </h5>
-                    <span className="card-text ">
-                      <h6
-                        style={{
-                          textAlign: "center",
-                          fontSize: "14px",
-                          fontWeight: 400,
-                          color: "white",
-                        }}
-                      >
-                        {podcast.showPublisher}
-                      </h6>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <hr />
-        <div className="row p-2 m-2" style={{ color: "white" }}>
-          <div className="col" style={{ fontSize: 30 + "px" }}>
-            Subscribed Shows:
-          </div>
-          <div
-            className="col col-lg-2"
-            style={{ fontSize: 20 + "px", textAlign: "right" }}
-          >
-            <a href="/subscribed">
-              <button className="btn btn-outline-light">View More</button>
-              <span></span>
-            </a>
-          </div>
-        </div>
-        <div>
-          <div className="row p-5 m-2">
-            {subscribedShows.map((subscribedShow) => {
-              return (
-                <div className="col-sm " key={subscribedShow.show.id}>
-                  <div className="card" style={{ width: 17 + "rem" }}>
+          <div>
+            <div className="row p-5 m-2">
+              {topCharts.map((podcast) => (
+                <div className="col-sm" key={podcast.showUri}>
+                  <div className="card " style={{ width: 17 + "rem" }}>
                     <img
-                      src={subscribedShow.show.images[1].url}
+                      src={podcast.showImageUrl}
                       alt="podcastimg"
                       className="card-img-top"
                     />
-                    <div className="card-body ">
-                      <h5
-                        style={{ textAlign: "center" }}
-                        className="card-title  overflow-auto" //overflow-auto
-                      >
+                    <div className="card-body">
+                      <h5 style={{ textAlign: "center" }} className="card-title ">
+                        {" "}
                         <Link
-                          to={`/show/${subscribedShow.show.id}`}
+                          to={`/show/${podcast.showUri.slice(-22)}`}
                           className="stretched-link"
                         >
                           <span
-                            className="showName"
-                            style={{ fontWeight: "bold", color: "white" }}
+                            style={{
+                              fontWeight: "bold",
+                              color: "white",
+                            }}
                           >
-                            {subscribedShow.show.name}
+                            {podcast.showName}
                           </span>
                         </Link>
                       </h5>
-                      <span className="card-text">
+                      <span className="card-text ">
                         <h6
                           style={{
                             textAlign: "center",
@@ -134,18 +77,80 @@ class Home extends Component {
                             color: "white",
                           }}
                         >
-                          {" "}
-                          {subscribedShow.show.publisher}
+                          {podcast.showPublisher}
                         </h6>
                       </span>
                     </div>
                   </div>
                 </div>
-              );
-            })}
+              ))}
+            </div>
+          </div>
+          <hr />
+          <div className="row p-2 m-2" style={{ color: "white" }}>
+            <div className="col" style={{ fontSize: 30 + "px" }}>
+              Subscribed Podcasts:
+            </div>
+            <div
+              className="col col-lg-2"
+              style={{ fontSize: 20 + "px", textAlign: "right" }}
+            >
+              <a href="/subscribed">
+                <button className="btn btn-outline-light">View More</button>
+                <span></span>
+              </a>
+            </div>
+          </div>
+          <div>
+            <div className="row p-5 m-2">
+              {subscribedShows.map((subscribedShow) => {
+                return (
+                  <div className="col-sm " key={subscribedShow.show.id}>
+                    <div className="card" style={{ width: 17 + "rem" }}>
+                      <img
+                        src={subscribedShow.show.images[1].url}
+                        alt="podcastimg"
+                        className="card-img-top"
+                      />
+                      <div className="card-body ">
+                        <h5
+                          style={{ textAlign: "center" }}
+                          className="card-title  overflow-auto" //overflow-auto
+                        >
+                          <Link
+                            to={`/show/${subscribedShow.show.id}`}
+                            className="stretched-link"
+                          >
+                            <span
+                              className="showName"
+                              style={{ fontWeight: "bold", color: "white" }}
+                            >
+                              {subscribedShow.show.name}
+                            </span>
+                          </Link>
+                        </h5>
+                        <span className="card-text">
+                          <h6
+                            style={{
+                              textAlign: "center",
+                              fontSize: "14px",
+                              fontWeight: 400,
+                              color: "white",
+                            }}
+                          >
+                            {" "}
+                            {subscribedShow.show.publisher}
+                          </h6>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     );
   }
 }
@@ -155,7 +160,7 @@ class Home extends Component {
  */
 const mapStateToProps = (state) => {
   return {
-    email: state.auth.email,
+    displayName: state.auth.display_name,
     subscribedShows: state.subscribedShows,
     topCharts: state.topCharts,
   };
