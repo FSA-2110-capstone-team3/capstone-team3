@@ -301,7 +301,19 @@ const Search = () => {
                       style={{ color: "white" }}
                     >
                       {" "}
-                      {content.name}
+                    <Link
+                        to={`/show/${content.id}`}
+                        className={getPodLinkClass(content.name, 262)}
+                      >
+                       <span
+                            style={{
+                              // fontWeight: "bold",
+                              color: "white",
+                            }}
+                          >
+                            {content.name}
+                          </span>
+                    </Link>
                     </h5>
                   </div>
                   <div
@@ -422,10 +434,6 @@ const Search = () => {
                       +
                     </button>
                   ) : null}
-                  <Link
-                    to={`/episode/${content.id}`}
-                    className={getPodLinkClass(content.name, 262)}
-                  >
                     <img
                       src={content.images[1].url}
                       alt="podcastimg"
@@ -438,10 +446,21 @@ const Search = () => {
                         style={{ color: "white" }}
                       >
                         {" "}
-                        {content.name}
+                      <Link
+                        to={`/episode/${content.id}`}
+                        className={getPodLinkClass(content.name, 262)}
+                      >
+                        <span
+                          style={{
+                            // fontWeight: "bold",
+                            color: "white",
+                          }}
+                        >
+                          {content.name}
+                        </span>
+                      </Link>  
                       </h5>
                     </div>
-                  </Link>
                 </div>
               </div>
             ))}
