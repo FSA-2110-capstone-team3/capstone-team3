@@ -282,6 +282,15 @@ div.card-body h5 {
   left: 125px;
 }
 
+#showClick {
+  position: relative;
+  left: 225px;
+}
+
+button#showClick:hover {
+  color: red;
+}
+
 button#getStarted {
   width: 140px;
   height: 45px;
@@ -367,9 +376,12 @@ ul.dropdown-menu.show a {
 /* simple circle loader animation */
 .loader {
   position: fixed;
-  top:-100%; right:-100%; left:-93%; bottom:-100%;
-  margin:auto;
-  z-index:0;
+  top: -100%;
+  right: -100%;
+  left: -93%;
+  bottom: -100%;
+  margin: auto;
+  z-index: 0;
   border: 16px solid #f3f3f3;
   border-radius: 50%;
   border-top: 16px solid lightgray;
@@ -381,21 +393,32 @@ ul.dropdown-menu.show a {
 
 /* Safari */
 @-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* dotted circle animation */
 .lds-roller {
   position: fixed;
-  top:-100%; right:-100%; left:-93%; bottom:-100%;
-  margin:auto;
-  z-index:0;
+  top: -100%;
+  right: -100%;
+  left: -93%;
+  bottom: -100%;
+  margin: auto;
+  z-index: 0;
   display: inline-block;
   /* position: relative; */
   width: 80px;
