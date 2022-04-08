@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { pageTransition } from "..";
+import { getPodLinkClass } from "./utils/utils";
 
 class Home extends Component {
   render() {
@@ -11,7 +12,12 @@ class Home extends Component {
     topCharts = topCharts.slice(0, 5);
 
     return (
-      <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
+      <motion.div
+        initial="out"
+        exit="out"
+        animate="in"
+        variants={pageTransition}
+      >
         <div style={{ color: "white", fontFamily: "roboto", fontWeight: 300 }}>
           <div>
             <h2 style={{ fontWeight: 400, textAlign: "center" }}>
@@ -26,7 +32,7 @@ class Home extends Component {
 
           <div className="row p-2 m-2" style={{ color: "white" }}>
             <div className="col" style={{ fontSize: 30 + "px" }}>
-              Top Podcasts:
+              Top 5 Podcasts:
             </div>
             <div
               className="col col-lg-2"
@@ -52,11 +58,14 @@ class Home extends Component {
                       className="card-img-top"
                     />
                     <div className="card-body">
-                      <h5 style={{ textAlign: "center" }} className="card-title ">
+                      <h5
+                        style={{ textAlign: "center" }}
+                        className="card-title pod-link-title"
+                      >
                         {" "}
                         <Link
                           to={`/show/${podcast.showUri.slice(-22)}`}
-                          className="stretched-link"
+                          className={getPodLinkClass(podcast.showName, 262)}
                         >
                           <span
                             style={{
@@ -115,11 +124,14 @@ class Home extends Component {
                       <div className="card-body ">
                         <h5
                           style={{ textAlign: "center" }}
-                          className="card-title  overflow-auto" //overflow-auto
+                          className="card-title pod-link-title"
                         >
                           <Link
                             to={`/show/${subscribedShow.show.id}`}
-                            className="stretched-link"
+                            className={getPodLinkClass(
+                              subscribedShow.show.name,
+                              262
+                            )}
                           >
                             <span
                               className="showName"
@@ -155,9 +167,6 @@ class Home extends Component {
   }
 }
 
-/**
- * CONTAINER
- */
 const mapStateToProps = (state) => {
   return {
     displayName: state.auth.display_name,
