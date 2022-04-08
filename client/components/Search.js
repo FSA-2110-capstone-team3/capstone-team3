@@ -104,7 +104,7 @@ const Search = () => {
 
   //add/remove active class to buttons
 
-    //create array to map with all button elements
+  //create array to map with all button elements
   const btnElem = document.getElementsByClassName("btn-outline-light");
   const btnElemArr = [].slice.call(btnElem);
 
@@ -119,23 +119,21 @@ const Search = () => {
 
       //Add active to class if not present
       this.className += " active";
-
     });
   });
 
   const adjContentToggle = () => {
-  const btnElem = document.getElementsByClassName("btn-outline-light");
-  const btnElemArr = [].slice.call(btnElem);
+    const btnElem = document.getElementsByClassName("btn-outline-light");
+    const btnElemArr = [].slice.call(btnElem);
     //fetch button elements
     btnElemArr.map(() => {
       const currentButton = document.getElementsByClassName("active");
-      
-      if(currentButton.length >0 ) {
-        setContentToggle(currentButton[0].innerHTML.toLowerCase())
+
+      if (currentButton.length > 0) {
+        setContentToggle(currentButton[0].innerHTML.toLowerCase());
       }
     });
   };
-
 
   /*<-------------------- local search logic --------------------> */
 
@@ -281,9 +279,9 @@ const Search = () => {
 
       {/* ---------- shows render logic -------------------- */}
 
-      {Object.entries(searchShows).length && contentToggle === 'shows' || 
-       Object.entries(searchShows).length && contentToggle === 'all content' ? 
-      (
+      {(Object.entries(searchShows).length && contentToggle === "shows") ||
+      (Object.entries(searchShows).length &&
+        contentToggle === "all content") ? (
         <>
           <h4 style={{ color: "white" }}>Shows</h4>
           <hr style={{ color: "white" }}></hr>
@@ -291,53 +289,116 @@ const Search = () => {
             {searchShows.items.map((content) => (
               <div className="col-sm p-2" key={content.id}>
                 <div className="card" style={{ width: "17rem" }}>
-                  {contentToggle === "episodes" ? (
-                    <button
-                      className="x-icon"
-                      onClick={() =>
-                        dispatch(
-                          addSavedEpisode({
-                            id: content.id,
-                            userId: auth.id,
-                          })
-                        )
-                      }
+                  <img
+                    src={content.images[1].url}
+                    alt="podcastimg"
+                    className="card-img-top"
+                    id="searchImg"
+                  />
+                  <div className="card-body">
+                    <h5
+                      className="card-title pod-link-title"
+                      style={{ color: "white" }}
                     >
-                      +
-                    </button>
-                  ) : null}
-                  <Link
-                    to={`/show/${content.id}`}
-                    className={getPodLinkClass(content.name, 262)}
+                      {" "}
+                      {content.name}
+                    </h5>
+                  </div>
+                  <div
+                    className="card-text"
+                    style={{ padding: "none", margin: "none" }}
                   >
-                    <img
-                      src={content.images[1].url}
-                      alt="podcastimg"
-                      className="card-img-top"
-                      id="searchImg"
-                    />
-                    <div className="card-body">
-                      <h5
-                        className="card-title pod-link-title"
-                        style={{ color: "white" }}
+                    {contentToggle === "episodes" ? (
+                      <button
+                        id="deleteButton"
+                        style={{
+                          background: "none",
+                          border: "none",
+                          padding: "none",
+                          color: "white",
+                        }}
+                        onClick={() =>
+                          dispatch(
+                            addSavedEpisode({
+                              id: content.id,
+                              userId: auth.id,
+                            })
+                          )
+                        }
                       >
-                        {" "}
-                        {content.name}
-                      </h5>
-                    </div>
-                  </Link>
+                        <span style={{ color: "white" }}>
+                          <i
+                            className="bi bi-plus-circle"
+                            style={{ fontSize: "25px", padding: "none" }}
+                          ></i>
+                        </span>
+                      </button>
+                    ) : null}
+                    {contentToggle === "episodes" ? (
+                      <button
+                        id="epiClick"
+                        style={{
+                          background: "none",
+                          border: "none",
+                          padding: "none",
+                        }}
+                      >
+                        <Link
+                          to={`/${contentToggle.slice(0, -1)}/${content.id}`}
+                          className={getPodLinkClass(content.name, 262)}
+                        >
+                          {" "}
+                          <span style={{ color: "white" }}>
+                            {" "}
+                            <i
+                              className="bi bi-arrow-bar-right fa-5x"
+                              id="savedIcon"
+                              style={{ fontSize: "25px" }}
+                            ></i>
+                          </span>{" "}
+                        </Link>
+                      </button>
+                    ) : null}
+                    {contentToggle === "shows" ? (
+                      <button
+                        id="showClick"
+                        style={{
+                          background: "none",
+                          border: "none",
+                          padding: "none",
+                        }}
+                      >
+                        <Link
+                          to={`/${contentToggle.slice(0, -1)}/${content.id}`}
+                          className={getPodLinkClass(content.name, 262)}
+                        >
+                          {" "}
+                          <span style={{ color: "white" }}>
+                            {" "}
+                            <i
+                              className="bi bi-arrow-bar-right fa-5x"
+                              id="savedIcon"
+                              style={{ fontSize: "25px" }}
+                            ></i>
+                          </span>{" "}
+                        </Link>
+                      </button>
+                    ) : null}
+                  </div>
+                  {/* </Link> */}
                 </div>
               </div>
             ))}
           </div>
         </>
       ) : null}
-      
+
       {/* ---------- episodes render logic -------------------- */}
 
-      {Object.entries(searchEpisodes).length && contentToggle === 'episodes' || 
-       Object.entries(searchEpisodes).length && contentToggle === 'all content' ? 
-       (
+      {(Object.entries(searchEpisodes).length &&
+        contentToggle === "episodes") ||
+      (Object.entries(searchEpisodes).length &&
+        contentToggle === "all content") ? (
         <>
           <h4 style={{ color: "white" }}>Episodes</h4>
           <hr style={{ color: "white" }}></hr>
@@ -345,7 +406,8 @@ const Search = () => {
             {searchEpisodes.items.map((content) => (
               <div className="col-sm p-2" key={content.id}>
                 <div className="card" style={{ width: "17rem" }}>
-                  {contentToggle === "episodes" || contentToggle === 'all content' ? (
+                  {contentToggle === "episodes" ||
+                  contentToggle === "all content" ? (
                     <button
                       className="x-icon"
                       onClick={() =>
@@ -389,9 +451,8 @@ const Search = () => {
 
       {/* ---------- comments render logic -------------------- */}
 
-      {searchComments.length && contentToggle === 'comments' || 
-       searchComments.length && contentToggle === 'all content' ? 
-       (
+      {(searchComments.length && contentToggle === "comments") ||
+      (searchComments.length && contentToggle === "all content") ? (
         <div>
           <div className="pt-3">
             <hr />
@@ -451,9 +512,8 @@ const Search = () => {
 
       {/* ---------- timestamps render logic -------------------- */}
 
-      {searchTimeStamps.length && contentToggle === 'timestamps' || 
-       searchTimeStamps.length && contentToggle === 'all content' ? 
-       (
+      {(searchTimeStamps.length && contentToggle === "timestamps") ||
+      (searchTimeStamps.length && contentToggle === "all content") ? (
         <div>
           <div className="pt-3">
             <hr />
