@@ -3,14 +3,14 @@ const { STRING, ARRAY, TEXT, UUID, UUIDV4, JSON } = Sequelize;
 const db = require("../db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-require("dotenv");
-const env = require("../../../.env");
+require("dotenv").config();
+// const env = require("../../../.env");
 let request = require("request");
 const axios = require("axios");
 const qs = require("qs");
 const res = require("express/lib/response");
-process.env.SPOTIFY_CLIENT_ID = env.SPOTIFY_CLIENT_ID;
-process.env.SPOTIFY_CLIENT_SECRET = env.SPOTIFY_SECRET_KEY;
+// process.env.SPOTIFY_CLIENT_ID = env.SPOTIFY_CLIENT_ID;
+// process.env.SPOTIFY_CLIENT_SECRET = env.SPOTIFY_SECRET_KEY;
 
 const SALT_ROUNDS = 5;
 
