@@ -165,7 +165,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                         style={{ fontWeight: 500, color: "gray" }}
                       >
                         <i
-                          className="fa fa-sign-out"
+                          className="bi bi-power"
                           aria-hidden="false"
                           style={{ fontSize: "25px" }}
                         ></i>
@@ -185,7 +185,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                   >
                     <span style={{ fontWeight: 500, color: "gray" }}>
                       <i
-                        className="fa fa-sign-in"
+                        className="bi bi-power"
                         aria-hidden="true"
                         style={{
                           fontSize: "25px",
