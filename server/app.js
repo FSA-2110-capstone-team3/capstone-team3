@@ -5,37 +5,36 @@ const app = express();
 let request = require("request");
 let querystring = require("querystring");
 const qs = require('qs');
-//const env = require(".././.env");
-const axios = require("axios");
-const User = require('./db/models/User');
-const SpotifyWebApi = require('spotify-web-api-node');
-
+// const env = require(".././.env");
 require('dotenv').config();
+const axios = require("axios");
+const User = require("./db/models/User");
+const SpotifyWebApi = require("spotify-web-api-node");
 
-//process.env.SPOTIFY_CLIENT_ID = env.SPOTIFY_CLIENT_ID;
-//process.env.SPOTIFY_CLIENT_SECRET = env.SPOTIFY_SECRET_KEY;
-//process.env.REDIRECT_URI = env.REDIRECT_URI;
+// process.env.SPOTIFY_CLIENT_ID = env.SPOTIFY_CLIENT_ID;
+// process.env.SPOTIFY_CLIENT_SECRET = env.SPOTIFY_SECRET_KEY;
+// process.env.REDIRECT_URI = env.REDIRECT_URI;
 
 // Create the api library object with the credentials
 //Spotify 'client-credential-flow' === 'https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/'
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
-  clientSecret: process.env.SPOTIFY_CLIENT_SECRET
+  clientSecret: process.env.SPOTIFY_SECRET_KEY
 });
 
 module.exports = {
   app,
-  spotifyApi
-  }
+  spotifyApi,
+};
 // console.log(process.env.SPOTIFY_CLIENT_ID);
 // console.log(process.env.SPOTIFY_CLIENT_SECRET);
 // console.log(process.env.REDIRECT_URI);
 
-
 //----------- TRYING OAUTH
 //Used https://github.com/mpj/oauth-bridge-template spotify OAUTH template and filled it in with our localhost
 
-let redirect_uri = process.env.REDIRECT_URI || "http://localhost:8080/callback"; //!We need to tell dev spotify sit that this callback URI is valid for security purposes. Needs to be the same URI as the one on dev spotify
+let redirect_uri =
+  process.env.REDIRECT_URI || "https://podify-fsa.herokuapp.com/callback"; //!We need to tell dev spotify sit that this callback URI is valid for security purposes. Needs to be the same URI as the one on dev spotify
 
 app.get("/login", function (req, res) {
   //! serves /login
@@ -46,7 +45,8 @@ app.get("/login", function (req, res) {
         //! not sure why its decprecated, still works tho
         response_type: "code",
         client_id: process.env.SPOTIFY_CLIENT_ID,
-        scope: "user-read-private user-read-email user-library-read user-library-modify",
+        scope:
+          "user-read-private user-read-email user-library-read user-library-modify",
         redirect_uri: redirect_uri, //!then redirects to our localhost declared above
       })
   );
@@ -59,40 +59,41 @@ app.get("/callback", async function (req, res) {
     let code = req.query.code || null;
 
     axios({
-      method: 'post',
-      url: 'https://accounts.spotify.com/api/token',
+      method: "post",
+      url: "https://accounts.spotify.com/api/token",
       data: qs.stringify({
-        grant_type: 'authorization_code',
+        grant_type: "authorization_code",
         code: code,
-        redirect_uri: redirect_uri
+        redirect_uri: redirect_uri,
       }),
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
-        Authorization: `Basic ${new Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString('base64')}`,
+        Authorization: `Basic ${new Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_SECRET_KEY}`).toString('base64')}`,
       },
     })
-      .then(response => {
+      .then((response) => {
         if (response.status === 200) {
-          const ACCESS_TOKEN = response.data.access_token
+          const ACCESS_TOKEN = response.data.access_token;
           const { access_token, refresh_token, token_type } = response.data;
           // access_token = response.data.access_token
-          axios.get('https://api.spotify.com/v1/me', {
-            headers: {
-              Authorization: `${token_type} ${access_token}`
-            }
-          })
+          axios
+            .get("https://api.spotify.com/v1/me", {
+              headers: {
+                Authorization: `${token_type} ${access_token}`,
+              },
+            })
             .then(async (response) => {
-              console.log(access_token)
-              console.log('SPTOIFY USER DATA?', response.data);
+              console.log(access_token);
+              console.log("SPTOIFY USER DATA?", response.data);
               const userInfo = {
                 email: response.data.email,
                 access_token: access_token,
                 refresh_token: refresh_token,
-                display_name: response.data.display_name
-              }
+                display_name: response.data.display_name,
+              };
               const token = await User.authenticate(userInfo);
 
-              console.log('TOKEN FROM AXIOS', token);
+              console.log("TOKEN FROM AXIOS", token);
               res.send(`
                 <html>
                   <body>
@@ -104,17 +105,17 @@ app.get("/callback", async function (req, res) {
                 </html>
               `);
             })
-            .catch(error => {
+            .catch((error) => {
               res.send(error);
             });
         } else {
           res.send(response);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         res.send(error);
       });
-      // console.log('EMAIL', email)
+    // console.log('EMAIL', email)
     // console.log('ACCESS TOKEN FROM AXIOS POST', ACCESS_TOKEN)
 
     // const response = (await axios.post())
@@ -137,13 +138,11 @@ app.get("/callback", async function (req, res) {
     //     </body>
     //   </html>
     // `);
-  }
-  catch(ex) {
+  } catch (ex) {
     console.log(ex);
   }
 
   // console.log('req', req.query.code);
-
 
   // request.post(authOptions, async function (error, response, body) {
   //   const access_token = body.access_token;
@@ -165,30 +164,28 @@ app.get("/callback", async function (req, res) {
 });
 
 //Refresh user Access Token using the spotify-web-api library & update User db model
-app.get('/refreshtoken/:id', async(req, res, next) => {
+app.get("/refreshtoken/:id", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
     spotifyApi.setRefreshToken(user.refresh_token);
-    spotifyApi.refreshAccessToken().then(
-      function (data) {
-        console.log('Access token has been refreshed!');
-        user.update({ access_token: data.body['access_token'] });
-      });
-      res.sendStatus(200);
-  } catch(ex) {
+    spotifyApi.refreshAccessToken().then(function (data) {
+      console.log("Access token has been refreshed!");
+      user.update({ access_token: data.body["access_token"] });
+    });
+    res.sendStatus(200);
+  } catch (ex) {
     next(ex);
   }
 });
 
-
 // Retrieve a non-user access token using the spotify-web-api library
 spotifyApi.clientCredentialsGrant().then(
-  function(data) {
+  function (data) {
     // Save the access token so that it's used in future calls
-    spotifyApi.setAccessToken(data.body['access_token']);
+    spotifyApi.setAccessToken(data.body["access_token"]);
   },
-  function(err) {
-    console.log('Something went wrong when retrieving an access token', err);
+  function (err) {
+    console.log("Something went wrong when retrieving an access token", err);
   }
 );
 
