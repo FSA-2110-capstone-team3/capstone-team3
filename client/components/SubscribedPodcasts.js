@@ -23,17 +23,16 @@ class SubscribedPodcasts extends Component {
           animate="in"
           variants={pageTransition}
         >
-          <h1
+          <div
             style={{
-              // textAlign: "center",
+              fontFamily: "roboto",
+              fontSize: "30px",
               color: "white",
-              fontWeight: 400,
-              fontSize: "2vw",
+              fontWeight: 300,
             }}
           >
-            Subscribed Podcasts:
-          </h1>
-
+            Subscribed Podcasts
+          </div>
           <div id="startRow" className="p-5 m-2 " style={{ color: "white" }}>
             {subscribedShows?.map((subscribedShow) => {
               return (
@@ -42,11 +41,13 @@ class SubscribedPodcasts extends Component {
                   key={subscribedShow.show.id}
                 >
                   <div className="card" style={{ width: "17rem" }}>
-                    <img
-                      src={subscribedShow.show.images[1].url}
-                      alt="podcastimg"
-                      className="card-img-top"
-                    />
+                    <Link to={`/show/${subscribedShow.show.id}`}>
+                      <img
+                        src={subscribedShow.show.images[1].url}
+                        alt="podcastimg"
+                        className="card-img-top"
+                      />
+                    </Link>
                     <div className="card-body">
                       <h5
                         style={{ textAlign: "center" }}

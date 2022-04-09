@@ -41,12 +41,12 @@ class userDetails extends Component {
           epName: matchingEp?.name,
           images: matchingEp?.images,
         };
-        console.log(newComment);
+        // console.log(newComment);
         return newComment;
       }
     });
 
-    console.log(comm, "USERS COMMENTS");
+    // console.log(comm, "USERS COMMENTS");
 
     //console.log(comments, "comments---->");
 
@@ -120,10 +120,15 @@ class userDetails extends Component {
 
               <div className=" p-4">
                 <div>
-                  <div>
-                    <a href="/subscribed" style={{ color: "white" }}>
-                      Subscribed:
-                    </a>
+                  <div
+                    style={{
+                      fontFamily: "roboto",
+                      fontSize: "18px",
+                      color: "white",
+                      fontWeight: 300,
+                    }}
+                  >
+                    Subscribed
                   </div>
                   <hr />
                   <div className="" id="startRow">
@@ -155,7 +160,16 @@ class userDetails extends Component {
                   </div>
                 </div>
                 <div>
-                  <div>Liked:</div>
+                  <div
+                    style={{
+                      fontFamily: "roboto",
+                      fontSize: "18px",
+                      color: "white",
+                      fontWeight: 300,
+                    }}
+                  >
+                    Liked
+                  </div>
                   <hr />
                   <div className="" id="startRow">
                     {likedEps.map((ep) => {
@@ -181,7 +195,16 @@ class userDetails extends Component {
                 </div>
 
                 <div>
-                  <div>Comments:</div>
+                  <div
+                    style={{
+                      fontFamily: "roboto",
+                      fontSize: "18px",
+                      color: "white",
+                      fontWeight: 300,
+                    }}
+                  >
+                    Comments
+                  </div>
                   <hr />
                   {comm.map((comment) => {
                     return (
@@ -243,7 +266,5 @@ const mapState = (state) => {
     comments: state.comments,
   };
 };
-
-// const mapDispatchToProps = { getSubscribedShows };
 
 export default connect(mapState)(userDetails);

@@ -15,6 +15,7 @@ import {
 //page transition imports
 import { motion } from "framer-motion";
 import { pageTransition } from "..";
+import toast, { Toaster } from "react-hot-toast";
 import { getPodLinkClass } from "./utils/utils";
 
 /*<-------------------- material ui imports -------------------->*/
@@ -195,11 +196,26 @@ const Search = () => {
     return initiateSearchResult(event);
   };
 
+  //<--------------------toast notifications-------------------->//
+  const notify = () =>
+    toast("Successfully added to favorites!", {
+      position: "top-right",
+    });
+
   /*<-------------------- React render -------------------->*/
 
   return (
     <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
-      <h3 className="text-white text-center pb-3">Search Podify Content </h3>
+      <div
+        style={{
+          fontFamily: "roboto",
+          fontSize: "30px",
+          color: "white",
+          fontWeight: 300,
+        }}
+      >
+        Sitewide Search
+      </div>
       <Box className="p-5">
         <FormControl fullWidth>
           <TextField
@@ -289,51 +305,47 @@ const Search = () => {
             {searchShows.items.map((content) => (
               <div className="col-sm p-2" key={content.id}>
                 <div className="card" style={{ width: "17rem" }}>
-                  <img
-                    src={content.images[1].url}
-                    alt="podcastimg"
-                    className="card-img-top"
-                    id="searchImg"
-                  />
-                  <div className="card-body">
-                    <h5
-                      className="card-title pod-link-title"
-                      style={{ color: "white", textAlign: "center" }}
-                    >
-                      {" "}
-                      <Link
-                        to={`/show/${content.id}`}
-                        className={getPodLinkClass(content.name, 262)}
+                  <Link to={`/show/${content.id}`}>
+                    <img
+                      src={content.images[1].url}
+                      alt="podcastimg"
+                      className="card-img-top"
+                      id="searchImg"
+                    />
+                    <div className="card-body">
+                      <h5
+                        className="card-title pod-link-title"
+                        style={{ color: "white", textAlign: "center" }}
                       >
+                        {" "}
                         <span
+                          className={getPodLinkClass(content.name, 262)}
                           style={{
-                            // fontWeight: "bold",
+                            fontWeight: "bold",
                             color: "white",
                           }}
                         >
                           {content.name}
                         </span>
-                      </Link>
-                    </h5>
-
-                    <span className="card-text">
-                      {contentToggle === "shows" ||
-                      contentToggle === "all content" ? (
-                        <h6
-                          style={{
-                            color: "white",
-                            textAlign: "center",
-                            fontWeight: 400,
-                            fontSize: "14px",
-                          }}
-                        >
-                          {" "}
-                          {content.publisher}
-                        </h6>
-                      ) : null}
-                    </span>
-                    {/* </Link> */}
-                  </div>
+                      </h5>
+                      <span className="card-text">
+                        {contentToggle === "shows" ||
+                        contentToggle === "all content" ? (
+                          <h6
+                            style={{
+                              color: "white",
+                              textAlign: "center",
+                              fontWeight: 400,
+                              fontSize: "14px",
+                            }}
+                          >
+                            {" "}
+                            {content.publisher}
+                          </h6>
+                        ) : null}
+                      </span>
+                    </div>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -354,28 +366,14 @@ const Search = () => {
             {searchEpisodes.items.map((content) => (
               <div className="col-sm p-2" key={content.id}>
                 <div className="card" style={{ width: "17rem" }}>
-                  {/* {contentToggle === "episodes" ||
-                  contentToggle === "all content" ? (
-                    <button
-                      className="x-icon"
-                      onClick={() =>
-                        dispatch(
-                          addSavedEpisode({
-                            id: content.id,
-                            userId: auth.id,
-                          })
-                        )
-                      }
-                    >
-                      +
-                    </button>
-                  ) : null}  */}
-                  <img
-                    src={content.images[1].url}
-                    alt="podcastimg"
-                    className="card-img-top"
-                    id="searchImg"
-                  />
+                  <Link to={`/episode/${content.id}`}>
+                    <img
+                      src={content.images[1].url}
+                      alt="podcastimg"
+                      className="card-img-top"
+                      id="searchImg"
+                    />
+                  </Link>
                   <div className="card-body">
                     <h5
                       className="card-title pod-link-title"
@@ -388,7 +386,7 @@ const Search = () => {
                       >
                         <span
                           style={{
-                            // fontWeight: "bold",
+                            fontWeight: "bold",
                             color: "white",
                           }}
                         >
@@ -400,30 +398,36 @@ const Search = () => {
                   <div className="card-text">
                     {contentToggle === "episodes" ||
                     contentToggle === "all content" ? (
-                      <button
-                        id="showClick"
-                        style={{
-                          background: "none",
-                          border: "none",
-                          padding: "none",
-                        }}
-                        onClick={() =>
-                          dispatch(
-                            addSavedEpisode({
-                              id: content.id,
-                              userId: auth.id,
-                            })
-                          )
-                        }
-                      >
-                        <span style={{ color: "white" }}>
-                          {" "}
-                          <i
-                            className="bi bi-plus-circle"
-                            style={{ fontSize: "25px", padding: "none" }}
-                          ></i>
-                        </span>{" "}
-                      </button>
+                      <>
+                        <button
+                          id="showClick"
+                          style={{
+                            background: "none",
+                            border: "none",
+                            padding: "none",
+                          }}
+                          onClick={() => {
+                            dispatch(
+                              addSavedEpisode({
+                                id: content.id,
+                                userId: auth.id,
+                              })
+                            );
+                            {
+                              notify();
+                            }
+                          }}
+                        >
+                          <span style={{ color: "white" }}>
+                            {" "}
+                            <i
+                              className="bi bi-plus-circle"
+                              style={{ fontSize: "25px", padding: "none" }}
+                            ></i>
+                          </span>{" "}
+                        </button>
+                        <Toaster />
+                      </>
                     ) : null}
                   </div>
                 </div>

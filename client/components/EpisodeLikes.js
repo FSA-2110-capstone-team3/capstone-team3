@@ -4,6 +4,7 @@ import ThumbDownOutlinedIcon from "@material-ui/icons/ThumbDownOutlined";
 import { ThumbDown, ThumbUp } from "@material-ui/icons";
 import { updateEpisodeLike, addEpisodeLike, addSavedEpisode } from "../store";
 import { useSelector, useDispatch } from "react-redux";
+import toast, { Toaster } from "react-hot-toast";
 
 const EpisodeLikes = (props) => {
   const { episodeLikes } = useSelector((state) => state);
@@ -58,6 +59,11 @@ const EpisodeLikes = (props) => {
     if (episodeLike["thumbsUp"] === 1 || episodeLike["thumbsDown"] === 1)
       return { [thumbTypeStr]: 0 };
   };
+
+  const notify = () =>
+    toast("Successfully added to favorites!", {
+      position: "top-right",
+    });
 
   return (
     <div>
@@ -128,17 +134,21 @@ const EpisodeLikes = (props) => {
       </span>
       <button
         className="btn btn-outline-light btn-sm"
-        onClick={() =>
+        onClick={() => {
           dispatch(
             addSavedEpisode({
               id: episode.spotify_id,
               userId: user.id,
             })
-          )
-        }
+          );
+          {
+            notify();
+          }
+        }}
       >
         <span style={{ fontSize: "15px" }}>Add to Favorites</span>
       </button>
+      <Toaster />
     </div>
   );
 };

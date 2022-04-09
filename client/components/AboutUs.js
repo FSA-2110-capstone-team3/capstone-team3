@@ -96,7 +96,7 @@ function AboutUs() {
                   </button>
                 </div>
 
-                <div class="col-lg-6 mt-4 pt-2">
+                <div className="col-lg-6 mt-4 pt-2">
                   <button id="getStarted">
                     <a
                       href="mailto:podify@podify.com"
