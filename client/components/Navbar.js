@@ -16,16 +16,19 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
           <a href="/" className="navbar-brand text-light mt-2">
             {" "}
             <div className="display-6 font-weight-bold">
-              <span id="logo" style={{ fontWeight: 400, color: "gray" }}>
-                Podify
+              <span
+                id="logo"
+                // style={{ fontWeight: 400, color: "gray", textAlign: "center" }}
+              >
+                <img
+                  src="/logo.png"
+                  style={{
+                    height: "200px",
+                    width: "180px",
+                  }}
+                />
               </span>{" "}
             </div>{" "}
-            <div>
-              {/* <img
-                src="/logo.png"
-                style={{ width: "180px", height: "180px" }}
-              /> */}
-            </div>
           </a>
           <button
             className="navbar-toggler"
@@ -38,10 +41,13 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
+
           <div
-            className="collapse navbar-collapse w-100"
+            className="collapse navbar-collapse w-100 d-flex flex-column"
             id="navbarSupportedContent"
           >
+            {/* <img src="/logo.png" style={{ height: "170px", width: "170px" }} /> */}
+
             <ul className="navbar-nav w-100 d-flex flex-sm-column text-center text-sm-start ">
               <li>
                 {isLoggedIn ? (
@@ -145,23 +151,18 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                           </li>
                         </ul>
                       </div>
-                      {/* <a
-                        href="/userDetails"
-                        className="nav-link text-light pl-4"
-                      >
-                        <span style={{ fontWeight: 500, color: "gray" }}>
-                          <i className="bi bi-person-circle"></i>
-                          {username[0]}
-                        </span>
-                      </a> */}
                     </li>
                     <li className="nav-item h-25 ">
                       <a
                         href="#"
                         onClick={handleClick}
                         className="nav-link text-light pl-4"
+                        style={{ marginTop: "22px" }}
                       >
-                        <span style={{ fontWeight: 500, color: "gray" }}>
+                        <span
+                          className="pt-4"
+                          style={{ fontWeight: 500, color: "gray" }}
+                        >
                           <i
                             className="fa fa-sign-out"
                             aria-hidden="false"
