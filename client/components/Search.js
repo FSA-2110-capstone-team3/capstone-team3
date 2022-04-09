@@ -15,6 +15,7 @@ import {
 //page transition imports
 import { motion } from "framer-motion";
 import { pageTransition } from "..";
+import toast, { Toaster } from "react-hot-toast";
 import { getPodLinkClass } from "./utils/utils";
 
 /*<-------------------- material ui imports -------------------->*/
@@ -36,7 +37,7 @@ const Search = () => {
   // create hook of local state for error handling obj (axios responses)
   const [errorRes, setErrorRes] = useState({});
   // create hook of local state for shows/episodes toggle
-  const [contentToggle, setContentToggle] = useState("shows");
+  const [contentToggle, setContentToggle] = useState("all content");
   // pull data from redux store for local search
   const {
     comments,
@@ -80,7 +81,7 @@ const Search = () => {
 
   /*<-------------------- Material UI hook/logic -------------------->*/
 
-  //hook for MUI styling
+  //create hook for MUI styling
   const useStyles = makeStyles({
     root: {
       "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
@@ -103,10 +104,11 @@ const Search = () => {
   /* <-------------------- Button Logic for Shows/Episodes buttons --------------------> */
 
   //add/remove active class to buttons
-  const btnElem = document.getElementsByClassName("btn");
+
+  //create array to map with all button elements
+  const btnElem = document.getElementsByClassName("btn-outline-light");
   const btnElemArr = [].slice.call(btnElem);
 
-  //Loop through button DOM elements
   btnElemArr.map((elem) => {
     elem.addEventListener("click", function () {
       const current = document.getElementsByClassName("active");
@@ -121,25 +123,17 @@ const Search = () => {
     });
   });
 
-  //funcs for btn onClick package
-  // swap contentToggle
   const adjContentToggle = () => {
-    contentToggle === "shows"
-      ? setContentToggle("episodes")
-      : setContentToggle("shows");
-  };
+    const btnElem = document.getElementsByClassName("btn-outline-light");
+    const btnElemArr = [].slice.call(btnElem);
+    //fetch button elements
+    btnElemArr.map(() => {
+      const currentButton = document.getElementsByClassName("active");
 
-  //onClick button package
-  const onClickInit = () => {
-    adjContentToggle();
-    // setSearch("");
-    // setQueryState("");
-  };
-
-  //switch API search results between 'shows' & 'episodes'
-  const toggleSearchResults = () => {
-    if (contentToggle === "shows") return searchShows;
-    else return searchEpisodes;
+      if (currentButton.length > 0) {
+        setContentToggle(currentButton[0].innerHTML.toLowerCase());
+      }
+    });
   };
 
   /*<-------------------- local search logic --------------------> */
@@ -197,27 +191,31 @@ const Search = () => {
     setSearch(searchTerm);
   };
 
-  // const handleSearch = (event) => {
-  //   event.preventDefault();
-  //   if(search.trim() !== '') {
-  //     setErrorMsg('');
-  //     props.handleSearch(search);
-  //   } else {
-  //     setErrorMsg('Please enter a search term.');
-  //   }
-  // };
-  // console.log(search)
-
   const handleSearch = (event) => {
     // event.preventDefault();
     return initiateSearchResult(event);
   };
 
+  //<--------------------toast notifications-------------------->//
+  const notify = () =>
+    toast("Successfully added to favorites!", {
+      position: "top-right",
+    });
+
   /*<-------------------- React render -------------------->*/
 
   return (
     <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
-      <h3 className="text-white text-center pb-3">Search Podify Content </h3>
+      <div
+        style={{
+          fontFamily: "roboto",
+          fontSize: "30px",
+          color: "white",
+          fontWeight: 300,
+        }}
+      >
+        Sitewide Search
+      </div>
       <Box className="p-5">
         <FormControl fullWidth>
           <TextField
@@ -250,49 +248,64 @@ const Search = () => {
               type="button"
               className="me-3 btn btn-outline-light active"
               onClick={() => {
-                onClickInit();
+                adjContentToggle();
+              }}
+            >
+              All Content
+            </button>
+            <button
+              type="button"
+              className="me-3 btn btn-outline-light"
+              onClick={() => {
+                adjContentToggle();
               }}
             >
               Shows
             </button>
             <button
               type="button"
-              className="btn btn-outline-light"
+              className="me-3 btn btn-outline-light"
               onClick={() => {
-                onClickInit();
+                adjContentToggle();
               }}
             >
               Episodes
             </button>
+            <button
+              type="button"
+              className="me-3 btn btn-outline-light"
+              onClick={() => {
+                adjContentToggle();
+              }}
+            >
+              Comments
+            </button>
+            <button
+              type="button"
+              className="btn btn-outline-light"
+              onClick={() => {
+                adjContentToggle();
+              }}
+            >
+              Timestamps
+            </button>
           </div>
         </FormControl>
       </Box>
-      {Object.entries(toggleSearchResults()).length ? (
+
+      {/* ---------- shows render logic -------------------- */}
+
+      {(Object.entries(searchShows).length && contentToggle === "shows") ||
+      (Object.entries(searchShows).length &&
+        contentToggle === "all content") ? (
         <>
-          <h4 style={{ color: "white" }}>Shows or Episodes</h4>
-          <div className="row p-2 m-2">
-            {toggleSearchResults().items.map((content) => (
+          <h4 style={{ color: "white" }}>Shows</h4>
+          <hr style={{ color: "white" }}></hr>
+          <div className="row pt-5 p-2 m-2">
+            {searchShows.items.map((content) => (
               <div className="col-sm p-2" key={content.id}>
                 <div className="card" style={{ width: "17rem" }}>
-                  {contentToggle === "episodes" ? (
-                    <button
-                      className="x-icon"
-                      onClick={() =>
-                        dispatch(
-                          addSavedEpisode({
-                            id: content.id,
-                            userId: auth.id,
-                          })
-                        )
-                      }
-                    >
-                      +
-                    </button>
-                  ) : null}
-                  <Link
-                    to={`/${contentToggle.slice(0, -1)}/${content.id}`}
-                    className={getPodLinkClass(content.name, 262)}
-                  >
+                  <Link to={`/show/${content.id}`}>
                     <img
                       src={content.images[1].url}
                       alt="podcastimg"
@@ -302,11 +315,35 @@ const Search = () => {
                     <div className="card-body">
                       <h5
                         className="card-title pod-link-title"
-                        style={{ color: "white" }}
+                        style={{ color: "white", textAlign: "center" }}
                       >
                         {" "}
-                        {content.name}
+                        <span
+                          className={getPodLinkClass(content.name, 262)}
+                          style={{
+                            fontWeight: "bold",
+                            color: "white",
+                          }}
+                        >
+                          {content.name}
+                        </span>
                       </h5>
+                      <span className="card-text">
+                        {contentToggle === "shows" ||
+                        contentToggle === "all content" ? (
+                          <h6
+                            style={{
+                              color: "white",
+                              textAlign: "center",
+                              fontWeight: 400,
+                              fontSize: "14px",
+                            }}
+                          >
+                            {" "}
+                            {content.publisher}
+                          </h6>
+                        ) : null}
+                      </span>
                     </div>
                   </Link>
                 </div>
@@ -316,14 +353,100 @@ const Search = () => {
         </>
       ) : null}
 
-      {/* ------------------------------ */}
+      {/* ---------- episodes render logic -------------------- */}
 
-      {searchComments.length ? (
+      {(Object.entries(searchEpisodes).length &&
+        contentToggle === "episodes") ||
+      (Object.entries(searchEpisodes).length &&
+        contentToggle === "all content") ? (
+        <>
+          <h4 style={{ color: "white" }}>Episodes</h4>
+          <hr style={{ color: "white" }}></hr>
+          <div className="row pt-5 p-2 m-2">
+            {searchEpisodes.items.map((content) => (
+              <div className="col-sm p-2" key={content.id}>
+                <div className="card" style={{ width: "17rem" }}>
+                  <Link to={`/episode/${content.id}`}>
+                    <img
+                      src={content.images[1].url}
+                      alt="podcastimg"
+                      className="card-img-top"
+                      id="searchImg"
+                    />
+                  </Link>
+                  <div className="card-body">
+                    <h5
+                      className="card-title pod-link-title"
+                      style={{ color: "white", textAlign: "center" }}
+                    >
+                      {" "}
+                      <Link
+                        to={`/episode/${content.id}`}
+                        className={getPodLinkClass(content.name, 262)}
+                      >
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "white",
+                          }}
+                        >
+                          {content.name}
+                        </span>
+                      </Link>
+                    </h5>
+                  </div>
+                  <div className="card-text">
+                    {contentToggle === "episodes" ||
+                    contentToggle === "all content" ? (
+                      <>
+                        <button
+                          id="showClick"
+                          style={{
+                            background: "none",
+                            border: "none",
+                            padding: "none",
+                          }}
+                          onClick={() => {
+                            dispatch(
+                              addSavedEpisode({
+                                id: content.id,
+                                userId: auth.id,
+                              })
+                            );
+                            {
+                              notify();
+                            }
+                          }}
+                        >
+                          <span style={{ color: "white" }}>
+                            {" "}
+                            <i
+                              className="bi bi-plus-circle"
+                              style={{ fontSize: "25px", padding: "none" }}
+                            ></i>
+                          </span>{" "}
+                        </button>
+                        <Toaster />
+                      </>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      ) : null}
+
+      {/* ---------- comments render logic -------------------- */}
+
+      {(searchComments.length && contentToggle === "comments") ||
+      (searchComments.length && contentToggle === "all content") ? (
         <div>
           <div className="pt-3">
             <hr />
           </div>
           <h4 className="text-white">Comments</h4>
+          <hr style={{ color: "white" }}></hr>
           <ul id="podcastCards">
             {/* map over & render local comments search results  */}
             {searchComments.map((comment) => (
@@ -336,7 +459,7 @@ const Search = () => {
                     <div>
                       <span className="pe-2">
                         <Avatar
-                          src="https://joeschmoe.io/api/v1/random"
+                          src="https://bootdey.com/img/Content/avatar/avatar7.png"
                           style={{
                             width: "35px",
                             height: "35px",
@@ -375,12 +498,16 @@ const Search = () => {
         </div>
       ) : null}
 
-      {searchTimeStamps.length ? (
+      {/* ---------- timestamps render logic -------------------- */}
+
+      {(searchTimeStamps.length && contentToggle === "timestamps") ||
+      (searchTimeStamps.length && contentToggle === "all content") ? (
         <div>
           <div className="pt-3">
             <hr />
           </div>
           <h4 className="text-white">TimeStamps</h4>
+          <hr style={{ color: "white" }}></hr>
           <ul id="podcastCards">
             {/* map over & render local timeStamps search results  */}
             {searchTimeStamps.map((timeStamp) => (
@@ -393,7 +520,7 @@ const Search = () => {
                     <div>
                       <span className="pe-2">
                         <Avatar
-                          src="https://joeschmoe.io/api/v1/random"
+                          src="https://bootdey.com/img/Content/avatar/avatar7.png"
                           style={{
                             width: "35px",
                             height: "35px",

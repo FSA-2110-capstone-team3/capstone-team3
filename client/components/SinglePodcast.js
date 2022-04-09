@@ -70,36 +70,47 @@ const SinglePodcast = () => {
   return (
     <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
       <div>
-        <h1 style={{ color: "white", fontWeight: 400 }}> {podcast.name}</h1>
+        <div
+          style={{
+            fontFamily: "roboto",
+            fontSize: "30px",
+            color: "white",
+            fontWeight: 300,
+          }}
+        >
+          {podcast.name}
+        </div>
         <h4 className="ms-3 mt-4">About</h4>
         <div className="ms-3">{podcast.description}</div>
         <div className=" row p-5 m-2">
           {episodes.map((episode, idx) => (
             <div className="col-sm p-2" id="mainCard" key={idx}>
               <div className="card" style={{ width: "17rem" }}>
-                <img
-                  src={episode.images[0].url}
-                  alt="podcastimg"
-                  className="card-img-top"
-                />
+                <Link to={`/episode/${episode.id}`}>
+                  <img
+                    src={episode.images[0].url}
+                    alt="podcastimg"
+                    className="card-img-top"
+                  />
+                </Link>
                 <div className="card-body">
                   <h5
                     className="card-title pod-link-title"
                     style={{ textAlign: "center" }}
                   >
-                    {/* <Link
+                    <Link
                       to={`/episode/${episode.id}`}
-                      className="stretched-link"
-                    > */}
-                    <span
-                      style={{
-                        color: "white",
-                        fontWeight: 400,
-                      }}
+                      className={getPodLinkClass(episode.name, 262)}
                     >
-                      {episode.name}
-                    </span>
-                    {/* </Link> */}
+                      <span
+                        style={{
+                          color: "white",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {episode.name}
+                      </span>
+                    </Link>
                   </h5>
                   <div
                     className="card-text"
@@ -140,20 +151,19 @@ const SinglePodcast = () => {
                         padding: "none",
                       }}
                     >
-                      <Link
+                      {/* <Link
                         to={`/episode/${episode.id}`}
                         className={getPodLinkClass(episode.name, 262)}
-                      >
-                        {" "}
-                        <span style={{ color: "white" }}>
+                      > */}{" "}
+                      {/* <span style={{ color: "white" }}>
                           {" "}
                           <i
                             className="bi bi-arrow-bar-right fa-5x"
                             id="savedIcon"
                             style={{ fontSize: "25px" }}
                           ></i>
-                        </span>{" "}
-                      </Link>
+                        </span>{" "} */}
+                      {/* </Link> */}
                     </button>
                   </div>
                 </div>

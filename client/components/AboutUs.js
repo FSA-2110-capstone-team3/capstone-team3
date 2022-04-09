@@ -81,11 +81,10 @@ function AboutUs() {
               <p className="text-muted mb-0" style={{ fontSize: "20px" }}>
                 Here at Podify, our mission is to provide an enriching social
                 environment where users can access any podcast and connect with
-                other users from different parts of the world.
-                <br />
-                We hope that Podify brings a new invigorating experience for
-                anyone who has an interest in listening to and sharing their
-                ideas about their favorite podcasts
+                other users from different parts of the world. We hope that
+                Podify brings a new invigorating experience for anyone who has
+                an interest in listening to and sharing their ideas about their
+                favorite podcasts.
               </p>
 
               <div className="row">
@@ -97,7 +96,7 @@ function AboutUs() {
                   </button>
                 </div>
 
-                <div class="col-lg-6 mt-4 pt-2">
+                <div className="col-lg-6 mt-4 pt-2">
                   <button id="getStarted">
                     <a
                       href="mailto:podify@podify.com"

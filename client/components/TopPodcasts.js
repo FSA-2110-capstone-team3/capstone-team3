@@ -8,73 +8,71 @@ import { getPodLinkClass } from "./utils/utils";
 class TopPodcasts extends Component {
   render() {
     const { topCharts } = this.props;
-    let rank = 1;
+
     return (
-      <motion.div
-        initial="out"
-        exit="out"
-        animate="in"
-        variants={pageTransition}
-      >
-        <h1
-          style={{
-            textAlign: "center",
-            color: "white",
-            fontWeight: 400,
-            fontSize: "2vw",
-          }}
+      <>
+        <motion.div
+          initial="out"
+          exit="out"
+          animate="in"
+          variants={pageTransition}
         >
-          Top 50 Podcasts:
-        </h1>
-        <div className="row p-5 m-2">
-          {topCharts.map((podcast) => (
-            <div className="col-sm " id="mainCard" key={podcast.showUri}>
-              {/* <div style={{ color: "white" }}>{`${rank++}.`}</div> */}
-              <div className="card" style={{ width: 17 + "rem" }}>
-                <img
-                  src={podcast.showImageUrl}
-                  alt="podcastimg"
-                  className="card-img-top"
-                />
-                <div className="card-body ">
-                  <h5
-                    style={{ textAlign: "center" }}
-                    className="card-title pod-link-title"
-                  >
-                    {" "}
-                    <Link
-                      to={`/show/${podcast.showUri.slice(-22)}`}
-                      className={getPodLinkClass(podcast.showName, 262)}
-                    >
-                      <span
-                        className="card-text"
-                        style={{
-                          fontWeight: "bold",
-                          color: "white",
-                        }}
+          <div
+            style={{
+              fontFamily: "roboto",
+              fontSize: "30px",
+              color: "white",
+              fontWeight: 300,
+            }}
+          >
+            Top 50 Podcasts
+          </div>
+          <div id="startRow" className="p-5 m-2">
+            {topCharts.map((podcast) => (
+              <div className="d-sm-flex flex-column p-2" key={podcast.showUri}>
+                <div className="card" style={{ width: "17rem" }}>
+                  <Link to={`/show/${podcast.showUri.slice(-22)}`}>
+                    <img
+                      src={podcast.showImageUrl}
+                      alt="podcastimg"
+                      className="card-img-top"
+                    />
+                    <div className="card-body ">
+                      <h5
+                        style={{ textAlign: "center" }}
+                        className="card-title pod-link-title"
                       >
-                        {podcast.showName}
+                        {" "}
+                        <span
+                          className={getPodLinkClass(podcast.showName, 262)}
+                          style={{
+                            fontWeight: "bold",
+                            color: "white",
+                          }}
+                        >
+                          {podcast.showName}
+                        </span>
+                      </h5>
+                      <span className="card-text">
+                        <h6
+                          style={{
+                            textAlign: "center",
+                            fontSize: "14px",
+                            fontWeight: 400,
+                            color: "white",
+                          }}
+                        >
+                          {podcast.showPublisher}
+                        </h6>
                       </span>
-                    </Link>
-                  </h5>
-                  <span className="card-text">
-                    <h6
-                      style={{
-                        textAlign: "center",
-                        fontSize: "14px",
-                        fontWeight: 400,
-                        color: "white",
-                      }}
-                    >
-                      {podcast.showPublisher}
-                    </h6>
-                  </span>
+                    </div>
+                  </Link>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </>
     );
   }
 }

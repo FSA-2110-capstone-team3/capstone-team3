@@ -33,13 +33,14 @@ label {
 
 .wrapper {
   display: flex;
-  width: 210px;
+  width: 250px;
   margin: 0;
+  background-color: rgb(28, 28, 28);
   /* flex-direction: column; */
 }
 
 .content {
-  border: 3px solid white;
+  border-left: 3px solid white;
   /* height: 100%; */
   width: 100%;
   /* margin-left: 60px; */
@@ -49,6 +50,10 @@ label {
 
 div.content {
   flex-direction: column;
+}
+
+div.dropdown {
+  border-bottom: 1px solid white;
 }
 
 div.small-box {
@@ -96,21 +101,23 @@ i {
 }
 
 i:hover {
-  color: #b22222;
+  color: #1ad760;
 }
 
-nav a.nav-link {
+.wrapper nav a.nav-link {
   font-size: 18px;
   border-bottom: 1px solid white;
 }
 
 nav a.nav-link span {
-  padding-left: 8px;
+  padding-left: 10px;
 }
 
 nav a.nav-link span:hover,
-span#logo:hover {
-  color: #b22222 !important;
+span#logo:hover,
+button#dropdownMenuButton1 span:hover,
+a.dropdown-item:hover {
+  color: #1ad760 !important;
   transition: all 1s ease;
 }
 
@@ -133,9 +140,14 @@ div.row {
   padding: 20px;
 }
 
-div.row {
+div#startRow {
   display: flex;
   flex-wrap: wrap;
+}
+
+div.row {
+  /* display: flex;
+  flex-wrap: wrap; */
   list-style: none;
 }
 
@@ -282,6 +294,15 @@ div.card-body h5 {
   left: 125px;
 }
 
+#showClick {
+  position: relative;
+  left: 225px;
+}
+
+button#showClick:hover {
+  color: red;
+}
+
 button#getStarted {
   width: 140px;
   height: 45px;
@@ -326,7 +347,6 @@ button#getStarted:active:before {
 #dropdownMenuButton1 {
   border: none;
   box-shadow: none;
-  border-bottom: 1px solid white;
 }
 
 ul.dropdown-menu.show {
@@ -367,9 +387,12 @@ ul.dropdown-menu.show a {
 /* simple circle loader animation */
 .loader {
   position: fixed;
-  top:-100%; right:-100%; left:-93%; bottom:-100%;
-  margin:auto;
-  z-index:0;
+  top: -100%;
+  right: -100%;
+  left: -93%;
+  bottom: -100%;
+  margin: auto;
+  z-index: 0;
   border: 16px solid #f3f3f3;
   border-radius: 50%;
   border-top: 16px solid lightgray;
@@ -381,21 +404,32 @@ ul.dropdown-menu.show a {
 
 /* Safari */
 @-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* dotted circle animation */
 .lds-roller {
   position: fixed;
-  top:-100%; right:-100%; left:-93%; bottom:-100%;
-  margin:auto;
-  z-index:0;
+  top: -100%;
+  right: -100%;
+  left: -93%;
+  bottom: -100%;
+  margin: auto;
+  z-index: 0;
   display: inline-block;
   /* position: relative; */
   width: 80px;
