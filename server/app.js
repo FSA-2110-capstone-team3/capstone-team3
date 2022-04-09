@@ -4,23 +4,22 @@ const morgan = require("morgan");
 const app = express();
 let request = require("request");
 let querystring = require("querystring");
-const qs = require("qs");
-//const env = require(".././.env");
+const qs = require('qs');
+// const env = require(".././.env");
+require('dotenv').config();
 const axios = require("axios");
 const User = require("./db/models/User");
 const SpotifyWebApi = require("spotify-web-api-node");
 
-require("dotenv").config();
-
-//process.env.SPOTIFY_CLIENT_ID = env.SPOTIFY_CLIENT_ID;
-//process.env.SPOTIFY_CLIENT_SECRET = env.SPOTIFY_SECRET_KEY;
-//process.env.REDIRECT_URI = env.REDIRECT_URI;
+// process.env.SPOTIFY_CLIENT_ID = env.SPOTIFY_CLIENT_ID;
+// process.env.SPOTIFY_CLIENT_SECRET = env.SPOTIFY_SECRET_KEY;
+// process.env.REDIRECT_URI = env.REDIRECT_URI;
 
 // Create the api library object with the credentials
 //Spotify 'client-credential-flow' === 'https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/'
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
-  clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+  clientSecret: process.env.SPOTIFY_SECRET_KEY
 });
 
 module.exports = {
@@ -68,10 +67,8 @@ app.get("/callback", async function (req, res) {
         redirect_uri: redirect_uri,
       }),
       headers: {
-        "content-type": "application/x-www-form-urlencoded",
-        Authorization: `Basic ${new Buffer.from(
-          `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
-        ).toString("base64")}`,
+        'content-type': 'application/x-www-form-urlencoded',
+        Authorization: `Basic ${new Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_SECRET_KEY}`).toString('base64')}`,
       },
     })
       .then((response) => {
