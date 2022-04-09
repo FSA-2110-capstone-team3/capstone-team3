@@ -5,13 +5,15 @@ const app = express();
 let request = require("request");
 let querystring = require("querystring");
 const qs = require('qs');
-const env = require(".././.env");
+//const env = require(".././.env");
 const axios = require("axios");
 const User = require('./db/models/User');
 const SpotifyWebApi = require('spotify-web-api-node');
 
-process.env.SPOTIFY_CLIENT_ID = env.SPOTIFY_CLIENT_ID;
-process.env.SPOTIFY_CLIENT_SECRET = env.SPOTIFY_SECRET_KEY;
+require('dotenv').config();
+
+//process.env.SPOTIFY_CLIENT_ID = env.SPOTIFY_CLIENT_ID;
+//process.env.SPOTIFY_CLIENT_SECRET = env.SPOTIFY_SECRET_KEY;
 //process.env.REDIRECT_URI = env.REDIRECT_URI;
 
 // Create the api library object with the credentials
@@ -149,7 +151,7 @@ app.get("/callback", async function (req, res) {
   //   //!once we log into spotify and have access to Spotify's data, our backend send you back to the front-end, (aka to the link above) so back to our react app
   //   //!where our react app is hosted in production (once we deploy on heroku, itll be out heroku link)
   //   res.redirect(uri + "?access_token=" + access_token);
-  //   // const user = (await axios.get('https://api.spotify.com/v1/me', 
+  //   // const user = (await axios.get('https://api.spotify.com/v1/me',
   //   // {
   //   //   headers: {
   //   //     Accept: "application/json",
