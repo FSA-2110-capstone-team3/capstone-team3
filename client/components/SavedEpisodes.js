@@ -29,7 +29,16 @@ class SavedEpisodes extends Component {
           animate="in"
           variants={pageTransition}
         />
-        <h1 style={{ color: "white" }}>Favorite Episodes:</h1>
+        <div
+          style={{
+            fontFamily: "roboto",
+            fontSize: "30px",
+            color: "white",
+            fontWeight: 300,
+          }}
+        >
+          Favorite Episodes
+        </div>
 
         <div className="p-5 m-2 " id="startRow">
           {savedEpisodes?.map((saved) => {
@@ -43,11 +52,13 @@ class SavedEpisodes extends Component {
                   style={{ width: "17rem" }}
                   onClick={() => this.setState({ id: saved.episode.id })}
                 >
-                  <img
-                    src={saved.episode.images[1].url}
-                    alt="podcastimg"
-                    className="card-img-top"
-                  />
+                  <Link to={`/episode/${saved.episode.id}`}>
+                    <img
+                      src={saved.episode.images[1].url}
+                      alt="podcastimg"
+                      className="card-img-top"
+                    />
+                  </Link>
                   <div className="card-body">
                     <h5
                       className="card-title pod-link-title"
@@ -57,10 +68,7 @@ class SavedEpisodes extends Component {
                         to={`/episode/${saved.episode.id}`}
                         className={getPodLinkClass(saved.episode.name, 262)}
                       >
-                        <span
-                          id="savedName"
-                          style={{ fontWeight: "bold", color: "white" }}
-                        >
+                        <span style={{ fontWeight: "bold", color: "white" }}>
                           {saved.episode.name}
                         </span>
                       </Link>

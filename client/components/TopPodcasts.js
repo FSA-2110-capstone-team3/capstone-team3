@@ -17,37 +17,34 @@ class TopPodcasts extends Component {
           animate="in"
           variants={pageTransition}
         >
-          <h1
+          <div
             style={{
+              fontFamily: "roboto",
+              fontSize: "30px",
               color: "white",
-              fontWeight: 400,
-              fontSize: "2vw",
+              fontWeight: 300,
             }}
           >
-            Top 50 Podcasts:
-          </h1>
-
+            Top 50 Podcasts
+          </div>
           <div id="startRow" className="p-5 m-2">
             {topCharts.map((podcast) => (
               <div className="d-sm-flex flex-column p-2" key={podcast.showUri}>
                 <div className="card" style={{ width: "17rem" }}>
-                  <img
-                    src={podcast.showImageUrl}
-                    alt="podcastimg"
-                    className="card-img-top"
-                  />
-                  <div className="card-body ">
-                    <h5
-                      style={{ textAlign: "center" }}
-                      className="card-title pod-link-title"
-                    >
-                      {" "}
-                      <Link
-                        to={`/show/${podcast.showUri.slice(-22)}`}
-                        className={getPodLinkClass(podcast.showName, 262)}
+                  <Link to={`/show/${podcast.showUri.slice(-22)}`}>
+                    <img
+                      src={podcast.showImageUrl}
+                      alt="podcastimg"
+                      className="card-img-top"
+                    />
+                    <div className="card-body ">
+                      <h5
+                        style={{ textAlign: "center" }}
+                        className="card-title pod-link-title"
                       >
+                        {" "}
                         <span
-                          className="card-text"
+                          className={getPodLinkClass(podcast.showName, 262)}
                           style={{
                             fontWeight: "bold",
                             color: "white",
@@ -55,21 +52,21 @@ class TopPodcasts extends Component {
                         >
                           {podcast.showName}
                         </span>
-                      </Link>
-                    </h5>
-                    <span className="card-text">
-                      <h6
-                        style={{
-                          textAlign: "center",
-                          fontSize: "14px",
-                          fontWeight: 400,
-                          color: "white",
-                        }}
-                      >
-                        {podcast.showPublisher}
-                      </h6>
-                    </span>
-                  </div>
+                      </h5>
+                      <span className="card-text">
+                        <h6
+                          style={{
+                            textAlign: "center",
+                            fontSize: "14px",
+                            fontWeight: 400,
+                            color: "white",
+                          }}
+                        >
+                          {podcast.showPublisher}
+                        </h6>
+                      </span>
+                    </div>
+                  </Link>
                 </div>
               </div>
             ))}

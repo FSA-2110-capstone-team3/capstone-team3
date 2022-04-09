@@ -211,9 +211,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                         marginRight: "10px",
                         color: "rgb(28, 28, 28)",
                       }}
-                    >
-                      XXXXXXXXXxxx
-                    </span>
+                    ></span>
                   </div>
                   {/* <div className="dropdown">
                       <button
