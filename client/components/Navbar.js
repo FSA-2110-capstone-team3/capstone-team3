@@ -158,7 +158,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                       href="#"
                       onClick={handleClick}
                       className="nav-link text-light pl-4"
-                      style={{ marginTop: "22px" }}
+                      style={{ marginTop: "15px" }}
                     >
                       <span
                         className="pt-4"
