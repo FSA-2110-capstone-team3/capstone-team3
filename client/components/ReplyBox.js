@@ -94,7 +94,10 @@ const ReplyBox = ({
               </div>
             ) : (
               <div className="d-flex flex-row-reverse">
-                <button className="btn btn-outline-light" type="submit">
+                <button
+                  className="btn btn-outline-light"
+                  type={currReply === currText ? "" : "submit"}
+                >
                   Add Reply
                 </button>
                 <button

@@ -96,7 +96,7 @@ i {
 }
 
 i:hover {
-  color: #b22222;
+  color: #1ad760;
 }
 
 nav a.nav-link {
@@ -110,7 +110,7 @@ nav a.nav-link span {
 
 nav a.nav-link span:hover,
 span#logo:hover {
-  color: #b22222 !important;
+  color: #1ad760 !important;
   transition: all 1s ease;
 }
 
@@ -133,9 +133,14 @@ div.row {
   padding: 20px;
 }
 
-div.row {
+div#startRow {
   display: flex;
   flex-wrap: wrap;
+}
+
+div.row {
+  /* display: flex;
+  flex-wrap: wrap; */
   list-style: none;
 }
 
