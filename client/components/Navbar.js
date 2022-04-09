@@ -183,7 +183,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                     className="nav-link text-light pl-4"
                     style={{ borderBottom: "1px solid white" }}
                   >
-                    <span style={{ fontWeight: 500 }}>
+                    <span style={{ fontWeight: 500, color: "gray" }}>
                       <i
                         className="fa fa-sign-in"
                         aria-hidden="true"
