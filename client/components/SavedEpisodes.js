@@ -31,10 +31,13 @@ class SavedEpisodes extends Component {
         />
         <h1>Favorite Episodes:</h1>
 
-        <div className="row p-5 m-2 ">
+        <div className="p-5 m-2 " id="startRow">
           {savedEpisodes?.map((saved) => {
             return (
-              <div className="col" key={saved.episode.id}>
+              <div
+                className="d-sm-flex flex-column p-2 "
+                key={saved.episode.id}
+              >
                 <div
                   className="card"
                   style={{ width: "17rem" }}
@@ -92,7 +95,7 @@ class SavedEpisodes extends Component {
                         </span>
                       </button>
                       <Toaster />
-                      <button
+                      {/* <button
                         id="epiClick"
                         style={{
                           background: "none",
@@ -108,9 +111,9 @@ class SavedEpisodes extends Component {
                             id="savedIcon"
                             style={{ fontSize: "25px" }}
                           ></i>
-                        </span>{" "}
-                        {/* </Link> */}
-                      </button>
+                        </span>{" "} */}
+                      {/* </Link> */}
+                      {/* </button> */}
                     </div>
                   </div>
                 </div>

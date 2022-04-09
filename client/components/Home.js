@@ -24,7 +24,9 @@ class Home extends Component {
               Welcome to Podify, {displayName}!
             </h2>
             <br />
-            <h3 style={{ fontWeight: 300, textAlign: "center" }}>
+            <h3
+              style={{ fontWeight: 300, textAlign: "center", color: "#1ad760" }}
+            >
               Search podcasts, listen, comment, follow & more...
             </h3>
             <hr style={{ width: 100 + "%" }} />
@@ -108,11 +110,14 @@ class Home extends Component {
             </div>
           </div>
           <div>
-            <div className="row p-5 m-2">
+            <div className=" p-5 " id="startRow">
               {subscribedShows.map((subscribedShow) => {
                 return (
-                  <div className="col-sm " key={subscribedShow.show.id}>
-                    <div className="card" style={{ width: 17 + "rem" }}>
+                  <div
+                    className="d-sm-flex flex-column pe-4 "
+                    key={subscribedShow.show.id}
+                  >
+                    <div className="card " style={{ width: 17 + "rem" }}>
                       <img
                         src={subscribedShow.show.images[1].url}
                         alt="podcastimg"

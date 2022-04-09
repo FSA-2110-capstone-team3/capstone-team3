@@ -1,6 +1,6 @@
 // Utility functions
 
-export function getPodLinkClass (inputText, elementWidth) {
+export function getPodLinkClass(inputText, elementWidth) {
   let text = document.createElement("span");
   document.body.appendChild(text);
   text.style.font = "roboto";
@@ -13,7 +13,5 @@ export function getPodLinkClass (inputText, elementWidth) {
   text.innerHTML = inputText;
   let width = Math.ceil(text.clientWidth);
   document.body.removeChild(text);
-  return width > elementWidth
-    ? "stretched-link pod-link-with-overflow"
-    : "stretched-link";
-};
+  return width > elementWidth ? "pod-link-with-overflow" : "";
+}
