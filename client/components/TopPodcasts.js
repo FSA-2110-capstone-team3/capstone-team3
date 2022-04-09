@@ -26,9 +26,13 @@ class TopPodcasts extends Component {
         >
           Top 50 Podcasts:
         </h1>
-        <div className="row p-5 m-2">
+        <div className="p-5 m-2" id="startRow">
           {topCharts.map((podcast) => (
-            <div className="col-sm " id="mainCard" key={podcast.showUri}>
+            <div
+              className="d-sm-flex flex-column p-2 "
+              id="mainCard"
+              key={podcast.showUri}
+            >
               {/* <div style={{ color: "white" }}>{`${rank++}.`}</div> */}
               <div className="card" style={{ width: 17 + "rem" }}>
                 <img

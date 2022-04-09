@@ -60,8 +60,12 @@ class userDetails extends Component {
     //console.log(subscribedShows, "======>");
 
     return (
-      <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
-        <h1>User Details Page</h1>
+      <motion.div
+        initial="out"
+        exit="out"
+        animate="in"
+        variants={pageTransition}
+      >
         {/* <div
         className="container bootstrap snippets bootdey"
         style={{ color: "white" }}
@@ -88,12 +92,12 @@ class userDetails extends Component {
               <div className="col-8 pt-5">
                 <div>
                   <h2>{`@${username[0]}`}</h2>
-                  <div className="col-2-sm" style={{ fontSize: "25px" }}>
+                  {/* <div className="col-2-sm" style={{ fontSize: "25px" }}>
                     Followers: 0
                   </div>
                   <div className="col-2-sm" style={{ fontSize: "25px" }}>
                     Following: 0
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -122,10 +126,13 @@ class userDetails extends Component {
                     </a>
                   </div>
                   <hr />
-                  <div className="row">
+                  <div className="" id="startRow">
                     {subscribedShows.map((podcast) => {
                       return (
-                        <div className="col-sm" key={podcast.show.id}>
+                        <div
+                          className="d-sm-flex flex-column p-4 "
+                          key={podcast.show.id}
+                        >
                           <div
                             className="card "
                             style={{ width: "200px", height: "200px" }}
@@ -150,10 +157,10 @@ class userDetails extends Component {
                 <div>
                   <div>Liked:</div>
                   <hr />
-                  <div className="row">
+                  <div className="" id="startRow">
                     {likedEps.map((ep) => {
                       return (
-                        <div className="col-sm" key={ep.id}>
+                        <div className="d-sm-flex flex-column p-4 " key={ep.id}>
                           <div
                             className="card"
                             style={{ width: "200px", height: "200px" }}
