@@ -179,7 +179,7 @@ class userDetails extends Component {
                             className="card"
                             style={{ width: "200px", height: "200px" }}
                           >
-                            <Link to={`/episode/${ep.spotify_id}`}>
+                            <Link to={`/episode/${ep?.spotify_id}`}>
                               <img
                                 src={JSON.parse(ep.images[0]).url}
                                 alt="podcastimg"
@@ -225,7 +225,7 @@ class userDetails extends Component {
                             />
 
                             <a
-                              href={`/episode/${comment.spotify_id}`}
+                              href={`/episode/${comment?.spotify_id}`}
                               className="btn-link text-semibold media-heading box-inline "
                             >
                               <span className="p-2 m-2">{comment.epName}</span>
