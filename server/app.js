@@ -33,8 +33,7 @@ module.exports = {
 //----------- TRYING OAUTH
 //Used https://github.com/mpj/oauth-bridge-template spotify OAUTH template and filled it in with our localhost
 
-let redirect_uri =
-  process.env.REDIRECT_URI || "https://podify-fsa.herokuapp.com/callback"; //!We need to tell dev spotify sit that this callback URI is valid for security purposes. Needs to be the same URI as the one on dev spotify
+let redirect_uri = process.env.REDIRECT_URI || "http://localhost:8080/callback"; //!We need to tell dev spotify sit that this callback URI is valid for security purposes. Needs to be the same URI as the one on dev spotify
 
 app.get("/login", function (req, res) {
   //! serves /login
