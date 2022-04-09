@@ -46,7 +46,7 @@ const Timestamps = ({
           </button>
         </div>
         {!timeStamps.length ? (
-          <div style={{ fontWeight: 400, fontSize: 17 + "px" }}>
+          <div className="m-2" style={{ fontWeight: 400, fontSize: 17 + "px" }}>
             No current Timestamps!
           </div>
         ) : (

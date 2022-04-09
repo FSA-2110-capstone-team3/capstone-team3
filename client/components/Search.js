@@ -455,7 +455,7 @@ const Search = () => {
                     <div>
                       <span className="pe-2">
                         <Avatar
-                          src="https://joeschmoe.io/api/v1/random"
+                          src="https://bootdey.com/img/Content/avatar/avatar7.png"
                           style={{
                             width: "35px",
                             height: "35px",
@@ -516,7 +516,7 @@ const Search = () => {
                     <div>
                       <span className="pe-2">
                         <Avatar
-                          src="https://joeschmoe.io/api/v1/random"
+                          src="https://bootdey.com/img/Content/avatar/avatar7.png"
                           style={{
                             width: "35px",
                             height: "35px",
