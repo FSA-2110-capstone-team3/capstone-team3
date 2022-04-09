@@ -301,9 +301,9 @@ const Search = () => {
         <>
           <h4 style={{ color: "white" }}>Shows</h4>
           <hr style={{ color: "white" }}></hr>
-          <div className="row pt-5 p-2 m-2">
+          <div className=" pt-5 p-2 m-2" id="startRow">
             {searchShows.items.map((content) => (
-              <div className="col-sm p-2" key={content.id}>
+              <div className="d-sm-flex flex-column p-2" key={content.id}>
                 <div className="card" style={{ width: "17rem" }}>
                   <Link to={`/show/${content.id}`}>
                     <img
@@ -362,9 +362,9 @@ const Search = () => {
         <>
           <h4 style={{ color: "white" }}>Episodes</h4>
           <hr style={{ color: "white" }}></hr>
-          <div className="row pt-5 p-2 m-2">
+          <div className=" pt-5 p-2 m-2" id="startRow">
             {searchEpisodes.items.map((content) => (
-              <div className="col-sm p-2" key={content.id}>
+              <div className="d-sm-flex flex-column p-2 " key={content.id}>
                 <div className="card" style={{ width: "17rem" }}>
                   <Link to={`/episode/${content.id}`}>
                     <img
