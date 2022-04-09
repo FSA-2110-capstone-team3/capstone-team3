@@ -29,7 +29,7 @@ class SavedEpisodes extends Component {
           animate="in"
           variants={pageTransition}
         />
-        <h1>Favorite Episodes:</h1>
+        <h1 style={{ color: "white" }}>Favorite Episodes:</h1>
 
         <div className="p-5 m-2 " id="startRow">
           {savedEpisodes?.map((saved) => {

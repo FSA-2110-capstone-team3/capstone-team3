@@ -18,7 +18,6 @@ class TopPodcasts extends Component {
       >
         <h1
           style={{
-            textAlign: "center",
             color: "white",
             fontWeight: 400,
             fontSize: "2vw",
