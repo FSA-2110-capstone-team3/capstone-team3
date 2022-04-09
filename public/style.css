@@ -109,7 +109,9 @@ nav a.nav-link span {
 }
 
 nav a.nav-link span:hover,
-span#logo:hover {
+span#logo:hover,
+button#dropdownMenuButton1 span:hover,
+a.dropdown-item:hover {
   color: #1ad760 !important;
   transition: all 1s ease;
 }

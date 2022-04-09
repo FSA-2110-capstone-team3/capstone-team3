@@ -34,7 +34,7 @@ const CommentBox = ({ episodeId, episodeSpotifyId }) => {
       <form onSubmit={submitComment} id="commentForm">
         <fieldset>
           <div className="row">
-            <div className="d-flex col-s-8 ">
+            <div className="d-flex">
               <div>
                 <Avatar
                   src={auth.avatarUrl}
