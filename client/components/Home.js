@@ -20,13 +20,11 @@ class Home extends Component {
       >
         <div style={{ color: "white", fontFamily: "roboto", fontWeight: 300 }}>
           <div>
-            <h2 style={{ fontWeight: 400, textAlign: "center" }}>
+            <h2 style={{ fontWeight: 400 }}>
               Welcome to Podify, {displayName}!
             </h2>
             <br />
-            <h3
-              style={{ fontWeight: 300, textAlign: "center", color: "#1ad760" }}
-            >
+            <h3 style={{ fontWeight: 300 }}>
               Search podcasts, listen, comment, follow & more...
             </h3>
             <hr style={{ width: 100 + "%" }} />
@@ -110,13 +108,10 @@ class Home extends Component {
             </div>
           </div>
           <div>
-            <div className=" p-5 " id="startRow">
+            <div className="row p-5 m-2 ">
               {subscribedShows.map((subscribedShow) => {
                 return (
-                  <div
-                    className="d-sm-flex flex-column pe-4 "
-                    key={subscribedShow.show.id}
-                  >
+                  <div className="col-sm " key={subscribedShow.show.id}>
                     <div className="card " style={{ width: 17 + "rem" }}>
                       <img
                         src={subscribedShow.show.images[1].url}

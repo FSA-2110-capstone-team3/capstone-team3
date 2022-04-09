@@ -172,7 +172,7 @@ const TimestampModal = ({ episodeDuration, episodeId, episodeSpotifyId }) => {
               </table>
               <button
                 type="submit"
-                className="btn btn-primary"
+                className="btn btn-outline-dark btn-sm"
                 data-bs-dismiss={!stampText.length ? "" : "modal"}
               >
                 Submit TimeStamp!
