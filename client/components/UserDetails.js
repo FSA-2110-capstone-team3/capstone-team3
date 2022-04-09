@@ -228,13 +228,13 @@ class userDetails extends Component {
                               href={`/episode/${comment?.spotify_id}`}
                               className="btn-link text-semibold media-heading box-inline "
                             >
-                              <span className="p-2 m-2">{comment.epName}</span>
+                              <span className="p-2 m-2">{comment?.epName}</span>
                             </a>
                           </div>
 
                           <div className="col-sm box-inline ">
                             <span style={{ paddingLeft: "70px" }}>
-                              {comment.content}{" "}
+                              {comment?.content}{" "}
                             </span>
                           </div>
                           <hr />
