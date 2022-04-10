@@ -52,7 +52,7 @@ div.content {
   flex-direction: column;
 }
 
-div.dropdown {
+div#dropdown {
   border-bottom: 1px solid white;
 }
 

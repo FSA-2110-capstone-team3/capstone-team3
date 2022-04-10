@@ -103,7 +103,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
               <>
                 <ul className="navbar-nav w-100 d-flex flex-sm-column text-center text-sm-start ">
                   <li className="nav-item h-25">
-                    <div className="dropdown">
+                    <div className="dropdown" id="dropdown">
                       <button
                         className="btn btn-secondary btn-lg dropdown-toggle"
                         type="button"
