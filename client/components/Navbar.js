@@ -158,11 +158,15 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                       href="#"
                       onClick={handleClick}
                       className="nav-link text-light pl-4"
-                      style={{ marginTop: "15px" }}
+                      style={{ marginTop: "19px" }}
                     >
                       <span
                         className="pt-4"
-                        style={{ fontWeight: 500, color: "gray" }}
+                        style={{
+                          fontWeight: 500,
+                          color: "gray",
+                          paddingBottom: "2px",
+                        }}
                       >
                         <i
                           className="bi bi-power"
@@ -181,9 +185,15 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                   <a
                     href="/signup"
                     className="nav-link text-light pl-4"
-                    style={{ borderBottom: "1px solid white" }}
+                    // style={{ borderBottom: "1px solid white" }}
                   >
-                    <span style={{ fontWeight: 500, color: "gray" }}>
+                    <span
+                      style={{
+                        fontWeight: 500,
+                        color: "gray",
+                        paddingBottom: "5px",
+                      }}
+                    >
                       <i
                         className="bi bi-power"
                         aria-hidden="true"
@@ -195,7 +205,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                     </span>
                   </a>
                 </li>
-                <li className="nav-item h-25">
+                {/* <li className="nav-item h-25">
                   <div
                     className="btn btn-secondary btn-lg disabled"
                     style={{
@@ -212,8 +222,8 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                         color: "rgb(28, 28, 28)",
                       }}
                     ></span>
-                  </div>
-                  {/* <div className="dropdown">
+                  </div> */}
+                {/* <div className="dropdown">
                       <button
                         class="btn btn-secondary btn-lg dropdown-toggle"
                         type="button"
@@ -237,104 +247,12 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                         </span>
                       </button>
                     </div> */}
-                </li>
+                {/* </li> */}
               </>
             )}
           </ul>
         </div>
       </nav>
-      {/* </div> */}
-
-      {/* <div id="wrapper1" class="wrapper-content">
-      <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-          <li "sidebar-brand">
-            <a href="#">SPODIFY+</a>
-          </li>
-          <li>
-            <a href="/topcharts">HOME</a>
-          </li>
-          <li>
-            <a href="#">MY LIBRARY</a>
-          </li>
-          <li>
-            <a href="#">PODCASTS</a>
-          </li>
-          <li>
-            <a href="#">
-              {isLoggedIn ? (
-                <>
-                  <li className="nav-item h-25">
-                    <a href="/login" className="nav-link text-light pl-4">
-                      <span style={{ color: "black" }}>
-                        <i className="bi bi-person-circle"></i>
-                        {email}
-                      </span>
-                    </a>
-                  </li>
-                  <li className="nav-item h-25 ">
-                    <a
-                      href="#"
-                      onClick={handleClick}
-                      className="nav-link text-light pl-4"
-                      style={{ color: "black" }}
-                    >
-                      LOGOUT
-                    </a>
-                  </li>
-                </>
-              ) : (
-                <li className="nav-item h-25 ">
-                  <a href="/login" className="nav-link text-dark pl-4">
-                    LOGIN
-                  </a>
-                </li>
-              )}
-            </a>
-          </li>
-          <li class="active">
-            <a href="#">About</a>
-          </li>
-          <li>
-            <a href="#">Services</a>
-          </li>
-          <li>
-            <a href="#">Contact</a>
-          </li>
-        </ul>
-      </div>
-
-      <div id="page-content-wrapper">
-        <nav class="navbar navbar-default">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <button
-                class="btn-menu btn btn-success btn-toggle-menu"
-                type="button"
-              >
-                <i class="fa fa-bars"></i>
-              </button>
-            </div>
-            <div class="collapse navbar-collapse">
-              <ul class="nav navbar-nav navbar-right">
-                <li>
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="ti-panel"></i>
-                    <p>Stats</p>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="ti-settings"></i>
-                    <p>Settings</p>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </div>
-    </div> */}
     </>
   );
 };
