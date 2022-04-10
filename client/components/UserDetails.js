@@ -138,7 +138,7 @@ class userDetails extends Component {
                             style={{ width: "200px", height: "200px" }}
                           >
                             <Link
-                              to={`/show/${saved.episode.id}`}
+                              to={`/episode/${saved.episode.id}`}
                               className="stretched-link"
                             >
                               <img
