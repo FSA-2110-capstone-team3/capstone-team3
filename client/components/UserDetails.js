@@ -21,13 +21,9 @@ class userDetails extends Component {
     let username = email.split("@");
     subscribedShows = subscribedShows.slice(0, 5);
 
-    //console.log(allEpisodes, "ALL EPISODES");
-
     const likedEps = likedEpisodes.map(
       (ep) => allEpisodes.find((episode) => episode.id === ep.episodeId) || []
     );
-
-    //const comm = comments.filter((comment) => comment.userId === userId);
 
     const comm = comments
       .map((comment) => {
@@ -36,30 +32,15 @@ class userDetails extends Component {
             (episode) =>
               episode.id === comment.episodeId && episode.userId === userId
           );
-          // console.log(matchingEp);
           const newComment = {
             ...comment,
             epName: matchingEp?.name,
             images: matchingEp?.images,
           };
-          // console.log(newComment);
           return newComment;
         }
       })
-      .filter((cmt) => cmt.userId === userId);
-
-    // console.log(comm, "USERS COMMENTS");
-
-    //console.log(comments, "comments---->");
-
-    //console.log(likedEps, "likedEPS----->");
-    //console.log(subscribedShows, "sub shows---->");
-
-    // console.log(likedEpisode, "FILTER");
-
-    // console.log(likedEpisodes, "FROM DB---->");
-
-    //console.log(subscribedShows, "======>");
+      .filter((cmt) => cmt?.userId === userId);
 
     return (
       <motion.div
@@ -68,14 +49,9 @@ class userDetails extends Component {
         animate="in"
         variants={pageTransition}
       >
-        {/* <div
-        className="container bootstrap snippets bootdey"
-        style={{ color: "white" }}
-      > */}
         <hr />
         <div>
           <div className="row" style={{ color: "white" }}>
-            {/* <!-- left column --> col-md-3 */}
             <div className="row">
               <div className="col-sm-2">
                 <img
@@ -84,22 +60,11 @@ class userDetails extends Component {
                   alt="avatar"
                   style={{ width: "200px", height: "200px" }}
                 />
-                {/* <div className="row">
-                <div className="col-sm-6">Followers: </div>
-                <div className="col-sm-6">Following: </div>
-              </div> */}
-                {/* <h6>Upload a different photo...</h6> */}
               </div>
-              {/* <input type="file" class="form-control" /> */}
+
               <div className="col-8 pt-5">
                 <div>
                   <h2>{`@${username[0]}`}</h2>
-                  {/* <div className="col-2-sm" style={{ fontSize: "25px" }}>
-                    Followers: 0
-                  </div>
-                  <div className="col-2-sm" style={{ fontSize: "25px" }}>
-                    Following: 0
-                  </div> */}
                 </div>
               </div>
             </div>
@@ -107,19 +72,7 @@ class userDetails extends Component {
               <hr />
             </div>
 
-            {/* <!-- edit form column --> */}
             <div className="col-md personal-info p-2 m-2">
-              {/* <div className="alert alert-info alert-dismissable">
-              <a className="panel-close close" data-dismiss="alert">
-                ×
-              </a>
-              <i className="fa fa-coffee"></i>
-              This is an <strong>.alert</strong>. Use this to show important
-              messages to the user.
-            </div> */}
-
-              {/* <h3>Personal info</h3> */}
-
               <div className=" p-4">
                 <div>
                   <div
@@ -210,7 +163,7 @@ class userDetails extends Component {
                   <hr />
                   {comm.map((comment) => {
                     return (
-                      <div className="col-md">
+                      <div className="col-md" key={comment.id}>
                         <div className="media-block">
                           <div
                             className="media-left"
@@ -242,7 +195,6 @@ class userDetails extends Component {
                           <hr />
                         </div>
                       </div>
-                      // </div>
                     );
                   })}
                 </div>
