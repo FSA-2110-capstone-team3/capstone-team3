@@ -155,7 +155,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                           style={{ fontWeight: 500 }}
                         ></i> */}
                         <i
-                          class="bi bi-box-arrow-right"
+                          className="bi bi-box-arrow-right"
                           style={{ paddingLeft: "2px" }}
                         ></i>
                         Logout
@@ -175,7 +175,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                       }}
                     >
                       <i
-                        class="bi bi-box-arrow-in-right"
+                        className="bi bi-box-arrow-in-right"
                         style={{ paddingRight: "2px", paddingLeft: "2px" }}
                       ></i>
                       Login

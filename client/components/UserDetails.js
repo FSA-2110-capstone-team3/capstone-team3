@@ -11,6 +11,7 @@ class userDetails extends Component {
   render() {
     let {
       email,
+      savedEpisodes,
       subscribedShows,
       likedEpisodes,
       allEpisodes,
@@ -19,7 +20,6 @@ class userDetails extends Component {
     } = this.props;
 
     let username = email.split("@");
-    subscribedShows = subscribedShows;
 
     const likedEps = likedEpisodes
       .map(
@@ -63,7 +63,6 @@ class userDetails extends Component {
                   style={{ width: "200px", height: "200px" }}
                 />
               </div>
-
               <div className="col-8 pt-5">
                 <div>
                   <h2>{`@${username[0]}`}</h2>
@@ -73,7 +72,6 @@ class userDetails extends Component {
             <div className="pt-5">
               <hr />
             </div>
-
             <div className="col-md personal-info p-2 m-2">
               <div className=" p-4">
                 <div>
@@ -85,7 +83,7 @@ class userDetails extends Component {
                       fontWeight: 300,
                     }}
                   >
-                    Subscribed
+                    Subscribed Podcasts
                   </div>
                   <hr />
                   <div className="" id="startRow">
@@ -105,6 +103,46 @@ class userDetails extends Component {
                             >
                               <img
                                 src={podcast.show.images[1].url}
+                                alt="podcastimg"
+                                className="card-img-top"
+                                id="userSub"
+                              />
+                            </Link>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={{
+                      fontFamily: "roboto",
+                      fontSize: "18px",
+                      color: "white",
+                      fontWeight: 300,
+                    }}
+                  >
+                    Favorite Episodes
+                  </div>
+                  <hr />
+                  <div className="" id="startRow">
+                    {savedEpisodes.map((saved) => {
+                      return (
+                        <div
+                          className="d-sm-flex flex-column p-4 "
+                          key={saved.episode.id}
+                        >
+                          <div
+                            className="card "
+                            style={{ width: "200px", height: "200px" }}
+                          >
+                            <Link
+                              to={`/show/${saved.episode.id}`}
+                              className="stretched-link"
+                            >
+                              <img
+                                src={saved.episode.images[1].url}
                                 alt="podcastimg"
                                 className="card-img-top"
                                 id="userSub"
@@ -150,7 +188,6 @@ class userDetails extends Component {
                     })}
                   </div>
                 </div>
-
                 <div>
                   <div
                     style={{
@@ -180,7 +217,6 @@ class userDetails extends Component {
                                 height: "50px",
                               }}
                             />
-
                             <a
                               href={`/episode/${comment?.spotify_id}`}
                               className="btn-link text-semibold media-heading box-inline "
@@ -188,7 +224,6 @@ class userDetails extends Component {
                               <span className="p-2 m-2">{comment?.epName}</span>
                             </a>
                           </div>
-
                           <div className="col-sm box-inline ">
                             <span style={{ paddingLeft: "70px" }}>
                               {comment?.content}{" "}
@@ -203,7 +238,6 @@ class userDetails extends Component {
               </div>
             </div>
           </div>
-
           <hr></hr>
         </div>
       </motion.div>
@@ -214,6 +248,7 @@ class userDetails extends Component {
 const mapState = (state) => {
   return {
     email: state.auth.email,
+    savedEpisodes: state.savedEpisodes,
     subscribedShows: state.subscribedShows,
     auth: state.auth,
     likedEpisodes: state.episodeLikes,
