@@ -29,22 +29,24 @@ class userDetails extends Component {
 
     //const comm = comments.filter((comment) => comment.userId === userId);
 
-    const comm = comments.map((comment) => {
-      if (comment.userId === userId) {
-        const matchingEp = allEpisodes.find(
-          (episode) =>
-            episode.id === comment.episodeId && episode.userId === userId
-        );
-        // console.log(matchingEp);
-        const newComment = {
-          ...comment,
-          epName: matchingEp?.name,
-          images: matchingEp?.images,
-        };
-        // console.log(newComment);
-        return newComment;
-      }
-    });
+    const comm = comments
+      .map((comment) => {
+        if (comment.userId === userId) {
+          const matchingEp = allEpisodes.find(
+            (episode) =>
+              episode.id === comment.episodeId && episode.userId === userId
+          );
+          // console.log(matchingEp);
+          const newComment = {
+            ...comment,
+            epName: matchingEp?.name,
+            images: matchingEp?.images,
+          };
+          // console.log(newComment);
+          return newComment;
+        }
+      })
+      .filter((cmt) => cmt.userId === userId);
 
     // console.log(comm, "USERS COMMENTS");
 
