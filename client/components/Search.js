@@ -299,7 +299,7 @@ const Search = () => {
       (Object.entries(searchShows).length &&
         contentToggle === "all content") ? (
         <>
-          <h4 style={{ color: "white" }}>Shows</h4>
+          <h4 style={{ color: "white" }}>{`Shows (${searchShows.items.length})`}</h4>
           <hr style={{ color: "white" }}></hr>
           <div className=" pt-5 p-2 m-2" id="startRow">
             {searchShows.items.map((content) => (
@@ -360,7 +360,7 @@ const Search = () => {
       (Object.entries(searchEpisodes).length &&
         contentToggle === "all content") ? (
         <>
-          <h4 style={{ color: "white" }}>Episodes</h4>
+          <h4 style={{ color: "white" }}>{`Episodes (${searchEpisodes.items.length})`}</h4>
           <hr style={{ color: "white" }}></hr>
           <div className=" pt-5 p-2 m-2" id="startRow">
             {searchEpisodes.items.map((content) => (
@@ -445,7 +445,7 @@ const Search = () => {
           <div className="pt-3">
             <hr />
           </div>
-          <h4 className="text-white">Comments</h4>
+          <h4 className="text-white">{`Comments (${searchComments.length})`}</h4>
           <hr style={{ color: "white" }}></hr>
           <ul id="podcastCards">
             {/* map over & render local comments search results  */}
@@ -506,7 +506,7 @@ const Search = () => {
           <div className="pt-3">
             <hr />
           </div>
-          <h4 className="text-white">TimeStamps</h4>
+          <h4 className="text-white">{`TimeStamps (${searchTimeStamps.length})`}</h4>
           <hr style={{ color: "white" }}></hr>
           <ul id="podcastCards">
             {/* map over & render local timeStamps search results  */}
