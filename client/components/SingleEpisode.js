@@ -53,16 +53,18 @@ const SingleEpisode = () => {
           <span style={{ fontWeight: 400, fontSize: 38 + "px" }}>
             {singleEpisode.name}
           </span>
-          <EpisodeLikes episode={singleEpisode} user={auth} episodes={episodes} />
+          <EpisodeLikes
+            episode={singleEpisode}
+            user={auth}
+            episodes={episodes}
+          />
           <hr />
         </div>
-        <span className="m-2" style={{ fontWeight: 400, fontSize: 25 + "px" }}>
+        <span style={{ fontWeight: 400, fontSize: 25 + "px" }}>
           Episode Description:{" "}
         </span>
-        {/* <span className="w-75 p-2"> */}
-        <p className="m-2">{singleEpisode.description}</p>
+        <p>{singleEpisode.description}</p>
         <hr />
-        {/* </span> */}
         <Timestamps
           episodeDuration={singleEpisode.duration_ms}
           episodeId={singleEpisode.id}

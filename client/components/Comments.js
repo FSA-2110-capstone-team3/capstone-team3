@@ -52,7 +52,7 @@ const Comments = ({ episodeId, episodeSpotifyId }) => {
       <div>
         <hr style={{ color: "white" }} />
         <div>
-          <div className="mb-2 p-2">
+          <div>
             <span style={{ color: "white", fontSize: "25px", fontWeight: 400 }}>
               Comments ({epComments.length})
             </span>
