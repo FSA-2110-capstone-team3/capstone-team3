@@ -81,33 +81,35 @@ const ReplyBox = ({
             </div>
             {editBox.isEditing ? (
               <div className="d-flex flex-row-reverse">
-                <button className="btn btn-outline-light">Update</button>
+                <button className="btn btn-outline-light btn-sm">
+                  <span style={{ fontSize: "15px" }}>Update</span>
+                </button>
                 <button
-                  className="btn btn-outline-light"
+                  className="btn btn-outline-light btn-sm"
                   onClick={() => {
                     setEditBox({ isEditing: false, id: "" });
                     setCurrReply("");
                   }}
                 >
-                  Cancel
+                  <span style={{ fontSize: "15px" }}>Cancel</span>
                 </button>
               </div>
             ) : (
               <div className="d-flex flex-row-reverse">
                 <button
-                  className="btn btn-outline-light"
+                  className="btn btn-outline-light btn-sm"
                   type={currReply === currText ? "" : "submit"}
                 >
-                  Add Reply
+                  <span style={{ fontSize: "15px" }}>Add Reply</span>
                 </button>
                 <button
-                  className="btn btn-outline-light"
+                  className="btn btn-outline-light btn-sm"
                   onClick={() => {
                     setReplyBox({ isOpen: false, id: "" });
                     setCurrReply("");
                   }}
                 >
-                  Cancel
+                  <span style={{ fontSize: "15px" }}>Cancel</span>
                 </button>
               </div>
             )}
