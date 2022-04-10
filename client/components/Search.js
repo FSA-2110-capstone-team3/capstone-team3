@@ -299,11 +299,13 @@ const Search = () => {
       (Object.entries(searchShows).length &&
         contentToggle === "all content") ? (
         <>
-          <h4 style={{ color: "white" }}>{`Shows (${searchShows.items.length})`}</h4>
+          <h4
+            style={{ color: "white" }}
+          >{`Shows (${searchShows.items.length})`}</h4>
           <hr style={{ color: "white" }}></hr>
           <div className=" pt-5 p-2 m-2" id="startRow">
             {searchShows.items.map((content) => (
-              <div className="d-sm-flex flex-column p-2" key={content.id}>
+              <div className="d-sm-flex flex-column p-4" key={content.id}>
                 <div className="card" style={{ width: "17rem" }}>
                   <Link to={`/show/${content.id}`}>
                     <img
@@ -360,11 +362,13 @@ const Search = () => {
       (Object.entries(searchEpisodes).length &&
         contentToggle === "all content") ? (
         <>
-          <h4 style={{ color: "white" }}>{`Episodes (${searchEpisodes.items.length})`}</h4>
+          <h4
+            style={{ color: "white" }}
+          >{`Episodes (${searchEpisodes.items.length})`}</h4>
           <hr style={{ color: "white" }}></hr>
           <div className=" pt-5 p-2 m-2" id="startRow">
             {searchEpisodes.items.map((content) => (
-              <div className="d-sm-flex flex-column p-2 " key={content.id}>
+              <div className="d-sm-flex flex-column p-4 " key={content.id}>
                 <div className="card" style={{ width: "17rem" }}>
                   <Link to={`/episode/${content.id}`}>
                     <img
