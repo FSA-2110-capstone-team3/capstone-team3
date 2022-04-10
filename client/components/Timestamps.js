@@ -42,7 +42,7 @@ const Timestamps = ({
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
           >
-            Add Timestamp
+            <span style={{ fontSize: "15px" }}>Add Timestamp</span>
           </button>
         </div>
         {!timeStamps.length ? (

@@ -67,7 +67,7 @@ const TimestampModal = ({ episodeDuration, episodeId, episodeSpotifyId }) => {
               id="exampleModalLabel"
               style={{ color: "black" }}
             >
-              Create Stampcard!
+              Create Timestamp!
             </h5>
 
             <button
@@ -175,7 +175,7 @@ const TimestampModal = ({ episodeDuration, episodeId, episodeSpotifyId }) => {
                 className="btn btn-outline-dark btn-sm"
                 data-bs-dismiss={!stampText.length ? "" : "modal"}
               >
-                Submit TimeStamp!
+                Submit Timestamp!
               </button>
             </form>
           </div>

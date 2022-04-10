@@ -58,7 +58,9 @@ const CommentBox = ({ episodeId, episodeSpotifyId }) => {
               ></textarea>
             </div>
             <div className="d-flex flex-row-reverse">
-              <button className="btn btn-outline-light">Add Comment</button>
+              <button className="btn btn-outline-light btn-sm">
+                <span style={{ fontSize: "15px" }}>Add Comment</span>
+              </button>
             </div>
           </div>
         </fieldset>
