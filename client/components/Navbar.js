@@ -134,22 +134,30 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                       </ul>
                     </div>
                   </li>
-                  <li className="nav-item h-25 ">
+                  <li>
                     <a
                       href="#"
                       onClick={handleClick}
-                      className="nav-link text-light pl-4"
+                      className="nav-link text-light"
                       style={{ marginTop: "19px" }}
                     >
                       <span
-                        className=""
                         style={{
                           fontWeight: 500,
                           color: "gray",
                           paddingBottom: "2px",
                         }}
                       >
-                        <i className="bi bi-power" aria-hidden="false"></i>
+                        {/* <i
+                          className="bi bi-power "
+                          id="logoutIcon"
+                          aria-hidden="false"
+                          style={{ fontWeight: 500 }}
+                        ></i> */}
+                        <i
+                          class="bi bi-box-arrow-right"
+                          style={{ paddingLeft: "2px" }}
+                        ></i>
                         Logout
                       </span>
                     </a>
@@ -158,21 +166,17 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
               </>
             ) : (
               <>
-                <li className="nav-item h-25 ">
-                  <a href="/signup" className="nav-link text-light pl-4">
+                <li className="">
+                  <a href="/signup" className="nav-link text-light">
                     <span
                       style={{
                         fontWeight: 500,
                         color: "gray",
-                        paddingBottom: "5px",
                       }}
                     >
                       <i
-                        className="bi bi-power"
-                        aria-hidden="true"
-                        style={{
-                          fontSize: "25px",
-                        }}
+                        class="bi bi-box-arrow-in-right"
+                        style={{ paddingRight: "2px", paddingLeft: "2px" }}
                       ></i>
                       Login
                     </span>
