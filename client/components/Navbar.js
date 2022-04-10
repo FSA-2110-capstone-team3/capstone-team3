@@ -24,7 +24,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
               // style={{ fontWeight: 400, color: "gray", textAlign: "center" }}
             >
               <img
-                src="/podify.png"
+                src="/podify_new.png"
                 style={{
                   height: "200px",
                   width: "200px",
