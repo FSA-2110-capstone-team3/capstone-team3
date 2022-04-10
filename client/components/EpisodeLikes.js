@@ -63,7 +63,9 @@ const EpisodeLikes = (props) => {
 
   //func: sum up all views for a single episode
   const sumEpisodeViews = (episodeId, episodesData) => {
-    return episodesData.reduce((acc, episode) => {
+    return episodesData.reduce((acc, episode, idx) => {
+      //return 1 view if episodes store empty (for first overall view of page)
+      if(idx === episodesData.length - 1 && acc === 0) acc = 1;
       if(episode.id === episodeId) acc += episode.views;
       return acc;
     }, 0);
