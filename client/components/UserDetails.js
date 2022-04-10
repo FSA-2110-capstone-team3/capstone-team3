@@ -19,11 +19,13 @@ class userDetails extends Component {
     } = this.props;
 
     let username = email.split("@");
-    subscribedShows = subscribedShows.slice(0, 5);
+    subscribedShows = subscribedShows;
 
-    const likedEps = likedEpisodes.map(
-      (ep) => allEpisodes.find((episode) => episode.id === ep.episodeId) || []
-    );
+    const likedEps = likedEpisodes
+      .map(
+        (ep) => allEpisodes.find((episode) => episode.id === ep.episodeId) || []
+      )
+      .filter((ep) => ep?.userId === userId);
 
     const comm = comments
       .map((comment) => {
