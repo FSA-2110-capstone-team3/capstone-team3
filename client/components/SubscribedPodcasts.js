@@ -37,7 +37,7 @@ class SubscribedPodcasts extends Component {
             {subscribedShows?.map((subscribedShow) => {
               return (
                 <div
-                  className="d-sm-flex flex-column p-2 "
+                  className="d-sm-flex flex-column p-4 "
                   key={subscribedShow.show.id}
                 >
                   <div className="card" style={{ width: "17rem" }}>

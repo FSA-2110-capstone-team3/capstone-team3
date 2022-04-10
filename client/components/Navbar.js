@@ -11,7 +11,6 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
 
   return (
     <>
-      {/* <div className="container d-flex flex-column flex-md-row"> */}
       <nav
         className="navbar navbar-expand-md navbar-light d-flex flex-md-column "
         style={{ width: "240px" }}
@@ -19,10 +18,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
         <a href="/" className="navbar-brand text-light mt-2">
           {" "}
           <div className="display-6 font-weight-bold">
-            <span
-              id="logo"
-              // style={{ fontWeight: 400, color: "gray", textAlign: "center" }}
-            >
+            <span id="logo">
               <img
                 src="/podify_new.png"
                 style={{
@@ -74,22 +70,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                 ""
               )}
             </li>
-            {/* <li>
-                <a href="/subscribed" className="nav-link">
-                  <span style={{ fontWeight: 500, color: "gray" }}>
-                    <i className="bi bi-rainbow"></i>
-                    YOUR LIBRARY
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="/saved" className="nav-link">
-                  <span style={{ fontWeight: 500, color: "gray" }}>
-                    <i className="bi bi-rainbow"></i>
-                    SAVED{" "}
-                  </span>
-                </a>
-              </li> */}
+
             <li>
               <a href="/aboutUs" className="nav-link">
                 <span style={{ fontWeight: 500, color: "gray" }}>
@@ -153,25 +134,29 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                       </ul>
                     </div>
                   </li>
-                  <li className="nav-item h-25 ">
+                  <li>
                     <a
                       href="#"
                       onClick={handleClick}
-                      className="nav-link text-light pl-4"
+                      className="nav-link text-light"
                       style={{ marginTop: "19px" }}
                     >
                       <span
-                        className="pt-4"
                         style={{
                           fontWeight: 500,
                           color: "gray",
                           paddingBottom: "2px",
                         }}
                       >
-                        <i
-                          className="bi bi-power"
+                        {/* <i
+                          className="bi bi-power "
+                          id="logoutIcon"
                           aria-hidden="false"
-                          style={{ fontSize: "25px" }}
+                          style={{ fontWeight: 500 }}
+                        ></i> */}
+                        <i
+                          class="bi bi-box-arrow-right"
+                          style={{ paddingLeft: "2px" }}
                         ></i>
                         Logout
                       </span>
@@ -181,25 +166,17 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
               </>
             ) : (
               <>
-                <li className="nav-item h-25 ">
-                  <a
-                    href="/signup"
-                    className="nav-link text-light pl-4"
-                    // style={{ borderBottom: "1px solid white" }}
-                  >
+                <li className="">
+                  <a href="/signup" className="nav-link text-light">
                     <span
                       style={{
                         fontWeight: 500,
                         color: "gray",
-                        paddingBottom: "5px",
                       }}
                     >
                       <i
-                        className="bi bi-power"
-                        aria-hidden="true"
-                        style={{
-                          fontSize: "25px",
-                        }}
+                        class="bi bi-box-arrow-in-right"
+                        style={{ paddingRight: "2px", paddingLeft: "2px" }}
                       ></i>
                       Login
                     </span>
