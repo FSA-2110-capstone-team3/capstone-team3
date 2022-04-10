@@ -20,7 +20,7 @@ const SingleEpisode = () => {
 
   //---------------Defining State from Redux---------------//
   const auth = useSelector((state) => state.auth) || {};
-  const { singleEpisode } = useSelector((state) => state) || {};
+  const { episodes, singleEpisode } = useSelector((state) => state) || {};
 
   //---------------Setting Initial Local State---------------//
   const [stamp, setStamp] = useState(0);
@@ -53,7 +53,7 @@ const SingleEpisode = () => {
           <span style={{ fontWeight: 400, fontSize: 38 + "px" }}>
             {singleEpisode.name}
           </span>
-          <EpisodeLikes episode={singleEpisode} user={auth} />
+          <EpisodeLikes episode={singleEpisode} user={auth} episodes={episodes} />
           <hr />
         </div>
         <span className="m-2" style={{ fontWeight: 400, fontSize: 25 + "px" }}>
