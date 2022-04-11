@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ThumbUpOutlinedIcon from "@material-ui/icons/ThumbUpOutlined";
 import ThumbDownOutlinedIcon from "@material-ui/icons/ThumbDownOutlined";
 import { ThumbDown, ThumbUp } from "@material-ui/icons";
@@ -11,6 +11,7 @@ const EpisodeLikes = (props) => {
   const dispatch = useDispatch();
 
   const { episode, episodes, user } = props;
+
 
   //--------------------like/dislike calculations--------------------//
 
@@ -60,13 +61,15 @@ const EpisodeLikes = (props) => {
       return { [thumbTypeStr]: 0 };
   };
 
-
   //func: sum up all views for a single episode
   const sumEpisodeViews = (episodeId, episodesData) => {
     return episodesData.reduce((acc, episode, idx) => {
       //return 1 view if episodes store empty (for first overall view of page)
-      if(idx === episodesData.length - 1 && acc === 0) acc = 1;
-      if(episode.id === episodeId) acc += episode.views;
+      if(idx === episodesData.length - 1 && acc === 0) {
+        acc += 1;
+      } else if(episode.id === episodeId) {
+        acc += episode.views;
+      }
       return acc;
     }, 0);
   };
