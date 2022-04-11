@@ -20,7 +20,7 @@ const SingleEpisode = () => {
 
   //---------------Defining State from Redux---------------//
   const auth = useSelector((state) => state.auth) || {};
-  const { singleEpisode } = useSelector((state) => state) || {};
+  const { episodes, singleEpisode } = useSelector((state) => state) || {};
 
   //---------------Setting Initial Local State---------------//
   const [stamp, setStamp] = useState(0);
@@ -39,6 +39,22 @@ const SingleEpisode = () => {
     dispatch(getEpisodes()); //re-render all episodes since getSingleEpisode creates new episode if not already in db
   }, []);
 
+  //func: sum up all views for a single episode
+  const sumEpisodeViews = (episodeId, episodesData) => {
+    return episodesData.reduce((acc, episode, idx) => {
+      //return 1 view if episodes store empty (for first overall view of page)
+      // if(idx === episodesData.length - 1 && acc === 0) {
+      //   acc += 1;
+      // } else if(episode.id === episodeId) {
+        if(episode.id === episodeId) {
+        acc += episode.views;
+      }
+      return acc;
+    }, 0);
+  };
+
+  const summedEpisodeViews = sumEpisodeViews(singleEpisode.id, episodes);
+
   return (
     <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
       <div style={{ color: "white" }}>
@@ -53,16 +69,18 @@ const SingleEpisode = () => {
           <span style={{ fontWeight: 400, fontSize: 38 + "px" }}>
             {singleEpisode.name}
           </span>
-          <EpisodeLikes episode={singleEpisode} user={auth} />
+          <EpisodeLikes
+            episode={singleEpisode}
+            user={auth}
+            summedEpisodeViews={summedEpisodeViews}
+          />
           <hr />
         </div>
-        <span className="m-2" style={{ fontWeight: 400, fontSize: 25 + "px" }}>
+        <span style={{ fontWeight: 400, fontSize: 25 + "px" }}>
           Episode Description:{" "}
         </span>
-        {/* <span className="w-75 p-2"> */}
-        <p className="m-2">{singleEpisode.description}</p>
+        <p>{singleEpisode.description}</p>
         <hr />
-        {/* </span> */}
         <Timestamps
           episodeDuration={singleEpisode.duration_ms}
           episodeId={singleEpisode.id}

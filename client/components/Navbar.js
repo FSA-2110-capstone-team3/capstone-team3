@@ -11,7 +11,6 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
 
   return (
     <>
-      {/* <div className="container d-flex flex-column flex-md-row"> */}
       <nav
         className="navbar navbar-expand-md navbar-light d-flex flex-md-column "
         style={{ width: "240px" }}
@@ -19,12 +18,9 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
         <a href="/" className="navbar-brand text-light mt-2">
           {" "}
           <div className="display-6 font-weight-bold">
-            <span
-              id="logo"
-              // style={{ fontWeight: 400, color: "gray", textAlign: "center" }}
-            >
+            <span id="logo">
               <img
-                src="/podify.png"
+                src="/podify_new.png"
                 style={{
                   height: "200px",
                   width: "200px",
@@ -74,22 +70,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                 ""
               )}
             </li>
-            {/* <li>
-                <a href="/subscribed" className="nav-link">
-                  <span style={{ fontWeight: 500, color: "gray" }}>
-                    <i className="bi bi-rainbow"></i>
-                    YOUR LIBRARY
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="/saved" className="nav-link">
-                  <span style={{ fontWeight: 500, color: "gray" }}>
-                    <i className="bi bi-rainbow"></i>
-                    SAVED{" "}
-                  </span>
-                </a>
-              </li> */}
+
             <li>
               <a href="/aboutUs" className="nav-link">
                 <span style={{ fontWeight: 500, color: "gray" }}>
@@ -103,7 +84,7 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
               <>
                 <ul className="navbar-nav w-100 d-flex flex-sm-column text-center text-sm-start ">
                   <li className="nav-item h-25">
-                    <div className="dropdown">
+                    <div className="dropdown" id="dropdown">
                       <button
                         className="btn btn-secondary btn-lg dropdown-toggle"
                         type="button"
@@ -153,21 +134,29 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                       </ul>
                     </div>
                   </li>
-                  <li className="nav-item h-25 ">
+                  <li>
                     <a
                       href="#"
                       onClick={handleClick}
-                      className="nav-link text-light pl-4"
-                      style={{ marginTop: "22px" }}
+                      className="nav-link text-light"
+                      style={{ marginTop: "19px" }}
                     >
                       <span
-                        className="pt-4"
-                        style={{ fontWeight: 500, color: "gray" }}
+                        style={{
+                          fontWeight: 500,
+                          color: "gray",
+                          paddingBottom: "2px",
+                        }}
                       >
-                        <i
-                          className="fa fa-sign-out"
+                        {/* <i
+                          className="bi bi-power "
+                          id="logoutIcon"
                           aria-hidden="false"
-                          style={{ fontSize: "25px" }}
+                          style={{ fontWeight: 500 }}
+                        ></i> */}
+                        <i
+                          className="bi bi-box-arrow-right"
+                          style={{ paddingLeft: "2px" }}
                         ></i>
                         Logout
                       </span>
@@ -177,25 +166,23 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
               </>
             ) : (
               <>
-                <li className="nav-item h-25 ">
-                  <a
-                    href="/signup"
-                    className="nav-link text-light pl-4"
-                    style={{ borderBottom: "1px solid white" }}
-                  >
-                    <span style={{ fontWeight: 500, color: "gray" }}>
+                <li className="">
+                  <a href="/signup" className="nav-link text-light">
+                    <span
+                      style={{
+                        fontWeight: 500,
+                        color: "gray",
+                      }}
+                    >
                       <i
-                        className="fa fa-sign-in"
-                        aria-hidden="true"
-                        style={{
-                          fontSize: "25px",
-                        }}
+                        className="bi bi-box-arrow-in-right"
+                        style={{ paddingRight: "2px", paddingLeft: "2px" }}
                       ></i>
                       Login
                     </span>
                   </a>
                 </li>
-                <li className="nav-item h-25">
+                {/* <li className="nav-item h-25">
                   <div
                     className="btn btn-secondary btn-lg disabled"
                     style={{
@@ -212,8 +199,8 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                         color: "rgb(28, 28, 28)",
                       }}
                     ></span>
-                  </div>
-                  {/* <div className="dropdown">
+                  </div> */}
+                {/* <div className="dropdown">
                       <button
                         class="btn btn-secondary btn-lg dropdown-toggle"
                         type="button"
@@ -237,104 +224,12 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                         </span>
                       </button>
                     </div> */}
-                </li>
+                {/* </li> */}
               </>
             )}
           </ul>
         </div>
       </nav>
-      {/* </div> */}
-
-      {/* <div id="wrapper1" class="wrapper-content">
-      <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-          <li "sidebar-brand">
-            <a href="#">SPODIFY+</a>
-          </li>
-          <li>
-            <a href="/topcharts">HOME</a>
-          </li>
-          <li>
-            <a href="#">MY LIBRARY</a>
-          </li>
-          <li>
-            <a href="#">PODCASTS</a>
-          </li>
-          <li>
-            <a href="#">
-              {isLoggedIn ? (
-                <>
-                  <li className="nav-item h-25">
-                    <a href="/login" className="nav-link text-light pl-4">
-                      <span style={{ color: "black" }}>
-                        <i className="bi bi-person-circle"></i>
-                        {email}
-                      </span>
-                    </a>
-                  </li>
-                  <li className="nav-item h-25 ">
-                    <a
-                      href="#"
-                      onClick={handleClick}
-                      className="nav-link text-light pl-4"
-                      style={{ color: "black" }}
-                    >
-                      LOGOUT
-                    </a>
-                  </li>
-                </>
-              ) : (
-                <li className="nav-item h-25 ">
-                  <a href="/login" className="nav-link text-dark pl-4">
-                    LOGIN
-                  </a>
-                </li>
-              )}
-            </a>
-          </li>
-          <li class="active">
-            <a href="#">About</a>
-          </li>
-          <li>
-            <a href="#">Services</a>
-          </li>
-          <li>
-            <a href="#">Contact</a>
-          </li>
-        </ul>
-      </div>
-
-      <div id="page-content-wrapper">
-        <nav class="navbar navbar-default">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <button
-                class="btn-menu btn btn-success btn-toggle-menu"
-                type="button"
-              >
-                <i class="fa fa-bars"></i>
-              </button>
-            </div>
-            <div class="collapse navbar-collapse">
-              <ul class="nav navbar-nav navbar-right">
-                <li>
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="ti-panel"></i>
-                    <p>Stats</p>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="ti-settings"></i>
-                    <p>Settings</p>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </div>
-    </div> */}
     </>
   );
 };

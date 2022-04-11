@@ -44,7 +44,7 @@ class SavedEpisodes extends Component {
           {savedEpisodes?.map((saved) => {
             return (
               <div
-                className="d-sm-flex flex-column p-2 "
+                className="d-sm-flex flex-column p-4 "
                 key={saved.episode.id}
               >
                 <div

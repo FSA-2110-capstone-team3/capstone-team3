@@ -52,7 +52,7 @@ div.content {
   flex-direction: column;
 }
 
-div.dropdown {
+div#dropdown {
   border-bottom: 1px solid white;
 }
 
@@ -110,7 +110,7 @@ i:hover {
 }
 
 nav a.nav-link span {
-  padding-left: 10px;
+  padding-left: 8px;
 }
 
 nav a.nav-link span:hover,
@@ -120,11 +120,6 @@ a.dropdown-item:hover {
   color: #1ad760 !important;
   transition: all 1s ease;
 }
-
-/* a.nav-link span:hover,
-span#logo:hover {
-  color: red;
-} */
 
 div.row {
   /* background: rgb(176, 54, 54); */

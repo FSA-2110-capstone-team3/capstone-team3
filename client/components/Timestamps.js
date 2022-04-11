@@ -26,7 +26,7 @@ const Timestamps = ({
   return (
     <div>
       <div style={{ color: "white", width: "100%" }}>
-        <div className="m-2">
+        <div>
           <span
             style={{
               fontWeight: 400,
@@ -42,11 +42,11 @@ const Timestamps = ({
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
           >
-            Add Timestamp
+            <span style={{ fontSize: "15px" }}>Add Timestamp</span>
           </button>
         </div>
         {!timeStamps.length ? (
-          <div className="m-2" style={{ fontWeight: 400, fontSize: 17 + "px" }}>
+          <div style={{ fontWeight: 400, fontSize: 17 + "px" }}>
             No current Timestamps!
           </div>
         ) : (

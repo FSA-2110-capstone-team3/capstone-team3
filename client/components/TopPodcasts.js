@@ -29,7 +29,7 @@ class TopPodcasts extends Component {
           </div>
           <div id="startRow" className="p-5 m-2">
             {topCharts.map((podcast) => (
-              <div className="d-sm-flex flex-column p-2" key={podcast.showUri}>
+              <div className="d-sm-flex flex-column p-4" key={podcast.showUri}>
                 <div className="card" style={{ width: "17rem" }}>
                   <Link to={`/show/${podcast.showUri.slice(-22)}`}>
                     <img

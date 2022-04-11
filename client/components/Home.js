@@ -59,9 +59,12 @@ class Home extends Component {
             </div>
           </div>
           <div>
-            <div className="row p-5 m-2">
+            <div className="  p-2 m-2" id="startRow">
               {topCharts.map((podcast) => (
-                <div className="col-sm" key={podcast.showUri}>
+                <div
+                  className="d-sm-flex flex-column p-4"
+                  key={podcast.showUri}
+                >
                   <div className="card " style={{ width: 17 + "rem" }}>
                     <Link to={`/show/${podcast.showUri.slice(-22)}`}>
                       <img
@@ -120,10 +123,13 @@ class Home extends Component {
             </div>
           </div>
           <div>
-            <div className="row p-5 m-2 ">
+            <div className=" p-2 m-2" id="startRow">
               {subscribedShows.map((subscribedShow) => {
                 return (
-                  <div className="col-sm " key={subscribedShow.show.id}>
+                  <div
+                    className="d-sm-flex flex-column p-4"
+                    key={subscribedShow.show.id}
+                  >
                     <div className="card " style={{ width: 17 + "rem" }}>
                       <Link to={`/show/${subscribedShow.show.id}`}>
                         <img

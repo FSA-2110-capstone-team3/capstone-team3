@@ -24,6 +24,8 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@material-ui/core/TextField";
 import Box from "@mui/material/Box";
 import { makeStyles } from "@material-ui/core/styles";
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 /*<-------------------- React functional component -------------------->*/
 
@@ -81,7 +83,6 @@ const Search = () => {
 
   /*<-------------------- Material UI hook/logic -------------------->*/
 
-  //create hook for MUI styling
   const useStyles = makeStyles({
     root: {
       "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
@@ -225,14 +226,20 @@ const Search = () => {
             className={classes.root}
             fullWidth
             id="outlined"
-            label="Search"
             variant="outlined"
-            type="input"
+            type="search"
             value={search}
             onChange={(e) => handleInputChange(e.target.value)}
             autoComplete="off"
-            style={{ color: "black" }}
-          />
+            InputLabelProps={{shrink: false}}
+            sx={{ color: "white" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchOutlinedIcon sx={{color: "white"}}/>
+                </InputAdornment>
+              ),
+            }} />
 
           {errorRes ? (
             <h6 className=" pt-2 text-white text-center ">
@@ -299,11 +306,13 @@ const Search = () => {
       (Object.entries(searchShows).length &&
         contentToggle === "all content") ? (
         <>
-          <h4 style={{ color: "white" }}>Shows</h4>
+          <h4
+            style={{ color: "white" }}
+          >{`Shows (${searchShows.items.length})`}</h4>
           <hr style={{ color: "white" }}></hr>
           <div className=" pt-5 p-2 m-2" id="startRow">
             {searchShows.items.map((content) => (
-              <div className="d-sm-flex flex-column p-2" key={content.id}>
+              <div className="d-sm-flex flex-column p-4" key={content.id}>
                 <div className="card" style={{ width: "17rem" }}>
                   <Link to={`/show/${content.id}`}>
                     <img
@@ -360,11 +369,13 @@ const Search = () => {
       (Object.entries(searchEpisodes).length &&
         contentToggle === "all content") ? (
         <>
-          <h4 style={{ color: "white" }}>Episodes</h4>
+          <h4
+            style={{ color: "white" }}
+          >{`Episodes (${searchEpisodes.items.length})`}</h4>
           <hr style={{ color: "white" }}></hr>
           <div className=" pt-5 p-2 m-2" id="startRow">
             {searchEpisodes.items.map((content) => (
-              <div className="d-sm-flex flex-column p-2 " key={content.id}>
+              <div className="d-sm-flex flex-column p-4 " key={content.id}>
                 <div className="card" style={{ width: "17rem" }}>
                   <Link to={`/episode/${content.id}`}>
                     <img
@@ -445,7 +456,7 @@ const Search = () => {
           <div className="pt-3">
             <hr />
           </div>
-          <h4 className="text-white">Comments</h4>
+          <h4 className="text-white">{`Comments (${searchComments.length})`}</h4>
           <hr style={{ color: "white" }}></hr>
           <ul id="podcastCards">
             {/* map over & render local comments search results  */}
@@ -506,7 +517,7 @@ const Search = () => {
           <div className="pt-3">
             <hr />
           </div>
-          <h4 className="text-white">TimeStamps</h4>
+          <h4 className="text-white">{`TimeStamps (${searchTimeStamps.length})`}</h4>
           <hr style={{ color: "white" }}></hr>
           <ul id="podcastCards">
             {/* map over & render local timeStamps search results  */}
