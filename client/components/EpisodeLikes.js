@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ThumbUpOutlinedIcon from "@material-ui/icons/ThumbUpOutlined";
 import ThumbDownOutlinedIcon from "@material-ui/icons/ThumbDownOutlined";
 import { ThumbDown, ThumbUp } from "@material-ui/icons";
 import { updateEpisodeLike, addEpisodeLike, addSavedEpisode } from "../store";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
 
 const EpisodeLikes = (props) => {
   const { episodeLikes } = useSelector((state) => state);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const { episode, episodes, user } = props;
+  const { episode, summedEpisodeViews, user } = props;
 
 
   //--------------------like/dislike calculations--------------------//
@@ -61,19 +61,6 @@ const EpisodeLikes = (props) => {
       return { [thumbTypeStr]: 0 };
   };
 
-  //func: sum up all views for a single episode
-  const sumEpisodeViews = (episodeId, episodesData) => {
-    return episodesData.reduce((acc, episode, idx) => {
-      //return 1 view if episodes store empty (for first overall view of page)
-      if(idx === episodesData.length - 1 && acc === 0) {
-        acc += 1;
-      } else if(episode.id === episodeId) {
-        acc += episode.views;
-      }
-      return acc;
-    }, 0);
-  };
-
   //toast for adding episode to favorites
   const notify = () =>
     toast("Successfully added to favorites!", {
@@ -82,7 +69,7 @@ const EpisodeLikes = (props) => {
 
   return (
     <div>
-      <span className="pe-3">{`${sumEpisodeViews(episode.id, episodes)} views`}</span>
+      <span className="pe-3">{`${summedEpisodeViews} views`}</span>
       <button
         type="button"
         className="bg-transparent border-0"
