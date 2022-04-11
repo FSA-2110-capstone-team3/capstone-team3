@@ -39,6 +39,21 @@ const SingleEpisode = () => {
     dispatch(getEpisodes()); //re-render all episodes since getSingleEpisode creates new episode if not already in db
   }, []);
 
+  //func: sum up all views for a single episode
+  const sumEpisodeViews = (episodeId, episodesData) => {
+    return episodesData.reduce((acc, episode, idx) => {
+      //return 1 view if episodes store empty (for first overall view of page)
+      if(idx === episodesData.length - 1 && acc === 0) {
+        acc += 1;
+      } else if(episode.id === episodeId) {
+        acc += episode.views;
+      }
+      return acc;
+    }, 0);
+  };
+
+  const summedEpisodeViews = sumEpisodeViews(singleEpisode.id, episodes) || {};
+
   return (
     <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
       <div style={{ color: "white" }}>
@@ -56,7 +71,7 @@ const SingleEpisode = () => {
           <EpisodeLikes
             episode={singleEpisode}
             user={auth}
-            episodes={episodes}
+            summedEpisodeViews={summedEpisodeViews}
           />
           <hr />
         </div>
