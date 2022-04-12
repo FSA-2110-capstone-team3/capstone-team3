@@ -3,12 +3,12 @@ import ThumbUpOutlinedIcon from "@material-ui/icons/ThumbUpOutlined";
 import ThumbDownOutlinedIcon from "@material-ui/icons/ThumbDownOutlined";
 import { ThumbDown, ThumbUp } from "@material-ui/icons";
 import { updateEpisodeLike, addEpisodeLike, addSavedEpisode } from "../store";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
 
 const EpisodeLikes = (props) => {
   const { episodeLikes } = useSelector((state) => state);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const { episode, summedEpisodeViews, user } = props;
 
