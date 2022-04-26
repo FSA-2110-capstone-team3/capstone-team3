@@ -1,77 +1,41 @@
-# FS-App-Template
+# Podify
 
-## Setup
+![Screen Shot 2022-04-26 at 5 47 29 PM](https://user-images.githubusercontent.com/88349865/165398022-89a9409d-8355-40ee-8694-68424c41f9f0.png)
 
-To use this as boilerplate, you'll need to take the following steps:
+## [Live Link](https://podify-fsa.herokuapp.com/)
 
-* Don't fork or clone this repo! Instead, create a new, empty
-  directory on your machine and `git init` (or create an empty repo on
-  Github and clone it to your local machine)
+Podify is a fullstack application where users can access, search, and add timestamps & comments for their favorite podcasts.  
 
-* Now you will have to add the fs-app-template as a remote and merge it into your own repository.
+Users will login with their Spotify account and can have the capability of browsing through top podcasts, adding shows to their favorities, liking / disliking specific episodes and more. 
 
-```
-git remote add boilermaker git@github.com:FullstackAcademy/fs-app-template.git
-git fetch boilermaker
-git merge boilermaker/main
-git branch -m master main
-```
+Developers: Jay Flanary, Priscilla Kim, Richard Cookerly and David Woo
 
-## Customize
+## Main Technolgies
+Javascript, React, Redux, Express, Sequelize, PostgreSQL, Spotify API
 
-Now that you've got the code, follow these steps to get acclimated:
+# To demo our application
+Podify is still currently in beta-phase, so to demo our application, please use the guest credentials on the login page.
 
-* Update project name and description in `package.json`
-* `npm install`
-* Create two postgres databases (`MY_APP_NAME` should match the `name`
-  parameter in `package.json`):
-* These commands will create both your **development** and **test** databases
+If you would like to use the application with your own Spotify account, please provide your name & email to our [Github page](https://github.com/FSA-2110-capstone-team3/capstone-team3/issues) to become a registered user.
 
-```
-createdb <YOUR APP NAME HERE FROM package.json>
-createdb <YOUR APP NAME HERE FROM package.json>-test
-```
+# Screenshots
 
-* By default, running `npm test` will use your test database, while
-  regular development uses development database
+## Login
+![Screen Shot 2022-04-26 at 5 17 44 PM](https://user-images.githubusercontent.com/88349865/165394377-5b91516a-f8e5-46f3-9a7e-31aa859fee78.png)
 
-## Start
+## About Us
+![Screen Shot 2022-04-26 at 5 11 56 PM](https://user-images.githubusercontent.com/88349865/165394417-005693de-a8ca-4dd5-a284-20273d4183d8.png)
 
-Sync and seed your database by running `npm run seed`. Running `npm run start:dev` will make great things happen!
+## Search
+![Screen Shot 2022-04-26 at 5 11 32 PM](https://user-images.githubusercontent.com/88349865/165394743-82f64cc8-872e-4fa6-b142-38cba8770629.png)
 
-- start:dev will both start your server and build your client side files using webpack
-- start:dev:logger is the same as start:dev, but you will see your SQL queries (can be helpful for debugging)
-- start:dev:seed will start your server and also seed your database (this is useful when you are making schema changes and you don't want to run your seed script separately)
+## Home Page
+![Screen Shot 2022-04-26 at 5 00 36 PM](https://user-images.githubusercontent.com/88349865/165394524-4c00f123-a218-4a52-b1bf-312eb0a1d79d.png)
 
+## Single Podcast Page
+![Screen Shot 2022-04-17 at 2 28 29 PM](https://user-images.githubusercontent.com/88349865/165394588-82ab0a2e-119f-40d3-a0ea-5d9eef8ca02a.png)
 
-### Heroku
+## User Account
+![Screen Shot 2022-04-26 at 5 16 39 PM](https://user-images.githubusercontent.com/88349865/165394638-7f290914-2fe4-446d-8048-74c987ce8d96.png)
+![Screen Shot 2022-04-26 at 5 16 52 PM](https://user-images.githubusercontent.com/88349865/165394647-3e4f7f58-94b9-42bc-b719-f281aa767f58.png)
 
-1.  Set up the [Heroku command line tools][heroku-cli]
-2.  `heroku login`
-3.  Add a git remote for heroku:
-
-[heroku-cli]: https://devcenter.heroku.com/articles/heroku-cli
-
-* **If you are creating a new app...**
-
-  1.  `heroku create` or `heroku create your-app-name` if you have a
-      name in mind.
-  2.  `heroku config:set JWT=<your secret here!>` to set a secret for JWT signing
-
-Database Setup
-
-  3.  `heroku addons:create heroku-postgresql:hobby-dev` to add
-      ("provision") a postgres database to your heroku dyno (This creates your production database)
-
-  4.  `heroku config:set SEED=true` to get heroku to sync and seed your database
-
-  5.   note everytime your app restarts, the database tables will be dropped and re-created. To avoid this you can `config:unset SEED`
-
-
-* **If you already have a Heroku app...**
-
-  1.  `heroku git:remote your-app-name` You'll need to be a
-      collaborator on the app.
-
-
-Now, you should be deployed!
