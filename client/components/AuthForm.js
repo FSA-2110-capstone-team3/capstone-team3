@@ -22,18 +22,6 @@ const AuthForm = (props) => {
             className="d-flex flex-column justify-content-center align-items-center  p-5 rounded-3"
           >
             {" "}
-            {/*
-            <div className="mb-5">
-              {" "}
-              <span style={{ fontWeight: 400, fontSize: "40px" }}> Login</span>
-            </div>
-
-            <button className="mb-5" id="login">
-              <a href="/login" style={{ color: "black" }}>
-                {" "}
-                Continue with Spotify
-              </a>
-            </button> */}
             <form
               onSubmit={handleSubmit}
               name={name}
@@ -60,31 +48,6 @@ const AuthForm = (props) => {
                   ""
                 )}
               </div>
-              {/* <div className="mb-3">
-                <input
-                  name="email"
-                  type="text"
-                  className="form-control"
-                  id="emailAddress"
-                  aria-describedby="emailHelp"
-                  placeholder="Email"
-                  style={{ width: "300px" }}
-                />
-              </div>
-              <div className="mb-3 ">
-                <input
-                  name="password"
-                  type="password"
-                  className="form-control"
-                  id="password"
-                  placeholder="Password"
-                  style={{ width: "300px" }}
-                />
-              </div> */}
-              {/* <button type="submit" className="btn btn-success">
-                {" "}
-                {displayName}
-              </button> */}
             </form>
           </div>
         </div>
