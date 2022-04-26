@@ -2,9 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import { authenticate } from "../store";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { pageTransition } from "..";
+// import dotenv from 'dotenv'
+// import {} from 'dotenv/config'
+// import dotenv from 'dotenv'
+// dotenv.config()
 
 /**
  * COMPONENT
@@ -12,6 +16,15 @@ import { pageTransition } from "..";
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error, isLoggedIn } = props;
   const history = useHistory();
+  const location = useLocation();
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText('podify.guest@gmail.com');
+  };
+
+  const copyPW = () => {
+    navigator.clipboard.writeText('podifyFSA');
+  }; 
 
   return (
     <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
@@ -22,18 +35,6 @@ const AuthForm = (props) => {
             className="d-flex flex-column justify-content-center align-items-center  p-5 rounded-3"
           >
             {" "}
-            {/*
-            <div className="mb-5">
-              {" "}
-              <span style={{ fontWeight: 400, fontSize: "40px" }}> Login</span>
-            </div>
-
-            <button className="mb-5" id="login">
-              <a href="/login" style={{ color: "black" }}>
-                {" "}
-                Continue with Spotify
-              </a>
-            </button> */}
             <form
               onSubmit={handleSubmit}
               name={name}
@@ -47,6 +48,7 @@ const AuthForm = (props) => {
               </div>
               <div className="text-center">
                 {!isLoggedIn ? (
+                  <>
                   <a href="/login" style={{ color: "black" }}>
                     <div className="mb-5 p-sm-3 " id="login">
                       {" "}
@@ -56,35 +58,37 @@ const AuthForm = (props) => {
                       </span>
                     </div>
                   </a>
+                    <div className="mb-5 p-sm-3 " id="login" onClick={() => {
+                      window.close();
+                      window.open('/login')
+                    }}>
+                      {" "}
+                      <span className="" style={{ fontSize: "16px" }}>
+                        <i className=" fa-lg bi bi-spotify d-inline btn float-left p-0 mr-2"></i>
+                        Login as Guest
+                      </span>
+                    </div>
+                    <div style={{width: '300px', fontSize:'0.8em'}}>
+                      If you are logging in as a guest, 
+                      please copy and paste the following credentials.
+                      <br/>
+                      <div style={{marginTop:'10px'}}>
+                        <span style={{color: 'red'}}>*Please ensure that you are currently logged out of your own Spotify Account before accessing</span>
+                      </div>
+                    </div>
+                    <div style={{width: '300px', fontSize:'0.8em', display: 'flex', flexDirection:'column', alignItems:'center', marginTop: '20px'}}>
+                      <button onClick={() => copyEmail()} className="btn btn-outline-light btn-sm mb-3">
+                        <span style={{ fontSize: "15px" }}>Copy Email</span>
+                      </button>
+                      <button onClick={() => copyPW()} className="btn btn-outline-light btn-sm">
+                        <span style={{ fontSize: "15px" }}>Copy Password</span>
+                      </button>
+                    </div>
+                  </>
                 ) : (
                   ""
                 )}
               </div>
-              {/* <div className="mb-3">
-                <input
-                  name="email"
-                  type="text"
-                  className="form-control"
-                  id="emailAddress"
-                  aria-describedby="emailHelp"
-                  placeholder="Email"
-                  style={{ width: "300px" }}
-                />
-              </div>
-              <div className="mb-3 ">
-                <input
-                  name="password"
-                  type="password"
-                  className="form-control"
-                  id="password"
-                  placeholder="Password"
-                  style={{ width: "300px" }}
-                />
-              </div> */}
-              {/* <button type="submit" className="btn btn-success">
-                {" "}
-                {displayName}
-              </button> */}
             </form>
           </div>
         </div>
