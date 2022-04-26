@@ -25,6 +25,7 @@
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "dotenv": "^16.0.0",
+    "dotenv-webpack": "^7.1.0",
     "express": "^4.16.4",
     "framer-motion": "^6.2.9",
     "fuse.js": "^6.5.3",
