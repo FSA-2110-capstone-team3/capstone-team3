@@ -58,10 +58,7 @@ const AuthForm = (props) => {
                       </span>
                     </div>
                   </a>
-                    <div className="mb-5 p-sm-3 " id="login" onClick={() => {
-                      window.close();
-                      window.open('/login')
-                    }}>
+                    <div className="mb-5 p-sm-3 " id="login" onClick={() => window.open('/login')}>
                       {" "}
                       <span className="" style={{ fontSize: "16px" }}>
                         <i className=" fa-lg bi bi-spotify d-inline btn float-left p-0 mr-2"></i>
