@@ -1,8 +1,13 @@
 const Dotenv = require("dotenv-webpack");
+const webpack = require('webpack')
+require("dotenv").config();
 
 module.exports = {
   plugins: [
-    new Dotenv()
+    new webpack.DefinePlugin({
+      'process.env.GUEST_EMAIL': JSON.stringify(process.env.GUEST_EMAIL),
+      'process.env.GUEST_PW': JSON.stringify(process.env.GUEST_PW),
+    }),
   ],
   entry: [
     './client/index.js'
