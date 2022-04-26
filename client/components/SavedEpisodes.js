@@ -103,25 +103,6 @@ class SavedEpisodes extends Component {
                         </span>
                       </button>
                       <Toaster />
-                      {/* <button
-                        id="epiClick"
-                        style={{
-                          background: "none",
-                          border: "none",
-                          padding: "none",
-                        }}
-                      >
-                        {" "}
-                        <span style={{ color: "white" }}>
-                          {" "}
-                          <i
-                            className="bi bi-arrow-bar-right fa-5x"
-                            id="savedIcon"
-                            style={{ fontSize: "25px" }}
-                          ></i>
-                        </span>{" "} */}
-                      {/* </Link> */}
-                      {/* </button> */}
                     </div>
                   </div>
                 </div>
