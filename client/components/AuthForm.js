@@ -19,11 +19,11 @@ const AuthForm = (props) => {
   const location = useLocation();
 
   const copyEmail = () => {
-    navigator.clipboard.writeText('podify.guest@gmail.com');
+    navigator.clipboard.writeText(process.env.GUEST_EMAIL);
   };
 
   const copyPW = () => {
-    navigator.clipboard.writeText('podifyFSA');
+    navigator.clipboard.writeText(process.env.GUEST_PW);
   }; 
 
   return (
