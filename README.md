@@ -31,7 +31,7 @@ User activity analytics
 # Screenshots
 
 ## Login
-![Screen Shot 2022-04-26 at 5 17 44 PM](https://user-images.githubusercontent.com/88349865/165394377-5b91516a-f8e5-46f3-9a7e-31aa859fee78.png)
+![Screen Shot 2022-04-29 at 7 13 43 PM](https://user-images.githubusercontent.com/88349865/166079579-312985e8-e5c1-4a53-b3ff-380e5f6a5b78.png)
 
 ## About Us
 ![Screen Shot 2022-04-26 at 5 11 56 PM](https://user-images.githubusercontent.com/88349865/165394417-005693de-a8ca-4dd5-a284-20273d4183d8.png)
