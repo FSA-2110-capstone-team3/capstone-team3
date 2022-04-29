@@ -14,9 +14,19 @@ Developers: Jay Flanary, Priscilla Kim, Richard Cookerly and David Woo
 Javascript, React, Redux, Express, Sequelize, PostgreSQL, Spotify API
 
 # To demo our application
-Podify is still currently in beta-phase, so to demo our application, please use the guest credentials on the login page.
+Podify is still currently in beta-phase. If you would like to demo the application, please follow the instructions on the login page to demo the app using the guest account.
+ 
+If you would like to use the application with your own Spotify account, please provide your name & Spotify email to our [Github page](https://github.com/FSA-2110-capstone-team3/capstone-team3/issues) to become a registered user.
+ 
+# Subsequent Work in Progress
 
-If you would like to use the application with your own Spotify account, please provide your name & email to our [Github page](https://github.com/FSA-2110-capstone-team3/capstone-team3/issues) to become a registered user.
+Update responsive design of application
+
+Integrate Timestamp / Comment reward system
+
+Implement user follower system
+
+User activity analytics
 
 # Screenshots
 
