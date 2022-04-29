@@ -65,12 +65,13 @@ const AuthForm = (props) => {
                         Login as Guest
                       </span>
                     </div>
-                    <div style={{width: '300px', fontSize:'0.8em'}}>
-                      If you are logging in as a guest, 
-                      please copy and paste the following credentials.
+                    <div style={{width: '300px', fontSize:'0.9em'}}>
+                      Podify is still in beta-phase, so please login as a guest to demo the application. Copy & paste the credentials below.
+                      {/* If you are logging in as a guest, 
+                      please copy and paste the following credentials. */}
                       <br/>
                       <div style={{marginTop:'10px'}}>
-                        <span style={{color: 'red'}}>*Please ensure that you are currently logged out of your own Spotify Account before accessing</span>
+                        <span style={{color: 'red'}}>*Please ensure that you are currently logged out of your own Spotify Account before accessing.</span>
                       </div>
                     </div>
                     <div style={{width: '300px', fontSize:'0.8em', display: 'flex', flexDirection:'column', alignItems:'center', marginTop: '20px'}}>
