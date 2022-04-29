@@ -26,6 +26,8 @@ Integrate Timestamp / Comment reward system
 
 Implement user follower system
 
+User activity analytics
+
 # Screenshots
 
 ## Login
