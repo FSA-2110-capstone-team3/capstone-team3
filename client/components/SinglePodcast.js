@@ -11,13 +11,7 @@ import { getPodLinkClass } from "./utils/utils";
 const SinglePodcast = () => {
   const auth = useSelector((state) => state.auth) || {};
 
-  // const topChartNames = useSelector((state) => state.topCharts) || {};
-  // console.log(topChartNames, "------->>");
-
   const { id } = useParams();
-  // console.log(auth.access_token);
-  // console.log(id);
-  // console.log(match)
 
   const [episodes, setEpisodes] = useState([]);
   const [podcast, setPodcast] = useState({});
@@ -49,16 +43,9 @@ const SinglePodcast = () => {
 
       setEpisodes(episodes.items);
       setPodcast(findPodcast);
-      // setPodcastImage(findPodcast.images[0].url)
-      // console.log(findPodcast);
-      // console.log(episodes)
     };
     fetchEpisodes();
-    // setEpisodes(episodes.items)
   }, []);
-
-  // console.log(podcastImage)
-  // console.log('podcastIMAGE', podcast.images)
 
   const notify = () =>
     toast("Successfully added to favorites!", {
@@ -154,21 +141,7 @@ const SinglePodcast = () => {
                         border: "none",
                         padding: "none",
                       }}
-                    >
-                      {/* <Link
-                        to={`/episode/${episode.id}`}
-                        className={getPodLinkClass(episode.name, 262)}
-                      > */}{" "}
-                      {/* <span style={{ color: "white" }}>
-                          {" "}
-                          <i
-                            className="bi bi-arrow-bar-right fa-5x"
-                            id="savedIcon"
-                            style={{ fontSize: "25px" }}
-                          ></i>
-                        </span>{" "} */}
-                      {/* </Link> */}
-                    </button>
+                    ></button>
                   </div>
                 </div>
               </div>

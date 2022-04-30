@@ -5,14 +5,7 @@ import { Link } from "react-router-dom";
 import { useHistory, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { pageTransition } from "..";
-// import dotenv from 'dotenv'
-// import {} from 'dotenv/config'
-// import dotenv from 'dotenv'
-// dotenv.config()
 
-/**
- * COMPONENT
- */
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error, isLoggedIn } = props;
   const history = useHistory();
@@ -24,7 +17,7 @@ const AuthForm = (props) => {
 
   const copyPW = () => {
     navigator.clipboard.writeText(process.env.GUEST_PW);
-  }; 
+  };
 
   return (
     <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
@@ -49,36 +42,58 @@ const AuthForm = (props) => {
               <div className="text-center">
                 {!isLoggedIn ? (
                   <>
-                  <a href="/login" style={{ color: "black" }}>
-                    <div className="mb-5 p-sm-3 " id="login">
-                      {" "}
-                      <span className="" style={{ fontSize: "16px" }}>
-                        <i className=" fa-lg bi bi-spotify d-inline btn float-left p-0 mr-2"></i>
-                        Login with Spotify
-                      </span>
-                    </div>
-                  </a>
-                    <div className="mb-5 p-sm-3 " id="login" onClick={() => window.open('/login')}>
+                    <a href="/login" style={{ color: "black" }}>
+                      <div className="mb-5 p-sm-3 " id="login">
+                        {" "}
+                        <span className="" style={{ fontSize: "16px" }}>
+                          <i className=" fa-lg bi bi-spotify d-inline btn float-left p-0 mr-2"></i>
+                          Login with Spotify
+                        </span>
+                      </div>
+                    </a>
+                    <div
+                      className="mb-5 p-sm-3 "
+                      id="login"
+                      onClick={() => window.open("/login")}
+                    >
                       {" "}
                       <span className="" style={{ fontSize: "16px" }}>
                         <i className=" fa-lg bi bi-spotify d-inline btn float-left p-0 mr-2"></i>
                         Login as Guest
                       </span>
                     </div>
-                    <div style={{width: '300px', fontSize:'0.9em'}}>
-                      Podify is still in beta-phase, so please login as a guest to demo the application. Copy & paste the credentials below.
-                      {/* If you are logging in as a guest, 
-                      please copy and paste the following credentials. */}
-                      <br/>
-                      <div style={{marginTop:'10px'}}>
-                        <span style={{color: 'red'}}>*Please ensure that you are currently logged out of your own Spotify Account before accessing.</span>
+                    <div style={{ width: "300px", fontSize: "0.9em" }}>
+                      Podify is still in beta-phase, so please login as a guest
+                      to demo the application. Copy & paste the credentials
+                      below.
+                      <br />
+                      <div style={{ marginTop: "10px" }}>
+                        <span style={{ color: "red" }}>
+                          *Please ensure that you are currently logged out of
+                          your own Spotify Account before accessing.
+                        </span>
                       </div>
                     </div>
-                    <div style={{width: '300px', fontSize:'0.8em', display: 'flex', flexDirection:'column', alignItems:'center', marginTop: '20px'}}>
-                      <button onClick={() => copyEmail()} className="btn btn-outline-light btn-sm mb-3">
+                    <div
+                      style={{
+                        width: "300px",
+                        fontSize: "0.8em",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        marginTop: "20px",
+                      }}
+                    >
+                      <button
+                        onClick={() => copyEmail()}
+                        className="btn btn-outline-light btn-sm mb-3"
+                      >
                         <span style={{ fontSize: "15px" }}>Copy Email</span>
                       </button>
-                      <button onClick={() => copyPW()} className="btn btn-outline-light btn-sm">
+                      <button
+                        onClick={() => copyPW()}
+                        className="btn btn-outline-light btn-sm"
+                      >
                         <span style={{ fontSize: "15px" }}>Copy Password</span>
                       </button>
                     </div>
@@ -95,13 +110,6 @@ const AuthForm = (props) => {
   );
 };
 
-/**
- * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
- */
 const mapLogin = (state) => {
   return {
     name: "login",

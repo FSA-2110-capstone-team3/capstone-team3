@@ -1,107 +1,92 @@
-import axios from 'axios'
+import axios from "axios";
 
 //------------ACTION TYPES------------//
 
-const GET_EPISODES = 'GET_EPISODES';
+const GET_EPISODES = "GET_EPISODES";
 // const ADD_EPISODE = 'ADD_EPISODE'; //Deprecated, see singleEpisode
-const UPDATE_EPISODE = 'UPDATE_EPISODE';
-const UPDATE_EPISODE_VIEWS = 'UPDATE_EPISODE_VIEWS'; 
-const DELETE_EPISODE = 'DELETE_EPISODE';
+const UPDATE_EPISODE = "UPDATE_EPISODE";
+const UPDATE_EPISODE_VIEWS = "UPDATE_EPISODE_VIEWS";
+const DELETE_EPISODE = "DELETE_EPISODE";
 
 //------------ACTION CREATORS------------//
 
 const _getEpisodes = (episodes) => {
   return {
     type: GET_EPISODES,
-    episodes
-  }
+    episodes,
+  };
 };
-
-//<---Deprecated, no longer using addEpisode (see singleEpisode)--->
-// const _addEpisode = (episode) => {
-//   return {
-//     type: ADD_EPISODE,
-//     episode
-//   }
-// };
 
 const _updateEpisode = (episode) => {
   return {
     type: UPDATE_EPISODE,
-    episode
-  }
+    episode,
+  };
 };
 
 const _updateEpisodeViews = (episode) => {
   return {
     type: UPDATE_EPISODE_VIEWS,
-    episode
-  }
+    episode,
+  };
 };
 
 const _deleteEpisode = (id) => {
   return {
     type: DELETE_EPISODE,
-    id
-  }
+    id,
+  };
 };
 
 //------------THUNKS------------//
 
 export const getEpisodes = () => {
-  return async(dispatch) => {
-    const episodes = (await axios.get('/api/episodes')).data;
+  return async (dispatch) => {
+    const episodes = (await axios.get("/api/episodes")).data;
     dispatch(_getEpisodes(episodes));
-  }
+  };
 };
 
-//<---Deprecated--->> no longer used as singleEpisode adds an episode if not in db
-//POST(add a single episode via showId) // admin only if used
-// export const addEpisode = (showId, episode) => {
-//   const id = showId;
-//   return (dispatch) => {
-//     const newEpisode = (await axios.post('/api/episodes', {id, episode})).data;
-//     dispatch(_addEpisode(newEpisode));
-//   }
-//   res.send(newEpisode)
-// };
-
 export const updateEpisode = (spotify_id, payload) => {
-  return async(dispatch) => {
-    const episode = (await axios.put(`/api/episodes/${spotify_id}`, payload)).data;
+  return async (dispatch) => {
+    const episode = (await axios.put(`/api/episodes/${spotify_id}`, payload))
+      .data;
     dispatch(_updateEpisode(episode));
-  }
+  };
 };
 
 export const updateEpisodeViews = (spotify_id) => {
-  return async(dispatch) => {
+  return async (dispatch) => {
     const episode = (await axios.put(`/api/episodes/views/${spotify_id}`)).data;
     dispatch(_updateEpisodeViews(episode));
-  }
+  };
 };
 
 export const deleteEpisode = (id) => {
-  return async(dispatch) => {
+  return async (dispatch) => {
     await axios.delete(`/api/episodes/${id}`);
     dispatch(_deleteEpisode(id));
-  }
-}
+  };
+};
 
 //------------REDUCER------------//
 
 export const episodes = (state = [], action) => {
   switch (action.type) {
     case GET_EPISODES:
-      return action.episodes
-    // case ADD_EPISODE: //Deprecated, see singleEpisode
-    //   return [...state, action.episode]
+      return action.episodes;
+
     case UPDATE_EPISODE:
-      return state.map((episode) => episode.id === action.episode.id ? action.episode : episode)
+      return state.map((episode) =>
+        episode.id === action.episode.id ? action.episode : episode
+      );
     case UPDATE_EPISODE_VIEWS:
-      return state.map((episode) => episode.id === action.episode.id ? action.episode : episode)
+      return state.map((episode) =>
+        episode.id === action.episode.id ? action.episode : episode
+      );
     case DELETE_EPISODE:
-      return state.filter((episode) => episode.id !== action.id)
+      return state.filter((episode) => episode.id !== action.id);
     default:
-      return state
+      return state;
   }
-}
+};

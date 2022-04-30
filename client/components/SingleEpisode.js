@@ -18,15 +18,13 @@ const SingleEpisode = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  //---------------Defining State from Redux---------------//
   const auth = useSelector((state) => state.auth) || {};
   const { episodes, singleEpisode } = useSelector((state) => state) || {};
 
-  //---------------Setting Initial Local State---------------//
   const [stamp, setStamp] = useState(0);
 
   useEffect(() => {
-    dispatch(getShows()); //re-render all shows in case first episode added to db
+    dispatch(getShows());
     dispatch(getTimeStamps());
     dispatch(getCommentLikes());
     dispatch(
@@ -36,17 +34,13 @@ const SingleEpisode = () => {
         userId: auth.id,
       })
     );
-    dispatch(getEpisodes()); //re-render all episodes since getSingleEpisode creates new episode if not already in db
+    dispatch(getEpisodes());
   }, []);
 
   //func: sum up all views for a single episode
   const sumEpisodeViews = (episodeId, episodesData) => {
     return episodesData.reduce((acc, episode, idx) => {
-      //return 1 view if episodes store empty (for first overall view of page)
-      // if(idx === episodesData.length - 1 && acc === 0) {
-      //   acc += 1;
-      // } else if(episode.id === episodeId) {
-        if(episode.id === episodeId) {
+      if (episode.id === episodeId) {
         acc += episode.views;
       }
       return acc;

@@ -12,7 +12,6 @@ const EpisodeLikes = (props) => {
 
   const { episode, summedEpisodeViews, user } = props;
 
-
   //--------------------like/dislike calculations--------------------//
 
   // func: sum up episodeLikes to be rendered

@@ -148,12 +148,6 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                           paddingBottom: "2px",
                         }}
                       >
-                        {/* <i
-                          className="bi bi-power "
-                          id="logoutIcon"
-                          aria-hidden="false"
-                          style={{ fontWeight: 500 }}
-                        ></i> */}
                         <i
                           className="bi bi-box-arrow-right"
                           style={{ paddingLeft: "2px" }}
@@ -182,49 +176,6 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
                     </span>
                   </a>
                 </li>
-                {/* <li className="nav-item h-25">
-                  <div
-                    className="btn btn-secondary btn-lg disabled"
-                    style={{
-                      background: "rgb(28, 28, 28)",
-                      border: "none",
-                      boxShadow: "none",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontWeight: 500,
-                        color: "gray",
-                        marginRight: "10px",
-                        color: "rgb(28, 28, 28)",
-                      }}
-                    ></span>
-                  </div> */}
-                {/* <div className="dropdown">
-                      <button
-                        class="btn btn-secondary btn-lg dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                        style={{
-                          background: "rgb(28, 28, 28)",
-                          border: "none",
-                          boxShadow: "none",
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontWeight: 500,
-                            color: "gray",
-                            marginRight: "10px",
-                          }}
-                        >
-                          XXXXXXXXX
-                        </span>
-                      </button>
-                    </div> */}
-                {/* </li> */}
               </>
             )}
           </ul>
@@ -234,9 +185,6 @@ const Navbar = ({ handleClick, isLoggedIn, email }) => {
   );
 };
 
-/**
- * CONTAINER
- */
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,

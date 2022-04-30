@@ -177,7 +177,7 @@ const Comments = ({ episodeId, episodeSpotifyId }) => {
                     />
                   )}
                 </span>
-                {/* {createElement(action === 'liked' ? LikeFilled : LikeOutlined)} */}
+
                 <span
                   className="comment-action"
                   style={{
@@ -229,7 +229,7 @@ const Comments = ({ episodeId, episodeSpotifyId }) => {
                     />
                   )}
                 </span>
-                {/* {React.createElement(action === 'disliked' ? DislikeFilled : DislikeOutlined)} */}
+
                 <span
                   className="comment-action"
                   style={{
