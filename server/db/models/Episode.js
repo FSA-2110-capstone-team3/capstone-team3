@@ -1,61 +1,53 @@
-const Sequelize = require('sequelize')
+const Sequelize = require("sequelize");
 const { ARRAY, INTEGER, STRING, TEXT, UUID, UUIDV4 } = Sequelize;
-const db = require('../db');
+const db = require("../db");
 
-const Episode = db.define('episode', {
+const Episode = db.define("episode", {
   id: {
     type: UUID,
     defaultValue: UUIDV4,
     allowNull: false,
-    primaryKey: true
+    primaryKey: true,
   },
   spotify_id: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
   },
   name: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
   },
   description: {
     type: TEXT,
-    allowNull: false
+    allowNull: false,
   },
   duration_ms: {
     type: INTEGER,
-    allowNull: false
+    allowNull: false,
   },
   href: {
     type: STRING,
     allowNull: false,
     validate: {
-      isUrl: true
-    }
+      isUrl: true,
+    },
   },
   release_date: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
   },
   showSpotify_id: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
   },
   images: {
     type: ARRAY(TEXT),
-    allowNull: false
+    allowNull: false,
   },
   views: {
     type: INTEGER,
-    defaultValue: 0
-  }
-}
-// {     <----deprecated hook - episodeLike now created when user likes/dislikes an episode
-//   hooks: {
-//     afterCreate: async(episode, options) => {
-//       await EpisodeLike.create({episodeId: episode.id})
-//     }
-//   }
-// }
-);
+    defaultValue: 0,
+  },
+});
 
 module.exports = Episode;

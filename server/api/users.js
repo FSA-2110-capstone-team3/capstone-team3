@@ -32,7 +32,6 @@ router.get("/spotify/profile", async (req, res, next) => {
 //using userId to pull access_token from db
 router.post("/spotify/episodes", async (req, res, next) => {
   try {
-    //use req.body to supply userId from front end
     const curr_user = await User.findByPk(req.body.userId);
     const access_token = curr_user.access_token;
     const response = (
@@ -117,8 +116,6 @@ router.post("/spotify/remove/:id", async (req, res, next) => {
 //using userId to pull access_token from db
 router.get("/spotify/shows/contains", async (req, res, next) => {
   try {
-    //use req.body to supply userId from front-end
-    //use req.body to supply string of showIds from front-end
     const curr_user = await User.findByPk(req.body.userId);
     const shows = req.body.ids;
     const access_token = curr_user.access_token;
@@ -143,8 +140,6 @@ router.get("/spotify/shows/contains", async (req, res, next) => {
 //using userId to pull access_token from db
 router.get("/spotify/episodes/contains", async (req, res, next) => {
   try {
-    //use req.body to supply userId from front-end
-    //use req.body to supply string of episodeIds from front-end
     const curr_user = await User.findByPk(req.body.userId);
     const episodes = req.body.ids;
     const access_token = curr_user.access_token;
@@ -171,9 +166,6 @@ router.get("/spotify/episodes/contains", async (req, res, next) => {
 router.get("/", async (req, res, next) => {
   try {
     const users = await User.findAll({
-      // explicitly select only the id and email fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
       attributes: ["id", "email", "display_name", "imagesArr", "country"],
     });
     res.json(users);

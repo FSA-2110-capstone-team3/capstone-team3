@@ -12,35 +12,29 @@ import {
   setTimeStamps,
   addSavedEpisode,
 } from "../store";
-//page transition imports
+
 import { motion } from "framer-motion";
 import { pageTransition } from "..";
 import toast, { Toaster } from "react-hot-toast";
 import { getPodLinkClass } from "./utils/utils";
 
-/*<-------------------- material ui imports -------------------->*/
-
 import FormControl from "@mui/material/FormControl";
 import TextField from "@material-ui/core/TextField";
 import Box from "@mui/material/Box";
 import { makeStyles } from "@material-ui/core/styles";
-import InputAdornment from '@mui/material/InputAdornment';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-
-/*<-------------------- React functional component -------------------->*/
+import InputAdornment from "@mui/material/InputAdornment";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 const Search = () => {
-  /*<-------------------- hooks -------------------->*/
-
   const dispatch = useDispatch();
   const history = useHistory();
-  // create hook of local state for Spotify API form/search input
+
   const [search, setSearch] = useState("");
-  // create hook of local state for error handling obj (axios responses)
+
   const [errorRes, setErrorRes] = useState({});
-  // create hook of local state for shows/episodes toggle
+
   const [contentToggle, setContentToggle] = useState("all content");
-  // pull data from redux store for local search
+
   const {
     comments,
     timeStamps,
@@ -50,18 +44,12 @@ const Search = () => {
     searchTimeStamps,
     auth,
   } = useSelector((state) => state) || [];
-  // pull seperate redux-store due to Spotify API naming conflict
   const reduxEpisodes = useSelector((state) => state.episodes) || [];
   const reduxShows = useSelector((state) => state.shows) || [];
 
-  //<--------------------componenetDidMount-------------------->//
-
   useEffect(() => {
-    //get all URL Params for query string
     const params = new URLSearchParams(location.search);
   }, []);
-
-  /*<-------------------- Spotify API calls & logic -------------------->*/
 
   const initiateSearchResult = async (search) => {
     try {
@@ -80,8 +68,6 @@ const Search = () => {
       console.log("error", error);
     }
   };
-
-  /*<-------------------- Material UI hook/logic -------------------->*/
 
   const useStyles = makeStyles({
     root: {
@@ -102,11 +88,6 @@ const Search = () => {
 
   const classes = useStyles();
 
-  /* <-------------------- Button Logic for Shows/Episodes buttons --------------------> */
-
-  //add/remove active class to buttons
-
-  //create array to map with all button elements
   const btnElem = document.getElementsByClassName("btn-outline-light");
   const btnElemArr = [].slice.call(btnElem);
 
@@ -114,12 +95,10 @@ const Search = () => {
     elem.addEventListener("click", function () {
       const current = document.getElementsByClassName("active");
 
-      //Remove active from class if present
       if (current.length > 0) {
         current[0].className = current[0].className.replace(" active", "");
       }
 
-      //Add active to class if not present
       this.className += " active";
     });
   });
@@ -127,7 +106,7 @@ const Search = () => {
   const adjContentToggle = () => {
     const btnElem = document.getElementsByClassName("btn-outline-light");
     const btnElemArr = [].slice.call(btnElem);
-    //fetch button elements
+
     btnElemArr.map(() => {
       const currentButton = document.getElementsByClassName("active");
 
@@ -137,9 +116,6 @@ const Search = () => {
     });
   };
 
-  /*<-------------------- local search logic --------------------> */
-
-  //local search Comments function
   const srchComments = (srchQryStr, srchDataArr) => {
     const options = {
       includeScore: true,
@@ -150,7 +126,6 @@ const Search = () => {
     return results;
   };
 
-  //local search TimeStamp function
   const srchTimeStamps = (srchQryStr, srchDataArr) => {
     const options = {
       includeScore: true,
@@ -161,7 +136,6 @@ const Search = () => {
     return results;
   };
 
-  // get episode from store via spotify_id for local search output
   const findEpisode = (spotifyIdStr, episodesArr) => {
     try {
       if (spotifyIdStr)
@@ -173,7 +147,6 @@ const Search = () => {
     }
   };
 
-  // get show from store via spotify_id for local search output
   const findShow = (spotifyIdStr, showsArr) => {
     try {
       if (spotifyIdStr)
@@ -182,8 +155,6 @@ const Search = () => {
       console.log("Spotify API Error -->", ex);
     }
   };
-
-  //<--------------------event & error handling-------------------->//
 
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -197,13 +168,10 @@ const Search = () => {
     return initiateSearchResult(event);
   };
 
-  //<--------------------toast notifications-------------------->//
   const notify = () =>
     toast("Successfully added to favorites!", {
       position: "top-right",
     });
-
-  /*<-------------------- React render -------------------->*/
 
   return (
     <motion.div initial="out" exit="out" animate="in" variants={pageTransition}>
@@ -231,15 +199,16 @@ const Search = () => {
             value={search}
             onChange={(e) => handleInputChange(e.target.value)}
             autoComplete="off"
-            InputLabelProps={{shrink: false}}
+            InputLabelProps={{ shrink: false }}
             sx={{ color: "white" }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchOutlinedIcon sx={{color: "white"}}/>
+                  <SearchOutlinedIcon sx={{ color: "white" }} />
                 </InputAdornment>
               ),
-            }} />
+            }}
+          />
 
           {errorRes ? (
             <h6 className=" pt-2 text-white text-center ">
@@ -300,8 +269,6 @@ const Search = () => {
         </FormControl>
       </Box>
 
-      {/* ---------- shows render logic -------------------- */}
-
       {(Object.entries(searchShows).length && contentToggle === "shows") ||
       (Object.entries(searchShows).length &&
         contentToggle === "all content") ? (
@@ -361,8 +328,6 @@ const Search = () => {
           </div>
         </>
       ) : null}
-
-      {/* ---------- episodes render logic -------------------- */}
 
       {(Object.entries(searchEpisodes).length &&
         contentToggle === "episodes") ||
@@ -448,8 +413,6 @@ const Search = () => {
         </>
       ) : null}
 
-      {/* ---------- comments render logic -------------------- */}
-
       {(searchComments.length && contentToggle === "comments") ||
       (searchComments.length && contentToggle === "all content") ? (
         <div>
@@ -459,7 +422,6 @@ const Search = () => {
           <h4 className="text-white">{`Comments (${searchComments.length})`}</h4>
           <hr style={{ color: "white" }}></hr>
           <ul id="podcastCards">
-            {/* map over & render local comments search results  */}
             {searchComments.map((comment) => (
               <Link
                 to={`/episode/${comment.item.spotify_id}`}
@@ -509,8 +471,6 @@ const Search = () => {
         </div>
       ) : null}
 
-      {/* ---------- timestamps render logic -------------------- */}
-
       {(searchTimeStamps.length && contentToggle === "timestamps") ||
       (searchTimeStamps.length && contentToggle === "all content") ? (
         <div>
@@ -520,7 +480,6 @@ const Search = () => {
           <h4 className="text-white">{`TimeStamps (${searchTimeStamps.length})`}</h4>
           <hr style={{ color: "white" }}></hr>
           <ul id="podcastCards">
-            {/* map over & render local timeStamps search results  */}
             {searchTimeStamps.map((timeStamp) => (
               <Link
                 to={`/episode/${timeStamp.item.spotify_id}`}

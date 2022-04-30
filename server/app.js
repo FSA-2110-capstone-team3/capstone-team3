@@ -20,18 +20,18 @@ module.exports = {
   spotifyApi,
 };
 
-let redirect_uri = process.env.REDIRECT_URI || "http://localhost:8080/callback"; 
+let redirect_uri = process.env.REDIRECT_URI || "http://localhost:8080/callback";
 app.get("/login", function (req, res) {
   //! serves /login
   res.redirect(
     //! immediatelyy re-directs
-    "https://accounts.spotify.com/authorize?" + 
+    "https://accounts.spotify.com/authorize?" +
       querystring.stringify({
         response_type: "code",
         client_id: process.env.SPOTIFY_CLIENT_ID,
         scope:
           "user-read-private user-read-email user-library-read user-library-modify",
-        redirect_uri: redirect_uri, 
+        redirect_uri: redirect_uri,
       })
   );
 });
@@ -127,8 +127,6 @@ spotifyApi.clientCredentialsGrant().then(
     console.log("Something went wrong when retrieving an access token", err);
   }
 );
-
-//------------------------------------------------------------
 
 // logging middleware
 app.use(morgan("dev"));

@@ -4,13 +4,10 @@ const db = require("../db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
-// const env = require("../../../.env");
 let request = require("request");
 const axios = require("axios");
 const qs = require("qs");
 const res = require("express/lib/response");
-// process.env.SPOTIFY_CLIENT_ID = env.SPOTIFY_CLIENT_ID;
-// process.env.SPOTIFY_CLIENT_SECRET = env.SPOTIFY_SECRET_KEY;
 
 const SALT_ROUNDS = 5;
 
@@ -31,9 +28,7 @@ const User = db.define("user", {
       isEmail: true,
     },
   },
-  // password: {
-  //   type: STRING,
-  // },
+
   avatarUrl: {
     type: STRING,
     defaultValue: "https://bootdey.com/img/Content/avatar/avatar7.png",
@@ -98,15 +93,9 @@ User.authenticate = async function (info) {
         refresh_token: info.refresh_token,
       });
     }
-    // if (!user || !(await user.correctPassword(password))) {
-    //   const error = Error('Incorrect email/password');
-    //   error.status = 401;
-    //   throw error;
-    // }
+
     return jwt.sign({ id: findUser.id }, process.env.JWT);
-    // return findUser.generateToken()
   } catch (ex) {
-    // return 'hellooooooooo'
     console.log("nooo", ex);
   }
 };
@@ -116,9 +105,7 @@ User.findByToken = async function (token) {
     console.log("findByToken TOKEN", token);
     const { id } = await jwt.verify(token, process.env.JWT);
     const user = User.findByPk(id);
-    // if (!user) {
-    //   throw 'nooo'
-    // }
+
     return user;
   } catch (ex) {
     const error = Error("bad token");
